@@ -24,6 +24,11 @@ npx wrangler dev                     # the Worker with the built assets (after a
   there. `scripts/docs.mjs` maps files to URLs (`PAGES`), rewrites links
   between docs, and links other repository files to GitHub. Adding a doc
   page means adding it to `PAGES`.
+- **Legal pages**: `legal/privacy.md` and `legal/terms.md`, rendered by
+  `scripts/legal.mjs` to `/privacy` and `/terms` (Google sign-in's consent
+  screen links them). They state what app.fctl.sh stores, who receives it
+  and how long it is kept: when fctl changes any of that, update them too
+  and bump `updated` in their front matter.
 - **Releases**: `cargo xtask publish` in fctl writes them to the
   `fctl-releases` KV namespace; the Worker only reads. Keys are
   `latest` and `v<version>/<file>`.

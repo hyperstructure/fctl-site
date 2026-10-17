@@ -2,10 +2,10 @@
   "name": "@fctl/site",
   "private": true,
   "type": "module",
-  "description": "https://fctl.sh: the landing page, fctl's docs, the installer and release downloads",
+  "description": "https://fctl.sh: the landing page, fctl's docs, the legal pages, the installer and release downloads",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/docs.mjs",
+    "build": "vite build && node scripts/docs.mjs && node scripts/legal.mjs",
     "check": "biome check . && tsc --noEmit && tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p worker",
     "fix": "biome check --write .",
     "deploy": "wrangler deploy"

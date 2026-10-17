@@ -1,13 +1,14 @@
 # fctl-site
 
 [fctl.sh](https://fctl.sh): the landing page, [fctl](https://github.com/hyperstructure/fctl)'s
-docs, the installer and the release downloads. One Cloudflare Worker with
-static assets.
+docs, the privacy policy and terms, the installer and the release downloads.
+One Cloudflare Worker with static assets.
 
 | Path | What |
 |---|---|
 | `index.html`, `src/main.ts`, `src/site.css` | The landing page (the foundry scene as the hero) |
-| `docs.html`, `scripts/docs.mjs` | fctl's `docs/*.md`, rendered at build time with Shiki |
+| `docs.html`, `scripts/docs.mjs` | fctl's `docs/*.md`, rendered at build time with Shiki (`scripts/markdown.mjs`) |
+| `legal.html`, `legal/*.md`, `scripts/legal.mjs` | The privacy policy and terms of service, at `/privacy` and `/terms` |
 | `fctl-docs.ref` | Which fctl commit the docs come from (`main`, or a commit fctl's CI pins) |
 | `public/install.sh` | `curl -fsSL https://fctl.sh/install \| sh` |
 | `worker/index.ts` | `/install`, `/releases/*` (from the `fctl-releases` KV namespace) and the www redirect |

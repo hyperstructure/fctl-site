@@ -31,8 +31,14 @@ export default defineConfig({
     // Fonts and images come from 'self' only (see public/_headers).
     assetsInlineLimit: 0,
     rollupOptions: {
-      // docs.html is the template scripts/docs.mjs fills for every page of fctl's docs.
-      input: { index: page("./index.html"), docs: page("./docs.html"), notFound: page("./404.html") },
+      // docs.html and legal.html are the templates scripts/docs.mjs and
+      // scripts/legal.mjs fill for every page of fctl's docs and legal/*.md.
+      input: {
+        index: page("./index.html"),
+        docs: page("./docs.html"),
+        legal: page("./legal.html"),
+        notFound: page("./404.html"),
+      },
     },
   },
   server: { port: 5174 },

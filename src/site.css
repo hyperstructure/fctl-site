@@ -614,6 +614,14 @@ pre .prompt {
   color: var(--c-ink);
   margin-bottom: 0.6em;
 }
+/* "Last updated …" under a legal page's title (scripts/legal.mjs). */
+.doc .doc-meta {
+  margin-top: -0.2em;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--c-ink-4);
+}
 .doc h2,
 .doc h3,
 .doc h4 {

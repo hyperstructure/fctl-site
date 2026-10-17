@@ -1,4 +1,4 @@
-# https://fctl.sh: the project site (cargo xtask site deploys it).
+# https://fctl.sh: the project site. CI deploys it from main (.github/workflows/ci.yml).
 name = "fctl-site"
 main = "worker/index.ts"
 compatibility_date = "2026-10-01"
