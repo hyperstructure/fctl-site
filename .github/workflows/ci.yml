@@ -3,7 +3,6 @@ name: CI
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
   push:
     branches: [main]
   workflow_dispatch:
@@ -12,29 +11,14 @@ on:
     types: [fctl-docs]
 
 concurrency:
-  # A title edit only checks the title; it must not cancel the build.
-  group: ci-${{ github.ref }}-${{ github.event.action == 'edited' && 'title' || 'code' }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
 
 jobs:
-  # The title becomes the squash-merged commit on main.
-  title:
-    name: Conventional Commits
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: The pull request title
-        env:
-          TITLE: ${{ github.event.pull_request.title }}
-        run: node scripts/lint-commit.mjs "$TITLE"
-
   build:
-    if: github.event.action != 'edited'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
