@@ -138,6 +138,7 @@
 }
 /* On light backgrounds the yellow becomes a highlighter stroke under the word. */
 :root[data-theme="light"] .hero h1 .hot {
+  width: fit-content;
   background: linear-gradient(to top, var(--c-highlight) 0.26em, transparent 0.26em) no-repeat;
   background-size: calc(100% - 0.22em) 100%;
 }
