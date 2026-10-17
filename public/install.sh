@@ -5,10 +5,14 @@
 #   FCTL_VERSION      a version to install (default: the latest)
 #   FCTL_INSTALL_DIR  where to put the binaries (default: ~/.local/bin)
 #   FCTL_DOWNLOAD     release base URL (default: https://fctl.sh/releases)
+#   FCTL_NO_COMPLETIONS=1  skip setting up tab completion
 #
 # It downloads one archive for your platform, checks its SHA-256, and puts
 # `fctl` (plus the Linux agent its sandboxes run) in the install directory.
-# Nothing runs as root and nothing outside that directory changes.
+# Then `fctl completions --install` sets up tab completion for your shell
+# (a script under ~/.local/share/fctl and a marked block in ~/.zshrc or
+# ~/.bashrc; fish needs no block). Nothing runs as root. Later updates:
+# `fctl self update`.
 
 set -eu
 
@@ -87,6 +91,9 @@ for f in fctl "fctl-agent-$arch-linux"; do
 done
 
 say "Installed $DIR/fctl ($("$DIR/fctl" --version 2>/dev/null || echo "fctl $version"))"
+if [ -z "${FCTL_NO_COMPLETIONS:-}" ]; then
+  "$DIR/fctl" completions --install 2>/dev/null || true
+fi
 case ":$PATH:" in
   *":$DIR:"*) ;;
   *)
@@ -103,3 +110,4 @@ say ""
 say "Next:"
 say "  fctl login <your instance>    # e.g. fctl login app.fctl.sh"
 say "  fctl host install            # make this machine run agents"
+say "  fctl self update             # later: update to the newest release"
