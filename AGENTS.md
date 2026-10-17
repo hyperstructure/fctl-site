@@ -33,6 +33,20 @@ npx wrangler dev                     # the Worker with the built assets (after a
   `fctl-releases` KV namespace; the Worker only reads. Keys are
   `latest` and `v<version>/<file>`.
 
+## Commits and pull requests
+
+- Changes reach `main` as squash-merged pull requests. The title becomes
+  the commit, so it is a
+  [Conventional Commit](https://www.conventionalcommits.org):
+  `feat(landing): wire the diagram`. CI checks it
+  (`node scripts/lint-commit.mjs "<title>"`). Types, scopes and the flow:
+  [.claude/skills/commit/SKILL.md](.claude/skills/commit/SKILL.md).
+- A person merges agents' pull requests unless they ask the agent to.
+  Never push to `main` directly: it deploys fctl.sh. The one exception is
+  fctl's CI pinning `fctl-docs.ref` (`docs: pin hyperstructure/fctl@…`).
+- `scripts/commits.mjs` is a copy of hyperstructure/design's; keep the two
+  in step with fctl's `xtask/src/release.rs`.
+
 ## Rules
 
 - Never commit or print secrets (Cloudflare tokens, deploy keys). CI has
