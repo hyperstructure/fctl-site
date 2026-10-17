@@ -34,7 +34,11 @@ does (AGENTS.md).
 What changed and why, and how you checked it: `npm run check`,
 `npm run build`, the page in both themes and at a phone width, and
 `shellcheck -s sh public/install.sh` for the installer. Screenshots for
-visual changes. End with the attribution lines your environment asks for.
+visual changes.
+
+The description becomes the commit message on `main`, so it ends with
+the content: no "Generated with …" footers and no links to chat sessions.
+A link to the fctl session that made the change is welcome.
 
 ## The flow
 
