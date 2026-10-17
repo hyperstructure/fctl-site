@@ -2,8 +2,8 @@
 // sessions at work, plus copy buttons and scroll reveals.
 
 import "./site.css";
-import { mount, prefersReducedMotion } from "../../web/src/gl/core";
-import { type FoundryLane, foundry, LANES } from "../../web/src/gl/foundry";
+import { mount, prefersReducedMotion } from "@hyperstructure/design/gl/core";
+import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foundry";
 
 document.documentElement.classList.add("js");
 

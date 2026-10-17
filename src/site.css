@@ -1,9 +1,8 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter/opsz.css";
-@import "@fontsource-variable/jetbrains-mono/wght.css";
-@import "../../web/src/styles/tokens.css";
+@import "@hyperstructure/design/fonts.css";
+@import "@hyperstructure/design/tokens.css";
 
-/* The landing page and the docs. Tokens come from the web app (tokens.css). */
+/* The landing page and the docs, on the tokens of @hyperstructure/design. */
 
 .skip {
   position: absolute;

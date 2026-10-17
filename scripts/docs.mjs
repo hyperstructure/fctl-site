@@ -1,17 +1,44 @@
-// Renders the repository's docs/*.md into dist/docs/<slug>/index.html, using
-// dist/docs.html (built by Vite, so it links the hashed CSS and JS) as the
-// template. Code is highlighted at build time; pages ship no Markdown parser.
+// Renders fctl's docs (docs/*.md in hyperstructure/fctl) into
+// dist/docs/<slug>/index.html, using dist/docs.html (built by Vite, so it
+// links the hashed CSS and JS) as the template. Code is highlighted at build
+// time; pages ship no Markdown parser.
+//
+// Where the docs come from:
+//   FCTL_DOCS_DIR=<path to a checkout of fctl>   use it as is (local work, CI)
+//   otherwise                                     fetch fctl at the ref in fctl-docs.ref
+//                                                 (or FCTL_DOCS_REF) into .cache/fctl
 
+import { execFileSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Marked } from "marked";
 import { createHighlighter } from "shiki";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const root = join(here, "..", "..");
-const dist = join(here, "..", "dist");
+const site = join(here, "..");
+const dist = join(site, "dist");
 const REPO = "https://github.com/hyperstructure/fctl";
+
+/** A checkout of fctl (its root, which contains docs/). */
+async function fctlRoot() {
+  if (process.env.FCTL_DOCS_DIR) return resolve(process.env.FCTL_DOCS_DIR);
+  const ref = (process.env.FCTL_DOCS_REF ?? (await readFile(join(site, "fctl-docs.ref"), "utf8"))).trim();
+  const cache = join(site, ".cache", "fctl");
+  const git = (...args) =>
+    execFileSync("git", ["-C", cache, ...args], { stdio: ["ignore", "ignore", "inherit"] });
+  if (!existsSync(join(cache, ".git"))) {
+    await mkdir(cache, { recursive: true });
+    git("init", "--quiet");
+  }
+  git("fetch", "--quiet", "--depth", "1", process.env.FCTL_REPO ?? `${REPO}.git`, ref);
+  await rm(join(cache, "docs"), { recursive: true, force: true });
+  git("checkout", "--quiet", "FETCH_HEAD", "--", "docs");
+  const sha = execFileSync("git", ["-C", cache, "rev-parse", "FETCH_HEAD"], { encoding: "utf8" }).trim();
+  console.log(`fctl docs at ${ref} (${sha.slice(0, 12)})`);
+  return cache;
+}
 
 /** The docs, in navigation order. `slug` "" is /docs/. */
 const PAGES = [
@@ -48,6 +75,7 @@ function rewriteHref(href, fromFile) {
 }
 
 async function main() {
+  const root = await fctlRoot();
   const template = await readFile(join(dist, "docs.html"), "utf8");
   const highlighter = await createHighlighter({
     themes: ["github-dark-default", "github-light-default"],

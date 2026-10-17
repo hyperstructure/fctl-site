@@ -4,8 +4,9 @@
 //   /releases/latest      the latest version, as text ("0.1.0")
 //   /releases/v<x.y.z>/*  release archives and checksums, from the RELEASES KV namespace
 //
-// Releases are written by `cargo xtask publish` (see xtask/src/dist.rs). They
-// are immutable once published, so they cache for a year; `latest` for a minute.
+// Releases are written by `cargo xtask publish` in hyperstructure/fctl, into
+// the KV namespace bound here as RELEASES. They are immutable once published,
+// so they cache for a year; `latest` for a minute.
 
 interface Env {
   ASSETS: Fetcher;
