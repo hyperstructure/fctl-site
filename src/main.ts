@@ -91,6 +91,59 @@ function reveals() {
   for (const el of els) io.observe(el);
 }
 
+/** Connects every node of the architecture strip to its neighbours. */
+function wires() {
+  const root = document.querySelector<HTMLElement>(".diagram");
+  if (!root) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS, "svg");
+  svg.classList.add("links");
+  svg.setAttribute("aria-hidden", "true");
+  root.append(svg);
+  const cols = [...root.querySelectorAll<HTMLElement>(":scope > .col")];
+  let pulse = 0;
+  const draw = () => {
+    // Side by side only: on narrow screens the columns stack and the plain wires show.
+    const wide = getComputedStyle(root).gridTemplateColumns.split(" ").length > 1;
+    root.classList.toggle("linked", wide);
+    svg.replaceChildren();
+    if (!wide) return;
+    const box = root.getBoundingClientRect();
+    svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
+    pulse = 0;
+    for (let i = 0; i + 1 < cols.length; i++) {
+      const from = [...(cols[i]?.children ?? [])];
+      const to = [...(cols[i + 1]?.children ?? [])];
+      for (const a of from) {
+        for (const b of to) {
+          const ra = a.getBoundingClientRect();
+          const rb = b.getBoundingClientRect();
+          const x1 = ra.right - box.left;
+          const y1 = ra.top + ra.height / 2 - box.top;
+          const x2 = rb.left - box.left;
+          const y2 = rb.top + rb.height / 2 - box.top;
+          const mx = (x1 + x2) / 2;
+          const d = `M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`;
+          for (const cls of ["", "pulse"]) {
+            const path = document.createElementNS(NS, "path");
+            path.setAttribute("d", d);
+            path.setAttribute("pathLength", "600");
+            if (cls) {
+              path.classList.add(cls);
+              path.style.animationDelay = `${(pulse++ * 0.43) % 3.2}s`;
+            }
+            svg.append(path);
+          }
+        }
+      }
+    }
+  };
+  new ResizeObserver(draw).observe(root);
+  void document.fonts?.ready.then(draw);
+  draw();
+}
+
 hero();
 copyButtons();
 reveals();
+wires();
