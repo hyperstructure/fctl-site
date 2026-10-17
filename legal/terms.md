@@ -6,8 +6,8 @@ description: The terms for using fctl.sh and app.fctl.sh, the fctl instance hype
 # Terms of service
 
 These terms apply to [fctl.sh](https://fctl.sh) and
-[app.fctl.sh](https://app.fctl.sh) (the "services"), which hyperstructure
-("we", "us") runs. By using the services, you agree to these terms. If you
+[app.fctl.sh](https://app.fctl.sh) (the "services"), which
+[hyperstructure](https://github.com/hyperstructure) ("we", "us") runs. By using the services, you agree to these terms. If you
 use them on behalf of an organization, you agree to them for that
 organization and confirm that you may.
 
@@ -33,8 +33,8 @@ we may suspend or stop the services, with notice when we reasonably can.
 - Give accurate information, and keep your password, devices and tokens
   secure. You are responsible for what happens under your account, including
   through the tokens you create.
-- If you think someone else has access to your account, tell us right away
-  at [hello@fctl.sh](mailto:hello@fctl.sh).
+- If you think someone else has access to your account, change your password
+  and revoke your devices and tokens in Settings right away.
 - Admins manage access: they can invite and remove people, and see the
   users and the audit log.
 
@@ -94,8 +94,8 @@ and we will never charge you without your agreement.
 
 ## Ending
 
-You can stop using the services at any time and ask us to delete your
-account. We may suspend or end your access if you break these terms, if an
+You can stop using the services at any time, and delete your account
+yourself in Settings. We may suspend or end your access if you break these terms, if an
 admin removes you, or if we stop the services. When we can, we will tell you
 first and give you time to take your data with you. The sections about your
 content, disclaimers, liability and indemnity still apply after your access
@@ -142,7 +142,3 @@ you don't agree with them, stop using the services.
   don't enforce a part of them, we have not given it up.
 - You may not transfer these terms to anyone else without our consent. We
   may transfer them to whoever takes over the services.
-
-## Contact
-
-Questions about these terms: [hello@fctl.sh](mailto:hello@fctl.sh).

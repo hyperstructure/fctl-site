@@ -5,7 +5,8 @@ description: What personal data hyperstructure collects on fctl.sh and app.fctl.
 
 # Privacy policy
 
-This policy explains what personal data hyperstructure ("we", "us")
+This policy explains what personal data
+[hyperstructure](https://github.com/hyperstructure) ("we", "us")
 collects when you visit [fctl.sh](https://fctl.sh) or use
 [app.fctl.sh](https://app.fctl.sh), the fctl instance we run: why we collect
 it, who else receives it, how long we keep it, and what you can do about it.
@@ -25,14 +26,14 @@ there, and this policy does not apply to it.
   Anthropic, not ours.
 - We don't sell personal data or use it for advertising, and we don't use
   your data or your code to train AI models.
-- To get a copy of your data, or to have it corrected or deleted, email
-  [hello@fctl.sh](mailto:hello@fctl.sh).
+- To get a copy of your data or delete it, sign in to app.fctl.sh and open
+  Settings: **Export your data** downloads everything we keep about you, and
+  **Delete account**, in the danger zone, deletes it.
 
 ## Who we are
 
-hyperstructure runs fctl.sh and app.fctl.sh and is the controller of the
-personal data described here. You can reach us at
-[hello@fctl.sh](mailto:hello@fctl.sh).
+[hyperstructure](https://github.com/hyperstructure) runs fctl.sh and
+app.fctl.sh and is the controller of the personal data described here.
 
 ## What we collect
 
@@ -56,12 +57,13 @@ the agents on your hosts to Anthropic and GitHub.
 app.fctl.sh is invitation-only: an admin adds your email address, or your
 organization's email domain, to its allowlist.
 
-- **Your account**: your email address, name, profile picture (if you add
-  one or link Google), role, a hash of your password (never the password
-  itself), and when you last signed in.
+- **Your account**: your email address, first and last name, profile
+  picture (if you add one or link Google), role, a hash of your password
+  (never the password itself), and when you last signed in.
 - **Google sign-in**, if you link a Google account: its Google account ID,
-  email address and whether that address is verified, name and profile
-  picture. We get no access to your other Google data.
+  email address and whether that address is verified, name (with first and
+  last name) and profile picture. We get no access to your other Google
+  data.
 - **Sign-in sessions and tokens**: for each browser session, CLI sign-in and
   access token, a hash of the token, its name, the user agent and IP address
   of the device that created it, and when it was created and last used. A
@@ -163,10 +165,12 @@ clauses.
 
 ## How long we keep it
 
-- **Your account**: while it exists. When your account is deleted, so is its
-  data, unless you created projects or sessions: then the account is
-  disabled instead, your password and tokens are deleted, and your name and
-  email stay on what you created, so others can still see who did what.
+- **Your account**: until you delete it in Settings, or an admin deletes it.
+  That deletes its sign-in methods, devices and tokens, Claude connections
+  and memberships, and the projects only you are a member of, with their
+  sessions and transcripts. Sessions you started in projects that others are
+  members of stay with those projects, shown as started by a deleted user:
+  your name, email address and picture are removed from them.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts, normally right away and at
   the latest within a few hours. Archiving a session only hides it.
@@ -185,11 +189,21 @@ data, to correct it, to have it deleted, to receive it in a portable format,
 to restrict or object to how we use it, and to withdraw consent where we
 rely on it.
 
-You can do much of this yourself in the app's Settings: edit your profile,
-unlink Google, remove your Claude connection, and revoke devices and tokens.
-For everything else, including deleting a project or your account, or
-getting a copy of your data, email [hello@fctl.sh](mailto:hello@fctl.sh). We
-answer within 30 days and may ask you to confirm your identity first.
+You use these rights yourself: sign in to app.fctl.sh and open Settings.
+
+- **Get a copy**: under Your data, **Export your data** downloads everything
+  we keep about you as one JSON file: your account, sign-in methods, devices
+  and tokens, Claude connections (without their secrets), projects, the
+  sessions you started with their full transcripts, and your activity log.
+- **Correct it**: change your name and picture under Profile, and your
+  sign-in methods, Claude connections, devices and tokens in their sections.
+- **Delete it**: in the danger zone, **Delete account** lists what will be
+  deleted and asks you to type your email address to confirm. It cannot be
+  undone.
+
+The `fctl` command does the same with `fctl account export` and
+`fctl account delete`. If you can no longer sign in, ask the admin who
+invited you for a password reset link.
 
 If you are in the European Economic Area, the UK or Switzerland, you can
 also complain to your data protection authority.
@@ -212,7 +226,3 @@ must be at least 16 to use app.fctl.sh.
 When our practices change, we update this page and the date at the top. For
 significant changes, we tell people who use app.fctl.sh, in the app or by
 email, before the changes take effect.
-
-## Contact
-
-Questions and requests: [hello@fctl.sh](mailto:hello@fctl.sh).
