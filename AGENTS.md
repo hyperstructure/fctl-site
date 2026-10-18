@@ -44,6 +44,12 @@ npx wrangler dev                     # the Worker with the built assets (after a
 - A person merges agents' pull requests unless they ask the agent to.
   Never push to `main` directly: it deploys fctl.sh. The one exception is
   fctl's CI pinning `fctl-docs.ref` (`docs: pin hyperstructure/fctl@…`).
+- A pull request that changes how fctl.sh looks shows it with screenshots
+  in its description: before and after when it changes something that
+  exists, after alone when it adds something. When a later commit changes
+  what a screenshot shows, replace it. Attach them with
+  `gh pr edit --attach`; never commit them. How:
+  [.claude/skills/screenshots/SKILL.md](.claude/skills/screenshots/SKILL.md).
 - `scripts/commits.mjs` is a copy of hyperstructure/design's; keep the two
   in step with fctl's `xtask/src/release.rs`.
 
