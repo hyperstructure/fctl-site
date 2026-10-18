@@ -146,9 +146,10 @@ processing terms:
 - **GitHub**, for the repositories you link: agents push branches and open
   pull requests there. If you set a commit email, the commits agents make
   in the sessions you start end with a `Co-authored-by` line that has your
-  name and that address. Everyone who can read the repository sees it,
-  which is everyone for a public repository, and GitHub uses it to link the
-  commits to your GitHub account.
+  name and that address, unless the project's maintainers turn that off.
+  Everyone who can read the repository sees it, which is everyone for a
+  public repository, and GitHub uses it to link the commits to your GitHub
+  account.
 - **Anthropic**, which provides Claude. Claude Code runs on your hosts with
   the Claude account you connect, so Anthropic receives your prompts, the
   code the agent reads and the conversation, under your agreement with
