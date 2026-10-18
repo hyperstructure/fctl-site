@@ -47,6 +47,39 @@ npx wrangler dev                     # the Worker with the built assets (after a
 - `scripts/commits.mjs` is a copy of hyperstructure/design's; keep the two
   in step with fctl's `xtask/src/release.rs`.
 
+
+## Issues
+
+- Before starting on an issue, read it with its comments and the pull
+  requests that mention it (`gh issue view N --comments`), and check that no
+  open pull request already covers it.
+- In a pull request, write `Fixes #N` only when it does everything the issue
+  asks (merging closes it); otherwise `Refs #N`.
+- Tick an item in an issue's checklist only once it is done and verified,
+  and link the evidence. Report partial progress in a comment: what is done,
+  what is left, what blocks it.
+- An issue closes when everything in it is done and verified, or when a
+  person decides it won't be done. Leftovers move to new, linked issues. Ask
+  before closing an issue your task didn't name.
+- New issues: search for duplicates first, describe what is wrong, how it
+  works now and what should happen, and add labels. Add to other people's
+  issues (a comment or a new section) instead of rewriting them.
+- An fctl session's token covers only this repository: name what the other
+  hyperstructure repositories need, and tell the person.
+- The procedures: [.claude/skills/issues/SKILL.md](.claude/skills/issues/SKILL.md).
+
+## After opening a pull request
+
+- Wait for CI in the same turn (`gh pr checks N --watch --fail-fast`) and
+  fix failures. Nothing wakes an fctl session when CI finishes or someone
+  reviews.
+- Answer every review comment in its thread: fix it, or say why not.
+- After the merge, don't push to the merged branch; follow-ups go in a new
+  pull request from the updated `main`. Record the merge in the issue, and
+  say whether the change is live yet.
+- The procedures:
+  [.claude/skills/pull-requests/SKILL.md](.claude/skills/pull-requests/SKILL.md).
+
 ## Rules
 
 - Never commit or print secrets (Cloudflare tokens, deploy keys). CI has

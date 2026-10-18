@@ -34,7 +34,9 @@ does (AGENTS.md).
 What changed and why, and how you checked it: `npm run check`,
 `npm run build`, the page in both themes and at a phone width, and
 `shellcheck -s sh public/install.sh` for the installer. Screenshots for
-visual changes.
+visual changes. Link the issue: `Fixes #3` only when the pull request does
+everything it asks (merging closes it), `Refs #3` otherwise (the `issues`
+skill).
 
 The description becomes the commit message on `main`, so it ends with
 the content: no "Generated with …" footers and no links to chat sessions.
@@ -45,7 +47,8 @@ A link to the fctl session that made the change is welcome.
 1. Branch from an up-to-date `main`: `<type>/<topic>`.
 2. Run `npm run check && npm test && npm run build` before you push.
 3. Open the pull request: a conventional title, a description, one change.
-4. A person merges it (squash) when CI is green, unless they asked you to.
+4. Wait for CI and answer the review: the `pull-requests` skill.
+5. A person merges it (squash) when CI is green, unless they asked you to.
    Merging deploys fctl.sh.
 
 Never push to `main` directly.
