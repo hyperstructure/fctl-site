@@ -89,8 +89,9 @@ npx wrangler dev                     # the Worker with the built assets (after a
 
 ## Rules
 
-- Never commit or print secrets (Cloudflare tokens, deploy keys). CI has
-  them as secrets.
+- Never commit or print secrets (Cloudflare tokens). CI has them as
+  secrets of the `production` environment, which only `main` may use.
+  fctl and design are public, so building needs no keys.
 - `/install` and `/releases/*` are depended on by every fctl installation:
   keep their URLs and content types stable, and test `install.sh` with
   `shellcheck -s sh`.
