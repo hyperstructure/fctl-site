@@ -862,3 +862,194 @@ pre .prompt {
     padding: 0 12px;
   }
 }
+
+/* ───────────────────────────── 404 and 5xx ───────────────────────────── */
+
+/* The status code stands in .err-code; src/error.ts draws it in the stream
+   over that box and hides the text. Without JavaScript (<noscript> in the
+   page) or WebGL (.nogl) the text shows. */
+.err {
+  --code-h: min(27vh, 27svh, 30vw);
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(92px, 15vh, 156px) clamp(16px, 5vw, 64px) 72px;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+}
+.err-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  touch-action: pan-y;
+}
+.err-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--c-canvas), transparent 16%, transparent 84%, var(--c-canvas));
+  opacity: 0.8;
+}
+.err-code {
+  display: grid;
+  place-items: center;
+  width: min(88vw, 960px);
+  height: var(--code-h);
+  font-family: var(--font-display);
+  font-size: var(--code-h);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: var(--c-pink);
+  background: linear-gradient(to bottom, var(--c-pink), var(--c-blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  visibility: hidden;
+}
+.err.nogl .err-code {
+  visibility: visible;
+}
+.err-copy {
+  position: relative;
+  max-width: 34em;
+  margin-top: clamp(40px, 8vh, 80px);
+}
+/* A pool of canvas behind the copy keeps it readable over the threads. */
+.err-copy::before {
+  content: "";
+  position: absolute;
+  inset: -48px -72px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, var(--c-canvas) 55%, transparent);
+  opacity: 0.94;
+}
+.err h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(40px, 5.4vw, 66px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--c-ink);
+  text-wrap: balance;
+}
+.err p {
+  margin-top: 18px;
+  font-size: clamp(15.5px, 1.3vw, 17.5px);
+  line-height: 1.6;
+  color: var(--c-ink-2);
+  text-wrap: pretty;
+}
+.err-path,
+.err-suggest a {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  padding: 0.1em 0.38em;
+  border-radius: 6px;
+  background: var(--c-raised);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+  overflow-wrap: anywhere;
+}
+.err-suggest {
+  margin-top: 10px !important;
+}
+.err-suggest a {
+  text-decoration: underline;
+  text-decoration-color: var(--c-pink);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+.err-suggest a:hover {
+  border-color: var(--c-pink);
+}
+.err-actions {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.err-button {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 1px solid var(--c-line-strong);
+  background: color-mix(in srgb, var(--c-sunken) 80%, transparent);
+  backdrop-filter: blur(12px);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--c-ink);
+  transition:
+    border-color 160ms var(--ease-out),
+    filter 160ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+.err-button:hover {
+  border-color: var(--c-ink-4);
+}
+.err-button:active {
+  transform: scale(0.97);
+}
+.err-button.primary {
+  border-color: transparent;
+  background: var(--c-highlight);
+  color: var(--c-highlight-ink);
+}
+.err-button.primary:hover {
+  filter: brightness(1.06);
+}
+.err-button[aria-disabled="true"] {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.err-status {
+  min-height: 1.6em;
+  font-family: var(--font-mono);
+  font-size: 13px !important;
+  color: var(--c-ink-3) !important;
+}
+.err-status:empty {
+  visibility: hidden;
+}
+.err-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  margin: 0 !important;
+  font-family: var(--font-mono);
+  font-size: 12px !important;
+  color: var(--c-ink-4) !important;
+  opacity: 0;
+  transition: opacity 800ms var(--ease-out) 1.4s;
+  pointer-events: none;
+}
+.err.live .err-hint {
+  opacity: 1;
+}
+.err-page .nav nav a:not(.nav-app):not(:first-child) {
+  display: revert;
+}
+@media (max-width: 640px) {
+  .err {
+    --code-h: min(26vh, 34vw);
+  }
+  /* Room at the sides for the numbers to fall over. */
+  .err-code {
+    width: 80vw;
+  }
+  .err-page .nav nav a:not(.nav-app):not(:first-child) {
+    display: none;
+  }
+}

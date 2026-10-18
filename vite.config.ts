@@ -49,6 +49,7 @@ export default defineConfig({
         docs: page("./docs.html"),
         legal: page("./legal.html"),
         notFound: page("./404.html"),
+        serverError: page("./500.html"),
       },
     },
   },

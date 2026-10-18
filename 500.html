@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <meta name="robots" content="noindex" />
+    <title>Something broke · fctl</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+    <!-- The stream draws the code; without JavaScript the text shows it. -->
+    <noscript><style>.err-code { visibility: visible !important; }</style></noscript>
+  </head>
+  <body class="err-page">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav">
+      <a class="brand" href="/" aria-label="fctl home">
+        <img src="/favicon.svg" width="24" height="24" alt="" />
+        <span>fctl</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="/docs/">Docs</a>
+        <a href="https://github.com/hyperstructure/fctl">GitHub</a>
+        <a class="nav-app" href="https://app.fctl.sh">Open the app</a>
+      </nav>
+    </header>
+
+    <!-- The Worker (worker/index.ts) serves this page when it fails to answer a page request. -->
+    <main id="main" class="err" data-code="500" data-down>
+      <canvas class="err-canvas" aria-hidden="true"></canvas>
+      <div class="err-shade" aria-hidden="true"></div>
+      <div class="err-code" aria-hidden="true">500</div>
+      <div class="err-copy">
+        <h1><span class="sr-only">Error 500: </span>The factory lost power.</h1>
+        <p>fctl.sh hit an error while loading this page. It’s on our side, not yours, and it’s in our logs.</p>
+        <div class="err-actions">
+          <!-- biome-ignore lint/a11y/useValidAnchor: an empty href loads this address again, which is the point without JavaScript -->
+          <a class="err-button primary" href="" data-retry>Try again</a>
+          <a class="err-button" href="/">Go to fctl.sh</a>
+        </div>
+        <p class="err-status" role="status"></p>
+      </div>
+      <p class="err-hint" aria-hidden="true">The numbers can be picked up and thrown.</p>
+    </main>
+    <script type="module" src="/src/error.ts"></script>
+  </body>
+</html>

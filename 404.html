@@ -2,18 +2,49 @@
 <html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <meta name="robots" content="noindex" />
     <title>Not found · fctl</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script src="/theme.js"></script>
+    <!-- The stream draws the code; without JavaScript the text shows it. -->
+    <noscript><style>.err-code { visibility: visible !important; }</style></noscript>
   </head>
-  <body>
-    <main class="doc" style="margin: 0 auto; padding: 22vh 24px 0; text-align: center; max-width: 34em">
-      <h1>Nothing here.</h1>
-      <p>That page does not exist, or it moved. <a href="/">Back to fctl.sh</a> or <a href="/docs/">read the docs</a>.</p>
+  <body class="err-page">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav">
+      <a class="brand" href="/" aria-label="fctl home">
+        <img src="/favicon.svg" width="24" height="24" alt="" />
+        <span>fctl</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="/docs/">Docs</a>
+        <a href="https://github.com/hyperstructure/fctl">GitHub</a>
+        <a class="nav-app" href="https://app.fctl.sh">Open the app</a>
+      </nav>
+    </header>
+
+    <main id="main" class="err" data-code="404">
+      <canvas class="err-canvas" aria-hidden="true"></canvas>
+      <div class="err-shade" aria-hidden="true"></div>
+      <div class="err-code" aria-hidden="true">404</div>
+      <div class="err-copy">
+        <h1><span class="sr-only">Error 404: </span>Nothing was built here.</h1>
+        <p>
+          fctl.sh has no page at <code class="err-path">this address</code>. The link may be old, or the address
+          mistyped.
+        </p>
+        <p class="err-suggest" hidden>Did you mean <a href="/docs/">/docs/</a>?</p>
+        <div class="err-actions">
+          <a class="err-button primary" href="/">Go to fctl.sh</a>
+          <a class="err-button" href="/docs/">Read the docs</a>
+        </div>
+      </div>
+      <p class="err-hint" aria-hidden="true">The numbers can be picked up and thrown.</p>
     </main>
-    <script type="module" src="/src/docs.ts"></script>
+    <script type="module" src="/src/error.ts"></script>
   </body>
 </html>
