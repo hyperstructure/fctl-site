@@ -58,8 +58,9 @@ app.fctl.sh is invitation-only: an admin adds your email address, or your
 organization's email domain, to its allowlist.
 
 - **Your account**: your email address, first and last name, profile
-  picture (if you add one or link Google), role, a hash of your password
-  (never the password itself), and when you last signed in.
+  picture (if you add one or link Google), the commit email you choose (if
+  you set one), role, a hash of your password (never the password itself),
+  and when you last signed in.
 - **Google sign-in**, if you link a Google account: its Google account ID,
   email address and whether that address is verified, name (with first and
   last name) and profile picture. We get no access to your other Google
@@ -116,7 +117,7 @@ analytics or advertising cookies.
 
 | Purpose | Legal basis (EU and UK law) |
 |---|---|
-| Running app.fctl.sh for you: signing you in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, connecting your hosts, Claude and GitHub | Contract |
+| Running app.fctl.sh for you: signing you in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -143,7 +144,11 @@ processing terms:
   for your browser, so the push service learns when we send one, to which
   subscription and how big it is, but not what it says.
 - **GitHub**, for the repositories you link: agents push branches and open
-  pull requests there.
+  pull requests there. If you set a commit email, the commits agents make
+  in the sessions you start end with a `Co-authored-by` line that has your
+  name and that address. Everyone who can read the repository sees it,
+  which is everyone for a public repository, and GitHub uses it to link the
+  commits to your GitHub account.
 - **Anthropic**, which provides Claude. Claude Code runs on your hosts with
   the Claude account you connect, so Anthropic receives your prompts, the
   code the agent reads and the conversation, under your agreement with
@@ -185,6 +190,10 @@ clauses.
   sessions and transcripts. Sessions you started in projects that others are
   members of stay with those projects, shown as started by a deleted user:
   your name, email address and picture are removed from them.
+- **Your commit email**: until you remove it in Settings or delete your
+  account. Commits already made keep your name and the address: they are
+  part of the repository's history, which the repository's owners control,
+  not us.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts, normally right away and at
   the latest within a few hours. Archiving a session only hides it.
@@ -217,9 +226,10 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   and tokens, Claude connections (without their secrets), notification
   settings and browsers, projects, the sessions you started with their full
   transcripts, the sessions you follow, and your activity log.
-- **Correct it**: change your name and picture under Profile, what
-  notifies you and in which browsers under Notifications, and your sign-in
-  methods, Claude connections, devices and tokens in their sections.
+- **Correct it**: change your name, picture and commit email under
+  Profile, what notifies you and in which browsers under Notifications, and
+  your sign-in methods, Claude connections, devices and tokens in their
+  sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
