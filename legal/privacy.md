@@ -50,8 +50,9 @@ from other websites.
 
 The install script and `fctl host` download releases from fctl.sh, and
 `fctl host` pulls the default sandbox image from GitHub's container
-registry, ghcr.io. Beyond that, the `fctl` command talks only to the fctl
-instance you sign in to, and the agents on your hosts to Anthropic and
+registry, ghcr.io (`fctl host image build` downloads the image's sources
+from GitHub instead). Beyond that, the `fctl` command talks only to the
+fctl instance you sign in to, and the agents on your hosts to Anthropic and
 GitHub.
 
 ### When you use app.fctl.sh
