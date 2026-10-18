@@ -18,8 +18,9 @@ npx wrangler dev                     # the Worker with the built assets (after a
 
 - **Design**: tokens, fonts, the foundry scene and the mark are in
   `@hyperstructure/design` (pinned to a tag in package.json). Change them
-  there, tag a release, then bump the tag here. The inline SVG marks in
-  `index.html` and `docs.html` must match `brand.ts` in that package.
+  there, tag a release, then bump the tag here. The `brand-assets` plugin in
+  `vite.config.ts` serves the package's `favicon.svg` (also the mark in each
+  page's nav) and `apple-touch-icon.png`; don't copy them into the pages.
 - **Docs**: the Markdown lives in hyperstructure/fctl under `docs/`. Edit it
   there. `scripts/docs.mjs` maps files to URLs (`PAGES`), rewrites links
   between docs, and links other repository files to GitHub. Adding a doc

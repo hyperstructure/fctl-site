@@ -12,7 +12,7 @@
     "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@hyperstructure/design": "github:hyperstructure/design#v0.1.2"
+    "@hyperstructure/design": "github:hyperstructure/design#v0.2.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
