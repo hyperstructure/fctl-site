@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-17
+updated: 2026-10-18
 description: The terms for using fctl.sh and app.fctl.sh, the fctl instance hyperstructure runs.
 ---
 
@@ -65,8 +65,9 @@ we may suspend or stop the services, with notice when we reasonably can.
 Your content is what you and your agents put into the services: prompts,
 messages, code, files, transcripts and secrets. You keep all rights to it.
 You allow us to host, store, copy, transmit and display it only as needed to
-run the services for you and for the people you share it with. We do not
-use it to train AI models.
+run the services for you and for the people you share it with, which for
+the screenshots your agents publish means anyone who has their links. We do
+not use it to train AI models.
 
 You are responsible for your content and for having the right to use it,
 including the code and data your agents work with. Keep your own copies of
