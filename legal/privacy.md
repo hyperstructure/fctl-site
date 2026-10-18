@@ -86,7 +86,9 @@ organization's email domain, to its allowlist.
   worker shows them.
 - **Your Claude connection**: the Claude credential you connect
   (encrypted), with the Claude account's email address and subscription
-  type.
+  type, and how much of the plan's usage limits is used, as your sessions
+  last reported it: for each limit, the share used, when it resets and when
+  it was reported.
 - **GitHub**: the repositories you link through our GitHub App, and the
   branches and pull requests agents create. We never sign you in to GitHub;
   agents work with short-lived tokens limited to one repository per session.
@@ -191,6 +193,8 @@ clauses.
 - **Sign-in sessions, tokens, password resets, CLI sign-in requests and
   invitations**: until they expire or are revoked; expired ones are deleted
   within an hour. Browser sessions expire after 30 days.
+- **Claude plan usage**: the latest report of each limit, until a newer
+  report replaces it or you remove the Claude connection.
 - **Notifications**: a browser's push subscription until you turn
   notifications off there or remove the browser in Settings, sign out of it
   or its browser session expires, or its push service tells us it has
@@ -214,9 +218,10 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
 
 - **Get a copy**: under Your data, **Export your data** downloads everything
   we keep about you as one JSON file: your account, sign-in methods, devices
-  and tokens, Claude connections (without their secrets), notification
-  settings and browsers, projects, the sessions you started with their full
-  transcripts, the sessions you follow, and your activity log.
+  and tokens, Claude connections (without their secrets) and their plan
+  usage, notification settings and browsers, projects, the sessions you
+  started with their full transcripts, the sessions you follow, and your
+  activity log.
 - **Correct it**: change your name and picture under Profile, what
   notifies you and in which browsers under Notifications, and your sign-in
   methods, Claude connections, devices and tokens in their sections.
