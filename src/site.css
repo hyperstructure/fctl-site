@@ -126,7 +126,8 @@
   letter-spacing: -0.012em;
   color: var(--c-ink);
 }
-.hero h1 > span {
+/* "Agents that build" on the first line; "while you sleep." shares the second. */
+.hero h1 > span:first-child {
   display: block;
 }
 .hero h1 .dim {
@@ -136,9 +137,10 @@
 .hero h1 .hot {
   color: var(--c-accent);
 }
-/* On light backgrounds the yellow becomes a highlighter stroke under the word. */
+/* On light backgrounds the yellow becomes a highlighter stroke under the word.
+   Inline-block keeps the box one line tall, so the stroke stays on the letters. */
 :root[data-theme="light"] .hero h1 .hot {
-  width: fit-content;
+  display: inline-block;
   background: linear-gradient(to top, var(--c-highlight) 0.26em, transparent 0.26em) no-repeat;
   background-size: calc(100% - 0.22em) 100%;
 }
