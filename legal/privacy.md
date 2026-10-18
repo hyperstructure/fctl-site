@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-17
+updated: 2026-10-18
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -77,6 +77,13 @@ organization's email domain, to its allowlist.
   which records everything the agent and the people in the session said and
   did. Transcripts include the agent's tool calls and their results, so they
   can contain your source code, file contents and command output.
+- **Notifications**, if you turn them on: for each browser you turn them
+  on in, its push subscription (the address its push service delivers to,
+  and the keys notifications are encrypted with), the browser's name, such
+  as "Chrome on macOS", and when it was added and last notified; which
+  sessions you follow; and what you want to be notified about. That browser
+  keeps a note of which account turned them on, and the app's service
+  worker shows them.
 - **Your Claude connection**: the Claude credential you connect
   (encrypted), with the Claude account's email address and subscription
   type.
@@ -107,7 +114,7 @@ browser. There are no analytics or advertising cookies.
 
 | Purpose | Legal basis (EU and UK law) |
 |---|---|
-| Running app.fctl.sh for you: signing you in, running and showing sessions, sharing them with the people you choose, connecting your hosts, Claude and GitHub | Contract |
+| Running app.fctl.sh for you: signing you in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -128,6 +135,11 @@ processing terms:
 **Services you connect** receive data under their own privacy policies:
 
 - **Google**, when you sign in with Google.
+- **Your browser's push service**, when you turn on notifications: Google
+  for Chrome and most browsers built on it, Mozilla for Firefox, Apple for
+  Safari and Microsoft for Edge deliver them. Each notification is encrypted
+  for your browser, so the push service learns when we send one, to which
+  subscription and how big it is, but not what it says.
 - **GitHub**, for the repositories you link: agents push branches and open
   pull requests there.
 - **Anthropic**, which provides Claude. Claude Code runs on your hosts with
@@ -177,6 +189,13 @@ clauses.
 - **Sign-in sessions, tokens, password resets, CLI sign-in requests and
   invitations**: until they expire or are revoked; expired ones are deleted
   within an hour. Browser sessions expire after 30 days.
+- **Notifications**: a browser's push subscription until you turn
+  notifications off there or remove the browser in Settings, sign out of it
+  or its browser session expires, or its push service tells us it has
+  expired. A notification waits about a minute at most before it goes out,
+  and is not kept afterwards. The sessions you follow are kept until you
+  unfollow them or they are deleted, and your notification settings until
+  you delete your account.
 - **Audit log**: one year.
 - **Request logs**: a few days.
 - **Backups**: Cloudflare keeps the database and storage recoverable for up
@@ -193,10 +212,12 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
 
 - **Get a copy**: under Your data, **Export your data** downloads everything
   we keep about you as one JSON file: your account, sign-in methods, devices
-  and tokens, Claude connections (without their secrets), projects, the
-  sessions you started with their full transcripts, and your activity log.
-- **Correct it**: change your name and picture under Profile, and your
-  sign-in methods, Claude connections, devices and tokens in their sections.
+  and tokens, Claude connections (without their secrets), notification
+  settings and browsers, projects, the sessions you started with their full
+  transcripts, the sessions you follow, and your activity log.
+- **Correct it**: change your name and picture under Profile, what
+  notifies you and in which browsers under Notifications, and your sign-in
+  methods, Claude connections, devices and tokens in their sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
