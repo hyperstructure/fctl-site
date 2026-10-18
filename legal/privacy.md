@@ -70,6 +70,13 @@ organization's email domain, to its allowlist.
   picture (if you add one or link Google), the commit email you choose (if
   you set one), role, a hash of your password (never the password itself),
   and when you last signed in.
+- **Two-factor sign-in**, if you turn it on or your admins require it: the
+  secret your authenticator app makes codes from (encrypted), a hash of
+  each recovery code and when it was used, when you set the app up and
+  last signed in with it, how many wrong codes were entered in a row, and
+  whether Google sign-ins ask you for a code. While a sign-in waits for its
+  code, we keep who it is for and why it waits, and for a password reset
+  a hash of the new password until the code checks out.
 - **Google sign-in**, if you link a Google account: its Google account ID,
   email address and whether that address is verified, name (with first and
   last name) and profile picture. We get no access to your other Google
@@ -119,17 +126,20 @@ organization's email domain, to its allowlist.
   rate-limit sign-in attempts.
 
 When email is enabled, we send invitations and password-reset messages,
-which means giving the recipient's address and the message to our email
+and tell you when your two-factor sign-in is turned on, replaced, turned
+off or reset by an admin, and when a recovery code signs you in, which
+means giving the recipient's address and the message to our email
 provider.
 
 ### Cookies and browser storage
 
-app.fctl.sh sets two cookies, both needed for it to work: `__Host-fctl`
-keeps you signed in for 30 days, and `__Host-fctl-oauth` protects a Google
-sign-in for the 10 minutes it may take. Your theme choice is stored in your
-browser, and so is a copy of the app's offline page, which it shows when
-your device has no connection; neither contains personal data. There are no
-analytics or advertising cookies.
+app.fctl.sh sets three cookies, all needed for it to work: `__Host-fctl`
+keeps you signed in for 30 days, `__Host-fctl-oauth` protects a Google
+sign-in for the 10 minutes it may take, and `__Host-fctl-2fa` holds a
+sign-in that waits for your two-factor code, for 10 minutes. Your theme
+choice is stored in your browser, and so is a copy of the app's offline
+page, which it shows when your device has no connection; neither contains
+personal data. There are no analytics or advertising cookies.
 
 ## Why we use it
 
@@ -137,6 +147,7 @@ analytics or advertising cookies.
 |---|---|
 | Running app.fctl.sh for you: signing you in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
+| Telling you about changes to your two-factor sign-in, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
 
@@ -151,7 +162,7 @@ processing terms:
 | Provider | What for | What they receive |
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs | Everything app.fctl.sh stores, and request data |
-| Resend, Inc. | Sending invitations and password resets, when email is enabled | The recipient's address and the message |
+| Resend, Inc. | Sending invitations, password resets and two-factor notices, when email is enabled | The recipient's address and the message |
 
 **Services you connect** receive data under their own privacy policies:
 
@@ -232,7 +243,10 @@ clauses.
   then show nothing.
 - **Sign-in sessions, tokens, password resets, CLI sign-in requests and
   invitations**: until they expire or are revoked; expired ones are deleted
-  within an hour. Browser sessions expire after 30 days.
+  within an hour. Browser sessions expire after 30 days, and a sign-in
+  waiting for its two-factor code after 10 minutes.
+- **Two-factor sign-in**: until you turn it off, an admin resets it, or you
+  delete your account. Getting new recovery codes deletes the old ones.
 - **Claude plan usage**: the latest report of each limit, until a newer
   report replaces it or you remove the Claude connection.
 - **Notifications**: a browser's push subscription until you turn
@@ -257,15 +271,15 @@ rely on it.
 You use these rights yourself: sign in to app.fctl.sh and open Settings.
 
 - **Get a copy**: under Your data, **Export your data** downloads everything
-  we keep about you as one JSON file: your account, sign-in methods, devices
-  and tokens, Claude connections (without their secrets) and their plan
-  usage, notification settings and browsers, projects, the sessions you
-  started with their full transcripts, the sessions you follow, and your
-  activity log.
+  we keep about you as one JSON file: your account, sign-in methods and
+  two-factor sign-in (without its secrets), devices and tokens, Claude
+  connections (without their secrets) and their plan usage, notification
+  settings and browsers, projects, the sessions you started with their full
+  transcripts, the sessions you follow, and your activity log.
 - **Correct it**: change your name, picture and commit email under
   Profile, what notifies you and in which browsers under Notifications, and
-  your sign-in methods, Claude connections, devices and tokens in their
-  sections.
+  your sign-in methods, two-factor sign-in, Claude connections, devices and
+  tokens in their sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
@@ -279,9 +293,11 @@ also complain to your data protection authority.
 
 ## Security
 
-Passwords are hashed with argon2id, sign-in tokens are stored only as hashes,
-Claude credentials and project secrets are encrypted with AES-256-GCM, and
-everything travels over HTTPS. [Security](/docs/security/) has the details.
+Passwords are hashed with argon2id, sign-in tokens and recovery codes are
+stored only as hashes, authenticator app secrets, Claude credentials and
+project secrets are encrypted with AES-256-GCM, and everything travels over
+HTTPS. Two-factor sign-in, which you can turn on in Settings, keeps a
+password alone from signing anyone in. [Security](/docs/security/) has the details.
 No system is perfectly secure; if a breach affects your data, we will tell
 you as the law requires.
 
