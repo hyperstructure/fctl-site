@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-17
+updated: 2026-10-18
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -101,7 +101,9 @@ provider.
 app.fctl.sh sets two cookies, both needed for it to work: `__Host-fctl`
 keeps you signed in for 30 days, and `__Host-fctl-oauth` protects a Google
 sign-in for the 10 minutes it may take. Your theme choice is stored in your
-browser. There are no analytics or advertising cookies.
+browser, and so is a copy of the app's offline page, which it shows when
+your device has no connection; neither contains personal data. There are no
+analytics or advertising cookies.
 
 ## Why we use it
 
