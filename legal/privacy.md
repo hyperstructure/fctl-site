@@ -55,9 +55,11 @@ from other websites.
 The install script and `fctl host` download releases from fctl.sh, and
 `fctl host` pulls the default sandbox image from GitHub's container
 registry, ghcr.io (`fctl host image build` downloads the image's sources
-from GitHub instead). Beyond that, the `fctl` command talks only to the
-fctl instance you sign in to, and the agents on your hosts to Anthropic and
-GitHub.
+from GitHub instead). It also pulls the images projects choose, from their
+registries, and downloads a project's repository from GitHub to build the
+image the project builds from it, when you allow that. Beyond that, the
+`fctl` command talks only to the fctl instance you sign in to, and the
+agents on your hosts to Anthropic and GitHub.
 
 ### When you use app.fctl.sh
 
@@ -107,7 +109,8 @@ organization's email domain, to its allowlist.
   the session they come from and when they expire. They show whatever the
   agent captured, which can be your app, your code or your data.
 - **Hosts**: for each machine you register, its name and hostname, its
-  operating system, architecture, processors and memory, its fctl version, a
+  operating system, architecture, processors and memory, its fctl version,
+  the sandbox image it uses and the images and repositories it allows, a
   hash of its token, and when it was last online.
 - **Audit log**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
