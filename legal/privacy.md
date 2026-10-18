@@ -24,6 +24,10 @@ there, and this policy does not apply to it.
 - Agents run on machines you control, with the Claude account you connect.
   Anthropic processes your prompts and code under your agreement with
   Anthropic, not ours.
+- In projects that turn it on, agents publish screenshots for their pull
+  requests on app.fctl.sh: anyone who has a screenshot's link can open it
+  until it expires, after 30 days or what the project chooses between 24
+  hours and 60 days.
 - We don't sell personal data or use it for advertising, and we don't use
   your data or your code to train AI models.
 - To get a copy of your data or delete it, sign in to app.fctl.sh and open
@@ -96,6 +100,12 @@ organization's email domain, to its allowlist.
 - **GitHub**: the repositories you link through our GitHub App, and the
   branches and pull requests agents create. We never sign you in to GitHub;
   agents work with short-lived tokens limited to one repository per session.
+- **Published screenshots**, in projects whose maintainers turn them on
+  (they are off until an admin of app.fctl.sh allows them and a project
+  turns them on): the images agents publish so that pull requests can show
+  them (PNG, JPEG, GIF or WebP, up to 5 MB each), with their names, sizes,
+  the session they come from and when they expire. They show whatever the
+  agent captured, which can be your app, your code or your data.
 - **Hosts**: for each machine you register, its name and hostname, its
   operating system, architecture, processors and memory, its fctl version, a
   hash of its token, and when it was last online.
@@ -166,6 +176,13 @@ see its sessions, including transcripts and who took part, and people you
 share a session with see that session. Admins of app.fctl.sh can see its
 users and the audit log.
 
+**Anyone who has a published screenshot's link** can open it, without
+signing in, until it expires: the people who can read the pull request
+that shows it (everyone, for a public repository), anyone they pass the
+link to, and GitHub, whose image proxy fetches the screenshot to show it in
+the pull request. A link holds a long random token, so it can't be guessed,
+and search engines are asked not to index the screenshots.
+
 **Your hosts** are machines you control. Their sandboxes keep copies of your
 repositories, the session's work and Claude's local files, and you are
 responsible for them.
@@ -203,6 +220,13 @@ clauses.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts, normally right away and at
   the latest within a few hours. Archiving a session only hides it.
+- **Published screenshots**: until they expire, 30 days after they are
+  published unless the project chooses between 24 hours and 60 days; their
+  links stop working then, and they are deleted within the hour. People who
+  manage the session can delete one sooner, and deleting the project
+  deletes them all. While the project or the instance has publishing
+  turned off, their links don't work. Pull requests keep their links, which
+  then show nothing.
 - **Sign-in sessions, tokens, password resets, CLI sign-in requests and
   invitations**: until they expire or are revoked; expired ones are deleted
   within an hour. Browser sessions expire after 30 days.
