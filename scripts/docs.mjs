@@ -39,24 +39,34 @@ async function fctlRoot() {
   return cache;
 }
 
-/** The docs, in navigation order. `slug` "" is /docs/. */
+/**
+ * The docs, in navigation order. `slug` "" is /docs/. Every page must be in
+ * fctl's docs at the pinned ref, except one with `pending` (the fctl pull
+ * request that adds it): that one is left out until the pin includes it, so
+ * this site can merge first.
+ */
 const PAGES = [
   { slug: "", file: "docs/README.md", nav: "Overview" },
   { slug: "getting-started", file: "docs/getting-started.md", nav: "Getting started" },
   { slug: "cli", file: "docs/cli.md", nav: "The CLI" },
   { slug: "self-hosting", file: "docs/self-hosting.md", nav: "Self-hosting" },
-  { slug: "sandbox-images", file: "docs/sandbox-images.md", nav: "Sandbox images" },
+  {
+    slug: "sandbox-images",
+    file: "docs/sandbox-images.md",
+    nav: "Sandbox images",
+    pending: "hyperstructure/fctl#39",
+  },
   { slug: "architecture", file: "docs/architecture.md", nav: "Architecture" },
   { slug: "security", file: "docs/security.md", nav: "Security" },
   { slug: "development", file: "docs/development.md", nav: "Development" },
 ];
 
 /** Links between docs become site URLs; other repository files point at GitHub. */
-function rewriteHref(href, fromFile) {
+function rewriteHref(href, fromFile, pages) {
   if (/^([a-z]+:|#|\/)/i.test(href)) return href;
   const [path, hash] = href.split("#");
   const resolved = join(dirname(fromFile), path).replaceAll("\\", "/");
-  const page = PAGES.find((p) => p.file === resolved);
+  const page = pages.find((p) => p.file === resolved);
   if (page) return `/docs/${page.slug ? `${page.slug}/` : ""}${hash ? `#${hash}` : ""}`;
   return `${REPO}/blob/main/${resolved}${hash ? `#${hash}` : ""}`;
 }
@@ -65,21 +75,32 @@ async function main() {
   const root = await fctlRoot();
   const template = await readFile(join(dist, "docs.html"), "utf8");
   const render = await markdown();
+  const pages = PAGES.filter((page) => {
+    if (!page.pending) return true;
+    if (existsSync(join(root, page.file))) {
+      console.log(`${page.file} is in fctl's docs now: its pending (${page.pending}) can go`);
+      return true;
+    }
+    console.log(`leaving out ${page.file} until fctl's docs have it (${page.pending})`);
+    return false;
+  });
 
-  for (const page of PAGES) {
+  for (const page of pages) {
     const source = await readFile(join(root, page.file), "utf8");
     const {
       title,
       description,
       html: body,
     } = await render(source, {
-      href: (href) => rewriteHref(href, page.file),
+      href: (href) => rewriteHref(href, page.file, pages),
     });
-    const nav = PAGES.map((p) => {
-      const href = `/docs/${p.slug ? `${p.slug}/` : ""}`;
-      const current = p === page ? ' aria-current="page"' : "";
-      return `<a href="${href}"${current}>${esc(p.nav)}</a>`;
-    }).join("");
+    const nav = pages
+      .map((p) => {
+        const href = `/docs/${p.slug ? `${p.slug}/` : ""}`;
+        const current = p === page ? ' aria-current="page"' : "";
+        return `<a href="${href}"${current}>${esc(p.nav)}</a>`;
+      })
+      .join("");
     const html = template
       .replace("<!--TITLE-->", esc(title || page.nav))
       .replace("<!--DESCRIPTION-->", esc(description))
@@ -91,7 +112,7 @@ async function main() {
     await writeFile(join(dir, "index.html"), html);
   }
   await rm(join(dist, "docs.html"));
-  console.log(`rendered ${PAGES.length} docs pages`);
+  console.log(`rendered ${pages.length} docs pages`);
 }
 
 await main();

@@ -24,7 +24,10 @@ npx wrangler dev                     # the Worker with the built assets (after a
 - **Docs**: the Markdown lives in hyperstructure/fctl under `docs/`. Edit it
   there. `scripts/docs.mjs` maps files to URLs (`PAGES`), rewrites links
   between docs, and links other repository files to GitHub. Adding a doc
-  page means adding it to `PAGES`.
+  page means adding it to `PAGES`. While the fctl pull request that adds
+  the page isn't merged, give its entry `pending` (that pull request): the
+  build leaves the page out until fctl's CI pins docs that have it, so this
+  side can merge first. Remove `pending` once the build says it can go.
 - **Legal pages**: `legal/privacy.md` and `legal/terms.md`, rendered by
   `scripts/legal.mjs` to `/privacy` and `/terms` (Google sign-in's consent
   screen links them). They state what app.fctl.sh stores, who receives it
