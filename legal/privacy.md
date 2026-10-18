@@ -127,7 +127,8 @@ organization's email domain, to its allowlist.
 
 When email is enabled, we send invitations and password-reset messages,
 and tell you when your two-factor sign-in is turned on, replaced, turned
-off or reset by an admin, and when a recovery code signs you in, which
+off or reset by an admin, when a recovery code signs you in, and when
+wrong codes follow your password, which
 means giving the recipient's address and the message to our email
 provider.
 
