@@ -42,9 +42,12 @@ npx wrangler dev                     # the Worker with the built assets (after a
   `feat(landing): wire the diagram`. CI checks it
   (`node scripts/lint-commit.mjs "<title>"`). Types, scopes and the flow:
   [.claude/skills/commit/SKILL.md](.claude/skills/commit/SKILL.md).
-- A person merges agents' pull requests unless they ask the agent to.
-  Never push to `main` directly: it deploys fctl.sh. The one exception is
-  fctl's CI pinning `fctl-docs.ref` (`docs: pin hyperstructure/fctl@…`).
+- A person merges agents' pull requests: `main` takes a pull request only
+  once a code owner who didn't push its last commit approves it, so agents
+  cannot merge their own. Never push to `main` directly: it deploys
+  fctl.sh, and its ruleset refuses it (`.github/rulesets/`). The one
+  exception is fctl's CI pinning `fctl-docs.ref` (`docs: pin
+  hyperstructure/fctl@…`) with a deploy key the ruleset lets through.
 - A pull request that changes how fctl.sh looks shows it with screenshots
   in its description: before and after when it changes something that
   exists, after alone when it adds something. When a later commit changes
