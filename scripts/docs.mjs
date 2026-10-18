@@ -45,6 +45,7 @@ const PAGES = [
   { slug: "getting-started", file: "docs/getting-started.md", nav: "Getting started" },
   { slug: "cli", file: "docs/cli.md", nav: "The CLI" },
   { slug: "self-hosting", file: "docs/self-hosting.md", nav: "Self-hosting" },
+  { slug: "sandbox-images", file: "docs/sandbox-images.md", nav: "Sandbox images" },
   { slug: "architecture", file: "docs/architecture.md", nav: "Architecture" },
   { slug: "security", file: "docs/security.md", nav: "Security" },
   { slug: "development", file: "docs/development.md", nav: "Development" },
