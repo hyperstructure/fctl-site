@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-18
+updated: 2026-10-19
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -77,6 +77,14 @@ organization's email domain, to its allowlist.
   whether Google sign-ins ask you for a code. While a sign-in waits for its
   code, we keep who it is for and why it waits, and for a password reset
   a hash of the new password until the code checks out.
+- **Passkeys**, if you add them: for each, its public key and credential
+  ID (the private key stays on your device or with your password manager),
+  the name you give it, which kind of authenticator made it (its AAGUID,
+  which names providers such as 1Password or Apple Passwords), whether it
+  syncs between your devices, how your browser reaches it (such as
+  "internal" or "usb"), its signature counter, and when it was added and
+  last used. To check a sign-in, we keep each challenge a passkey signs
+  for ten minutes.
 - **Google sign-in**, if you link a Google account: its Google account ID,
   email address and whether that address is verified, name (with first and
   last name) and profile picture. We get no access to your other Google
@@ -127,8 +135,9 @@ organization's email domain, to its allowlist.
 
 When email is enabled, we send invitations and password-reset messages,
 and tell you when your two-factor sign-in is turned on, replaced, turned
-off or reset by an admin, when a recovery code signs you in, and when
-wrong codes follow your password, which
+off or reset by an admin, when a recovery code signs you in, when wrong
+codes follow your password, and when a passkey is added to your account,
+which
 means giving the recipient's address and the message to our email
 provider.
 
@@ -148,7 +157,7 @@ personal data. There are no analytics or advertising cookies.
 |---|---|
 | Running app.fctl.sh for you: signing you in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
-| Telling you about changes to your two-factor sign-in, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
+| Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
 
@@ -248,6 +257,9 @@ clauses.
   waiting for its two-factor code after 10 minutes.
 - **Two-factor sign-in**: until you turn it off, an admin resets it, or you
   delete your account. Getting new recovery codes deletes the old ones.
+- **Passkeys**: until you remove them in Settings or delete your account,
+  or an admin resets your two-factor sign-in where your instance requires
+  it. The challenges they sign are deleted within an hour of expiring.
 - **Claude plan usage**: the latest report of each limit, until a newer
   report replaces it or you remove the Claude connection.
 - **Notifications**: a browser's push subscription until you turn
@@ -272,15 +284,16 @@ rely on it.
 You use these rights yourself: sign in to app.fctl.sh and open Settings.
 
 - **Get a copy**: under Your data, **Export your data** downloads everything
-  we keep about you as one JSON file: your account, sign-in methods and
-  two-factor sign-in (without its secrets), devices and tokens, Claude
-  connections (without their secrets) and their plan usage, notification
-  settings and browsers, projects, the sessions you started with their full
-  transcripts, the sessions you follow, and your activity log.
+  we keep about you as one JSON file: your account, sign-in methods,
+  passkeys and two-factor sign-in (without its secrets), devices and
+  tokens, Claude connections (without their secrets) and their plan usage,
+  notification settings and browsers, projects, the sessions you started
+  with their full transcripts, the sessions you follow, and your activity
+  log.
 - **Correct it**: change your name, picture and commit email under
   Profile, what notifies you and in which browsers under Notifications, and
-  your sign-in methods, two-factor sign-in, Claude connections, devices and
-  tokens in their sections.
+  your sign-in methods, passkeys, two-factor sign-in, Claude connections,
+  devices and tokens in their sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
@@ -297,8 +310,8 @@ also complain to your data protection authority.
 Passwords are hashed with argon2id, sign-in tokens and recovery codes are
 stored only as hashes, authenticator app secrets, Claude credentials and
 project secrets are encrypted with AES-256-GCM, and everything travels over
-HTTPS. Two-factor sign-in, which you can turn on in Settings, keeps a
-password alone from signing anyone in. [Security](/docs/security/) has the details.
+HTTPS. For passkeys we keep only public keys. Two-factor sign-in, which you
+can turn on in Settings, keeps a password alone from signing anyone in. [Security](/docs/security/) has the details.
 No system is perfectly secure; if a breach affects your data, we will tell
 you as the law requires.
 
