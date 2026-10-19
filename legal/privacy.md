@@ -215,13 +215,15 @@ processing terms:
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
-other addresses), and its admins see its invitations and audit log;
-members of a project see its sessions, including transcripts and who took
-part, and people you share a session with see that session. Admins of
-app.fctl.sh can see its users with all their addresses and how many
-workspaces they are in, each workspace's name, avatar, primary admin and
-size, the GitHub accounts workspaces use, and the audit log of
-app.fctl.sh, but not what is inside workspaces they aren't members of.
+other addresses), and its admins also see who has two-factor sign-in, its
+invitations and its audit log; members of a project see its sessions,
+including transcripts and who took part, and people you share a session
+with see that session. Admins of app.fctl.sh can see its users with all
+their addresses and how many workspaces they are in, each workspace's
+name, avatar, primary admin and size, the GitHub accounts workspaces use,
+and the audit log of app.fctl.sh, but not what is inside workspaces they
+aren't members of. When a workspace's primary admin's account is
+disabled, they see its members' names, to choose who runs it.
 
 **Anyone who has a published screenshot's link** can open it, without
 signing in, until it expires: the people who can read the pull request
