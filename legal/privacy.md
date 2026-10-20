@@ -76,11 +76,12 @@ invited on its own, and you can connect them to one account.
 - **Workspaces**: for each, its name, address, color and avatar image (if
   an admin uploads one), whether it requires two-factor sign-in, and who
   created it and when. For each of its members, the email address they are
-  in it as, their role, the Claude connection they use there and who added
-  them when. For each invitation to it, the invited address, its role, who
-  invited them and when it expires. And the GitHub accounts it uses: the
-  account's name, the GitHub App installation's ID, the repositories it is
-  limited to, who asked for it and who approved it.
+  in it as, their role, the Claude connection they use there, who added
+  them when, and the order they put the workspace and its projects in. For
+  each invitation to it, the invited address, its role, who invited them
+  and when it expires. And the GitHub accounts it uses: the account's
+  name, the GitHub App installation's ID, the repositories it is limited
+  to, who asked for it and who approved it.
 - **Two-factor sign-in**, if you turn it on or your admins require it: the
   secret your authenticator app makes codes from (encrypted), a hash of
   each recovery code and when it was used, when you set the app up and
