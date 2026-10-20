@@ -90,6 +90,11 @@ account, you can ask for early access on its sign-in page.
   and when it expires. And the GitHub accounts it uses: the account's
   name, the GitHub App installation's ID, the repositories it is limited
   to, who connected it and the GitHub account they signed in to GitHub as.
+  While an admin chooses what the workspace works in on a GitHub account,
+  we keep what their GitHub sign-in showed them they may connect there:
+  the account's name and type, the installation's ID, the names of those
+  repositories, how many more they can see there, and the GitHub account
+  they signed in as. Only they see it.
 - **Two-factor sign-in**, if you turn it on or your admins require it: the
   secret your authenticator app makes codes from (encrypted), a hash of
   each recovery code and when it was used, when you set the app up and
@@ -166,12 +171,15 @@ address and the message to our email provider.
 
 ### Cookies and browser storage
 
-app.fctl.sh sets four cookies, all needed for it to work: `__Host-fctl`
+app.fctl.sh sets five cookies, all needed for it to work: `__Host-fctl`
 keeps you signed in for 30 days, `__Host-fctl-oauth` protects a Google
 sign-in for the 10 minutes it may take, `__Host-fctl-2fa` holds a
-sign-in that waits for your two-factor code, for 10 minutes, and
+sign-in that waits for your two-factor code, for 10 minutes,
 `__Host-fctl-github` protects the GitHub sign-in that connects a GitHub
-account to a workspace, for the 10 minutes it may take. Your theme
+account to a workspace, for the 10 minutes it may take, and
+`__Host-fctl-github-install` holds which workspace you install our GitHub
+App from, or give it more repositories from, so that GitHub's way back
+leads there, for the hour it may take. Your theme
 choice is stored in your browser, and so is a copy of the app's offline
 page, which it shows when your device has no connection; neither contains
 personal data. If you ask for early access, your browser keeps the address
@@ -194,7 +202,7 @@ when they change. There are no analytics or advertising cookies.
 | Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping your request for early access and inviting you | Contract: steps you ask for before one |
-| Signing you in to GitHub when you connect a GitHub account to a workspace, to read which of its repositories you may give the workspace | Legitimate interests: keeping each workspace to the repositories its admins may grant |
+| Signing you in to GitHub when you connect a GitHub account to a workspace, to read which of its repositories you may give the workspace and let you choose from them | Legitimate interests: keeping each workspace to the repositories its admins may grant |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -315,6 +323,9 @@ clauses.
 - **Early access requests**: until you create your account (they are
   deleted within the hour), you withdraw your request or an admin removes
   it, and a year after you last asked at the latest.
+- **What a GitHub sign-in showed an admin they may connect**: until they
+  choose what the workspace works in there or turn it down, and 10 minutes
+  at most; what ran out is deleted within an hour.
 - **Sign-in sessions, tokens, password resets, CLI sign-in requests and
   invitations**: until they expire or are revoked; expired ones are deleted
   within an hour. Browser sessions expire after 30 days, and a sign-in
