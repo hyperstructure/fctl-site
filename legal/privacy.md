@@ -361,8 +361,8 @@ invited you for a password reset link.
 
 If you asked for early access and have no account, withdraw your request
 on [app.fctl.sh/early-access](https://app.fctl.sh/early-access), in the
-browser you asked from: **Withdraw** deletes it, and the browser forgets
-your address.
+browser you first asked from: **Withdraw** deletes it, and the browser
+forgets your address.
 
 If you are in the European Economic Area, the UK or Switzerland, you can
 also complain to your data protection authority.
