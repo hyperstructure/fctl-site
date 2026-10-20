@@ -89,7 +89,7 @@ account, you can ask for early access on its sign-in page.
   each invitation to it, the invited address, its role, who invited them
   and when it expires. And the GitHub accounts it uses: the account's
   name, the GitHub App installation's ID, the repositories it is limited
-  to, who asked for it and who approved it.
+  to, who connected it and the GitHub account they signed in to GitHub as.
 - **Two-factor sign-in**, if you turn it on or your admins require it: the
   secret your authenticator app makes codes from (encrypted), a hash of
   each recovery code and when it was used, when you set the app up and
@@ -161,16 +161,17 @@ When email is enabled, we send invitations to app.fctl.sh and to
 workspaces, and password-reset messages; tell you when your two-factor
 sign-in is turned on, replaced, turned off or reset by an admin, when a
 recovery code signs you in, when wrong codes follow your password, and
-when a passkey is added to your account; and tell the admins of
-app.fctl.sh when a workspace asks to use a GitHub account. That means
-giving the recipient's address and the message to our email provider.
+when a passkey is added to your account. That means giving the recipient's
+address and the message to our email provider.
 
 ### Cookies and browser storage
 
-app.fctl.sh sets three cookies, all needed for it to work: `__Host-fctl`
+app.fctl.sh sets four cookies, all needed for it to work: `__Host-fctl`
 keeps you signed in for 30 days, `__Host-fctl-oauth` protects a Google
-sign-in for the 10 minutes it may take, and `__Host-fctl-2fa` holds a
-sign-in that waits for your two-factor code, for 10 minutes. Your theme
+sign-in for the 10 minutes it may take, `__Host-fctl-2fa` holds a
+sign-in that waits for your two-factor code, for 10 minutes, and
+`__Host-fctl-github` protects the GitHub sign-in that connects a GitHub
+account to a workspace, for the 10 minutes it may take. Your theme
 choice is stored in your browser, and so is a copy of the app's offline
 page, which it shows when your device has no connection; neither contains
 personal data. If you ask for early access, your browser keeps the address
@@ -193,7 +194,7 @@ when they change. There are no analytics or advertising cookies.
 | Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping your request for early access and inviting you | Contract: steps you ask for before one |
-| Asking the admins of app.fctl.sh to approve a GitHub account a workspace wants to use | Legitimate interests: keeping each workspace to the GitHub accounts it may use |
+| Signing you in to GitHub when you connect a GitHub account to a workspace, to read which of its repositories you may give the workspace | Legitimate interests: keeping each workspace to the repositories its admins may grant |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -209,7 +210,7 @@ processing terms:
 | Provider | What for | What they receive |
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs | Everything app.fctl.sh stores, and request data |
-| Resend, Inc. | Sending invitations, password resets, two-factor notices and GitHub approval requests, when email is enabled | The recipient's address and the message |
+| Resend, Inc. | Sending invitations, password resets and two-factor notices, when email is enabled | The recipient's address and the message |
 
 **Services you connect** receive data under their own privacy policies:
 
@@ -225,7 +226,11 @@ processing terms:
   name and that address, unless the project's maintainers turn that off.
   Everyone who can read the repository sees it, which is everyone for a
   public repository, and GitHub uses it to link the commits to your GitHub
-  account.
+  account. When a workspace's admin connects a GitHub account, we send them
+  to GitHub to sign in, and GitHub gives us a short-lived token that tells
+  us which of the account's repositories they may give the workspace. We
+  use it once to read that and then revoke it; we don't sign you in to
+  GitHub or keep the token.
 - **Anthropic**, which provides Claude. Claude Code runs on your hosts with
   the Claude account you connect, so Anthropic receives your prompts, the
   code the agent reads and the conversation, under your agreement with
