@@ -29,6 +29,8 @@ there, and this policy does not apply to it.
   requests on app.fctl.sh: anyone who has a screenshot's link can open it
   until it expires, after 30 days or what the project chooses between 24
   hours and 60 days.
+- If you ask for early access, we keep your email address to invite you:
+  until you have an account, you withdraw the request or a year passes.
 - We don't sell personal data or use it for advertising, and we don't use
   your data or your code to train AI models.
 - To get a copy of your data or delete it, sign in to app.fctl.sh and open
@@ -66,8 +68,14 @@ agents on your hosts to Anthropic and GitHub.
 
 app.fctl.sh is invitation-only: an admin adds your email address, or your
 organization's email domain, to its allowlist. Each of your addresses is
-invited on its own, and you can connect them to one account.
+invited on its own, and you can connect them to one account. Without an
+account, you can ask for early access on its sign-in page.
 
+- **Early access requests**, if you ask for early access: your email
+  address, when you first and last asked, whether, when and by whom you
+  were invited, and a hash of the token your browser keeps to withdraw the
+  request. We keep nothing else about you for it, and use it only to
+  invite you.
 - **Your account**: your email addresses, which one is primary and when
   you connected each, first and last name, profile picture (if you add one
   or link Google), the commit email you choose for each address (if you set
@@ -165,7 +173,10 @@ sign-in for the 10 minutes it may take, and `__Host-fctl-2fa` holds a
 sign-in that waits for your two-factor code, for 10 minutes. Your theme
 choice is stored in your browser, and so is a copy of the app's offline
 page, which it shows when your device has no connection; neither contains
-personal data. Your browser also keeps which workspaces you fold in the
+personal data. If you ask for early access, your browser keeps the address
+you asked with, when, and the token that withdraws the request, so that the
+page shows you are on the list, until you withdraw it or ask with another
+address. Your browser also keeps which workspaces you fold in the
 sidebar and the project you last started a session in, so that the app
 opens as you left it. The task you are writing on the floor stays in your
 browser too, with the project you chose for it and the files you attach to
@@ -178,6 +189,7 @@ page doesn't lose it. There are no analytics or advertising cookies.
 |---|---|
 | Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
+| Keeping your request for early access and inviting you | Contract: steps you ask for before one |
 | Asking the admins of app.fctl.sh to approve a GitHub account a workspace wants to use | Legitimate interests: keeping each workspace to the GitHub accounts it may use |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
@@ -223,8 +235,10 @@ other addresses), and its admins also see who has two-factor sign-in, its
 invitations and its audit log; members of a project see its sessions,
 including transcripts and who took part, and people you share a session
 with see that session. Admins of app.fctl.sh can see its users with all
-their addresses and how many workspaces they are in, each workspace's
-name, avatar, primary admin and size, the GitHub accounts workspaces use,
+their addresses and how many workspaces they are in, the addresses that
+asked for early access with when they asked and who invited them, each
+workspace's name, avatar, primary admin and size, the GitHub accounts
+workspaces use,
 and the audit log of app.fctl.sh, but not what is inside workspaces they
 aren't members of. When a workspace's primary admin's account is
 disabled, they see its members' names, to choose who runs it.
@@ -290,6 +304,9 @@ clauses.
   deletes them all. While the project or the instance has publishing
   turned off, their links don't work. Pull requests keep their links, which
   then show nothing.
+- **Early access requests**: until you create your account (they are
+  deleted within the hour), you withdraw your request or an admin removes
+  it, and a year after you last asked at the latest.
 - **Sign-in sessions, tokens, password resets, CLI sign-in requests and
   invitations**: until they expire or are revoked; expired ones are deleted
   within an hour. Browser sessions expire after 30 days, and a sign-in
@@ -341,6 +358,11 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
 The `fctl` command does the same with `fctl account export` and
 `fctl account delete`. If you can no longer sign in, ask the admin who
 invited you for a password reset link.
+
+If you asked for early access and have no account, withdraw your request
+on [app.fctl.sh/early-access](https://app.fctl.sh/early-access), in the
+browser you asked from: **Withdraw** deletes it, and the browser forgets
+your address.
 
 If you are in the European Economic Area, the UK or Switzerland, you can
 also complain to your data protection authority.
