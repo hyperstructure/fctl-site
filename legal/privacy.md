@@ -109,7 +109,7 @@ invited on its own, and you can connect them to one account.
 - **Projects and sessions**: project names, descriptions and settings,
   the workspace they belong to, linked GitHub repositories, members and
   their roles, and the secrets you add (encrypted). For each session: its
-  task, status, branch and pull request, who started it and who it is
+  task, status, branch and pull requests, who started it and who it is
   shared with, and its transcript, which records everything the agent and
   the people in the session said and did. Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
