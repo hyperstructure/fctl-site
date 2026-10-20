@@ -18,9 +18,10 @@ there, and this policy does not apply to it.
 ## The short version
 
 - fctl.sh has no analytics, no advertising and no cookies.
-- app.fctl.sh stores what it needs to run your factory: your account, your
-  projects and sessions (including the full transcript of what agents and
-  people did in them), and the machines you connect.
+- app.fctl.sh stores what it needs to run your factory: your account, the
+  workspaces you are in, their projects and sessions (including the full
+  transcript of what agents and people did in them), and the machines you
+  connect.
 - Agents run on machines you control, with the Claude account you connect.
   Anthropic processes your prompts and code under your agreement with
   Anthropic, not ours.
@@ -64,12 +65,22 @@ agents on your hosts to Anthropic and GitHub.
 ### When you use app.fctl.sh
 
 app.fctl.sh is invitation-only: an admin adds your email address, or your
-organization's email domain, to its allowlist.
+organization's email domain, to its allowlist. Each of your addresses is
+invited on its own, and you can connect them to one account.
 
-- **Your account**: your email address, first and last name, profile
-  picture (if you add one or link Google), the commit email you choose (if
-  you set one), role, a hash of your password (never the password itself),
-  and when you last signed in.
+- **Your account**: your email addresses, which one is primary and when
+  you connected each, first and last name, profile picture (if you add one
+  or link Google), the commit email you choose for each address (if you set
+  one), role, a hash of your password (never the password itself), and when
+  you last signed in.
+- **Workspaces**: for each, its name, address, color and avatar image (if
+  an admin uploads one), whether it requires two-factor sign-in, and who
+  created it and when. For each of its members, the email address they are
+  in it as, their role, the Claude connection they use there and who added
+  them when. For each invitation to it, the invited address, its role, who
+  invited them and when it expires. And the GitHub accounts it uses: the
+  account's name, the GitHub App installation's ID, the repositories it is
+  limited to, who asked for it and who approved it.
 - **Two-factor sign-in**, if you turn it on or your admins require it: the
   secret your authenticator app makes codes from (encrypted), a hash of
   each recovery code and when it was used, when you set the app up and
@@ -96,12 +107,13 @@ organization's email domain, to its allowlist.
   location (city and country, derived from the IP address) and user agent,
   so you can recognize it before you approve it.
 - **Projects and sessions**: project names, descriptions and settings,
-  linked GitHub repositories, members and their roles, and the secrets you
-  add (encrypted). For each session: its task, status, branch and pull
-  request, who started it and who it is shared with, and its transcript,
-  which records everything the agent and the people in the session said and
-  did. Transcripts include the agent's tool calls and their results, so they
-  can contain your source code, file contents and command output.
+  the workspace they belong to, linked GitHub repositories, members and
+  their roles, and the secrets you add (encrypted). For each session: its
+  task, status, branch and pull request, who started it and who it is
+  shared with, and its transcript, which records everything the agent and
+  the people in the session said and did. Transcripts include the agent's
+  tool calls and their results, so they can contain your source code, file
+  contents and command output.
 - **Notifications**, if you turn them on: for each browser you turn them
   on in, its push subscription (the address its push service delivers to,
   and the keys notifications are encrypted with), the browser's name, such
@@ -116,7 +128,8 @@ organization's email domain, to its allowlist.
   it was reported.
 - **GitHub**: the repositories you link through our GitHub App, and the
   branches and pull requests agents create. We never sign you in to GitHub;
-  agents work with short-lived tokens limited to one repository per session.
+  agents work with short-lived tokens limited to their project's
+  repositories, within the GitHub accounts its workspace uses.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
   turns them on): the images agents publish so that pull requests can show
@@ -125,21 +138,23 @@ organization's email domain, to its allowlist.
   agent captured, which can be your app, your code or your data.
 - **Hosts**: for each machine you register, its name and hostname, its
   operating system, architecture, processors and memory, its fctl version,
-  the sandbox image it uses and the images and repositories it allows, a
-  hash of its token, and when it was last online.
-- **Audit log**: security-relevant actions, such as sign-ins, invitations,
+  the sandbox image it uses and the images and repositories it allows, the
+  workspaces it runs sessions for, a hash of its token, and when it was
+  last online.
+- **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
-  address.
+  address. Each workspace has its own, for what happens in it, and
+  app.fctl.sh one for the rest.
 - **Request data**: as on fctl.sh. Your IP address is also used, briefly, to
   rate-limit sign-in attempts.
 
-When email is enabled, we send invitations and password-reset messages,
-and tell you when your two-factor sign-in is turned on, replaced, turned
-off or reset by an admin, when a recovery code signs you in, when wrong
-codes follow your password, and when a passkey is added to your account,
-which
-means giving the recipient's address and the message to our email
-provider.
+When email is enabled, we send invitations to app.fctl.sh and to
+workspaces, and password-reset messages; tell you when your two-factor
+sign-in is turned on, replaced, turned off or reset by an admin, when a
+recovery code signs you in, when wrong codes follow your password, and
+when a passkey is added to your account; and tell the admins of
+app.fctl.sh when a workspace asks to use a GitHub account. That means
+giving the recipient's address and the message to our email provider.
 
 ### Cookies and browser storage
 
@@ -149,14 +164,17 @@ sign-in for the 10 minutes it may take, and `__Host-fctl-2fa` holds a
 sign-in that waits for your two-factor code, for 10 minutes. Your theme
 choice is stored in your browser, and so is a copy of the app's offline
 page, which it shows when your device has no connection; neither contains
-personal data. There are no analytics or advertising cookies.
+personal data. Your browser also keeps which workspaces you fold in the
+sidebar and the project you last started a session in, so that the app
+opens as you left it. There are no analytics or advertising cookies.
 
 ## Why we use it
 
 | Purpose | Legal basis (EU and UK law) |
 |---|---|
-| Running app.fctl.sh for you: signing you in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
+| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
+| Asking the admins of app.fctl.sh to approve a GitHub account a workspace wants to use | Legitimate interests: keeping each workspace to the GitHub accounts it may use |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -172,7 +190,7 @@ processing terms:
 | Provider | What for | What they receive |
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs | Everything app.fctl.sh stores, and request data |
-| Resend, Inc. | Sending invitations, password resets and two-factor notices, when email is enabled | The recipient's address and the message |
+| Resend, Inc. | Sending invitations, password resets, two-factor notices and GitHub approval requests, when email is enabled | The recipient's address and the message |
 
 **Services you connect** receive data under their own privacy policies:
 
@@ -195,10 +213,17 @@ processing terms:
   Anthropic. If a session joins Remote Control, the conversation is also
   available in your Claude apps.
 
-**People you work with** see what you share with them: members of a project
-see its sessions, including transcripts and who took part, and people you
-share a session with see that session. Admins of app.fctl.sh can see its
-users and the audit log.
+**People you work with** see what you share with them: the members of a
+workspace see its members, with the address each is in it as (not your
+other addresses), and its admins also see who has two-factor sign-in, its
+invitations and its audit log; members of a project see its sessions,
+including transcripts and who took part, and people you share a session
+with see that session. Admins of app.fctl.sh can see its users with all
+their addresses and how many workspaces they are in, each workspace's
+name, avatar, primary admin and size, the GitHub accounts workspaces use,
+and the audit log of app.fctl.sh, but not what is inside workspaces they
+aren't members of. When a workspace's primary admin's account is
+disabled, they see its members' names, to choose who runs it.
 
 **Anyone who has a published screenshot's link** can open it, without
 signing in, until it expires: the people who can read the pull request
@@ -232,15 +257,25 @@ clauses.
 ## How long we keep it
 
 - **Your account**: until you delete it in Settings, or an admin deletes it.
-  That deletes its sign-in methods, devices and tokens, Claude connections
-  and memberships, and the projects only you are a member of, with their
-  sessions and transcripts. Sessions you started in projects that others are
-  members of stay with those projects, shown as started by a deleted user:
-  your name, email address and picture are removed from them.
-- **Your commit email**: until you remove it in Settings or delete your
+  That deletes its email addresses, sign-in methods, devices and tokens,
+  Claude connections and memberships, and the workspaces only you are in,
+  with their projects, sessions and transcripts. Sessions you started in
+  workspaces that others are in stay with their projects, shown as started
+  by a deleted user: your name, email addresses and picture are removed
+  from them.
+- **Your other email addresses**: until you disconnect them in Settings or
+  delete your account. Disconnecting one takes you out of the workspaces
+  you are in as that address.
+- **Your commit emails**: until you remove them in Settings or delete your
   account. Commits already made keep your name and the address: they are
   part of the repository's history, which the repository's owners control,
   not us.
+- **Workspaces**: until their primary admin or an admin of app.fctl.sh
+  deletes them, or their last member deletes their account. Deleting a
+  workspace deletes its projects, as deleting each would, its avatar, its
+  invitations and its audit log. Leaving a workspace, or being removed
+  from it, deletes your membership and your roles in its projects.
+  Invitations to workspaces expire after 30 days.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts, normally right away and at
   the latest within a few hours. Archiving a session only hides it.
@@ -269,7 +304,7 @@ clauses.
   and is not kept afterwards. The sessions you follow are kept until you
   unfollow them or they are deleted, and your notification settings until
   you delete your account.
-- **Audit log**: one year.
+- **Audit logs**: one year.
 - **Request logs**: a few days.
 - **Backups**: Cloudflare keeps the database and storage recoverable for up
   to 30 days, so deleted data is gone for good after that.
@@ -284,16 +319,17 @@ rely on it.
 You use these rights yourself: sign in to app.fctl.sh and open Settings.
 
 - **Get a copy**: under Your data, **Export your data** downloads everything
-  we keep about you as one JSON file: your account, sign-in methods,
-  passkeys and two-factor sign-in (without its secrets), devices and
-  tokens, Claude connections (without their secrets) and their plan usage,
-  notification settings and browsers, projects, the sessions you started
-  with their full transcripts, the sessions you follow, and your activity
-  log.
-- **Correct it**: change your name, picture and commit email under
-  Profile, what notifies you and in which browsers under Notifications, and
-  your sign-in methods, passkeys, two-factor sign-in, Claude connections,
-  devices and tokens in their sections.
+  we keep about you as one JSON file: your account and email addresses,
+  sign-in methods, passkeys and two-factor sign-in (without its secrets),
+  devices and tokens, Claude connections (without their secrets) and their
+  plan usage, notification settings and browsers, the workspaces you are
+  in, projects, the sessions you started with their full transcripts, the
+  sessions you follow, and your activity log.
+- **Correct it**: change your name and picture under Profile, your email
+  addresses and their commit emails under Email addresses, the workspaces
+  you are in under Workspaces, what notifies you and in which browsers
+  under Notifications, and your sign-in methods, passkeys, two-factor
+  sign-in, Claude connections, devices and tokens in their sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
