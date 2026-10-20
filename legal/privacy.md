@@ -181,7 +181,10 @@ sidebar and the project you last started a session in, so that the app
 opens as you left it. The task you are writing on the floor stays in your
 browser too, with the project you chose for it and the files you attach to
 it, until a session starts with it or you sign out, so that leaving the
-page doesn't lose it. There are no analytics or advertising cookies.
+page doesn't lose it. If you use passkeys, your browser keeps a short hash
+of the name and email address the app last gave your password manager for
+them, not the name or address themselves, so that it gives them again only
+when they change. There are no analytics or advertising cookies.
 
 ## Why we use it
 
