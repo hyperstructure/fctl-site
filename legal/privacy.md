@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-19
+updated: 2026-10-20
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -166,7 +166,10 @@ choice is stored in your browser, and so is a copy of the app's offline
 page, which it shows when your device has no connection; neither contains
 personal data. Your browser also keeps which workspaces you fold in the
 sidebar and the project you last started a session in, so that the app
-opens as you left it. There are no analytics or advertising cookies.
+opens as you left it. The task you are writing on the floor stays in your
+browser too, with the project you chose for it and the files you attach to
+it, until a session starts with it or you sign out, so that leaving the
+page doesn't lose it. There are no analytics or advertising cookies.
 
 ## Why we use it
 
