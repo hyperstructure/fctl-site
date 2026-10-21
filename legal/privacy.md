@@ -20,8 +20,9 @@ there, and this policy does not apply to it.
 - fctl.sh has no analytics, no advertising and no cookies.
 - app.fctl.sh stores what it needs to run your factory: your account, the
   workspaces you are in, their projects and sessions (including the full
-  transcript of what agents and people did in them), and the machines you
-  connect.
+  transcript of what agents and people did in them, the notes agents keep
+  for each project's later agents and the retrospectives they record of
+  their work), and the machines you connect.
 - Agents run on machines you control, with the Claude account you connect.
   Anthropic processes your prompts and code under your agreement with
   Anthropic, not ours.
@@ -131,6 +132,17 @@ account, you can ask for early access on its sign-in page.
   contents and command output. For each project you start sessions in, the
   model and effort level you asked for when you last started one, which
   its task boxes start on next time.
+- **Project memory and retrospectives**, in projects that keep them (they
+  are on unless a maintainer turns them off): the notes a project's agents
+  and people write for its later agents, each with the session whose
+  agent wrote it and the person who started that session, or the person
+  who wrote it, who last changed it and when, and for a note marked stale,
+  when, why and who marked it; and for each session, the retrospectives
+  its agent records as it finishes a piece of work: how the work ended,
+  what it worked on, the approach it took, what got in the way and what a
+  future agent should know. They are what agents and people wrote, so they
+  can mention your code and your project's tools and people. Each new
+  session's agent in the project gets its current notes.
 - **Notifications**, if you turn them on: for each browser you turn them
   on in, its push subscription (the address its push service delivers to,
   and the keys notifications are encrypted with), the browser's name, such
@@ -255,13 +267,16 @@ processing terms:
   the Claude account you connect, so Anthropic receives your prompts, the
   code the agent reads and the conversation, under your agreement with
   Anthropic. If a session joins Remote Control, the conversation is also
-  available in your Claude apps.
+  available in your Claude apps. A project's memory notes go into the
+  prompts of its later sessions, on the Claude accounts of the people who
+  start them.
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
 other addresses), and its admins also see who has two-factor sign-in, its
 invitations and its audit log; members of a project see its sessions,
-including transcripts and who took part, and people you share a session
+including transcripts and who took part, and its memory and
+retrospectives, with who wrote each note; and people you share a session
 with see that session. Admins of app.fctl.sh can see its users with all
 their addresses and how many workspaces they are in, the addresses that
 asked for early access with when they asked and who invited them, each
@@ -309,7 +324,8 @@ clauses.
   projects, sessions and transcripts. Sessions you started in
   workspaces that others are in stay with their projects, shown as started
   by a deleted user: your name, email addresses and picture are removed
-  from them.
+  from them. So do the notes you, or your sessions' agents, wrote in their
+  projects' memories, without your name.
 - **Your other email addresses**: until you disconnect them in Settings or
   delete your account. Disconnecting one takes you out of the workspaces
   you are in as that address.
@@ -327,6 +343,10 @@ clauses.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts, normally right away and at
   the latest within a few hours. Archiving a session only hides it.
+- **Project memory**: each note until someone who can edit the project
+  deletes it, or the project is deleted. Marking a note stale keeps it.
+- **Retrospectives**: as long as their session, until someone who manages
+  the session deletes one or the project is deleted.
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days; their
   links stop working then, and they are deleted within the hour. People who
@@ -378,6 +398,7 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   devices and tokens, Claude connections (without their secrets) and their
   plan usage, notification settings and browsers, the workspaces you are
   in and, from those open to you, the projects you are a member of, the
+  notes you and your sessions' agents wrote in their memories, the
   sessions you started with their full transcripts and the sessions you
   follow, and your activity log. Sessions of workspaces you left stay with
   those workspaces.
