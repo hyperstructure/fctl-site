@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-20
+updated: 2026-10-21
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -165,9 +165,11 @@ account, you can ask for early access on its sign-in page.
 When email is enabled, we send invitations to app.fctl.sh and to
 workspaces, and password-reset messages; tell you when your two-factor
 sign-in is turned on, replaced, turned off or reset by an admin, when a
-recovery code signs you in, when wrong codes follow your password, and
-when a passkey is added to your account. That means giving the recipient's
-address and the message to our email provider.
+recovery code signs you in, when wrong codes follow your password, when a
+passkey or a Google account is added to your account or an email address
+connected to it, when your password is changed, set or reset, and when an
+admin makes a password reset link for you. That means giving the
+recipient's address and the message to our email provider.
 
 ### Cookies and browser storage
 
@@ -218,7 +220,7 @@ processing terms:
 | Provider | What for | What they receive |
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs | Everything app.fctl.sh stores, and request data |
-| Resend, Inc. | Sending invitations, password resets and two-factor notices, when email is enabled | The recipient's address and the message |
+| Resend, Inc. | Sending invitations, password resets, and notices about how you sign in, when email is enabled | The recipient's address and the message |
 
 **Services you connect** receive data under their own privacy policies:
 
@@ -363,8 +365,10 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   sign-in methods, passkeys and two-factor sign-in (without its secrets),
   devices and tokens, Claude connections (without their secrets) and their
   plan usage, notification settings and browsers, the workspaces you are
-  in, projects, the sessions you started with their full transcripts, the
-  sessions you follow, and your activity log.
+  in and, from those open to you, the projects you are a member of, the
+  sessions you started with their full transcripts and the sessions you
+  follow, and your activity log. Sessions of workspaces you left stay with
+  those workspaces.
 - **Correct it**: change your name and picture under Profile, your email
   addresses and their commit emails under Email addresses, the workspaces
   you are in under Workspaces, what notifies you and in which browsers
