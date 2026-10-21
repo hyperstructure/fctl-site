@@ -123,8 +123,9 @@ account, you can ask for early access on its sign-in page.
 - **Projects and sessions**: project names, descriptions and settings,
   the workspace they belong to, linked GitHub repositories, members and
   their roles, and the secrets you add (encrypted). For each session: its
-  task, status, branch and pull requests, who started it and who it is
-  shared with, and its transcript, which records everything the agent and
+  task, status, branch and pull requests (with their state, when it changed
+  and how many of their checks passed, as GitHub says), who started it and
+  who it is shared with, and its transcript, which records everything the agent and
   the people in the session said and did. Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
   contents and command output.
@@ -143,7 +144,13 @@ account, you can ask for early access on its sign-in page.
 - **GitHub**: the repositories you link through our GitHub App, and the
   branches and pull requests agents create. We never sign you in to GitHub;
   agents work with short-lived tokens limited to their project's
-  repositories, within the GitHub accounts its workspace uses.
+  repositories, within the GitHub accounts its workspace uses. GitHub also
+  tells us, through our app's webhook, when pull requests and their checks
+  change in the repositories the app is installed on. For the pull requests
+  sessions list, we then ask GitHub about them and keep their title and
+  state, when it changed, their latest commit and how many of their checks
+  passed, failed or haven't finished; the rest of what GitHub sends us we
+  don't keep.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
   turns them on): the images agents publish so that pull requests can show
@@ -231,7 +238,8 @@ processing terms:
   for your browser, so the push service learns when we send one, to which
   subscription and how big it is, but not what it says.
 - **GitHub**, for the repositories you link: agents push branches and open
-  pull requests there. If you set a commit email, the commits agents make
+  pull requests there, and we ask GitHub what became of the pull requests
+  sessions list. If you set a commit email, the commits agents make
   in the sessions you start end with a `Co-authored-by` line that has your
   name and that address, unless the project's maintainers turn that off.
   Everyone who can read the repository sees it, which is everyone for a
