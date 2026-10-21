@@ -128,7 +128,9 @@ account, you can ask for early access on its sign-in page.
   who it is shared with, and its transcript, which records everything the agent and
   the people in the session said and did. Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
-  contents and command output.
+  contents and command output. For each project you start sessions in, the
+  model and effort level you asked for when you last started one, which
+  its task boxes start on next time.
 - **Notifications**, if you turn them on: for each browser you turn them
   on in, its push subscription (the address its push service delivers to,
   and the keys notifications are encrypted with), the browser's name, such
@@ -197,9 +199,9 @@ page shows you are on the list, until you withdraw it or ask with another
 address. Your browser also keeps which workspaces you fold in the
 sidebar and the project you last started a session in, so that the app
 opens as you left it. The task you are writing on the floor stays in your
-browser too, with the project you chose for it and the files you attach to
-it, until a session starts with it or you sign out, so that leaving the
-page doesn't lose it. If you use passkeys, your browser keeps a short hash
+browser too, with the project, model and effort level you chose for it and
+the files you attach to it, until a session starts with it or you sign out,
+so that leaving the page doesn't lose it. If you use passkeys, your browser keeps a short hash
 of the name and email address the app last gave your password manager for
 them, not the name or address themselves, so that it gives them again only
 when they change. There are no analytics or advertising cookies.
@@ -302,8 +304,9 @@ clauses.
 
 - **Your account**: until you delete it in Settings, or an admin deletes it.
   That deletes its email addresses, sign-in methods, devices and tokens,
-  Claude connections and memberships, and the workspaces only you are in,
-  with their projects, sessions and transcripts. Sessions you started in
+  Claude connections and memberships, the model and effort level you last
+  asked for in each project, and the workspaces only you are in, with their
+  projects, sessions and transcripts. Sessions you started in
   workspaces that others are in stay with their projects, shown as started
   by a deleted user: your name, email addresses and picture are removed
   from them.
@@ -318,7 +321,8 @@ clauses.
   deletes them, or their last member deletes their account. Deleting a
   workspace deletes its projects, as deleting each would, its avatar, its
   invitations and its audit log. Leaving a workspace, or being removed
-  from it, deletes your membership and your roles in its projects.
+  from it, deletes your membership, your roles in its projects and the
+  model and effort level you last asked for in them.
   Invitations to workspaces expire after 30 days.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts, normally right away and at
