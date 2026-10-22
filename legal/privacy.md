@@ -141,11 +141,13 @@ account, you can ask for early access on its sign-in page.
   agent wrote it and the person who started that session, or the person
   who wrote it, who last changed it and when, and for a note marked stale,
   when, why and who marked it; and for each session, the retrospectives
-  its agent records as it finishes a piece of work: how the work ended,
-  what it worked on, the approach it took, what got in the way and what a
-  future agent should know. They are what agents and people wrote, so they
-  can mention your code and your project's tools and people. Each new
-  session's agent in the project gets its current notes.
+  its agent records as it finishes a piece of work, and updates as later
+  turns carry on with that work: how the work ended, what it worked on,
+  the approach it took, what got in the way and what a future agent
+  should know, and when the agent last updated each. They are what agents
+  and people wrote, so they can mention your code and your project's tools
+  and people. Each new session's agent in the project gets its current
+  notes.
 - **Notifications**, if you turn them on: for each browser you turn them
   on in, its push subscription (the address its push service delivers to,
   and the keys notifications are encrypted with), the browser's name, such
