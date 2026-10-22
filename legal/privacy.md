@@ -21,8 +21,9 @@ there, and this policy does not apply to it.
 - app.fctl.sh stores what it needs to run your factory: your account, the
   workspaces you are in, their projects and sessions (including the full
   transcript of what agents and people did in them, the notes agents keep
-  for each project's later agents and the retrospectives they record of
-  their work), and the machines you connect.
+  for each project's later agents, the retrospectives they record of
+  their work and review agents' reviews of pull requests), and the
+  machines you connect.
 - Agents run on machines you control, with the Claude account you connect.
   Anthropic processes your prompts and code under your agreement with
   Anthropic, not ours.
@@ -138,6 +139,13 @@ account, you can ask for early access on its sign-in page.
   contents and command output. For each project you start sessions in, the
   model and effort level you asked for when you last started one, which
   its task boxes start on next time.
+- **Review agents**, in projects whose owners turn them on: whether they
+  are on, whose Claude account they run on, the model, effort level and
+  instructions they review with, and who changed that and when; and for
+  each review, its session, the pull request it reviews (its repository,
+  number, title and link, and its author's GitHub login), the commit, how
+  it went (how many findings it posted, marked fixed or left open, or why
+  it stopped), the link to the review it posted and its check on GitHub.
 - **Project memory and retrospectives**, in projects that keep them (they
   are on unless a maintainer turns them off): the notes a project's agents
   and people write for its later agents, each with the session whose
@@ -171,8 +179,10 @@ account, you can ask for early access on its sign-in page.
   change in the repositories the app is installed on. For the pull requests
   sessions list, we then ask GitHub about them and keep their title and
   state, when it changed, their latest commit and how many of their checks
-  passed, failed or haven't finished; the rest of what GitHub sends us we
-  don't keep.
+  passed, failed or haven't finished. In projects whose review agents are
+  on, we also start a review when a pull request in their repositories
+  opens or gets a new commit, and keep what the review needs (above); the
+  rest of what GitHub sends us we don't keep.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
   turns them on): the images agents publish so that pull requests can show
@@ -268,7 +278,10 @@ processing terms:
   subscription and how big it is, but not what it says.
 - **GitHub**, for the repositories you link: agents push branches and open
   pull requests there, and we ask GitHub what became of the pull requests
-  sessions list. If you set a commit email, the commits agents make
+  sessions list. In projects whose review agents are on, our GitHub App
+  posts their reviews on the pull requests, with a check on each commit
+  and a reaction, where everyone who can read the repository sees them.
+  If you set a commit email, the commits agents make
   in the sessions you start end with a `Co-authored-by` line that has your
   name and that address, unless the project's maintainers turn that off.
   Everyone who can read the repository sees it, which is everyone for a
@@ -284,7 +297,9 @@ processing terms:
   Anthropic. If a session joins Remote Control, the conversation is also
   available in your Claude apps. A project's memory notes go into the
   prompts of its later sessions, on the Claude accounts of the people who
-  start them.
+  start them. A project's review agents run on the Claude account of the
+  owner who turned them on, or took them over: the pull requests they
+  review, whoever opened them, go there.
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
@@ -362,6 +377,9 @@ clauses.
   deletes it, or the project is deleted. Marking a note stale keeps it.
 - **Retrospectives**: as long as their session, until someone who manages
   the session deletes one or the project is deleted.
+- **Review agents**: their settings as long as the project; each review as
+  long as its session, until the project is deleted. Reviews posted on
+  GitHub stay there, where the repository's owners control them.
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days; their
   links stop working then, and they are deleted within the hour. People who
