@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-21
+updated: 2026-10-22
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -210,8 +210,11 @@ you asked with, when, and the token that withdraws the request, so that the
 page shows you are on the list, until you withdraw it or ask with another
 address. Your browser also keeps which workspaces you fold in the
 sidebar and the project you last started a session in, so that the app
-opens as you left it. The task you are writing on the floor stays in your
-browser too, with the project, model and effort level you chose for it and
+opens as you left it. If you skip the notice that asks you to update the
+fctl on your runners, your browser keeps the version you skipped, so that
+the notice stays away until a newer one. The task you are writing on the
+floor stays in your browser too, with the project, model and effort level
+you chose for it and
 the files you attach to it, until a session starts with it or you sign out,
 so that leaving the page doesn't lose it. If you use passkeys, your browser keeps a short hash
 of the name and email address the app last gave your password manager for
