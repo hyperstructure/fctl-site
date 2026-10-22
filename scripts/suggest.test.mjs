@@ -8,6 +8,7 @@ const pages = [
   "/docs/",
   "/docs/getting-started/",
   "/docs/cli/",
+  "/docs/automation/",
   "/docs/self-hosting/",
   "/docs/sandbox-images/",
   "/docs/architecture/",

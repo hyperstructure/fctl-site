@@ -117,7 +117,9 @@ account, you can ask for early access on its sign-in page.
   data.
 - **Sign-in sessions and tokens**: for each browser session, CLI sign-in and
   access token, a hash of the token, its name, the user agent and IP address
-  of the device that created it, and when it was created and last used. A
+  of the device that created it, and when it was created and last used; for
+  an access token you limit, what it may do, the workspaces and projects it
+  reaches and what the agents of its sessions may do on GitHub. A
   CLI sign-in request also records the device's IP address, approximate
   location (city and country, derived from the IP address) and user agent,
   so you can recognize it before you approve it.
@@ -125,7 +127,8 @@ account, you can ask for early access on its sign-in page.
   the workspace they belong to, linked GitHub repositories, members and
   their roles, and the secrets you add (encrypted). For each session: its
   task, status, branch and pull requests (with their state, when it changed
-  and how many of their checks passed, as GitHub says), who started it and
+  and how many of their checks passed, as GitHub says), what its agent may
+  do on GitHub, who started it, with which access token if one did, and
   who it is shared with, and its transcript, which records everything the agent and
   the people in the session said and did. Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
@@ -213,8 +216,8 @@ sidebar and the project you last started a session in, so that the app
 opens as you left it. If you skip the notice that asks you to update the
 fctl on your runners, your browser keeps the version you skipped, so that
 the notice stays away until a newer one. The task you are writing on the
-floor stays in your browser too, with the project, model and effort level
-you chose for it and
+floor stays in your browser too, with the project, model, effort level
+and GitHub access you chose for it and
 the files you attach to it, until a session starts with it or you sign out,
 so that leaving the page doesn't lose it. If you use passkeys, your browser keeps a short hash
 of the name and email address the app last gave your password manager for
