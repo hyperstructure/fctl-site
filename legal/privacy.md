@@ -213,9 +213,13 @@ you asked with, when, and the token that withdraws the request, so that the
 page shows you are on the list, until you withdraw it or ask with another
 address. Your browser also keeps which workspaces you fold in the
 sidebar and the project you last started a session in, so that the app
-opens as you left it. If you skip the notice that asks you to update the
-fctl on your runners, your browser keeps the version you skipped, so that
-the notice stays away until a newer one. The task you are writing on the
+opens as you left it. It keeps a copy of what the sidebar shows too, so
+that the sidebar shows it as soon as the app opens: the names, colors and
+avatar addresses of your workspaces and of those that invited you, your
+role in each, and the names of their projects with how many sessions each
+has going; signing out removes it. If you skip the notice that asks you
+to update the fctl on your runners, your browser keeps the version you
+skipped, so that the notice stays away until a newer one. The task you are writing on the
 floor stays in your browser too, with the project, model, effort level
 and GitHub access you chose for it and
 the files you attach to it, until a session starts with it or you sign out,
