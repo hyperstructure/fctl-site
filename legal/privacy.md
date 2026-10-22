@@ -109,20 +109,23 @@ account, you can ask for early access on its sign-in page.
   which names providers such as 1Password or Apple Passwords), whether it
   syncs between your devices, how your browser reaches it (such as
   "internal" or "usb"), its signature counter, and when it was added and
-  last used. To check a sign-in, we keep each challenge a passkey signs
-  for ten minutes.
+  last used. To check a sign-in, or that it's you before a sensitive
+  action, we keep each challenge a passkey signs for ten minutes.
 - **Google sign-in**, if you link a Google account: its Google account ID,
   email address and whether that address is verified, name (with first and
   last name) and profile picture. We get no access to your other Google
   data.
 - **Sign-in sessions and tokens**: for each browser session, CLI sign-in and
   access token, a hash of the token, its name, the user agent and IP address
-  of the device that created it, and when it was created and last used; for
-  an access token you limit, what it may do, the workspaces and projects it
-  reaches and what the agents of its sessions may do on GitHub. A
-  CLI sign-in request also records the device's IP address, approximate
-  location (city and country, derived from the IP address) and user agent,
-  so you can recognize it before you approve it.
+  of the device that created it, when it was created and last used, and
+  when it last confirmed it's you with a passkey or a code (a sign-in with
+  one counts), which sensitive actions, such as deleting a project, take
+  where app.fctl.sh asks for that; for an access token you limit, what it
+  may do, the workspaces and projects it reaches and what the agents of its
+  sessions may do on GitHub. A CLI sign-in request, and a CLI's request to
+  confirm it's you in the browser, also record the device's IP address,
+  approximate location (city and country, derived from the IP address) and
+  user agent, so you can recognize it before you approve it.
 - **Projects and sessions**: project names, descriptions and settings,
   the workspace they belong to, linked GitHub repositories, members and
   their roles, and the secrets you add (encrypted). For each session: its
