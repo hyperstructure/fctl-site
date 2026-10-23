@@ -198,7 +198,9 @@ account, you can ask for early access on its sign-in page.
   state, when it changed, their latest commit and how many of their checks
   passed, failed or haven't finished. In projects whose review agents are
   on, we also start a review when a pull request in their repositories
-  opens or gets a new commit, and keep what the review needs (above). In
+  opens or gets a new commit, if its author may write to the repository or
+  one of fctl's agents opened it (others' when someone in the project asks
+  for their review), and keep what the review needs (above). In
   projects whose follow-ups are on, a comment that mentions the agent on a
   pull request one of fctl's agents opened, by someone GitHub says may write
   to the repository (we ask it), goes to that agent's session, and so do
@@ -324,7 +326,8 @@ processing terms:
   prompts of its later sessions, on the Claude accounts of the people who
   start them. A project's review agents run on the Claude account of the
   owner who turned them on, or took them over: the pull requests they
-  review, whoever opened them, go there. When one of fctl's agents opened
+  review go there, those of people who can't write to the repository only
+  when someone in the project asks for their review. When one of fctl's agents opened
   the pull request, a review's findings also go to that agent's session,
   and so to the Claude account it runs on, as do the comments, failed
   checks and merges that the project's follow-ups pass on to it. A
@@ -337,7 +340,8 @@ processing terms:
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
 other addresses), and its admins also see who has two-factor sign-in, its
-invitations and its audit log; members of a project see its sessions,
+invitations and its audit log, with the IP addresses of what they did
+themselves, not of what others did; members of a project see its sessions,
 including transcripts and who took part, its memory and retrospectives,
 with who wrote each note, and its schedules, with who set up and changed
 each, whose Claude account it runs on and who or what started each of its
