@@ -263,7 +263,8 @@ role in each, and the names of their projects with how many sessions each
 has going; signing out removes it. If you skip the notice that asks you
 to update the fctl on your runners, your browser keeps the version you
 skipped, so that the notice stays away until a newer one. The task you are writing on the
-floor stays in your browser too, with the project, model, effort level
+floor stays in your browser too, and so does the one you are writing on
+each project's page, with the project, model, effort level
 and GitHub access you chose for it and
 the files you attach to it, until a session starts with it or you sign out,
 so that leaving the page doesn't lose it. If you use passkeys, your browser keeps a short hash
