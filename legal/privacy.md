@@ -138,8 +138,8 @@ account, you can ask for early access on its sign-in page.
   agent, such as a review agent's findings on a pull request it opened, or,
   where the project's follow-ups are on, what happened to its pull requests
   on GitHub: the comments that mention the agent, with their text, their
-  link and their author's GitHub login and picture, failed checks and
-  merges. Transcripts include the agent's
+  link and their author's GitHub login and picture, failed checks,
+  conflicts with the base branch and merges. Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
   contents and command output. For each project you start sessions in, the
   model and effort level you asked for when you last started one, which
@@ -202,8 +202,12 @@ account, you can ask for early access on its sign-in page.
   projects whose follow-ups are on, a comment that mentions the agent on a
   pull request one of fctl's agents opened, by someone GitHub says may write
   to the repository (we ask it), goes to that agent's session, and so do
-  the pull request's failed checks and its merge (above). The rest of what
-  GitHub sends us we don't keep.
+  the pull request's failed checks, its conflicts with its base branch and
+  its merge (above). GitHub says nothing when a pull request starts to
+  conflict, so after a pull request merges into a repository we ask it
+  about the others sessions list there, and keep, for a few minutes while
+  GitHub works out its answer, which ones to ask about again. The rest of
+  what GitHub sends us we don't keep.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
   turns them on): the images agents publish so that pull requests can show
@@ -327,7 +331,7 @@ processing terms:
   review, whoever opened them, go there. When one of fctl's agents opened
   the pull request, a review's findings also go to that agent's session,
   and so to the Claude account it runs on, as do the comments, failed
-  checks and merges that the project's follow-ups pass on to it. A
+  checks, conflicts and merges that the project's follow-ups pass on to it. A
   schedule's task goes to the Claude account its sessions run on: its
   owner's, who set it up or took it over, when its time comes, or else the
   account of the person who runs it, or whose access token another tool
