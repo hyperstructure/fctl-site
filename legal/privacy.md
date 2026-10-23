@@ -27,6 +27,10 @@ there, and this policy does not apply to it.
 - Agents run on machines you control, with the Claude account you connect.
   Anthropic processes your prompts and code under your agreement with
   Anthropic, not ours.
+- If your workspace connects Linear, we keep our app's access to your
+  Linear workspace (encrypted), and who you are there once you link your
+  Linear account. A ticket you delegate to fctl there goes to its agent,
+  with its comments, and into the session's transcript.
 - In projects that turn it on, agents publish screenshots for their pull
   requests on app.fctl.sh: anyone who has a screenshot's link can open it
   until it expires, after 30 days or what the project chooses between 24
@@ -212,6 +216,33 @@ account, you can ask for early access on its sign-in page.
   about the other pull requests that sessions list in that repository, and
   keep, for a few minutes while GitHub works out its answer, which of them
   to ask about again. The rest of what GitHub sends us we don't keep.
+- **Linear**, where a workspace connects a Linear workspace: its ID, name,
+  address and logo, the ID of our app's user there, our app's access and
+  refresh tokens (encrypted), when the access token expires, the
+  permissions Linear granted it and whether it still works, and who
+  installed it and when; and for each fctl workspace connected to it, who
+  connected it and the Linear user they signed in to Linear as. If you link
+  your Linear account: its Linear user ID, name, email address and avatar
+  address, the Linear workspace's ID, name and address, and when you linked
+  it. When someone delegates a ticket to fctl in Linear, or mentions fctl
+  there, Linear tells us through our app's webhook: we keep which of
+  Linear's agent sessions it is, the ticket's ID and key, the Linear user
+  who started it, the fctl session it reaches and how it stands. While it
+  waits for that person to link their Linear account, or to choose a
+  project, or after it failed to start, we keep what Linear sent with it
+  (the ticket with its title, description and comments, and the comment
+  that mentioned fctl), for an hour at most; and a reply from someone fctl
+  doesn't know yet, until they link their account, for an hour at most. A session started from a ticket keeps the ticket's key,
+  title and link, and its transcript records the ticket as its agent got
+  it: who delegated it, its title, description, state and labels, its
+  comments as Linear gives them to agents, and the replies people write to
+  the agent in Linear, with their author's name and picture. What agents
+  read and write in their project's ticket tracker (tickets and their
+  comments, in Linear or in GitHub Issues) is in their tool calls, and so
+  in the transcript too. For an hour, we keep when each session's agent
+  read, commented on, filed or changed tickets, to limit how often it
+  may. The rest of what
+  Linear sends us we don't keep.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
   turns them on): the images agents publish so that pull requests can show
@@ -226,8 +257,9 @@ account, you can ask for early access on its sign-in page.
   last online.
 - **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
-  address, and each comment fctl passes on to an agent, with its author's
-  GitHub login and its link. Each workspace has its own, for what happens
+  address, each comment fctl passes on to an agent, with its author's
+  GitHub login and its link, and each session a Linear ticket starts, with
+  the ticket's key. Each workspace has its own, for what happens
   in it, and app.fctl.sh one for the rest.
 - **Request data**: as on fctl.sh. Your IP address is also used, briefly, to
   rate-limit sign-in attempts.
@@ -243,7 +275,7 @@ recipient's address and the message to our email provider.
 
 ### Cookies and browser storage
 
-app.fctl.sh sets five cookies, all needed for it to work: `__Host-fctl`
+app.fctl.sh sets six cookies, all needed for it to work: `__Host-fctl`
 keeps you signed in for 30 days, `__Host-fctl-oauth` protects a Google
 sign-in for the 10 minutes it may take, `__Host-fctl-2fa` holds a
 sign-in that waits for your two-factor code, for 10 minutes,
@@ -251,7 +283,9 @@ sign-in that waits for your two-factor code, for 10 minutes,
 account to a workspace, for the 10 minutes it may take, and
 `__Host-fctl-github-install` holds which workspace you install our GitHub
 App from, or give it more repositories from, so that GitHub's way back
-leads there, for the hour it may take. Your theme
+leads there, for the hour it may take, and `__Host-fctl-linear` protects
+the Linear sign-in that installs our app in a Linear workspace or links
+your Linear account, for the 10 minutes it may take. Your theme
 choice is stored in your browser, and so is a copy of the app's offline
 page, which it shows when your device has no connection; neither contains
 personal data. If you ask for early access, your browser keeps the address
@@ -279,11 +313,13 @@ when they change. There are no analytics or advertising cookies.
 
 | Purpose | Legal basis (EU and UK law) |
 |---|---|
-| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude and GitHub | Contract |
+| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude, GitHub and Linear | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping your request for early access and inviting you | Contract: steps you ask for before one |
 | Signing you in to GitHub when you connect a GitHub account to a workspace, to read which of its repositories you may give the workspace and let you choose from them | Legitimate interests: keeping each workspace to the repositories its admins may grant |
 | Passing the comments people write to a project's agents on GitHub on to them, where its follow-ups are on, and asking GitHub whether their authors may write to the repository | Legitimate interests: letting the people a repository trusts direct its agents from GitHub, and nobody else |
+| Signing you in to Linear when you link your Linear account, to know who you are there | Legitimate interests: starting the sessions of the tickets you delegate to fctl as you, and nobody else |
+| Passing the tickets people delegate to fctl in Linear on to the agents of the project that takes them, with their comments and the replies people write there, and showing what the agents do in Linear | Contract, and our legitimate interest in letting the teams that connect Linear hand their tickets to agents |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -326,6 +362,17 @@ processing terms:
   us which of the account's repositories they may give the workspace. We
   use it once to read that and then revoke it; we don't sign you in to
   GitHub or keep the token.
+- **Linear**, where a workspace connects a Linear workspace: our app shows
+  what agents do in the agent sessions of the tickets delegated to it
+  (what they work on, their steps, their pull requests, their replies and
+  questions), adds the session's link to the ticket, and moves a ticket to
+  its team's first started state as its session starts, unless the
+  project turns that off. Agents read, file, comment on and change the
+  tickets of their project's team through fctl, in our app's name.
+  Everyone who can see a ticket in Linear sees what we post on it. When
+  you link your Linear account, we send you to Linear to sign in, and
+  Linear gives us a short-lived token that tells us who you are there. We
+  use it once to read that and then revoke it; we don't keep it.
 - **Anthropic**, which provides Claude. Claude Code runs on your hosts with
   the Claude account you connect, so Anthropic receives your prompts, the
   code the agent reads and the conversation, under your agreement with
@@ -343,11 +390,14 @@ processing terms:
   owner's, who set it up or took it over, when its time comes, or else the
   account of the person who runs it, or whose access token another tool
   runs it with. What is sent with a run, such as an issue's text, goes
-  there too, whoever wrote it.
+  there too, whoever wrote it. A ticket delegated to fctl in Linear goes,
+  with its comments and the replies people write to the agent there, to
+  the Claude account of the person who delegated it, whoever wrote them.
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
-other addresses), and its admins also see who has two-factor sign-in, its
+other addresses), and the Linear workspaces it works in, with who
+connected each, and its admins also see who has two-factor sign-in, its
 invitations and its audit log, with the IP addresses of what they did
 themselves, not of what others did; members of a project see its sessions,
 including transcripts and who took part, its memory and retrospectives,
@@ -395,7 +445,8 @@ clauses.
 
 - **Your account**: until you delete it in Settings, or an admin deletes it.
   That deletes its email addresses, sign-in methods, devices and tokens,
-  Claude connections and memberships, the model and effort level you last
+  Claude connections, Linear accounts and memberships, the model and
+  effort level you last
   asked for in each project, and the workspaces only you are in, with their
   projects, sessions and transcripts. Sessions you started in
   workspaces that others are in stay with their projects, shown as started
@@ -431,6 +482,17 @@ clauses.
   owners deletes them, or the project is deleted; each schedule's newest
   100 runs, as long as the schedule. Deleting a schedule leaves the
   sessions it started in their project.
+- **Linear**: our app's tokens in a Linear workspace until no fctl
+  workspace works in it any more, when we revoke them at Linear and delete
+  them, within an hour at the latest, or until Linear tells us the app was
+  uninstalled or refuses to renew them, when we delete them at once; an
+  fctl workspace's connection to it until one of its admins disconnects
+  it or the workspace is deleted; your Linear account until you unlink it
+  in Settings or delete your account; what Linear sent with a delegation
+  that waits, or a reply from someone fctl doesn't know yet, an hour at
+  most; which of Linear's agent sessions reaches
+  which session, as long as the session, and 30 days for one that started
+  none.
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days; their
   links stop working then, and they are deleted within the hour. People who
@@ -480,7 +542,8 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   we keep about you as one JSON file: your account and email addresses,
   sign-in methods, passkeys and two-factor sign-in (without its secrets),
   devices and tokens, Claude connections (without their secrets) and their
-  plan usage, notification settings and browsers, the workspaces you are
+  plan usage, your Linear accounts, notification settings and browsers,
+  the workspaces you are
   in and, from those open to you, the projects you are a member of, the
   notes you and your sessions' agents wrote in their memories, the
   sessions you started with their full transcripts and the sessions you
@@ -490,7 +553,8 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   addresses and their commit emails under Email addresses, the workspaces
   you are in under Workspaces, what notifies you and in which browsers
   under Notifications, and your sign-in methods, passkeys, two-factor
-  sign-in, Claude connections, devices and tokens in their sections.
+  sign-in, Claude connections, Linear accounts, devices and tokens in their
+  sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
@@ -510,8 +574,9 @@ also complain to your data protection authority.
 ## Security
 
 Passwords are hashed with argon2id, sign-in tokens and recovery codes are
-stored only as hashes, authenticator app secrets, Claude credentials and
-project secrets are encrypted with AES-256-GCM, and everything travels over
+stored only as hashes, authenticator app secrets, Claude credentials,
+Linear tokens and project secrets are encrypted with AES-256-GCM, and
+everything travels over
 HTTPS. Your hosts never send us a Claude token you keep on them, only
 whether they keep one. They also remove Claude tokens from what your
 sessions send us wherever a token appears as it is, but an agent can still
