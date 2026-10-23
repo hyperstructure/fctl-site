@@ -135,8 +135,11 @@ account, you can ask for early access on its sign-in page.
   do on GitHub, who started it, with which access token if one did, and
   who it is shared with, and its transcript, which records everything the agent and
   the people in the session said and did, and the messages fctl sends the
-  agent, such as a review agent's findings on a pull request it opened.
-  Transcripts include the agent's
+  agent, such as a review agent's findings on a pull request it opened, or,
+  where the project's follow-ups are on, what happened to its pull requests
+  on GitHub: the comments that mention the agent, with their text, their
+  link and their author's GitHub login and picture, failed checks and
+  merges. Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
   contents and command output. For each project you start sessions in, the
   model and effort level you asked for when you last started one, which
@@ -178,13 +181,18 @@ account, you can ask for early access on its sign-in page.
   agents work with short-lived tokens limited to their project's
   repositories, within the GitHub accounts its workspace uses. GitHub also
   tells us, through our app's webhook, when pull requests and their checks
-  change in the repositories the app is installed on. For the pull requests
+  change in the repositories the app is installed on, and when people
+  comment on pull requests there or review them. For the pull requests
   sessions list, we then ask GitHub about them and keep their title and
   state, when it changed, their latest commit and how many of their checks
   passed, failed or haven't finished. In projects whose review agents are
   on, we also start a review when a pull request in their repositories
-  opens or gets a new commit, and keep what the review needs (above); the
-  rest of what GitHub sends us we don't keep.
+  opens or gets a new commit, and keep what the review needs (above). In
+  projects whose follow-ups are on, a comment that mentions the agent on a
+  pull request one of fctl's agents opened, by someone GitHub says may write
+  to the repository (we ask it), goes to that agent's session, and so do
+  the pull request's failed checks and its merge (above). The rest of what
+  GitHub sends us we don't keep.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
   turns them on): the images agents publish so that pull requests can show
@@ -198,8 +206,9 @@ account, you can ask for early access on its sign-in page.
   last online.
 - **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
-  address. Each workspace has its own, for what happens in it, and
-  app.fctl.sh one for the rest.
+  address, and each comment fctl passes on to an agent, with its author's
+  GitHub login and its link. Each workspace has its own, for what happens
+  in it, and app.fctl.sh one for the rest.
 - **Request data**: as on fctl.sh. Your IP address is also used, briefly, to
   rate-limit sign-in attempts.
 
@@ -253,6 +262,7 @@ when they change. There are no analytics or advertising cookies.
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping your request for early access and inviting you | Contract: steps you ask for before one |
 | Signing you in to GitHub when you connect a GitHub account to a workspace, to read which of its repositories you may give the workspace and let you choose from them | Legitimate interests: keeping each workspace to the repositories its admins may grant |
+| Passing the comments people write to a project's agents on GitHub on to them, where its follow-ups are on, and asking GitHub whether their authors may write to the repository | Legitimate interests: letting the people a repository trusts direct its agents from GitHub, and nobody else |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -282,7 +292,9 @@ processing terms:
   pull requests there, and we ask GitHub what became of the pull requests
   sessions list. In projects whose review agents are on, our GitHub App
   posts their reviews on the pull requests, with a check on each commit
-  and a reaction, where everyone who can read the repository sees them.
+  and a reaction, where everyone who can read the repository sees them. In
+  projects whose follow-ups are on, it reacts to each comment it passes on
+  to an agent, which everyone who can read the repository sees too.
   If you set a commit email, the commits agents make
   in the sessions you start end with a `Co-authored-by` line that has your
   name and that address, unless the project's maintainers turn that off.
@@ -303,7 +315,8 @@ processing terms:
   owner who turned them on, or took them over: the pull requests they
   review, whoever opened them, go there. When one of fctl's agents opened
   the pull request, a review's findings also go to that agent's session,
-  and so to the Claude account it runs on.
+  and so to the Claude account it runs on, as do the comments, failed
+  checks and merges that the project's follow-ups pass on to it.
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
