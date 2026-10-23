@@ -186,7 +186,9 @@ account, you can ask for early access on its sign-in page.
   (encrypted), with the Claude account's email address and subscription
   type, and how much of the plan's usage limits is used, as your sessions
   last reported it: for each limit, the share used, when it resets and when
-  it was reported.
+  it was reported. If you keep your Claude token on your own hosts
+  instead, you don't give it to us: we keep only that you connected it
+  that way, and that usage.
 - **GitHub**: the repositories you link through our GitHub App, and the
   branches and pull requests agents create. We never sign you in to GitHub;
   agents work with short-lived tokens limited to their project's
@@ -219,7 +221,8 @@ account, you can ask for early access on its sign-in page.
 - **Hosts**: for each machine you register, its name and hostname, its
   operating system, architecture, processors and memory, its fctl version,
   the sandbox image it uses and the images and repositories it allows, the
-  workspaces it runs sessions for, a hash of its token, and when it was
+  workspaces it runs sessions for, a hash of its token, whether it keeps
+  your Claude token and since when (never the token), and when it was
   last online.
 - **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
@@ -509,7 +512,10 @@ also complain to your data protection authority.
 Passwords are hashed with argon2id, sign-in tokens and recovery codes are
 stored only as hashes, authenticator app secrets, Claude credentials and
 project secrets are encrypted with AES-256-GCM, and everything travels over
-HTTPS. For passkeys we keep only public keys. Two-factor sign-in, which you
+HTTPS. Your hosts never send us a Claude token you keep on them, only
+whether they keep one. They also remove Claude tokens from what your
+sessions send us wherever a token appears as it is, but an agent can still
+be made to pass one on in another form, as it can anything it reads. For passkeys we keep only public keys. Two-factor sign-in, which you
 can turn on in Settings, keeps a password alone from signing anyone in. [Security](/docs/security/) has the details.
 No system is perfectly secure; if a breach affects your data, we will tell
 you as the law requires.
