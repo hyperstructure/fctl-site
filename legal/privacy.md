@@ -204,10 +204,10 @@ account, you can ask for early access on its sign-in page.
   to the repository (we ask it), goes to that agent's session, and so do
   the pull request's failed checks, its conflicts with its base branch and
   its merge (above). GitHub says nothing when a pull request starts to
-  conflict, so after a pull request merges into a repository we ask it
-  about the others sessions list there, and keep, for a few minutes while
-  GitHub works out its answer, which ones to ask about again. The rest of
-  what GitHub sends us we don't keep.
+  conflict, so after a pull request merges into a repository we ask GitHub
+  about the other pull requests that sessions list in that repository, and
+  keep, for a few minutes while GitHub works out its answer, which of them
+  to ask about again. The rest of what GitHub sends us we don't keep.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
   turns them on): the images agents publish so that pull requests can show
