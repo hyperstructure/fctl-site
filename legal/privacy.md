@@ -22,8 +22,8 @@ there, and this policy does not apply to it.
   workspaces you are in, their projects and sessions (including the full
   transcript of what agents and people did in them, the notes agents keep
   for each project's later agents, the retrospectives they record of
-  their work and review agents' reviews of pull requests), and the
-  machines you connect.
+  their work, review agents' reviews of pull requests and the schedules
+  that start sessions on their own), and the machines you connect.
 - Agents run on machines you control, with the Claude account you connect.
   Anthropic processes your prompts and code under your agreement with
   Anthropic, not ours.
@@ -151,6 +151,17 @@ account, you can ask for early access on its sign-in page.
   number, title and link, and its author's GitHub login), the commit, how
   it went (how many findings it posted, marked fixed or left open, or why
   it stopped), the link to the review it posted and its check on GitHub.
+- **Schedules**: for each of a project's schedules, its name, the task its
+  sessions start with, when it runs (a cron expression and a time zone, a
+  time to run once, or only when asked), the model, effort level, branch
+  and GitHub access its sessions start with, whose Claude account it runs
+  on, who set it up and last changed it and when, and why it is paused
+  when fctl paused it; and for each of its runs, when it was due and
+  started, what started it (its time, a person, or another tool with
+  someone's access token, and whose), and the session it started or why
+  it started none. What a person or a tool sends with a run, such as an
+  issue's text, goes into the first message of the run's session, and so
+  into its transcript.
 - **Project memory and retrospectives**, in projects that keep them (they
   are on unless a maintainer turns them off): the notes a project's agents
   and people write for its later agents, each with the session whose
@@ -316,15 +327,21 @@ processing terms:
   review, whoever opened them, go there. When one of fctl's agents opened
   the pull request, a review's findings also go to that agent's session,
   and so to the Claude account it runs on, as do the comments, failed
-  checks and merges that the project's follow-ups pass on to it.
+  checks and merges that the project's follow-ups pass on to it. A
+  schedule's task goes to the Claude account its sessions run on: its
+  owner's, who set it up or took it over, when its time comes, or else the
+  account of the person who runs it, or whose access token another tool
+  runs it with. What is sent with a run, such as an issue's text, goes
+  there too, whoever wrote it.
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
 other addresses), and its admins also see who has two-factor sign-in, its
 invitations and its audit log; members of a project see its sessions,
-including transcripts and who took part, and its memory and
-retrospectives, with who wrote each note; and people you share a session
-with see that session. Admins of app.fctl.sh can see its users with all
+including transcripts and who took part, its memory and retrospectives,
+with who wrote each note, and its schedules, with who set up and changed
+each, whose Claude account it runs on and who or what started each of its
+runs; and people you share a session with see that session. Admins of app.fctl.sh can see its users with all
 their addresses and how many workspaces they are in, the addresses that
 asked for early access with when they asked and who invited them, each
 workspace's name, avatar, primary admin and size, the GitHub accounts
@@ -372,7 +389,8 @@ clauses.
   workspaces that others are in stay with their projects, shown as started
   by a deleted user: your name, email addresses and picture are removed
   from them. So do the notes you, or your sessions' agents, wrote in their
-  projects' memories, without your name.
+  projects' memories, without your name, and the schedules you set up or
+  took over, which stop running on your Claude account.
 - **Your other email addresses**: until you disconnect them in Settings or
   delete your account. Disconnecting one takes you out of the workspaces
   you are in as that address.
@@ -397,6 +415,10 @@ clauses.
 - **Review agents**: their settings as long as the project; each review as
   long as its session, until the project is deleted. Reviews posted on
   GitHub stay there, where the repository's owners control them.
+- **Schedules**: until their owner or one of the project's maintainers or
+  owners deletes them, or the project is deleted; each schedule's newest
+  100 runs, as long as the schedule. Deleting a schedule leaves the
+  sessions it started in their project.
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days; their
   links stop working then, and they are deleted within the hour. People who
