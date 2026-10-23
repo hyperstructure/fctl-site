@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-22
+updated: 2026-10-23
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -134,7 +134,9 @@ account, you can ask for early access on its sign-in page.
   and how many of their checks passed, as GitHub says), what its agent may
   do on GitHub, who started it, with which access token if one did, and
   who it is shared with, and its transcript, which records everything the agent and
-  the people in the session said and did. Transcripts include the agent's
+  the people in the session said and did, and the messages fctl sends the
+  agent, such as a review agent's findings on a pull request it opened.
+  Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
   contents and command output. For each project you start sessions in, the
   model and effort level you asked for when you last started one, which
@@ -299,7 +301,9 @@ processing terms:
   prompts of its later sessions, on the Claude accounts of the people who
   start them. A project's review agents run on the Claude account of the
   owner who turned them on, or took them over: the pull requests they
-  review, whoever opened them, go there.
+  review, whoever opened them, go there. When one of fctl's agents opened
+  the pull request, a review's findings also go to that agent's session,
+  and so to the Claude account it runs on.
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
