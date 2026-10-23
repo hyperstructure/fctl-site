@@ -314,15 +314,20 @@ processing terms:
   owner who turned them on, or took them over: the pull requests they
   review, whoever opened them, go there. When one of fctl's agents opened
   the pull request, a review's findings also go to that agent's session,
-  and so to the Claude account it runs on.
+  and so to the Claude account it runs on. A schedule's task goes to the
+  Claude account its sessions run on: its owner's, who set it up or took
+  it over, when its time comes, or else the account of the person who runs
+  it, or whose access token another tool runs it with. What is sent with a
+  run, such as an issue's text, goes there too, whoever wrote it.
 
 **People you work with** see what you share with them: the members of a
 workspace see its members, with the address each is in it as (not your
 other addresses), and its admins also see who has two-factor sign-in, its
 invitations and its audit log; members of a project see its sessions,
-including transcripts and who took part, and its memory and
-retrospectives, with who wrote each note; and people you share a session
-with see that session. Admins of app.fctl.sh can see its users with all
+including transcripts and who took part, its memory and retrospectives,
+with who wrote each note, and its schedules, with who set up and changed
+each, whose Claude account it runs on and who or what started each of its
+runs; and people you share a session with see that session. Admins of app.fctl.sh can see its users with all
 their addresses and how many workspaces they are in, the addresses that
 asked for early access with when they asked and who invited them, each
 workspace's name, avatar, primary admin and size, the GitHub accounts
@@ -370,8 +375,8 @@ clauses.
   workspaces that others are in stay with their projects, shown as started
   by a deleted user: your name, email addresses and picture are removed
   from them. So do the notes you, or your sessions' agents, wrote in their
-  projects' memories, without your name, and the schedules you set up,
-  which stop running on your Claude account.
+  projects' memories, without your name, and the schedules you set up or
+  took over, which stop running on your Claude account.
 - **Your other email addresses**: until you disconnect them in Settings or
   delete your account. Disconnecting one takes you out of the workspaces
   you are in as that address.
@@ -398,8 +403,8 @@ clauses.
   GitHub stay there, where the repository's owners control them.
 - **Schedules**: until their owner or one of the project's maintainers or
   owners deletes them, or the project is deleted; each schedule's newest
-  100 runs. The sessions a schedule started stay with their project when
-  it is deleted.
+  100 runs, as long as the schedule. Deleting a schedule leaves the
+  sessions it started in their project.
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days; their
   links stop working then, and they are deleted within the hour. People who
