@@ -57,7 +57,8 @@ are kept for a few days.
 fctl.sh sets no cookies, stores nothing in your browser and loads nothing
 from other websites.
 
-The install script and `fctl host` download releases from fctl.sh, and
+The install script and `fctl host` download releases from fctl.sh (a host
+downloads each new one by itself, unless you turn that off), and
 `fctl host` pulls the default sandbox image from GitHub's container
 registry, ghcr.io (`fctl host image build` downloads the image's sources
 from GitHub instead). It also pulls the images projects choose, from their
@@ -219,11 +220,11 @@ account, you can ask for early access on its sign-in page.
   the session they come from and when they expire. They show whatever the
   agent captured, which can be your app, your code or your data.
 - **Hosts**: for each machine you register, its name and hostname, its
-  operating system, architecture, processors and memory, its fctl version,
-  the sandbox image it uses and the images and repositories it allows, the
-  workspaces it runs sessions for, a hash of its token, whether it keeps
-  your Claude token and since when (never the token), and when it was
-  last online.
+  operating system, architecture, processors and memory, its fctl version
+  and whether it updates fctl by itself, the sandbox image it uses and the
+  images and repositories it allows, the workspaces it runs sessions for, a
+  hash of its token, whether it keeps your Claude token and since when
+  (never the token), and when it was last online.
 - **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
   address, and each comment fctl passes on to an agent, with its author's
