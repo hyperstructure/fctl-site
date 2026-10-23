@@ -229,9 +229,10 @@ account, you can ask for early access on its sign-in page.
   Linear's agent sessions it is, the ticket's ID and key, the Linear user
   who started it, the fctl session it reaches and how it stands. While it
   waits for that person to link their Linear account, or to choose a
-  project, we keep what Linear sent with it (the ticket with its title,
-  description and comments, and the comment that mentioned fctl), for an
-  hour at most. A session started from a ticket keeps the ticket's key,
+  project, or after it failed to start, we keep what Linear sent with it
+  (the ticket with its title, description and comments, and the comment
+  that mentioned fctl), for an hour at most; and a reply from someone fctl
+  doesn't know yet, until they link their account, for an hour at most. A session started from a ticket keeps the ticket's key,
   title and link, and its transcript records the ticket as its agent got
   it: who delegated it, its title, description, state and labels, its
   comments as Linear gives them to agents, and the replies people write to
@@ -239,7 +240,8 @@ account, you can ask for early access on its sign-in page.
   read and write in their project's ticket tracker (tickets and their
   comments, in Linear or in GitHub Issues) is in their tool calls, and so
   in the transcript too. For an hour, we keep when each session's agent
-  commented or filed a ticket, to limit how many it may. The rest of what
+  read, commented on, filed or changed tickets, to limit how often it
+  may. The rest of what
   Linear sends us we don't keep.
 - **Published screenshots**, in projects whose maintainers turn them on
   (they are off until an admin of app.fctl.sh allows them and a project
@@ -487,7 +489,8 @@ clauses.
   fctl workspace's connection to it until one of its admins disconnects
   it or the workspace is deleted; your Linear account until you unlink it
   in Settings or delete your account; what Linear sent with a delegation
-  that waits, an hour at most; which of Linear's agent sessions reaches
+  that waits, or a reply from someone fctl doesn't know yet, an hour at
+  most; which of Linear's agent sessions reaches
   which session, as long as the session, and 30 days for one that started
   none.
 - **Published screenshots**: until they expire, 30 days after they are
