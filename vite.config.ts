@@ -7,10 +7,14 @@ import { defineConfig, type Plugin } from "vite";
 const page = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 const require = createRequire(import.meta.url);
 
-/** The favicon (also the mark in the nav) and the home screen icon, and where they are in @hyperstructure/design. */
+/**
+ * The favicon (also the mark in the nav), the home screen icon and the link preview image
+ * (og:image), and where they are in @hyperstructure/design.
+ */
 const BRAND_ASSETS: Record<string, string> = {
   "favicon.svg": "assets/favicon.svg",
   "apple-touch-icon.png": "assets/icons/apple-touch-icon.png",
+  "icon-512.png": "assets/icons/icon-512.png",
 };
 
 /** Serves and emits the favicon and icons from @hyperstructure/design (one source for the mark). */
