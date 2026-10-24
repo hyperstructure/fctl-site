@@ -5,10 +5,10 @@
   "description": "https://fctl.sh: the landing page, fctl's docs, the legal pages, the installer and release downloads",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/docs.mjs && node scripts/legal.mjs",
+    "build": "vite build && node scripts/docs.mjs && node scripts/legal.mjs && node scripts/sitemap.mjs",
     "check": "biome check . && tsc --noEmit && tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p worker",
     "fix": "biome check --write .",
-    "test": "node --test scripts/commits.test.mjs scripts/pages.test.mjs scripts/suggest.test.mjs scripts/worker.test.mjs",
+    "test": "node --test scripts/commits.test.mjs scripts/pages.test.mjs scripts/sitemap.test.mjs scripts/suggest.test.mjs scripts/worker.test.mjs",
     "deploy": "wrangler deploy"
   },
   "dependencies": {

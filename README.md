@@ -11,6 +11,7 @@ One Cloudflare Worker with static assets.
 | `scripts/pages.mjs` | Which file each docs page is, and the pages as Markdown for agents: `/docs/<page>.md`, fctl's `docs/llms.txt` at `/llms.txt`, and both in `/llms-full.txt` |
 | `legal.html`, `legal/*.md`, `scripts/legal.mjs` | The privacy policy and terms of service, at `/privacy` and `/terms` |
 | `fctl-docs.ref` | Which fctl commit the docs come from (`main`, or a commit fctl's CI pins) |
+| `scripts/sitemap.mjs` | `/sitemap.xml`, of every page the build writes (and `/llms.txt`); `public/robots.txt` names it |
 | `public/install.sh` | `curl -fsSL https://fctl.sh/install \| sh` |
 | `worker/index.ts` | `/install`, `/releases/*` (from the `fctl-releases` KV namespace), the www redirect, and the 5xx page when answering fails |
 | `404.html`, `500.html`, `src/error.ts` | Not found and something broke: the status code in `@hyperstructure/design`'s stream, with "Did you mean …?" and "Try again" |
