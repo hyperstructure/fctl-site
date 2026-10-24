@@ -20,11 +20,17 @@ npx wrangler dev                     # the Worker with the built assets (after a
   `@hyperstructure/design` (pinned to a tag in package.json). Change them
   there, tag a release, then bump the tag here. The `brand-assets` plugin in
   `vite.config.ts` serves the package's `favicon.svg` (also the mark in each
-  page's nav) and `apple-touch-icon.png`; don't copy them into the pages.
+  page's nav), `apple-touch-icon.png` and `icon-512.png` (the link preview
+  image, `og:image`); don't copy them into the pages.
 - **Docs**: the Markdown lives in hyperstructure/fctl under `docs/`. Edit it
-  there. `scripts/docs.mjs` maps files to URLs (`PAGES`), rewrites links
-  between docs, and links other repository files to GitHub. Adding a doc
-  page means adding it to `PAGES`.
+  there. `scripts/pages.mjs` maps files to URLs (`PAGES`), rewrites links
+  between docs, and links other repository files to GitHub;
+  `scripts/docs.mjs` renders the pages. Adding a doc page means adding it
+  to `PAGES`, once fctl's CI has pinned a commit that has it.
+- **For agents**: each docs page is also at `/docs/<slug>.md` (the overview
+  at `/docs/index.md`), as Markdown whose links are absolute; fctl's
+  `docs/llms.txt` is at `/llms.txt`, and `/llms-full.txt` is it followed by
+  every page (https://llmstxt.org). Edit `llms.txt` in fctl too.
 - **Legal pages**: `legal/privacy.md` and `legal/terms.md`, rendered by
   `scripts/legal.mjs` to `/privacy` and `/terms` (Google sign-in's consent
   screen links them). They state what app.fctl.sh stores, who receives it

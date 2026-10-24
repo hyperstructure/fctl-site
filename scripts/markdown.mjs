@@ -7,10 +7,12 @@ import { createHighlighter } from "shiki";
 
 const LANGS = ["sh", "bash", "toml", "json", "rust", "ts", "tsx", "sql", "yaml", "text"];
 
+/** A heading's id: as GitHub makes it for these headings, so that links to them work on both. */
 export const slugify = (s) =>
   s
     .toLowerCase()
     .replace(/<[^>]+>/g, "")
+    .replace(/&#39;|&apos;|['’]/g, "")
     .replace(/&[a-z]+;/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");

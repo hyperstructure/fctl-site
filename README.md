@@ -8,6 +8,7 @@ One Cloudflare Worker with static assets.
 |---|---|
 | `index.html`, `src/main.ts`, `src/site.css` | The landing page (the foundry scene as the hero) |
 | `docs.html`, `scripts/docs.mjs` | fctl's `docs/*.md`, rendered at build time with Shiki (`scripts/markdown.mjs`) |
+| `scripts/pages.mjs` | Which file each docs page is, and the pages as Markdown for agents: `/docs/<page>.md`, fctl's `docs/llms.txt` at `/llms.txt`, and both in `/llms-full.txt` |
 | `legal.html`, `legal/*.md`, `scripts/legal.mjs` | The privacy policy and terms of service, at `/privacy` and `/terms` |
 | `fctl-docs.ref` | Which fctl commit the docs come from (`main`, or a commit fctl's CI pins) |
 | `scripts/sitemap.mjs` | `/sitemap.xml`, of every page the build writes (and `/llms.txt`); `public/robots.txt` names it |

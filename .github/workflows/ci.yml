@@ -67,4 +67,6 @@ jobs:
           curl -fsS https://fctl.sh/ | grep -q "<title>fctl"
           curl -fsS https://fctl.sh/install | head -1 | grep -q "^#!/bin/sh"
           curl -fsS -o /dev/null https://fctl.sh/docs/getting-started/
+          curl -fsS -o /dev/null https://fctl.sh/llms.txt
+          curl -fsS -o /dev/null https://fctl.sh/docs/getting-started.md
           test "$(curl -s -o /dev/null -w '%{http_code}' https://www.fctl.sh/)" = 301
