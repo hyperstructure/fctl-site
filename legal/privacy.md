@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-23
+updated: 2026-10-24
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -151,7 +151,8 @@ account, you can ask for early access on its sign-in page.
   its task boxes start on next time.
 - **Review agents**, in projects whose owners turn them on: whether they
   are on, whose Claude account they run on, the model, effort level and
-  instructions they review with, and who changed that and when; and for
+  instructions they review with, the GitHub Apps whose pull requests they
+  review without being asked, and who changed that and when; and for
   each review, its session, the pull request it reviews (its repository,
   number, title and link, and its author's GitHub login), the commit, how
   it went (how many findings it posted, marked fixed or left open, or why
@@ -205,9 +206,13 @@ account, you can ask for early access on its sign-in page.
   state, when it changed, their latest commit and how many of their checks
   passed, failed or haven't finished. In projects whose review agents are
   on, we also start a review when a pull request in their repositories
-  opens or gets a new commit, if its author may write to the repository or
-  one of fctl's agents opened it (others' when someone in the project asks
-  for their review), and keep what the review needs (above). In
+  opens or gets a new commit, if its author may write to the repository,
+  or one of fctl's agents or of the GitHub Apps the project's owners chose
+  opened it (others' when someone in the project asks for their review),
+  and keep what the review needs (above). While the owners choose those
+  apps, we ask GitHub which apps opened the newest pull requests in the
+  project's repositories, and about the apps they name, and keep none of
+  it. In
   projects whose follow-ups are on, a comment that mentions the agent on a
   pull request one of fctl's agents opened, by someone GitHub says may write
   to the repository (we ask it), goes to that agent's session, and so do
@@ -382,8 +387,9 @@ processing terms:
   prompts of its later sessions, on the Claude accounts of the people who
   start them. A project's review agents run on the Claude account of the
   owner who turned them on, or took them over: the pull requests they
-  review go there, those of people who can't write to the repository only
-  when someone in the project asks for their review. When one of fctl's agents opened
+  review go there, those of people who can't write to the repository, and
+  of apps the project's owners didn't choose, only when someone in the
+  project asks for their review. When one of fctl's agents opened
   the pull request, a review's findings also go to that agent's session,
   and so to the Claude account it runs on, as do the comments, failed
   checks, conflicts and merges that the project's follow-ups pass on to it. A
