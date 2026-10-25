@@ -633,12 +633,14 @@ pre .prompt {
   color: var(--c-accent);
 }
 
-/* The landing and feature pages' footer: where everything is, over the
-   wordmark melting into the end of the page (src/footer.ts). */
+/* The landing and feature pages' footer: where everything is, set in mono
+   and wider than the page, over the wordmark melting into the end of the
+   page (src/footer.ts). Its links never wrap. */
 .site-foot {
   position: relative;
   margin-top: clamp(40px, 6vw, 88px);
   overflow: hidden;
+  font-family: var(--font-mono);
 }
 /* A hairline that fades out at the sides, where the page gives way. */
 .site-foot::before {
@@ -658,25 +660,25 @@ pre .prompt {
 }
 .foot-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
-  gap: 40px clamp(32px, 6vw, 88px);
-  max-width: 1200px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 48px clamp(48px, 7vw, 120px);
+  max-width: 1480px;
   margin: 0 auto;
   padding: clamp(48px, 6vw, 80px) clamp(16px, 5vw, 64px) 8px;
 }
 .foot-brand .brand {
+  font-family: var(--font-sans);
   color: var(--c-ink);
 }
 .foot-brand p {
   margin-top: 16px;
-  max-width: 36ch;
-  font-size: 14.5px;
-  line-height: 1.6;
+  max-width: 46ch;
+  font-size: 13px;
+  line-height: 1.7;
   color: var(--c-ink-3);
 }
 .foot-brand .foot-made {
   max-width: none;
-  font-family: var(--font-mono);
   font-size: 11.5px;
   letter-spacing: 0.04em;
   color: var(--c-ink-4);
@@ -684,13 +686,15 @@ pre .prompt {
 .foot-made a {
   color: var(--c-ink-2);
 }
+/* A row of columns that wraps rather than run past the edge, should the
+   breakpoints below ever fall short. */
 .foot-nav {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
-  gap: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px clamp(40px, 4.5vw, 72px);
 }
 .foot-col h2 {
-  font-family: var(--font-mono);
   font-size: 11.5px;
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -703,15 +707,16 @@ pre .prompt {
 }
 .foot-features ul {
   display: block;
-  columns: 2;
-  column-gap: 24px;
+  columns: 3;
+  column-gap: clamp(28px, 3vw, 44px);
 }
 .foot-features li {
   break-inside: avoid;
   margin-bottom: 10px;
 }
 .foot-col a {
-  font-size: 14px;
+  font-size: 13px;
+  white-space: nowrap;
   color: var(--c-ink-2);
   transition: color 160ms var(--ease-out);
 }
@@ -755,17 +760,32 @@ pre .prompt {
 .foot-mark.gl span {
   visibility: hidden;
 }
-@media (max-width: 900px) {
+/* Narrower: the description above the links (before the made-by line would
+   wrap), then fewer columns of them, each switch some 20px before the links
+   would run out of room. */
+@media (max-width: 1280px) {
   .foot-inner {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-@media (max-width: 620px) {
+@media (max-width: 840px) {
+  .foot-features ul {
+    columns: 2;
+  }
+}
+/* Phones: the features above, Docs and Project below, in the features' two
+   columns. */
+@media (max-width: 680px) {
   .foot-nav {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
   }
   .foot-features {
     grid-column: 1 / -1;
+  }
+  .foot-features ul {
+    column-gap: 32px;
   }
 }
 
