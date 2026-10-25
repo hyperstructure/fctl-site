@@ -473,6 +473,38 @@
   transform: translateX(3px);
 }
 
+/* ───────────────────────────── the band ───────────────────────────── */
+
+/* A divider the width of the window: dots that swell and shrink as a slow
+   field drifts through them (src/band.ts). Without WebGL, a still pattern
+   of the small ones, fading out at the ends. */
+.band {
+  position: relative;
+  height: clamp(140px, 14vw, 230px);
+  margin-top: clamp(72px, 10vw, 130px);
+  background-image: radial-gradient(circle at center, var(--c-ink-4) 1.5px, transparent 2px);
+  background-size: 14px 14px;
+  background-position: center;
+  mask-image:
+    linear-gradient(to right, transparent, #000 12%, #000 88%, transparent),
+    linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+  mask-composite: intersect;
+}
+.band.gl {
+  background: none;
+  mask-image: none;
+}
+.band-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* The section after it starts closer: the band is the space between. */
+.band + .features {
+  padding-top: clamp(56px, 7vw, 100px);
+}
+
 /* The six cards below: their titles lead to the pages that tell more. */
 .features h3 a {
   color: inherit;
