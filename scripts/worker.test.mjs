@@ -1,4 +1,5 @@
-// The Worker's answers when something fails (worker/index.ts).
+// The Worker's answers (worker/index.ts): redirects to a page's one address,
+// and what it answers when something fails.
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import worker from "../worker/index.ts";
@@ -64,4 +65,49 @@ test("without the 5xx page, text", async () => {
 test("a malformed escape in a release address is not found, not an error", async () => {
   const res = await get("/releases/v1.0.0/%E0%A4%A", { accept: "*/*" });
   assert.equal(res.status, 404);
+});
+
+/** Assets that redirect /docs to /docs/, as html_handling "auto-trailing-slash" does, and serve the rest. */
+const site = {
+  ASSETS: {
+    async fetch(input) {
+      const url = new URL(input instanceof Request ? input.url : input);
+      if (url.pathname === "/docs") {
+        return new Response(null, {
+          status: 307,
+          headers: { location: "/docs/", "strict-transport-security": "max-age=63072000" },
+        });
+      }
+      if (url.pathname === "/install.sh") return new Response("#!/bin/sh\n");
+      return new Response(`page ${url.pathname}`, { headers: { "content-type": "text/html" } });
+    },
+  },
+  RELEASES: { get: async () => null },
+};
+const at = (url) => worker.fetch(new Request(url), site);
+
+test("plain HTTP redirects to HTTPS, permanently, keeping the path and query", async () => {
+  for (const path of ["/", "/docs/getting-started/?from=x", "/install", "/releases/latest"]) {
+    const res = await at(`http://fctl.sh${path}`);
+    assert.equal(res.status, 301, path);
+    assert.equal(res.headers.get("location"), `https://fctl.sh${path}`, path);
+  }
+});
+
+test("www.fctl.sh redirects to https://fctl.sh in one step, from HTTP too", async () => {
+  for (const origin of ["https://www.fctl.sh", "http://www.fctl.sh"]) {
+    const res = await at(`${origin}/features/`);
+    assert.equal(res.status, 301, origin);
+    assert.equal(res.headers.get("location"), "https://fctl.sh/features/", origin);
+  }
+});
+
+test("the assets' redirects to a page's address are permanent, and kept for a day", async () => {
+  const res = await at("https://fctl.sh/docs");
+  assert.equal(res.status, 301);
+  assert.equal(res.headers.get("location"), "/docs/");
+  assert.equal(res.headers.get("cache-control"), "public, max-age=86400");
+  assert.equal(res.headers.get("strict-transport-security"), "max-age=63072000");
+  const page = await at("https://fctl.sh/docs/");
+  assert.equal(page.status, 200);
 });

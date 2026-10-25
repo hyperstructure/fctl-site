@@ -4,6 +4,11 @@
 //   /releases/latest      the latest version, as text ("0.1.0")
 //   /releases/v<x.y.z>/*  release archives and checksums, from the RELEASES KV namespace
 //
+// Everything has one address, https://fctl.sh/<path>: requests over plain
+// HTTP, the installer's and releases' too, and to www.fctl.sh redirect there,
+// permanently, and so do the assets' redirects to a page's own form of its
+// path (/docs → /docs/, /privacy/ → /privacy).
+//
 // Unknown pages get 404.html (the assets' not_found_handling). When answering
 // fails, a page request gets 500.html with status 500, anything else a line
 // of text, instead of Cloudflare's error page.
@@ -89,10 +94,23 @@ async function failure(req: Request, env: Env): Promise<Response> {
   });
 }
 
+/**
+ * The assets' redirects to a page's own form of its path, which Cloudflare sends as 307s, as
+ * permanent ones, so that search engines move what they know to the page's address. Browsers
+ * keep them for a day, not for good, in case html_handling ever changes which form is the page's.
+ */
+function permanent(res: Response): Response {
+  if (res.status !== 307) return res;
+  const headers = new Headers(res.headers);
+  headers.set("cache-control", "public, max-age=86400");
+  return new Response(null, { status: 301, headers });
+}
+
 async function handle(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
-  if (url.hostname.startsWith("www.")) {
-    url.hostname = url.hostname.slice(4);
+  if (url.protocol === "http:" || url.hostname.startsWith("www.")) {
+    url.protocol = "https:";
+    url.hostname = url.hostname.replace(/^www\./, "");
     return Response.redirect(url.toString(), 301);
   }
   if (url.pathname === "/install" || url.pathname === "/install.sh") {
@@ -107,7 +125,7 @@ async function handle(req: Request, env: Env): Promise<Response> {
     });
   }
   if (url.pathname.startsWith("/releases/")) return release(req, env, url.pathname);
-  return env.ASSETS.fetch(req);
+  return permanent(await env.ASSETS.fetch(req));
 }
 
 export default {

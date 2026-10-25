@@ -70,3 +70,4 @@ jobs:
           curl -fsS -o /dev/null https://fctl.sh/llms.txt
           curl -fsS -o /dev/null https://fctl.sh/docs/getting-started.md
           test "$(curl -s -o /dev/null -w '%{http_code}' https://www.fctl.sh/)" = 301
+          test "$(curl -s -o /dev/null -w '%{redirect_url}' http://fctl.sh/docs/)" = https://fctl.sh/docs/
