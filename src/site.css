@@ -475,6 +475,11 @@
 
 /* ───────────────────────────── sections ───────────────────────────── */
 
+/* Scenes that run the window's width (the landing page's map) end at its
+   edge, scrollbar or not, rather than scroll the page sideways. */
+main {
+  overflow-x: clip;
+}
 main > section:not(.hero) {
   max-width: 1200px;
   margin: 0 auto;

@@ -61,11 +61,22 @@ vec2 anchor(float x, float y) {
 }
 `;
 
-/**
- * The scenes' main(): the field, then stars and film grain on the empty dark,
- * as the foundry has them, as much as sky (a GLSL expression of p) says.
- */
-export const main = (sky = "1.0") => `
+/** How a scene's empty dark looks: stars and film grain, as the foundry has them. */
+export interface Sky {
+  /** How much of it shows, a GLSL expression of p. */
+  show?: string;
+  /** The share of its pixels that are stars. */
+  stars?: number;
+  /** How fast they twinkle: 1 as the foundry's do. */
+  twinkle?: number;
+  /** Film grain, flickering ten times a second. */
+  grain?: boolean;
+}
+
+const glsl = (x: number) => x.toFixed(4);
+
+/** The scenes' main(): the field, then the sky on the empty dark. */
+export const main = ({ show = "1.0", stars = 0.0022, twinkle = 1, grain = true }: Sky = {}) => `
 void main() {
   vec2 px = floor(gl_FragCoord.xy);
   gAspect = uRes.x / uRes.y;
@@ -79,16 +90,20 @@ void main() {
     outColor = vec4(col, 1.0);
     return;
   }
-  float sky = ${sky};
+  float sky = ${show};
   float h = hash12(px * 0.913 + 17.0);
-  float twinkle = 0.55 + 0.45 * sin(uTime * (0.6 + h * 2.4) + h * 40.0);
-  if (h > 0.9978) {
+  float twinkle = 0.55 + 0.45 * sin(uTime * ${glsl(twinkle)} * (0.6 + h * 2.4) + h * 40.0);
+  if (h > ${glsl(1 - stars)}) {
     outColor = vec4(uInk * twinkle, twinkle) * sky;
     return;
   }
-  float g = hash12(px + floor(uTime * 10.0) * 13.17);
+  ${
+    grain
+      ? `float g = hash12(px + floor(uTime * 10.0) * 13.17);
   float a = g > 0.94 ? (uDark > 0.5 ? 0.05 : 0.035) : 0.0;
-  outColor = vec4(uInk * a, a) * sky;
+  outColor = vec4(uInk * a, a) * sky;`
+      : "outColor = vec4(0.0);"
+  }
 }`;
 
 export const MAIN = main();

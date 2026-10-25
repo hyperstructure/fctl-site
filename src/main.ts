@@ -157,7 +157,9 @@ function map() {
     const px = 1 / box.height;
     scene.set(links, { x, y, w: (rc.width / 2) * px, h: (rc.height / 2) * px, px }, down);
   };
-  new ResizeObserver(place).observe(root);
+  const sizes = new ResizeObserver(place);
+  sizes.observe(root);
+  sizes.observe(canvas);
   void document.fonts?.ready.then(place);
   place();
 
