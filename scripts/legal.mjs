@@ -11,6 +11,7 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, frontMatter, markdown } from "./markdown.mjs";
+import { SITE } from "./pages.mjs";
 
 const site = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(site, "dist");
@@ -39,11 +40,13 @@ async function main() {
       const current = p === page ? ' aria-current="page"' : "";
       return `<a href="/${p.slug}"${current}>${esc(p.nav)}</a>`;
     }).join("");
+    // Functions, so that a `$&` or `$'` in a page isn't read as a replacement pattern.
     const out = template
-      .replace("<!--TITLE-->", esc(title || page.nav))
-      .replace("<!--DESCRIPTION-->", esc(meta.description))
-      .replace("<!--NAV-->", nav)
-      .replace("<!--DOC-->", html);
+      .replaceAll("<!--TITLE-->", () => esc(`${title || page.nav} · fctl`))
+      .replaceAll("<!--DESCRIPTION-->", () => esc(meta.description))
+      .replaceAll("<!--URL-->", () => `${SITE}/${page.slug}`)
+      .replace("<!--NAV-->", () => nav)
+      .replace("<!--DOC-->", () => html);
     await mkdir(dist, { recursive: true });
     await writeFile(join(dist, `${page.slug}.html`), out);
   }

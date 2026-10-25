@@ -8,8 +8,9 @@ const page = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 const require = createRequire(import.meta.url);
 
 /**
- * The favicon (also the mark in the nav), the home screen icon and the link preview image
- * (og:image), and where they are in @hyperstructure/design.
+ * The favicon (also the mark in the nav), the home screen icon and the mark at 512 px (app.fctl.sh's
+ * link preview image), and where they are in @hyperstructure/design. fctl.sh's own link previews
+ * are in public/og (scripts/og.mjs).
  */
 const BRAND_ASSETS: Record<string, string> = {
   "favicon.svg": "assets/favicon.svg",
