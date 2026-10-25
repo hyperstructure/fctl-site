@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Runners · fctl</title>
+    <meta
+      name="description"
+      content="fctl's sessions run on machines your team already has: a Mac mini in the cupboard, a Linux server, the laptop on your desk. One command turns each into a runner, which starts a sandbox for every session it takes."
+    />
+    <meta property="og:title" content="Runners · fctl" />
+    <meta property="og:description" content="The Macs and servers you and your team already have, turned into the factory floor with one command each." />
+    <meta property="og:url" content="https://fctl.sh/features/runners/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="runners" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="6.5" rx="1.8" /><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.8" /><path d="M7 7.25h.01M7 16.75h.01M11 7.25h6M11 16.75h6" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Runners</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">The machines you have, <span class="hot">on the night shift.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            A runner is a machine someone on the team connected with one command: the Mac mini in the cupboard, the
+            Linux box under the desk, your own laptop. It takes the sessions of the workspaces it serves and starts a
+            sandbox for each. Your code is cloned, built and tested on hardware you own, on your own Claude plan.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="/docs/getting-started/#5-bring-a-machine-online">Bring a machine online</a>
+            <a class="f-link" href="/docs/architecture/#runners-and-workspaces">Who runs whose sessions <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/w/romanesco?tab=runners">
+              <img class="theme-dark" src="/src/features/shots/runners/runners-dark.webp" width="2200" height="1375" alt="Romanesco's runners: kohlrabi with 3 of 6 sessions, Noor's MacBook for her own sessions, parsnip and celeriac online, and turnip draining." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/runners/runners-light.webp" width="2200" height="1375" alt="Romanesco's runners: kohlrabi with 3 of 6 sessions, Noor's MacBook for her own sessions, parsnip and celeriac online, and turnip draining." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/runners/phone-runners-dark.webp" width="780" height="1688" alt="Romanesco's runners on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/runners/phone-runners-light.webp" width="780" height="1688" alt="Romanesco's runners on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">One command</span>
+            <strong>Install, and done</strong>
+            <p>It checks the machine, registers it and installs a service that starts with it and survives a reboot.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Shared</span>
+            <strong>Or kept to yourself</strong>
+            <p>Admins add runners for everyone's sessions. Members add theirs for their own, and nobody else's work lands there.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Capacity</span>
+            <strong>As many as fit</strong>
+            <p>Each runner takes so many sessions at once. The rest queue, and start the moment a slot frees up.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Current</span>
+            <strong>Updates itself</strong>
+            <p>Hosts move to the version the control plane runs, so a fleet of them never needs a weekend.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="install">
+          <div class="f-copy reveal">
+            <h2 id="install">One command per machine.</h2>
+            <p>
+              Install the CLI, sign in, and run <code>fctl host install</code>. It finds the runtime the machine has,
+              works out how big a sandbox it can give, registers the runner for your workspace and starts the host as
+              a service. On a Mac, it also says how to keep the Mac awake through the night.
+            </p>
+            <ul class="f-list">
+              <li><strong>Its owner decides.</strong> Which images it runs, which repositories it builds images from, how much disk it keeps free.</li>
+              <li><strong>Your Claude token, kept home.</strong> A runner can keep its owner's token on the machine instead of in fctl.</li>
+              <li><strong>Moving house?</strong> Drain it, and sessions finish there while new ones start elsewhere.</li>
+            </ul>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>kofi@kohlrabi ~</span></div>
+            <div class="term-body">
+<p class="cmd">fctl host install -w romanesco</p>
+<p class="out"><span class="y">✓</span> Driver: apple (ready)</p>
+<p class="out"><span class="y">✓</span> Sandboxes: 4 CPUs and 8 GiB by default, at most 8 CPUs and 64 GiB</p>
+<p class="out"><span class="y">✓</span> Registered runner <span class="w">kohlrabi</span> (rnr_01K5Q8X2M4FQ7T9ZC3NB6WD1HE) for Romanesco's sessions</p>
+<p class="out"><span class="y">✓</span> Wrote /Users/kofi/.config/fctl/host.toml</p>
+<p class="f">Sessions start from ghcr.io/hyperstructure/sandbox:0.23.1; the host pulls it when it starts.</p>
+<p class="f">It runs any image a project chooses and builds no images.</p>
+<p class="f">It updates fctl to the version the control plane runs whenever that is newer.</p>
+<p class="out"><span class="y">✓</span> Service: launchd job sh.fctl.host</p>
+<p></p>
+<p class="w">Keep the Mac working 24/7:</p>
+<p class="out">  sudo pmset -a sleep 0 disksleep 0 standby 0 autorestart 1 womp 1</p>
+<p class="out">  System Settings → Users &amp; Groups → automatically log in as this user</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="floor">
+          <div class="f-copy reveal">
+            <h2 id="floor">See the whole floor at once.</h2>
+            <p>
+              A workspace's Runners tab shows every machine that serves it: online or not, whose it is, whose sessions
+              it runs and how busy it is. Kofi started draining turnip at 08:40: the session at work there finishes
+              there, and new ones start on the others.
+            </p>
+            <p>
+              Adding a runner to a workspace, or letting it run everyone's sessions, is one of the actions fctl can ask
+              you to confirm with your passkey: a runner sees the code, secrets and tokens of each session it runs.
+            </p>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/w/milkfloat?tab=runners">
+            <img class="theme-dark" src="/src/features/shots/runners/milkfloat-dark.webp" width="2200" height="1375" alt="milkfloat's runners: Noor's MacBook, which also runs her Romanesco sessions, and fika, a Linux server of hers." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/runners/milkfloat-light.webp" width="2200" height="1375" alt="milkfloat's runners: Noor's MacBook, which also runs her Romanesco sessions, and fika, a Linux server of hers." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="status">
+          <div class="f-copy reveal">
+            <h2 id="status">Ask a machine how it's doing.</h2>
+            <p>
+              <code>fctl host status</code> answers on the machine itself: what it runs sandboxes with and how big they
+              may be, how much disk is free and how much it keeps free, the package caches it holds, and the sessions
+              at work there right now.
+            </p>
+            <a class="f-link" href="/docs/cli/#hosts">Every host command <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>kofi@kohlrabi ~</span></div>
+            <div class="term-body">
+<p class="cmd">fctl host status</p>
+<p class="w">kohlrabi <span class="f">https://app.fctl.sh</span></p>
+<p class="out">id:       rnr_01K5Q8X2M4FQ7T9ZC3NB6WD1HE</p>
+<p class="out">driver:   apple</p>
+<p class="out">capacity: 6 sessions</p>
+<p class="out">sandbox:  4 CPUs and 8 GiB by default, at most 8 CPUs and 64 GiB</p>
+<p class="out">disk:     611.2 GiB free, keeps 20 GiB free</p>
+<p class="out">caches:   3 projects, 5.8 GiB when last measured; up to 10 GiB each</p>
+<p class="out">image:    ghcr.io/hyperstructure/sandbox:0.23.1</p>
+<p class="out">service:  <span class="y">running</span></p>
+<p class="out">runner:   <span class="y">online</span></p>
+<p class="out">sessions:</p>
+<p class="out">  <span class="y">● running</span> shop#231 <span class="f">Add Danish to the shop</span></p>
+<p class="out">  <span class="b">○ idle</span> platform#445 <span class="f">Retry Stripe webhook processing that fails</span></p>
+<p class="out">  <span class="p">◍ paused</span> shop#230 <span class="f">Match the box builder to the new illustrations</span></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="yours">
+          <div class="f-copy reveal">
+            <h2 id="yours">Your laptop, for your work.</h2>
+            <p>
+              Noor's MacBook serves three workspaces. In milkfloat, the open-source solver she maintains, it runs
+              everyone's sessions. At Romanesco it runs only hers, and a member who wants their Claude token on no one
+              else's machine can keep all their sessions on runners of their own.
+            </p>
+            <ul class="f-list">
+              <li><strong>Sessions follow their runner's rules.</strong> A runner that leaves a workspace stops its sessions there, and they resume elsewhere.</li>
+              <li><strong>Gone quiet?</strong> A runner that stops answering hands its sessions back, and they resume on another.</li>
+            </ul>
+          </div>
+          <div class="f-phones reveal">
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/runners/phone-runners-dark.webp" width="780" height="1688" alt="Romanesco's runners on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/runners/phone-runners-light.webp" width="780" height="1688" alt="Romanesco's runners on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>Installing a host, what it needs, and how it keeps itself up to date.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/getting-started/#5-bring-a-machine-online"><span>Bring a machine online</span><small>Step by step, on a Mac or Linux</small></a></li>
+            <li><a href="/docs/cli/#hosts"><span>Host commands</span><small>Install, status, drain, logs and more</small></a></li>
+            <li><a href="/docs/architecture/#runners-and-workspaces"><span>Runners and workspaces</span><small>Who runs whose sessions</small></a></li>
+            <li><a href="/docs/security/#hosts"><span>Hosts and security</span><small>What a runner sees, and what protects it</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/memory/"><small>Previous</small><strong>Memory and retrospectives</strong><span>What agents learn, kept</span></a>
+          <a href="/features/schedules/"><small>Next</small><strong>Schedules</strong><span>Work that starts on its own</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

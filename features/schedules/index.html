@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Schedules · fctl</title>
+    <meta
+      name="description"
+      content="Schedules start fctl sessions on their own: dependency updates every Monday, a flaky-test hunt on Saturdays, benchmarks every night. Once, on repeat in your time zone, on any cron, or only when another tool asks."
+    />
+    <meta property="og:title" content="Schedules · fctl" />
+    <meta property="og:description" content="Work that starts on its own: give an agent a task and a time, and follow each run like any session." />
+    <meta property="og:url" content="https://fctl.sh/features/schedules/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="schedules" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5v5l3 2" /><path d="M19.5 4.5 21 6" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Schedules</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">Work that starts <span class="hot">on its own.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Some work comes round like the bins: dependency updates on Monday, a hunt for flaky tests on Saturday,
+            benchmarks every night. Give an agent the task and the time, once or again and again, and each run is a
+            session of its own that you follow like any other, on your Claude subscription.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Set one up</a>
+            <a class="f-link" href="/docs/automation/#schedules">How schedules work <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/p/shop?tab=schedules">
+              <img class="theme-dark" src="/src/features/shots/schedules/schedules-dark.webp" width="2200" height="1375" alt="The Shop project's schedules: weekly dependency updates at 02:00 and a weekly design check at 09:00, each with when it runs next and how its last run went." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/schedules/schedules-light.webp" width="2200" height="1375" alt="The Shop project's schedules: weekly dependency updates at 02:00 and a weekly design check at 09:00, each with when it runs next and how its last run went." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/schedules/phone-schedules-dark.webp" width="780" height="1688" alt="The Shop project's schedules on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/schedules/phone-schedules-light.webp" width="780" height="1688" alt="The Shop project's schedules on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">When</span>
+            <strong>As often as it takes</strong>
+            <p>Every hour, day, weekday, week or month in your time zone, once at a set time, on any cron, or only when asked.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Calm</span>
+            <strong>Runs don't pile up</strong>
+            <p>A run is skipped while the last is still at work, or while its plan is at its limit, and says so.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Now</span>
+            <strong>Or right away</strong>
+            <p>Run one now from the app, with <code>fctl schedules run</code>, or from another tool with an access token.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Fair</span>
+            <strong>On its owner's plan</strong>
+            <p>A schedule runs on the subscription of whoever set it up. Change someone else's, and it runs on yours.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="empty">
+          <div class="f-copy reveal">
+            <h2 id="empty">Not sure what to schedule? Start from an idea.</h2>
+            <p>
+              A project without schedules shows what they're good for, and four ideas that most projects can use
+              tomorrow: update dependencies, triage new issues, tidy the project's memory, and learn from the week's
+              reviews. Pick one, and the form fills itself in for you to adjust.
+            </p>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/p/driver-app?tab=schedules">
+              <img class="theme-dark" src="/src/features/shots/schedules/empty-dark.webp" width="2200" height="1375" alt="The Driver app's Schedules tab before it has any: what schedules do, a preview of the week, and four ideas to start from." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/schedules/empty-light.webp" width="2200" height="1375" alt="The Driver app's Schedules tab before it has any: what schedules do, a preview of the week, and four ideas to start from." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/schedules/phone-empty-dark.webp" width="780" height="1688" alt="The same tab on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/schedules/phone-empty-light.webp" width="780" height="1688" alt="The same tab on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="form">
+          <div class="f-copy reveal">
+            <h2 id="form">A task, a time, and how hard to think.</h2>
+            <p>
+              A schedule is what you'd write in the task box, with a time. Choose the model and effort its sessions
+              start with, the branch they start from and how much they may do on GitHub: a triage run that only labels
+              and comments never needs to push.
+            </p>
+            <ul class="f-list">
+              <li><strong>Your time zone, not UTC.</strong> 09:00 on Monday stays 09:00 through summer time.</li>
+              <li><strong>From the task box, too.</strong> Write the task, then pick Schedule rather than Start.</li>
+              <li><strong>Paused, not forgotten.</strong> Pause one for the holidays, and it waits until it's resumed.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/p/driver-app?tab=schedules">
+            <img class="theme-dark" src="/src/features/shots/schedules/editor-dark.webp" width="2200" height="1375" alt="A new schedule from the Update dependencies idea: its task filled in, every Monday at 09:00, and the next three runs listed." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/schedules/editor-light.webp" width="2200" height="1375" alt="A new schedule from the Update dependencies idea: its task filled in, every Monday at 09:00, and the next three runs listed." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="run">
+          <div class="f-copy reveal">
+            <h2 id="run">Every run, a session.</h2>
+            <p>
+              At two in the morning, the shop's weekly dependency updates ran. The agent got its task and a note from fctl: which
+              schedule started it, how the last run went, and that nobody was watching, so it should decide what it can
+              and say plainly what only a person can. By breakfast it had updated nine packages, left two majors for a
+              person, and opened the pull request.
+            </p>
+            <a class="f-link" href="/features/sessions/">Follow it like any session <span aria-hidden="true">→</span></a>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/schedules/scheduled-dark.webp" width="2200" height="1375" alt="shop#227, Update 9 npm dependencies: started by the Weekly dependency updates schedule, with its task, fctl's note and the pull request it opened." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/schedules/scheduled-light.webp" width="2200" height="1375" alt="shop#227, Update 9 npm dependencies: started by the Weekly dependency updates schedule, with its task, fctl's note and the pull request it opened." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="cli">
+          <div class="f-copy reveal">
+            <h2 id="cli">Or from the terminal.</h2>
+            <p>
+              Everything the tab does, <code>fctl schedules</code> does too, with <code>--json</code> for scripts. A schedule
+              that runs only when asked is a task another tool can start with one call, with context of its own: an
+              issue that was just opened, a deploy that just went out.
+            </p>
+            <a class="f-link" href="/docs/cli/#schedules">Every schedules command <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~/src/milkfloat</span></div>
+            <div class="term-body">
+<p class="cmd">fctl schedules add "Triage new issues" -p milkfloat --cron "0 8 * * 1-5" --github comment -m "Label the issues opened since yesterday, ask for what's missing, and close duplicates."</p>
+<p class="out"><span class="y">✓</span> Set up <span class="w">Triage new issues</span> in milkfloat</p>
+<p class="f">  Runs every weekday at 08:00 (Europe/Stockholm) · next in 22h 50m</p>
+<p class="f">  Its runs start on your Claude subscription. Run it now: fctl schedules run sch_01K8ZTQ3W6M2HB0XKD4PVC9N7E</p>
+<p class="cmd">fctl schedules -p milkfloat-bench</p>
+<p class="out"><span class="y">●</span> <span class="w">Nightly benchmarks</span>  <span class="f">sch_01K2M7RW4E8XQ5TB9CJZ3HDN6P</span></p>
+<p class="f">  Runs every day at 01:00 (Europe/Stockholm) · next in 15h 50m · on Noor Haddad's Claude subscription</p>
+<p class="out">  last run <span class="y">started</span> session #41 Benchmark main on 356 instances <span class="f">· on time · 8h ago</span></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>Times and time zones, whose subscription a run uses, and running one from elsewhere.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/automation/#schedules"><span>Schedules</span><small>Setting one up, and what each run gets</small></a></li>
+            <li><a href="/docs/cli/#schedules"><span>From the CLI</span><small><code>fctl schedules add</code>, <code>run</code>, <code>pause</code></small></a></li>
+            <li><a href="/docs/automation/#start-agents-from-other-tools"><span>From other tools</span><small>Run a schedule with an access token</small></a></li>
+            <li><a href="/docs/architecture/#schedules"><span>How they run</span><small>Alarms, cron and claiming a run</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/runners/"><small>Previous</small><strong>Runners</strong><span>The machines you already have</span></a>
+          <a href="/features/access-tokens/"><small>Next</small><strong>Access tokens</strong><span>Let other tools start agents</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

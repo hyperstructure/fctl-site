@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Access tokens · fctl</title>
+    <meta
+      name="description"
+      content="fctl's access tokens let a chat bot, a CI job, an issue tracker or another agent start sessions as you, held to what it is for: run sessions or only read, in the projects you choose, with what its agents may do on GitHub, for as long as you say."
+    />
+    <meta property="og:title" content="Access tokens · fctl" />
+    <meta property="og:description" content="Let a chat bot, a CI job or another agent start sessions as you, with a token that can do just that." />
+    <meta property="og:url" content="https://fctl.sh/features/access-tokens/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="access-tokens" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15.5" r="4.5" /><path d="m11.2 12.3 8.3-8.3M16.5 7l2.5 2.5M14 9.5l2 2" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Access tokens</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">Let other tools <span class="hot">start agents.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            A chat bot, a CI job, an issue tracker's automation, another agent: anything that can make a web request
+            can start a session as you. Give it a token that does just that, in the projects you choose, for as long
+            as you say. It never reaches your account, your team's settings or your other tokens.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Make a token</a>
+            <a class="f-link" href="/docs/automation/#start-agents-from-other-tools">Start agents from other tools <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/settings">
+              <img class="theme-dark" src="/src/features/shots/access-tokens/tokens-dark.webp" width="2200" height="1375" alt="Noor's devices and access tokens: Raycast reads all her projects, Team chat runs sessions in Shop and Platform, and milkfloat CI runs sessions whose agents comment and push nothing." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/access-tokens/tokens-light.webp" width="2200" height="1375" alt="Noor's devices and access tokens: Raycast reads all her projects, Team chat runs sessions in Shop and Platform, and milkfloat CI runs sessions whose agents comment and push nothing." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/access-tokens/phone-tokens-dark.webp" width="780" height="1688" alt="Noor's devices and access tokens on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/access-tokens/phone-tokens-light.webp" width="780" height="1688" alt="Noor's devices and access tokens on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">What</span>
+            <strong>Run, read or all</strong>
+            <p>Bots and CI run sessions; dashboards read them. Everything you can do is for your own scripts.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Where</span>
+            <strong>Some projects</strong>
+            <p>All of yours, a few, or every project of a workspace, those made later included.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">GitHub</span>
+            <strong>Comment, not push</strong>
+            <p>Hold a token's agents to commenting or reading, even in projects where agents may push.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">When</span>
+            <strong>Then it stops</strong>
+            <p>A week, a quarter, a year, or until you revoke it. The audit log says which token started what.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="chat">
+          <div class="f-copy reveal">
+            <h2 id="chat">A colleague in the chat.</h2>
+            <p>
+              Romanesco's team chat has a bot that starts agents. Noor gave it a token that runs sessions in Shop and
+              Platform for 90 days, so now anyone in <code>#shop</code> can ask for a fix and get a link to the session a
+              moment later. The sessions are Noor's, on her Claude plan, in the two projects the token reaches.
+            </p>
+            <ul class="f-list">
+              <li><strong>Told, not commanded.</strong> What a tool sends reaches the agent as information about the task, not as orders.</li>
+              <li><strong>Steered from anywhere.</strong> The session is in the app like any other: open its link, watch, message, stop.</li>
+            </ul>
+          </div>
+          <div class="chat reveal" role="img" aria-label="A team chat in which Lucía asks the team's bot for a fix, the bot starts an fctl session and reports its pull request, and Tomás merges it.">
+            <div class="chat-head"><span class="hash">#</span>shop<small>Romanesco · 9 people</small></div>
+            <div class="chat-body">
+              <p class="chat-note">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15.5" r="4.5" /><path d="m11.2 12.3 8.3-8.3M16.5 7l2.5 2.5M14 9.5l2 2" /></svg>
+                Noor Haddad connected Factory to fctl, with a token that runs sessions in Shop and Platform.
+              </p>
+              <div class="msg">
+                <img src="/src/features/people/luciadraws.webp" alt="" width="36" height="36" loading="lazy" />
+                <div>
+                  <p class="who">Lucía Navarro<small>10:42</small></p>
+                  <p>@Factory the farm photos on the box page are squashed on small phones. Could an agent fix them?</p>
+                </div>
+              </div>
+              <div class="msg">
+                <span class="av" aria-hidden="true">F</span>
+                <div>
+                  <p class="who">Factory<span class="tag">App</span><small>10:42</small></p>
+                  <p>On it. An agent is working on it in fctl:</p>
+                  <div class="card">
+                    <img src="/favicon.svg" alt="" width="22" height="22" loading="lazy" />
+                    <strong>shop#233 · Keep the farm photos in proportion on small phones</strong>
+                    <span>app.fctl.sh/s/ses_01K8ZW…</span>
+                  </div>
+                </div>
+              </div>
+              <div class="msg">
+                <span class="av" aria-hidden="true">F</span>
+                <div>
+                  <p class="who">Factory<span class="tag">App</span><small>11:09</small></p>
+                  <p>Done: shop#1293 keeps the photos' aspect ratio and crops them to the farm, and its 23 checks passed. The screenshots are in the pull request.</p>
+                </div>
+              </div>
+              <div class="msg">
+                <img src="/src/features/people/tferreira-pt.webp" alt="" width="36" height="36" loading="lazy" />
+                <div>
+                  <p class="who">Tomás Ferreira<small>11:12</small></p>
+                  <p>Looks right on my phone. Merging 🥕</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="form">
+          <div class="f-copy reveal">
+            <h2 id="form">Three questions, one sentence.</h2>
+            <p>
+              What may it do, where, and for how long. As you answer, the form says in plain words what the token will
+              be able to do, and what it never will. It's shown once, ready to paste as <code>FCTL_TOKEN</code> or an
+              <code>Authorization</code> header.
+            </p>
+            <p>
+              Making one is also one of the things fctl can ask you to confirm with your passkey or a code first, so a
+              stolen browser session can't mint itself a key.
+            </p>
+            <a class="f-link" href="/features/sign-in/">Confirming it's you <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/settings">
+              <img class="theme-dark" src="/src/features/shots/access-tokens/new-dark.webp" width="2200" height="1375" alt="A new access token, Team chat: it runs sessions in Shop and Platform, its agents may push, and it expires in 90 days, said in a sentence under the form." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/access-tokens/new-light.webp" width="2200" height="1375" alt="A new access token, Team chat: it runs sessions in Shop and Platform, its agents may push, and it expires in 90 days, said in a sentence under the form." loading="lazy" />
+            </figure>
+            <figure class="shot zoom" style="--zoom: 2; --at: 50% 50%">
+              <img class="theme-dark" src="/src/features/shots/access-tokens/confirm-dark.webp" width="2200" height="1375" alt="Confirm it's you: making the token takes Noor's passkey first." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/access-tokens/confirm-light.webp" width="2200" height="1375" alt="Confirm it's you: making the token takes Noor's passkey first." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="request">
+          <div class="f-copy reveal">
+            <h2 id="request">One request from anywhere.</h2>
+            <p>
+              Point a tool at a schedule that runs when asked, and send what it knows along: an issue that was just
+              filed, a deploy that went out, a customer's report. Each request starts a session with the schedule's
+              task and that context.
+            </p>
+            <ul class="f-list">
+              <li><strong>Or the whole CLI.</strong> With <code>FCTL_TOKEN</code> set, every <code>fctl</code> command works within the token's limits.</li>
+              <li><strong>Reviews from your own CI.</strong> A token for GitHub Actions can start review agents that comment and never push.</li>
+            </ul>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~</span></div>
+            <div class="term-body">
+<p class="cmd">fctl token "Issue triage" --access run -p shop --github comment --days 90</p>
+<p class="out">fctl_pat_••••••••••••••••••••••••••••••••••••••••</p>
+<p class="f">Runs sessions in Shop; their agents review and comment on GitHub, and push nothing.</p>
+<p class="f">Shown once. Use it as FCTL_TOKEN or an `Authorization: Bearer` header.</p>
+<p class="cmd">curl -H "Authorization: Bearer $FCTL_TOKEN" -H "Content-Type: application/json" \</p>
+<p class="w">    -d '{"context": "SHOP-433: The postcode field rejects Danish postcodes"}' \</p>
+<p class="w">    https://app.fctl.sh/api/v1/schedules/sch_01K8ZY3T6WQ4M9PB2HVN0C5RXA/runs</p>
+<p class="out">{"outcome": "started", "trigger": "token", "session": {"number": 234, "title": "Triage an issue", …}, …}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>Making tokens, what each kind may do, and wiring tools to schedules.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/automation/#access-tokens"><span>Access tokens</span><small>The three questions, and what a token never reaches</small></a></li>
+            <li><a href="/docs/automation/#start-agents-from-other-tools"><span>Start agents from other tools</span><small>A schedule, a token and one request</small></a></li>
+            <li><a href="/docs/automation/#review-pull-requests-from-github-actions"><span>Review from GitHub Actions</span><small>Review agents in your own CI</small></a></li>
+            <li><a href="/docs/agents/"><span>For agents</span><small>Teach another agent to drive fctl</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/schedules/"><small>Previous</small><strong>Schedules</strong><span>Work that starts on its own</span></a>
+          <a href="/features/sign-in/"><small>Next</small><strong>Sign-in and security</strong><span>Passkeys, codes and a second look</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

@@ -40,8 +40,9 @@ function brandAssets(): Plugin {
 }
 
 /**
- * The header and footer every page shares, from src/partials: `<!--site:nav-->` (`<!--site:nav
- * solid-->` for a header that sticks to the top, as on the docs) and `<!--site:footer-->`.
+ * The parts pages share, from src/partials: `<!--site:nav-->` (`<!--site:nav solid-->` for a
+ * header that sticks to the top, as on the docs), `<!--site:footer-->`, and the feature pages'
+ * `<!--site:feature-end-->`.
  */
 function partials(): Plugin {
   const read = (name: string) => readFileSync(page(`./src/partials/${name}.html`), "utf8").trimEnd();
@@ -50,7 +51,7 @@ function partials(): Plugin {
     transformIndexHtml: {
       order: "pre",
       handler: (html) =>
-        html.replace(/<!--site:(nav|footer)( solid)?-->/g, (_, name: string, solid?: string) =>
+        html.replace(/<!--site:(nav|footer|feature-end)( solid)?-->/g, (_, name: string, solid?: string) =>
           read(name).replace("{{solid}}", solid ? " solid" : ""),
         ),
     },

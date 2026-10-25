@@ -162,17 +162,21 @@ main > section.f-hero {
   margin-top: clamp(56px, 8vw, 96px);
   perspective: 2400px;
 }
-.f-stage > .shot {
+.f-stage > .shot,
+.f-stage > .term {
   transform: rotateX(7deg) scale(0.985);
   transform-origin: 50% 100%;
   transition: transform 1200ms var(--ease-out);
 }
 .f-stage.seen > .shot,
-:root:not(.js) .f-stage > .shot {
+.f-stage.seen > .term,
+:root:not(.js) .f-stage > .shot,
+:root:not(.js) .f-stage > .term {
   transform: none;
 }
 @media (max-width: 860px) {
-  .f-stage > .shot {
+  .f-stage > .shot,
+  .f-stage > .term {
     transform: none;
   }
 }
@@ -471,6 +475,12 @@ figcaption {
   width: min(34%, 240px);
   bottom: -6%;
 }
+/* A terminal over the screenshot's corner, in the flow: it is as tall as its lines. */
+.f-stack > .term:nth-child(2) {
+  position: relative;
+  width: 72%;
+  margin: -16% -3% -8% auto;
+}
 @media (max-width: 640px) {
   .f-stack {
     padding-bottom: 0;
@@ -483,6 +493,10 @@ figcaption {
   }
   .f-stack > .phone:nth-child(2) {
     display: none;
+  }
+  .f-stack > .term:nth-child(2) {
+    width: 94%;
+    margin: -8% 0 0 auto;
   }
 }
 
@@ -515,6 +529,16 @@ figcaption {
   }
 }
 
+/* A detail of a screenshot, zoomed in where it matters (--zoom, around
+   --at), and a tile of one with its caption below. */
+.shot.zoom img {
+  transform: scale(var(--zoom, 1));
+  transform-origin: var(--at, 50% 0);
+}
+.f-tile {
+  margin: 0;
+}
+
 /* A quote of what fctl or an agent writes, set apart. */
 .f-quote {
   margin-top: 24px;
@@ -525,6 +549,129 @@ figcaption {
   font-size: 15px;
   line-height: 1.6;
   color: var(--c-ink-2);
+}
+
+/* Things side by side, each a card: the drivers a runner can use, say. */
+.f-drivers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 760px) {
+  .f-drivers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.f-drivers article {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 26px 24px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-surface);
+  box-shadow: 0 30px 70px -40px rgb(0 0 0 / 0.7);
+}
+:root[data-theme="light"] .f-drivers article {
+  box-shadow: 0 30px 70px -44px rgb(23 23 23 / 0.28);
+}
+/* A glow of the card's color in its corner. */
+.f-drivers article::before {
+  content: "";
+  position: absolute;
+  top: -45%;
+  right: -30%;
+  width: 75%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--glow, var(--c-highlight)) 22%, transparent),
+    transparent
+  );
+  pointer-events: none;
+}
+.f-drivers h3 {
+  margin-top: 16px;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.f-drivers p {
+  margin-top: 8px;
+  max-width: 46ch;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+}
+.f-drivers dl {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 9px 18px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--c-line);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.f-drivers dt {
+  padding-top: 1px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-ink-4);
+}
+.f-drivers dd {
+  color: var(--c-ink-2);
+}
+.f-drivers code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--c-ink);
+}
+
+/* Commands by what they are for: a cheat sheet, in cards. */
+.f-commands {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 980px) {
+  .f-commands {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 620px) {
+  .f-commands {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.f-commands article {
+  padding: 20px 22px 22px;
+  border-radius: 16px;
+  border: 1px solid var(--c-line);
+  background: color-mix(in oklab, var(--c-surface) 70%, transparent);
+}
+.f-commands h3 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.f-commands ul {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+.f-commands li {
+  display: grid;
+  gap: 2px;
+}
+.f-commands code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--c-ink);
+}
+.f-commands span {
+  font-size: 13px;
+  color: var(--c-ink-3);
 }
 
 /* ───────────────────────────── docs and next ───────────────────────────── */
@@ -702,6 +849,8 @@ figcaption {
   font-family: var(--font-mono);
   font-size: clamp(11.5px, 1.05vw, 13px);
   line-height: 1.62;
+  /* As terminals and GitHub show code: <= stays <=. */
+  font-variant-ligatures: none;
 }
 :root[data-theme="light"] .term {
   --t-bg: #fbfbfa;
@@ -759,10 +908,13 @@ figcaption {
   padding: 18px 20px 20px;
   overflow-x: auto;
   scrollbar-width: none;
-  white-space: pre;
 }
+/* Each line as it is written, wrapping as a terminal wraps it; what's
+   between the lines in the markup isn't. */
 .term-body p {
   min-height: 1.62em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 .term .cmd::before {
   content: "$ ";
@@ -812,6 +964,23 @@ figcaption {
   background: var(--t-ink);
   animation: caret 1.05s steps(1) infinite;
 }
+/* The hero's terminal: bigger, with room for a session to stream. */
+.term.big {
+  font-size: clamp(11.5px, 1.12vw, 14px);
+}
+.term.big .term-body {
+  min-height: 25.5em;
+  padding: 22px 26px 26px;
+}
+.term.big .term-bar {
+  height: 42px;
+}
+@media (max-width: 640px) {
+  .term.big .term-body {
+    min-height: 0;
+    padding: 16px 16px 20px;
+  }
+}
 /* While the terminal types: lines not reached yet are hidden. */
 .term.typing p.later {
   visibility: hidden;
@@ -856,6 +1025,24 @@ figcaption {
   display: grid;
   gap: 18px;
   padding: 20px 18px 22px;
+}
+/* What happened in the channel, between messages. */
+.chat-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--c-ink-4);
+}
+.chat-note svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .msg {
   display: grid;
@@ -944,6 +1131,7 @@ figcaption {
 /* How a review agent's findings look where people read them: drawn in HTML, in
    GitHub's manner, with the demo's pull request. */
 .gh {
+  font-variant-ligatures: none;
   --g-bg: #0d1117;
   --g-box: #151b23;
   --g-line: #3d444d;
@@ -1026,12 +1214,14 @@ figcaption {
   line-height: 20px;
   overflow-x: auto;
   scrollbar-width: none;
-  white-space: pre;
 }
 .gh-diff div {
   display: grid;
   grid-template-columns: 52px 20px minmax(0, 1fr);
   background: var(--g-add);
+}
+.gh-diff span {
+  white-space: pre;
 }
 .gh-diff div span:first-child {
   padding-right: 10px;
@@ -1209,6 +1399,13 @@ figcaption {
   border: 2px solid #f2c94c;
   border-right-color: transparent;
 }
+.ticket-id .label {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--c-violet-soft);
+  font-family: var(--font-sans);
+  color: var(--c-violet);
+}
 .ticket h3 {
   margin-top: 10px;
   font-size: 20px;
@@ -1246,8 +1443,10 @@ figcaption {
   font-weight: 600;
 }
 .ticket li .note {
-  margin-top: 6px;
-  padding: 10px 12px;
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid var(--c-line);
   background: var(--c-canvas);
@@ -1283,6 +1482,70 @@ figcaption {
 .f-all .menu-icon {
   margin-bottom: 8px;
 }
+/* A glimpse of the page: its first screenshot, the app's content in it. */
+.f-all .thumb {
+  display: block;
+  margin: -26px -26px 4px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--c-line);
+  background: var(--c-canvas);
+}
+.f-all .thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms var(--ease-out);
+}
+.f-all a:hover .thumb img {
+  transform: scale(1.035);
+}
+/* The icon sits on the glimpse's lower edge. */
+.f-all .thumb + .menu-icon {
+  position: relative;
+  margin-top: -30px;
+  box-shadow: 0 0 0 5px var(--c-surface);
+}
+/* The CLI's glimpse: a terminal's last lines. */
+.f-all .term-thumb {
+  display: grid;
+  align-content: end;
+  gap: 3px;
+  padding: 18px 22px 30px;
+  background: #0e0e10;
+  color: #ececec;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+  font-variant-ligatures: none;
+  white-space: pre;
+}
+.f-all .term-thumb b {
+  font-weight: 400;
+  color: #ff4fe6;
+}
+.f-all .term-thumb i {
+  font-style: normal;
+  color: #ffff5d;
+}
+.f-all .term-thumb em {
+  font-style: normal;
+  color: #4aa3ff;
+}
+:root[data-theme="light"] .f-all .term-thumb {
+  background: #fbfbfa;
+  color: #1b1b1d;
+}
+:root[data-theme="light"] .f-all .term-thumb b {
+  color: #c4009f;
+}
+:root[data-theme="light"] .f-all .term-thumb i {
+  color: #6b6b00;
+}
+:root[data-theme="light"] .f-all .term-thumb em {
+  color: #0062c4;
+}
 .f-all strong {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -1306,8 +1569,10 @@ figcaption {
 
 @media (prefers-reduced-motion: reduce) {
   .f-stage > .shot,
+  .f-stage > .term,
   .f-next a,
-  .f-all a {
+  .f-all a,
+  .f-all .thumb img {
     transition: none;
   }
   .term .caret {

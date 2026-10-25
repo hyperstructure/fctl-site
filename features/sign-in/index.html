@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Sign-in and security · fctl</title>
+    <meta
+      name="description"
+      content="fctl runs code on your machines and pushes to your repositories, so signing in takes more than a password: passkeys, an authenticator app with recovery codes, and a second look before sensitive actions."
+    />
+    <meta property="og:title" content="Sign-in and security · fctl" />
+    <meta property="og:description" content="Passkeys, an authenticator app, and a second look before anything sensitive, for an app that can run code on your machines." />
+    <meta property="og:url" content="https://fctl.sh/features/sign-in/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="sign-in" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 19.5 6v5.5c0 4.5-3.2 7.8-7.5 9-4.3-1.2-7.5-4.5-7.5-9V6z" /><path d="m9 12 2.2 2.2L15.5 10" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Sign-in and security</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">The front door, <span class="dim">properly</span> <span class="hot">locked.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            fctl starts agents that run code on your machines and push to your repositories, so getting in should take
+            more than a password someone could guess or catch. Sign in with a passkey, keep an authenticator app as a
+            second factor, and have fctl ask again before anything sensitive.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="/docs/security/">How fctl keeps it safe</a>
+            <a class="f-link" href="/docs/architecture/#passkeys">Passkeys, in detail <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/login">
+              <img class="theme-dark" src="/src/features/shots/sign-in/login-dark.webp" width="2200" height="1375" alt="fctl's sign-in page: Welcome back, with Sign in with a passkey above the email and password." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sign-in/login-light.webp" width="2200" height="1375" alt="fctl's sign-in page: Welcome back, with Sign in with a passkey above the email and password." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/sign-in/phone-login-dark.webp" width="780" height="1688" alt="fctl's sign-in page on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sign-in/phone-login-light.webp" width="780" height="1688" alt="fctl's sign-in page on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Passkeys</span>
+            <strong>Nothing to catch</strong>
+            <p>A fingerprint, a face or a screen lock signs you in. There's no password to reuse, and no code a fake site could catch.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Two factors</span>
+            <strong>A code as well</strong>
+            <p>An authenticator app's code after your password, with ten recovery codes for the day your phone goes swimming.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Second look</span>
+            <strong>Before it matters</strong>
+            <p>Making a token or adding a runner takes your passkey or a code first. Then it doesn't ask again for 15 minutes.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Required</span>
+            <strong>For everyone</strong>
+            <p>Admins can require two-factor sign-in of their whole workspace, or of the whole instance.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="passkeys">
+          <div class="f-copy reveal">
+            <h2 id="passkeys">Passkeys first.</h2>
+            <p>
+              Add a passkey from Settings, and your device or password manager keeps it: iCloud Keychain, Google's,
+              1Password, a security key on your key ring. Each is tied to fctl's address, so it can't be used anywhere
+              else, and it counts as both factors at once.
+            </p>
+            <ul class="f-list">
+              <li><strong>Synced or kept on the key.</strong> The list says which, and when each was last used.</li>
+              <li><strong>Codes for the rest.</strong> Any authenticator app works, set up from a QR code in a minute.</li>
+              <li><strong>A note when it changes.</strong> fctl emails you when a second factor is added, replaced or turned off.</li>
+            </ul>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/settings">
+              <img class="theme-dark" src="/src/features/shots/sign-in/security-dark.webp" width="2200" height="1375" alt="Noor's passkeys, one synced through iCloud Keychain and a YubiKey kept on the key, and her authenticator app with 9 of 10 recovery codes left." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sign-in/security-light.webp" width="2200" height="1375" alt="Noor's passkeys, one synced through iCloud Keychain and a YubiKey kept on the key, and her authenticator app with 9 of 10 recovery codes left." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/sign-in/phone-security-dark.webp" width="780" height="1688" alt="Noor's passkeys and two-factor sign-in on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sign-in/phone-security-light.webp" width="780" height="1688" alt="Noor's passkeys and two-factor sign-in on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="codes">
+          <div class="f-copy reveal">
+            <h2 id="codes">A password alone opens nothing.</h2>
+            <p>
+              With an authenticator app set up, a password only gets as far as this page. It asks for the code the app
+              shows, or the passkey instead, and keeps the sign-in waiting for ten minutes at most. Wrong codes in a
+              row make it wait longer before it takes another, and tell you by email that someone tried.
+            </p>
+          </div>
+          <figure class="shot crop zoom reveal" style="--zoom: 1.75; --at: 50% 46%">
+            <img class="theme-dark" src="/src/features/shots/sign-in/two-factor-dark.webp" width="2200" height="1375" alt="Signing in as Noor after her password: enter your code, with her passkey or a recovery code instead." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/sign-in/two-factor-light.webp" width="2200" height="1375" alt="Signing in as Noor after her password: enter your code, with her passkey or a recovery code instead." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="confirm">
+          <div class="f-copy reveal">
+            <h2 id="confirm">A second look before anything sensitive.</h2>
+            <p>
+              Where the instance asks for it, the actions that would hurt most in a stolen session take your passkey or
+              a code first, in the browser, the CLI and from access tokens alike. A confirmation lasts 15 minutes for
+              the browser or CLI that made it.
+            </p>
+            <ul class="f-list">
+              <li><strong>Keys and machines.</strong> Making an access token, approving the CLI, adding a runner to a workspace.</li>
+              <li><strong>People and roles.</strong> Making someone an admin, handing over a workspace, resetting two-factor.</li>
+              <li><strong>The irreversible.</strong> Exporting your data, deleting a project, a workspace or an account.</li>
+            </ul>
+          </div>
+          <figure class="shot crop zoom reveal" style="--zoom: 2; --at: 50% 52%">
+            <img class="theme-dark" src="/src/features/shots/sign-in/confirm-dark.webp" width="2200" height="1375" alt="Confirm it's you, before exporting Noor's data: the code her authenticator app shows, or her passkey instead." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/sign-in/confirm-light.webp" width="2200" height="1375" alt="Confirm it's you, before exporting Noor's data: the code her authenticator app shows, or her passkey instead." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="cli">
+          <div class="f-copy reveal">
+            <h2 id="cli">The CLI signs in through your browser.</h2>
+            <p>
+              <code>fctl login</code> shows a code and opens the browser, where you're already signed in with your passkey.
+              Check the code, approve, and the terminal is signed in: no password typed into a terminal, and no
+              second factor it could skip.
+            </p>
+            <a class="f-link" href="/docs/cli/#signing-in">Signing in the CLI <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~</span></div>
+            <div class="term-body">
+<p class="cmd">fctl login</p>
+<p class="w">Sign in to fctl</p>
+<p></p>
+<p class="out">  Code: <span class="y">QKXW-HTRP</span></p>
+<p class="out">  Link: https://app.fctl.sh/device?code=QKXW-HTRP</p>
+<p></p>
+<p class="f">Opened your browser. Confirm the code there.</p>
+<p class="out"><span class="y">✓</span> Signed in as Noor Haddad &lt;noor@romanesco.farm&gt;</p>
+<p class="cmd">fctl whoami</p>
+<p class="w">Noor Haddad &lt;noor@romanesco.farm&gt;</p>
+<p class="f">https://app.fctl.sh · member · usr_01K5R8N3QJ7V2XW9T4HB6CEDFM</p>
+<p class="out">Workspaces: Romanesco (primary admin), milkfloat (primary admin), punschrulle (primary admin), Crimp Collective (member)</p>
+<p class="out">Passkeys: iCloud Keychain, YubiKey 5C</p>
+<p class="out">Two-factor sign-in: on (authenticator app, 9 recovery codes left)</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>How each way in works, what's stored, and what fctl asks to confirm.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/architecture/#passkeys"><span>Passkeys</span><small>Making one, signing in, and removing one</small></a></li>
+            <li><a href="/docs/architecture/#two-factor-sign-in"><span>Two-factor sign-in</span><small>Authenticator apps and recovery codes</small></a></li>
+            <li><a href="/docs/architecture/#confirming-its-you"><span>Confirming it's you</span><small>Which actions ask, and for how long it holds</small></a></li>
+            <li><a href="/docs/security/"><span>Security</span><small>What fctl protects, and how</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/access-tokens/"><small>Previous</small><strong>Access tokens</strong><span>Let other tools start agents</span></a>
+          <a href="/features/cli/"><small>Next</small><strong>The CLI</strong><span>All of fctl, from your terminal</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>
