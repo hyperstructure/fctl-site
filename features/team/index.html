@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Team management · fctl</title>
+    <meta
+      name="description"
+      content="Bring your team into a workspace and work on the same projects together: everyone sees every session as it happens, watches and steers the same ones, and signs in with Google, a passkey or a password."
+    />
+    <meta property="og:title" content="Team management · fctl" />
+    <meta property="og:description" content="Many people, the same projects: invitations, roles, sessions you watch and steer together, and sign-in with Google." />
+    <meta property="og:url" content="https://fctl.sh/features/team/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="team" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2" /><path d="M3 20c.6-3.4 3-5.5 6-5.5s5.4 2.1 6 5.5" /><circle cx="17" cy="9" r="2.4" /><path d="M16.5 14.6c2.3.3 4 2.2 4.5 4.9" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Team management</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">Many hands, <span class="dim">one</span> <span class="hot">project.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Bring your team into a workspace and work on the same projects together. Everyone sees the sessions as
+            they happen, joins one to watch or steer its agent, and starts their own beside it. Roles decide who
+            reads along, who starts work and who changes the settings, and people sign in with Google, a passkey or
+            a password.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Open the app</a>
+            <a class="f-link" href="/docs/getting-started/#9-work-together">Invite your team <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/w/romanesco?tab=people">
+              <img class="theme-dark" src="/src/features/shots/team/people-dark.webp" width="2200" height="1375" alt="Romanesco's people: Noor as primary admin, Kofi as admin, the rest of the team as members, and an invitation for ines@romanesco.farm." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/team/people-light.webp" width="2200" height="1375" alt="Romanesco's people: Noor as primary admin, Kofi as admin, the rest of the team as members, and an invitation for ines@romanesco.farm." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/team/phone-people-dark.webp" width="780" height="1576" alt="Romanesco's people on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/team/phone-people-light.webp" width="780" height="1576" alt="Romanesco's people on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">People</span>
+            <strong>Invited by address</strong>
+            <p>Invite anyone by the address they sign in with, and they join from their Agent Floor.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Roles</span>
+            <strong>Viewer to owner</strong>
+            <p>A base role for everyone in the workspace, and more on the projects where someone needs it.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Together</span>
+            <strong>One session, many eyes</strong>
+            <p>Everyone on a session sees the same live transcript and who else is there, and those who may can steer.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Sign-in</span>
+            <strong>Google, or a passkey</strong>
+            <p>Sign in with your Google account, a passkey or a password, with a second factor where admins ask for one.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="members">
+          <div class="f-copy reveal">
+            <h2 id="members">Everyone on a project, and what they may do.</h2>
+            <p>
+              A project's members are people of its workspace, each with a role there, and everyone else in the
+              workspace has its base role in every project. Noor and Tomás own the Shop and Lucía is one of its
+              maintainers; the rest of Romanesco starts sessions there as editors, as the workspace's base role says.
+            </p>
+            <dl class="f-roles">
+              <dt>Viewer</dt><dd>reads sessions</dd>
+              <dt>Editor</dt><dd>starts sessions and messages agents</dd>
+              <dt>Maintainer</dt><dd>changes settings and secrets, manages members</dd>
+              <dt>Owner</dt><dd>everything, down to deleting the project</dd>
+            </dl>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/p/shop?tab=members">
+              <img class="theme-dark" src="/src/features/shots/team/members-dark.webp" width="2200" height="1375" alt="The Shop project's members: Noor and Tomás as owners, and Lucía as maintainer." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/team/members-light.webp" width="2200" height="1375" alt="The Shop project's members: Noor and Tomás as owners, and Lucía as maintainer." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/team/phone-members-dark.webp" width="780" height="1576" alt="The Shop project's members on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/team/phone-members-light.webp" width="780" height="1576" alt="The Shop project's members on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="project">
+          <div class="f-copy reveal">
+            <h2 id="project">The same project, everyone's sessions.</h2>
+            <p>
+              A project's page holds every session started in it, whoever started it: Tomás's Danish translations
+              and Lucía's box builder at work side by side, and below them what Tomás and Noor started earlier. Each
+              one shows who asked for it, and sessions count up per project, so <code>shop#231</code> means the same
+              thing to everyone.
+            </p>
+            <ul class="f-list">
+              <li><strong>Each on their own plan.</strong> Everyone's sessions run on the Claude plan they chose for the workspace: the company's seat for the company's work.</li>
+              <li><strong>On the machines you share.</strong> The workspace's runners take everyone's work, and a runner of your own can keep to yours.</li>
+              <li><strong>Notes for everyone.</strong> What one agent learns in the project, the next one reads, whoever started it.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/p/shop">
+            <img class="theme-dark" src="/src/features/shots/team/project-dark.webp" width="2200" height="1375" alt="The Shop project: Tomás's and Lucía's sessions under Working now, and those Tomás and Noor started earlier, each with its starter's picture." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/team/project-light.webp" width="2200" height="1375" alt="The Shop project: Tomás's and Lucía's sessions under Working now, and those Tomás and Noor started earlier, each with its starter's picture." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="together">
+          <div class="f-copy reveal">
+            <h2 id="together">Watch together, steer together.</h2>
+            <p>
+              Open a session and you see what everyone on it sees, as it happens, and who else is there: on
+              <code>shop#231</code>, Tomás, who handed it the ticket, Lucía, whose copy it translates, and Noor. Anyone
+              who may message its agent can steer it, from the app, the terminal or their phone, and it reads their
+              message at its next step.
+            </p>
+            <ul class="f-list">
+              <li><strong>Shared, one at a time.</strong> Give someone in the workspace a single session: to read it, to message its agent, or to own it with you.</li>
+              <li><strong>Followed, not missed.</strong> Follow a session to hear when it waits for a reply, pauses or fails.</li>
+            </ul>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/team/watching-dark.webp" width="2200" height="1375" alt="shop#231 at work, with Noor, Tomás and Lucía watching it." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/team/watching-light.webp" width="2200" height="1375" alt="shop#231 at work, with Noor, Tomás and Lucía watching it." loading="lazy" />
+            </figure>
+            <div class="term">
+              <div class="term-bar"><i></i><i></i><i></i><span>lucia@Lucia-MacBook-Pro ~</span></div>
+              <div class="term-body">
+<p class="cmd">fctl send shop#231 "Use «Læg i kurv»"</p>
+<p class="out"><span class="y">✓</span> Sent to shop#231</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="google">
+          <div class="f-copy reveal">
+            <h2 id="google">Sign in with Google.</h2>
+            <p>
+              People sign in with their Google account, as they do everywhere else at work, and someone who
+              signed up with a password links Google to their account from Settings. On an instance of your own,
+              allow your company's domain, <code>*@romanesco.farm</code> say, and everyone with an address there
+              signs up with Google and joins the workspaces that invite them.
+            </p>
+            <ul class="f-list">
+              <li><strong>A second factor, too.</strong> Google sign-ins can ask for a code as well: choose it for yourself in Settings, or an instance's admins choose it for everyone.</li>
+              <li><strong>Or a passkey.</strong> A fingerprint, a face or a screen lock signs you in, with no password at all.</li>
+              <li><strong>Set up once.</strong> A Google OAuth client is all an instance of your own needs for the same button.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/login">
+            <img class="theme-dark" src="/src/features/shots/team/login-dark.webp" width="2200" height="1375" alt="fctl's sign-in page, with Continue with Google above the email and password." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/team/login-light.webp" width="2200" height="1375" alt="fctl's sign-in page, with Continue with Google above the email and password." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section wide" aria-labelledby="admins">
+          <div class="f-copy reveal">
+            <h2 id="admins">Admins, and the rules they keep.</h2>
+            <p>
+              A workspace's admins invite and remove people, change their roles, create its projects and choose its
+              runners and GitHub accounts. Its primary admin hands the role over before leaving. They can close the
+              workspace to anyone without a second factor, and its audit log keeps who changed what.
+            </p>
+          </div>
+          <div class="f-trio">
+            <figure class="f-tile reveal">
+              <div class="term">
+                <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~</span></div>
+                <div class="term-body">
+<p class="cmd">fctl workspaces invite ines@romanesco.farm</p>
+<p class="out"><span class="y">✓</span> Invited ines@romanesco.farm to <span class="w">Romanesco</span></p>
+                </div>
+              </div>
+              <figcaption>Invited by the address they sign in with.</figcaption>
+            </figure>
+            <figure class="f-tile reveal">
+              <div class="term">
+                <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~</span></div>
+                <div class="term-body">
+<p class="cmd">fctl workspaces set --base-role editor</p>
+<p class="out"><span class="y">✓</span> Saved <span class="w">romanesco</span></p>
+                </div>
+              </div>
+              <figcaption>What everyone may do in every project.</figcaption>
+            </figure>
+            <figure class="f-tile reveal">
+              <div class="term">
+                <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~</span></div>
+                <div class="term-body">
+<p class="cmd">fctl workspaces set --require-two-factor on</p>
+<p class="out"><span class="y">✓</span> Saved <span class="w">romanesco</span></p>
+                </div>
+              </div>
+              <figcaption>A second factor, required of everyone in it.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>Invitations, roles, sharing, and how people sign in.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/getting-started/#9-work-together"><span>Work together</span><small>Invitations, roles and sharing a session</small></a></li>
+            <li><a href="/docs/architecture/#workspaces"><span>Workspaces</span><small>Who sees what, and who decides</small></a></li>
+            <li><a href="/docs/self-hosting/#google-sign-in-optional"><span>Google sign-in</span><small>On an instance of your own</small></a></li>
+            <li><a href="/docs/security/"><span>Security</span><small>Access, two-factor sign-in and passkeys</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/workspaces/"><small>Previous</small><strong>Workspaces and projects</strong><span>Your team, your repositories, your rules</span></a>
+          <a href="/features/sandboxes/"><small>Next</small><strong>Sandboxes</strong><span>A fresh machine for every session</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

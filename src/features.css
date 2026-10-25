@@ -488,6 +488,30 @@ figcaption {
   margin-top: 24px;
 }
 
+/* Roles and what each may do: a short table, a hairline under each row. */
+.f-roles {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  border-top: 1px solid var(--c-line);
+}
+.f-roles dt,
+.f-roles dd {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--c-line);
+  font-size: 15.5px;
+  line-height: 24px;
+}
+.f-roles dt {
+  padding-right: 28px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--c-ink);
+}
+.f-roles dd {
+  color: var(--c-ink-2);
+}
+
 /* Figures that stack: a big one with a smaller one overlapping its corner. */
 .f-stack {
   position: relative;
