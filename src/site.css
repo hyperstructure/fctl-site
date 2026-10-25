@@ -686,9 +686,12 @@ pre .prompt {
 .foot-made a {
   color: var(--c-ink-2);
 }
+/* A row of columns that wraps rather than run past the edge, should the
+   breakpoints below ever fall short. */
 .foot-nav {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 40px clamp(40px, 4.5vw, 72px);
 }
 .foot-col h2 {
@@ -757,24 +760,32 @@ pre .prompt {
 .foot-mark.gl span {
   visibility: hidden;
 }
-/* Narrower: the description above the links, then fewer columns of them. */
-@media (max-width: 1120px) {
+/* Narrower: the description above the links (before the made-by line would
+   wrap), then fewer columns of them, each switch some 20px before the links
+   would run out of room. */
+@media (max-width: 1280px) {
   .foot-inner {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 840px) {
   .foot-features ul {
     columns: 2;
   }
 }
-@media (max-width: 600px) {
+/* Phones: the features above, Docs and Project below, in the features' two
+   columns. */
+@media (max-width: 680px) {
   .foot-nav {
-    grid-template-columns: repeat(2, auto);
-    justify-content: start;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
   }
   .foot-features {
     grid-column: 1 / -1;
+  }
+  .foot-features ul {
+    column-gap: 32px;
   }
 }
 
