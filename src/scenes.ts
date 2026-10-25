@@ -61,7 +61,11 @@ vec2 anchor(float x, float y) {
 }
 `;
 
-export const MAIN = `
+/**
+ * The scenes' main(): the field, then stars and film grain on the empty dark,
+ * as the foundry has them, as much as sky (a GLSL expression of p) says.
+ */
+export const main = (sky = "1.0") => `
 void main() {
   vec2 px = floor(gl_FragCoord.xy);
   gAspect = uRes.x / uRes.y;
@@ -75,17 +79,19 @@ void main() {
     outColor = vec4(col, 1.0);
     return;
   }
-  // Stars and film grain on the empty dark, as the foundry has them.
+  float sky = ${sky};
   float h = hash12(px * 0.913 + 17.0);
   float twinkle = 0.55 + 0.45 * sin(uTime * (0.6 + h * 2.4) + h * 40.0);
   if (h > 0.9978) {
-    outColor = vec4(uInk * twinkle, twinkle);
+    outColor = vec4(uInk * twinkle, twinkle) * sky;
     return;
   }
   float g = hash12(px + floor(uTime * 10.0) * 13.17);
   float a = g > 0.94 ? (uDark > 0.5 ? 0.05 : 0.035) : 0.0;
-  outColor = vec4(uInk * a, a);
+  outColor = vec4(uInk * a, a) * sky;
 }`;
+
+export const MAIN = main();
 
 /** Workspaces: rounded squares turning inside each other, hyperstructure's symbol, nested. */
 const TWIST = `

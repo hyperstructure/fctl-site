@@ -97,7 +97,7 @@ function reveals() {
   for (const el of els) io.observe(el);
 }
 
-/** A colour of the map scene's palette for a status dot: 0 yellow, 1 pink, 2 blue. */
+/** A color of the map scene's palette for a status dot: 0 yellow, 1 pink, 2 blue. */
 function dotColor(node: HTMLElement) {
   const dot = node.querySelector(".dot");
   return dot?.classList.contains("p") ? 1 : dot?.classList.contains("b") ? 2 : 0;
@@ -119,7 +119,7 @@ function map() {
   if (canvas.dataset.webgl) return;
   root.classList.add("gl");
 
-  // Requests go out pink; events come back yellow, or in a sandbox's colour.
+  // Requests go out pink; events come back yellow, or in a sandbox's color.
   const nodes = [...root.querySelectorAll<HTMLElement>(".map-node")];
   const hosts = nodes.filter((n) => n.dataset.host);
   const pairs = [
@@ -153,7 +153,8 @@ function map() {
     });
     const rc = core.getBoundingClientRect();
     const [x, y] = at(rc.left + rc.width / 2, rc.top + rc.height / 2);
-    scene.set(links, { x, y, size: rc.width / 2 / box.height }, down);
+    const px = 1 / box.height;
+    scene.set(links, { x, y, w: (rc.width / 2) * px, h: (rc.height / 2) * px, px }, down);
   };
   new ResizeObserver(place).observe(root);
   void document.fonts?.ready.then(place);

@@ -675,6 +675,7 @@ pre .prompt {
   color: var(--c-ink-3);
 }
 .foot-brand .foot-made {
+  max-width: none;
   font-family: var(--font-mono);
   font-size: 11.5px;
   letter-spacing: 0.04em;
@@ -701,8 +702,13 @@ pre .prompt {
   margin-top: 16px;
 }
 .foot-features ul {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: block;
+  columns: 2;
   column-gap: 24px;
+}
+.foot-features li {
+  break-inside: avoid;
+  margin-bottom: 10px;
 }
 .foot-col a {
   font-size: 14px;
@@ -719,7 +725,7 @@ pre .prompt {
 /* The wordmark: dithered and melting where WebGL runs, type where it doesn't. */
 .foot-mark {
   position: relative;
-  height: clamp(170px, 27vw, 420px);
+  height: clamp(180px, 29vw, 450px);
   margin-top: clamp(16px, 3vw, 40px);
 }
 .foot-canvas {

@@ -3,7 +3,7 @@
 // into the end of the page. Both are dithered to the brand palette.
 
 import { compile, FULLSCREEN_VS, prefersReducedMotion, type Scene } from "@hyperstructure/design/gl/core";
-import { easedPointer, HEAD, MAIN, setUniforms, UNIFORMS } from "./scenes";
+import { easedPointer, HEAD, MAIN, main, setUniforms, UNIFORMS } from "./scenes";
 
 /** The most links the map draws. */
 const MAX_LINKS = 16;
@@ -15,10 +15,11 @@ const MAX_LINKS = 16;
  */
 const MAP = `
 uniform vec4 uLink[${MAX_LINKS}];  // from (x, y) and to (x, y), in heights
-uniform vec4 uKind[${MAX_LINKS}];  // colour going out, colour coming back, phase, both ways
+uniform vec4 uKind[${MAX_LINKS}];  // color going out, color coming back, phase, both ways
 uniform float uLit[${MAX_LINKS}];  // 1, or less while the pointer is on a part it doesn't lead to
 uniform int uLinks;
-uniform vec3 uCore;      // the control plane: centre and size, in heights
+uniform vec4 uCore;      // the control plane: its center and half its size, in heights
+uniform float uPx;       // a CSS pixel, in heights
 uniform float uDown;     // 1 when the columns are stacked and the links run down
 vec3 palette(float k) {
   return k < 0.5 ? uY : (k < 1.5 ? uP : uB);
@@ -29,13 +30,14 @@ void field(vec2 p, inout vec3 col, inout float v) {
   take(col, v, uN, step(g.x, 0.5) * step(g.y, 0.5) * 0.2);
   vec2 m = vec2(uMouse.x * gAspect, uMouse.y);
   float near = uMouse.z * exp(-length(p - m) * 5.0);
-  // Rings going out from the control plane, as events fan out to everyone.
+  // Rings going out from the control plane's outline, as events fan out to everyone.
   if (uCore.z > 0.0) {
-    float r = length((p - uCore.xy) * vec2(1.0, 1.35));
-    float away = r - uCore.z;
+    float px = uPx;
+    float away = sdRoundBox(p - uCore.xy, uCore.zw, 14.0 * px);
     if (away > 0.0) {
-      float ring = fract(away / 0.07 - uTime * 0.32);
-      take(col, v, uY, smoothstep(0.86, 1.0, ring) * exp(-away / 0.22) * 0.7);
+      float ring = fract(away / (42.0 * px) - uTime * 0.3);
+      float fade = exp(-away / (72.0 * px)) * (1.0 - smoothstep(120.0 * px, 230.0 * px, away));
+      take(col, v, uY, smoothstep(0.88, 1.0, ring) * fade * 0.6);
     }
   }
   for (int i = 0; i < ${MAX_LINKS}; i++) {
@@ -56,7 +58,7 @@ void field(vec2 p, inout vec3 col, inout float v) {
     float y = mix(L.y, L.w, s);
     float slope = (L.w - L.y) * 6.0 * u * (1.0 - u) / w;
     float d = abs(q.y - y) / sqrt(1.0 + slope * slope);
-    take(col, v, uN, line(d, 0.9) * (0.5 + near * 0.6) * mix(0.45, 1.0, lit));
+    take(col, v, uN, line(d, 1.0) * (0.75 + near * 0.5) * mix(0.4, 1.0, lit));
     // Packets: a bright head with a tail behind it, a few on each link.
     float n = max(1.0, floor(abs(w) / 0.16));
     float out_ = fract(u * n - uTime * 0.42 + K.z);
@@ -71,11 +73,21 @@ void field(vec2 p, inout vec3 col, inout float v) {
 export interface MapLink {
   from: [number, number];
   to: [number, number];
-  /** The packets' colours, going out (right, or down) and coming back: 0 yellow, 1 pink, 2 blue. */
+  /** The packets' colors, going out (right, or down) and coming back: 0 yellow, 1 pink, 2 blue. */
   out: number;
   back: number;
   /** Whether packets come back along it too. */
   both: boolean;
+}
+
+/** The control plane: its center and half its size, in fractions of the canvas's height. */
+export interface MapCore {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  /** A CSS pixel, in the same units, for the rings' spacing. */
+  px: number;
 }
 
 export interface MapHandle {
@@ -84,7 +96,7 @@ export interface MapHandle {
    * Where the links and the control plane are now (after a resize, say),
    * and whether the links run down the map rather than across it.
    */
-  set(links: MapLink[], core: { x: number; y: number; size: number } | null, down: boolean): void;
+  set(links: MapLink[], core: MapCore | null, down: boolean): void;
   /** Which links are lit, the others dimmed; null lights them all. */
   light(lit: boolean[] | null): void;
   pointer(x: number, y: number): void;
@@ -98,7 +110,7 @@ export function mapScene(): MapHandle {
   const p = easedPointer();
   const still = prefersReducedMotion();
   let links: MapLink[] = [];
-  let core: { x: number; y: number; size: number } | null = null;
+  let core: MapCore | null = null;
   let down = false;
   const linkData = new Float32Array(MAX_LINKS * 4);
   const kindData = new Float32Array(MAX_LINKS * 4);
@@ -109,7 +121,7 @@ export function mapScene(): MapHandle {
     init(gl) {
       prog = compile(gl, FULLSCREEN_VS, HEAD + MAP + MAIN);
       vao = gl.createVertexArray();
-      for (const n of [...UNIFORMS, "uLink", "uKind", "uLit", "uLinks", "uCore", "uDown"]) {
+      for (const n of [...UNIFORMS, "uLink", "uKind", "uLit", "uLinks", "uCore", "uPx", "uDown"]) {
         u[n] = gl.getUniformLocation(prog, n);
       }
     },
@@ -132,7 +144,14 @@ export function mapScene(): MapHandle {
       gl.uniform4fv(u.uKind ?? null, kindData);
       gl.uniform1fv(u.uLit ?? null, lit);
       gl.uniform1i(u.uLinks ?? null, shown.length);
-      gl.uniform3f(u.uCore ?? null, core ? core.x * aspect : 0, core ? 1 - core.y : 0, core ? core.size : 0);
+      gl.uniform4f(
+        u.uCore ?? null,
+        core ? core.x * aspect : 0,
+        core ? 1 - core.y : 0,
+        core ? core.w : 0,
+        core ? core.h : 0,
+      );
+      gl.uniform1f(u.uPx ?? null, core ? core.px : 0);
       gl.uniform1f(u.uDown ?? null, down ? 1 : 0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       gl.bindVertexArray(null);
@@ -191,8 +210,10 @@ void field(vec2 p, inout vec3 col, inout float v) {
   // Fades out towards the end of the page.
   float fade = smoothstep(0.02, 0.5, p.y);
   if (body > 0.5) {
-    float shade = 0.9 + 0.1 * vnoise(p * 40.0 + uTime * 0.2);
-    take(col, v, uY, body * shade * mix(0.55, 1.0, fade));
+    // Solid at the top, coming apart lower down, where it melts.
+    float solid = mix(0.6, 1.3, smoothstep(0.34, 0.72, p.y));
+    float shade = 0.92 + 0.08 * vnoise(p * 40.0 + uTime * 0.2);
+    take(col, v, uY, body * shade * solid);
   } else {
     take(col, v, far < 0.45 ? uP : uB, drip * 1.05 * fade);
   }
@@ -246,7 +267,8 @@ export function meltScene(text: string, font: (px: number) => string): MeltHandl
   });
   const scene: Scene = {
     init(gl) {
-      prog = compile(gl, FULLSCREEN_VS, HEAD + MELT + MAIN);
+      // No stars at the top, where the footer's links are: they come out further down.
+      prog = compile(gl, FULLSCREEN_VS, HEAD + MELT + main("1.0 - smoothstep(0.35, 0.95, p.y)"));
       vao = gl.createVertexArray();
       tex = gl.createTexture();
       size = "";

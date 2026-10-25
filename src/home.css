@@ -269,12 +269,11 @@
 
 /* A runner's sandboxes, as chips stacked over its terminal's lower edge. */
 .sandboxes {
-  position: absolute;
-  top: 122px;
-  right: clamp(16px, 2.4vw, 28px);
+  position: relative;
   display: grid;
   justify-items: end;
   gap: 6px;
+  margin: -16px clamp(-8px, -0.6vw, 0px) 0 0;
 }
 .sandboxes li {
   display: flex;
@@ -372,12 +371,9 @@
   color: var(--c-ink-2);
   white-space: nowrap;
 }
-.ws-people {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px 14px;
-  border-top: 1px solid var(--c-line);
+.ws-head > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
 }
 .ws-faces {
   display: flex;
@@ -511,11 +507,11 @@
   height: 100%;
 }
 .map-cols {
-  --gap: clamp(40px, 5.6vw, 92px);
+  --gap: clamp(36px, 4vw, 60px);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--gap);
-  padding: clamp(28px, 3.4vw, 44px) clamp(22px, 3.4vw, 48px) clamp(32px, 3.8vw, 52px);
+  padding: clamp(28px, 3.4vw, 44px) clamp(18px, 2.6vw, 36px) clamp(32px, 3.8vw, 52px);
 }
 .map-col {
   position: relative;
@@ -623,7 +619,8 @@
   font-size: 16px;
 }
 .map-sb {
-  padding: 10px 14px 10px 16px;
+  gap: 10px;
+  padding: 10px 12px 10px 15px;
 }
 .map-sb strong {
   font-family: var(--font-mono);
@@ -660,19 +657,38 @@
     gap: 10px;
     padding-top: 30px;
   }
+  /* At the left, clear of most links, which meet in the middle; the
+     others pass under it. */
   .map-label {
-    left: 50%;
-    translate: -50% 0;
+    top: 2px;
+    left: -6px;
+    padding: 1px 6px;
+    border-radius: 6px;
+    background: color-mix(in oklab, var(--c-sunken) 88%, transparent);
   }
   .map-node {
     flex: 1 1 0;
-    min-width: min(100%, 132px);
+    min-width: 0;
   }
   .map-core {
     flex: 0 1 auto;
   }
+  /* A machine's sandboxes in a column under it: the Mac's on the left, the
+     Linux box's on the right. */
   .map-sb {
     flex: 1 1 40%;
+  }
+  .map-sb:nth-child(2) {
+    order: 1;
+  }
+  .map-sb:nth-child(3) {
+    order: 3;
+  }
+  .map-sb:nth-child(4) {
+    order: 2;
+  }
+  .map-sb:nth-child(5) {
+    order: 4;
   }
   .map:not(.gl) .map-col + .map-col::before {
     top: calc(-1 * var(--gap));
@@ -689,7 +705,8 @@
   }
 }
 @media (max-width: 520px) {
-  .map-col:first-child .map-node {
+  .map-col:first-child .map-node,
+  .map-col:nth-child(3) .map-node {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
