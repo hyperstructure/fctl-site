@@ -106,8 +106,7 @@ function dotColor(node: HTMLElement) {
 
 /**
  * The map of how the pieces fit: a scene behind the nodes draws the links
- * between them, from where the page lays them out. Pointing at a node
- * lights the way from it to you, or to its sandboxes, and dims the rest.
+ * between them, from where the page lays them out.
  */
 function map() {
   const root = document.querySelector<HTMLElement>(".map");
@@ -162,38 +161,6 @@ function map() {
   sizes.observe(canvas);
   void document.fonts?.ready.then(place);
   place();
-
-  // The parts a node leads to, both ways along the links.
-  const path = (node: HTMLElement) => {
-    const on = new Set([node]);
-    for (const ahead of [true, false]) {
-      const next = [node];
-      for (let n = next.pop(); n; n = next.pop()) {
-        for (const { a, b } of pairs) {
-          const [from, to] = ahead ? [a, b] : [b, a];
-          if (from === n && !on.has(to)) {
-            on.add(to);
-            next.push(to);
-          }
-        }
-      }
-    }
-    return on;
-  };
-  const point = (node: HTMLElement | null) => {
-    const on = node ? path(node) : null;
-    scene.light(on ? pairs.map(({ a, b }) => on.has(a) && on.has(b)) : null);
-    for (const n of nodes) n.classList.toggle("dim", !!on && !on.has(n));
-  };
-  for (const n of nodes) {
-    n.addEventListener("pointerenter", () => point(n));
-    n.addEventListener("pointerleave", () => point(null));
-  }
-  root.addEventListener("pointermove", (e) => {
-    const r = canvas.getBoundingClientRect();
-    scene.pointer((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
-  });
-  root.addEventListener("pointerleave", () => scene.pointerLeave());
 }
 
 hero();
