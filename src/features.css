@@ -271,12 +271,17 @@ main > section.f-hero {
 }
 
 /* A phone, with the app on its screen. */
+/* A phone, with the app on its screen below iOS's status bar: the time, the
+   island, signal, Wi-Fi and battery on one line, as an installed web app
+   shows them. Its sizes follow the screen's width (cqw), as an iPhone's do;
+   the screenshots are 390 × 788, the screen below a 15cqw status bar. */
 .phone {
+  container-type: inline-size;
   position: relative;
   margin: 0;
   width: min(100%, 320px);
-  padding: 9px;
-  border-radius: 50px;
+  padding: 6px;
+  border-radius: 12.4% / 5.75%;
   background: linear-gradient(145deg, #2c2c2e, #0d0d0f 45%, #1d1d1f);
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 0.08) inset,
@@ -294,18 +299,43 @@ main > section.f-hero {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 41px;
+  border-radius: 0 0 10.5cqw 10.5cqw;
 }
+/* The status bar, on the app's own background: the time at the left. */
+.phone::before {
+  content: "9:10";
+  display: block;
+  height: 15cqw;
+  padding-left: 14.2cqw;
+  border-radius: 10.5cqw 10.5cqw 0 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 13' fill='white'%3E%3Crect x='0' y='8' width='3' height='4' rx='.8'/%3E%3Crect x='4.5' y='5.5' width='3' height='6.5' rx='.8'/%3E%3Crect x='9' y='3' width='3' height='9' rx='.8'/%3E%3Crect x='13.5' y='.5' width='3' height='11.5' rx='.8'/%3E%3Cpath d='M29.5 12 26.67 9.17A4 4 0 0 1 32.33 9.17Z'/%3E%3Cpath d='M23.98 6.48A7.8 7.8 0 0 1 35.02 6.48L33.46 8.04A5.6 5.6 0 0 0 25.54 8.04Z'/%3E%3Cpath d='M21.3 3.8A11.6 11.6 0 0 1 37.7 3.8L36.15 5.35A9.4 9.4 0 0 0 22.85 5.35Z'/%3E%3Crect x='44.5' y='1' width='23' height='11' rx='3.3' fill='none' stroke='white' stroke-opacity='.4'/%3E%3Crect x='46.5' y='3' width='16' height='7' rx='1.6'/%3E%3Cpath d='M69 4.6v3.8c.9-.3 1.5-1.1 1.5-1.9s-.6-1.6-1.5-1.9z' fill-opacity='.4'/%3E%3C/svg%3E")
+    no-repeat right 7.4cqw center / 18cqw auto,
+    var(--c-canvas);
+  color: #fff;
+  font:
+    600 4.3cqw / 15cqw -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    var(--font-sans);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+:root[data-theme="light"] .phone::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 13' fill='black'%3E%3Crect x='0' y='8' width='3' height='4' rx='.8'/%3E%3Crect x='4.5' y='5.5' width='3' height='6.5' rx='.8'/%3E%3Crect x='9' y='3' width='3' height='9' rx='.8'/%3E%3Crect x='13.5' y='.5' width='3' height='11.5' rx='.8'/%3E%3Cpath d='M29.5 12 26.67 9.17A4 4 0 0 1 32.33 9.17Z'/%3E%3Cpath d='M23.98 6.48A7.8 7.8 0 0 1 35.02 6.48L33.46 8.04A5.6 5.6 0 0 0 25.54 8.04Z'/%3E%3Cpath d='M21.3 3.8A11.6 11.6 0 0 1 37.7 3.8L36.15 5.35A9.4 9.4 0 0 0 22.85 5.35Z'/%3E%3Crect x='44.5' y='1' width='23' height='11' rx='3.3' fill='none' stroke='black' stroke-opacity='.4'/%3E%3Crect x='46.5' y='3' width='16' height='7' rx='1.6'/%3E%3Cpath d='M69 4.6v3.8c.9-.3 1.5-1.1 1.5-1.9s-.6-1.6-1.5-1.9z' fill-opacity='.4'/%3E%3C/svg%3E");
+  color: #000;
+}
+/* The Dynamic Island, on the status bar's line, with its camera. */
 .phone::after {
   content: "";
   position: absolute;
-  top: 19px;
+  top: calc(6px + 4cqw);
   left: 50%;
-  width: 30%;
-  height: 26px;
+  width: 26cqw;
+  height: 7cqw;
   transform: translateX(-50%);
-  border-radius: 20px;
-  background: #050505;
+  border-radius: 99px;
+  background: radial-gradient(circle at 81% 50%, #23232c 0 1.15cqw, transparent 1.3cqw), #000;
 }
 
 figcaption {
