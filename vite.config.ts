@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
@@ -39,8 +39,43 @@ function brandAssets(): Plugin {
   };
 }
 
+/**
+ * The parts pages share, from src/partials: `<!--site:nav-->` (`<!--site:nav solid-->` for a
+ * header that sticks to the top, as on the docs), `<!--site:footer-->`, and the feature pages'
+ * `<!--site:feature-end-->`.
+ */
+function partials(): Plugin {
+  const read = (name: string) => readFileSync(page(`./src/partials/${name}.html`), "utf8").trimEnd();
+  return {
+    name: "partials",
+    transformIndexHtml: {
+      order: "pre",
+      handler: (html) =>
+        html.replace(/<!--site:(nav|footer|feature-end)( solid)?-->/g, (_, name: string, solid?: string) =>
+          read(name).replace("{{solid}}", solid ? " solid" : ""),
+        ),
+    },
+    configureServer(server) {
+      server.watcher.add(page("./src/partials"));
+      server.watcher.on("change", (file) => {
+        if (file.includes("/src/partials/")) server.ws.send({ type: "full-reload" });
+      });
+    },
+  };
+}
+
+/** The feature pages: features/index.html and features/<slug>/index.html, served at /features/<slug>/. */
+function featurePages(): Record<string, string> {
+  const dir = page("./features");
+  const entries: Record<string, string> = { features: `${dir}/index.html` };
+  for (const d of readdirSync(dir, { withFileTypes: true })) {
+    if (d.isDirectory()) entries[`feature-${d.name}`] = `${dir}/${d.name}/index.html`;
+  }
+  return entries;
+}
+
 export default defineConfig({
-  plugins: [tailwindcss(), brandAssets()],
+  plugins: [tailwindcss(), brandAssets(), partials()],
   build: {
     target: "es2023",
     // Fonts and images come from 'self' only (see public/_headers).
@@ -54,6 +89,7 @@ export default defineConfig({
         legal: page("./legal.html"),
         notFound: page("./404.html"),
         serverError: page("./500.html"),
+        ...featurePages(),
       },
     },
   },

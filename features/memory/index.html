@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Memory and retrospectives · fctl</title>
+    <meta
+      name="description"
+      content="fctl's agents keep a memory for each project: notes for the agents after them, on the commands that work, the traps and the decisions. And as they finish a piece of work, they record how it went, for the people who read it."
+    />
+    <meta property="og:title" content="Memory and retrospectives · fctl" />
+    <meta property="og:description" content="What one agent learns, the next one knows: a project's memory, and a retrospective of every piece of work." />
+    <meta property="og:url" content="https://fctl.sh/features/memory/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="memory" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-4-6.5 4v-16a1 1 0 0 1 1-1z" /><path d="M9.5 8.5h5" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Memory and retrospectives</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">What one agent learns, <span class="hot">the next one knows.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Every session starts in a fresh sandbox, with a fresh conversation, so whatever an agent worked out would
+            leave with it. Instead, fctl's agents leave notes for the agents after them: the command that works, the
+            trap they fell into, how the tests really behave. And when they finish a piece of work, they say how it
+            went.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Open the app</a>
+            <a class="f-link" href="/docs/architecture/#project-memory">How the memory works <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/p/platform?tab=memory">
+              <img class="theme-dark" src="/src/features/shots/memory/memory-dark.webp" width="2200" height="1375" alt="The Platform project's memory: notes from its agents and people, each with the session it came from." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/memory/memory-light.webp" width="2200" height="1375" alt="The Platform project's memory: notes from its agents and people, each with the session it came from." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/memory/phone-memory-dark.webp" width="780" height="1688" alt="The Platform project's memory on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/memory/phone-memory-light.webp" width="780" height="1688" alt="The Platform project's memory on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Notes</span>
+            <strong>A sentence or two</strong>
+            <p>One fact each: what to run, what to avoid, what people decided. Agents start every session with them.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Current</span>
+            <strong>Pruned as it goes</strong>
+            <p>A note that turned out wrong gets marked stale, with a reason. Overlapping ones become one that says it all.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Retros</span>
+            <strong>How it went</strong>
+            <p>What the work was, how the agent went about it, what got in the way, and what the next one should know.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Yours</span>
+            <strong>People write too</strong>
+            <p>Add the note an agent should have had, and delete the ones you don't want. Every note says where it came from.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="where">
+          <div class="f-copy reveal">
+            <h2 id="where">Written down where it was learned.</h2>
+            <p>
+              Asha's agent spent the morning chasing customers who were charged twice. On the way it found that the
+              race only shows with two workers, and how to make it happen on demand. Before it moved on, it wrote that
+              down. The note shows in the transcript where it was written, and in the project's memory from then on.
+            </p>
+            <ul class="f-list">
+              <li><strong>In the next session's first thought.</strong> New sessions start with the project's current notes, newest first.</li>
+              <li><strong>And the ones written since.</strong> A long session can ask for notes other sessions added while it worked.</li>
+              <li><strong>Agents don't rewrite history.</strong> They add, replace and mark stale; only people change or delete a note.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/memory/notes-dark.webp" width="2200" height="1375" alt="platform#437 remembers two things for later agents: the invoice job's advisory lock, and how to reproduce billing races with two workers." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/memory/notes-light.webp" width="2200" height="1375" alt="platform#437 remembers two things for later agents: the invoice job's advisory lock, and how to reproduce billing races with two workers." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="start">
+          <div class="f-copy reveal">
+            <h2 id="start">The briefing every agent gets.</h2>
+            <p>
+              As a session starts, fctl puts the project's notes in the agent's instructions, each with where it came
+              from and how old it is, as notes rather than orders: what the person asks comes first, and a note can be
+              out of date. The agent checks one before it relies on it.
+            </p>
+            <a class="f-link" href="/docs/cli/#memory-and-retrospectives">Notes from the CLI <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="term reveal">
+            <div class="term-bar"><i></i><i></i><i></i><span>~/AGENTS.md</span></div>
+            <div class="term-body">
+<p class="w">## Project memory</p>
+<p></p>
+<p class="out">Agents of this project keep notes for the agents after them.</p>
+<p class="out">These are its notes as this session started, newest first:</p>
+<p></p>
+<p>- <span class="b">mem_01K8ZQ4T</span> <span class="f">(session #445, today)</span>: Answer Stripe's</p>
+<p>  webhooks at once and do the work in the job queue</p>
+<p>  (<span class="y">jobs::enqueue</span>): a handler slower than Stripe's</p>
+<p>  timeout gets the event again.</p>
+<p>- <span class="b">mem_01K8XN2C</span> <span class="f">(session #437, yesterday)</span>: Billing races</p>
+<p>  show only with two workers: reproduce them with</p>
+<p>  <span class="y">scripts/replay-webhooks.sh --workers 2</span>.</p>
+<p>- <span class="b">mem_01K8F0W9</span> <span class="f">(Asha Patel, last Wednesday)</span>: Billing</p>
+<p>  changes need Asha's review on GitHub as well as the</p>
+<p>  review agent's: ask for it in the pull request.</p>
+<p class="f">- …and 9 older notes, which `fctl memory` lists.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="retros">
+          <div class="f-copy reveal">
+            <h2 id="retros">Every piece of work, accounted for.</h2>
+            <p>
+              When an agent finishes something, it records a retrospective: completed, partly done or blocked, what it
+              worked on, its approach, what got in the way and what a future agent should know. When a later turn
+              carries on with the same work, it updates that one, so it tells the whole story as it ended.
+            </p>
+            <ul class="f-list">
+              <li><strong>Beside the transcript.</strong> The session's newest, and each where it was recorded.</li>
+              <li><strong>All of them, per project.</strong> Filter by how they ended, and read what got in the way.</li>
+              <li><strong>From insight to memory.</strong> Put a retrospective's insight in the memory with one click.</li>
+            </ul>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/p/shop?tab=retrospectives">
+              <img class="theme-dark" src="/src/features/shots/memory/retrospectives-dark.webp" width="2200" height="1375" alt="The Shop project's retrospectives: 131 completed, 14 partly done and 3 blocked, newest first, each with what it worked on and what got in the way." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/memory/retrospectives-light.webp" width="2200" height="1375" alt="The Shop project's retrospectives: 131 completed, 14 partly done and 3 blocked, newest first, each with what it worked on and what got in the way." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/memory/phone-retrospectives-dark.webp" width="780" height="1688" alt="The Shop project's retrospectives on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/memory/phone-retrospectives-light.webp" width="780" height="1688" alt="The Shop project's retrospectives on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="one">
+          <div class="f-copy reveal">
+            <h2 id="one">Honest about the hard parts.</h2>
+            <p>
+              The skip link took two goes: the review found that last week's email would skip this week's box. The
+              retrospective says so, in a sentence, and leaves the lesson where the next agent will find it.
+              Retrospectives are for the people who read them over coffee, and they read like it.
+            </p>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/memory/retro-dark.webp" width="2200" height="1375" alt="shop#224's retrospective: completed, what it worked on, its approach, the review's finding that got in the way, and an insight about the email previews." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/memory/retro-light.webp" width="2200" height="1375" alt="shop#224's retrospective: completed, what it worked on, its approach, the review's finding that got in the way, and an insight about the email previews." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>What agents start with, what they may do with notes, and what a retrospective holds.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/architecture/#project-memory"><span>Project memory</span><small>Notes, their limits, and stale ones</small></a></li>
+            <li><a href="/docs/architecture/#retrospectives"><span>Retrospectives</span><small>One for each piece of work</small></a></li>
+            <li><a href="/docs/cli/#memory-and-retrospectives"><span>From the CLI</span><small><code>fctl memory</code> and <code>fctl retro</code></small></a></li>
+            <li><a href="/docs/agents/"><span>For agents</span><small>Driving fctl from another agent</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/review-agents/"><small>Previous</small><strong>Review agents</strong><span>A second pair of eyes on every commit</span></a>
+          <a href="/features/runners/"><small>Next</small><strong>Runners</strong><span>The machines you already have</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

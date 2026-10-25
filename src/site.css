@@ -79,9 +79,193 @@
   color: var(--c-highlight-ink);
   filter: brightness(1.06);
 }
-@media (max-width: 640px) {
-  .nav nav a:not(.nav-app):not(:first-child) {
+/* Small phones: the mark without its word, and tighter letters, so that
+   Features, Docs and the app fit on one line. */
+@media (max-width: 380px) {
+  .nav nav {
+    gap: 12px;
+    letter-spacing: 0.08em;
+  }
+  .nav .nav-app {
+    padding: 8px 10px;
+  }
+}
+@media (max-width: 350px) {
+  .brand span {
     display: none;
+  }
+}
+/* Features: a menu of the feature pages, a details element that works without JavaScript
+   (src/nav.ts closes it on Escape and outside clicks). It hangs from the header's right edge. */
+.nav-menu > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  list-style: none;
+  cursor: pointer;
+  color: var(--c-ink-2);
+  transition: color 160ms var(--ease-out);
+}
+.nav-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.nav-menu > summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 220ms var(--ease-out);
+}
+.nav-menu > summary:hover,
+.nav-menu[open] > summary {
+  color: var(--c-ink);
+}
+.nav-menu[open] > summary::after {
+  transform: translateY(3px) rotate(-135deg);
+}
+.nav-menu > summary:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.menu {
+  position: absolute;
+  top: calc(100% - 6px);
+  right: clamp(16px, 4vw, 48px);
+  width: min(700px, calc(100vw - 32px));
+  padding: 10px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line-strong);
+  background: color-mix(in srgb, var(--c-surface) 92%, transparent);
+  backdrop-filter: blur(20px) saturate(1.3);
+  box-shadow:
+    0 30px 80px -24px rgb(0 0 0 / 0.55),
+    0 2px 10px rgb(0 0 0 / 0.12);
+  font-family: var(--font-sans);
+  text-transform: none;
+  letter-spacing: normal;
+  animation: menu-in 260ms var(--ease-out) both;
+}
+:root[data-theme="light"] .menu {
+  box-shadow:
+    0 30px 80px -28px rgb(23 23 23 / 0.28),
+    0 2px 10px rgb(23 23 23 / 0.06);
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.985);
+  }
+}
+.menu-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+}
+.nav nav .menu a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--c-ink);
+  transition: background-color 160ms var(--ease-out);
+}
+.nav nav .menu a:hover,
+.nav nav .menu a:focus-visible {
+  color: var(--c-ink);
+  background: var(--c-hover);
+}
+.menu strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.menu small {
+  display: block;
+  margin-top: 1px;
+  font-size: 12.5px;
+  color: var(--c-ink-3);
+}
+.menu-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--c-line);
+}
+.menu-icon svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.menu-icon.y {
+  background: var(--c-accent-soft);
+}
+.menu-icon.y svg {
+  stroke: var(--c-accent);
+}
+.menu-icon.p {
+  background: var(--c-pink-soft);
+}
+.menu-icon.p svg {
+  stroke: var(--c-pink);
+}
+.menu-icon.b {
+  background: var(--c-blue-soft);
+}
+.menu-icon.b svg {
+  stroke: var(--c-blue);
+}
+.menu-foot {
+  margin: 6px 4px 0;
+  padding: 10px 10px 4px;
+  border-top: 1px solid var(--c-line);
+  font-size: 13px;
+}
+.nav nav .menu-foot a {
+  display: inline-flex;
+  padding: 4px 0;
+  color: var(--c-ink-2);
+  background: none;
+}
+.nav nav .menu-foot a:hover {
+  color: var(--c-accent);
+  background: none;
+}
+.nav .nav-app {
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  /* Docs, the Features menu and the app: the rest is in the footer. */
+  .nav nav > a:not(.nav-app):not(:first-of-type) {
+    display: none;
+  }
+  .menu {
+    position: fixed;
+    top: 64px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-height: calc(100svh - 80px);
+    overflow-y: auto;
+  }
+  .menu-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu {
+    animation: none;
   }
 }
 
@@ -1038,7 +1222,7 @@ pre .prompt {
 .err.live .err-hint {
   opacity: 1;
 }
-.err-page .nav nav a:not(.nav-app):not(:first-child) {
+.err-page .nav nav > a:not(.nav-app):not(:first-of-type) {
   display: revert;
 }
 @media (max-width: 640px) {
@@ -1049,7 +1233,7 @@ pre .prompt {
   .err-code {
     width: 80vw;
   }
-  .err-page .nav nav a:not(.nav-app):not(:first-child) {
+  .err-page .nav nav > a:not(.nav-app):not(:first-of-type) {
     display: none;
   }
 }

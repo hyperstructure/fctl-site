@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Sandboxes · fctl</title>
+    <meta
+      name="description"
+      content="Every fctl session gets a Linux sandbox of its own: a lightweight VM with Apple's container on a Mac, a container with Docker elsewhere, from fctl's image, one from your registry, or one built from a Dockerfile in your repository."
+    />
+    <meta property="og:title" content="Sandboxes · fctl" />
+    <meta property="og:description" content="A fresh machine for every session, in Apple's container runtime or Docker, from an image you can make your own." />
+    <meta property="og:url" content="https://fctl.sh/features/sandboxes/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="sandboxes" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z" /><path d="M12 12 20 7.5M12 12v9M12 12 4 7.5" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Sandboxes</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">A fresh machine <span class="dim">for</span> <span class="hot">every session.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Each session gets a Linux sandbox of its own on one of your runners: a lightweight VM on a Mac, a
+            container anywhere else. fctl clones the repository into it, runs the project's setup script, and lets
+            Claude Code work there without stopping to ask for permission. The sandbox is the boundary.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="/docs/sandbox-images/">Sandbox images</a>
+            <a class="f-link" href="/docs/security/#sandboxes">What a sandbox can reach <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/sandboxes/setup-dark.webp" width="2200" height="1375" alt="A session's setup, opened: kohlrabi creates its sandbox from fctl's image, clones the shop, runs npm ci from the project's package cache and starts Claude Code, in 35 seconds." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sandboxes/setup-light.webp" width="2200" height="1375" alt="A session's setup, opened: kohlrabi creates its sandbox from fctl's image, clones the shop, runs npm ci from the project's package cache and starts Claude Code, in 35 seconds." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/sandboxes/phone-setup-dark.webp" width="780" height="1688" alt="A session's setup on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sandboxes/phone-setup-light.webp" width="780" height="1688" alt="A session's setup on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Apart</span>
+            <strong>One per session</strong>
+            <p>A VM of its own with Apple's container on Apple silicon, or a container in Docker, OrbStack or Colima.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Quick</span>
+            <strong>Up in seconds</strong>
+            <p>From an image the runner already has, with the project's package downloads kept between sessions.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Sized</span>
+            <strong>As the work needs</strong>
+            <p>CPUs and memory per project, within the most each runner's owner lets a sandbox have.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Yours</span>
+            <strong>Your own image</strong>
+            <p>Use fctl's, name one in a registry, or let runners build it from a Dockerfile in the repository.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="inside">
+          <div class="f-copy reveal">
+            <h2 id="inside">Everything a developer has, nothing it shouldn't.</h2>
+            <p>
+              fctl's image is Debian with what most projects reach for: git and the GitHub CLI, build tools, Node.js
+              with TypeScript and Bun, Python with uv, Rust, and Claude Code. The agent works in the clone on a branch
+              of its own, with a GitHub token held to what the project allows and the project's secrets as
+              environment variables.
+            </p>
+            <ul class="f-list">
+              <li><strong>Nothing of the host.</strong> No home directory, no keys, no other session: Docker's sandboxes don't even reach each other.</li>
+              <li><strong>Gone when done.</strong> An idle session's sandbox stops after the project's idle timeout. A message brings it back.</li>
+              <li><strong>It knows its size.</strong> fctl tells the agent its CPUs and memory, so that builds and test runs fit.</li>
+            </ul>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>agent@fctl-ses-01m5sz0c06 ~/workspace</span></div>
+            <div class="term-body">
+<p class="cmd">git branch --show-current</p>
+<p class="out">fctl/231-add-danish-to-the-shop</p>
+<p class="cmd">echo $FCTL_SANDBOX_CPUS CPUs, $FCTL_SANDBOX_MEMORY_MB MB</p>
+<p class="out">4 CPUs, 8192 MB</p>
+<p class="cmd">ls /var/cache/fctl</p>
+<p class="out"><span class="b">ms-playwright</span>  <span class="b">npm</span></p>
+<p class="cmd">gh pr view --json number,state -q '"#\(.number) \(.state)"'</p>
+<p class="out">#1291 OPEN</p>
+<p class="cmd">npm run i18n:check</p>
+<p class="out"><span class="ok">✓</span> da: 412 of 412 messages, 0 missing</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="dockerfile">
+          <div class="f-copy reveal">
+            <h2 id="dockerfile">Purpose-built, from your own Dockerfile.</h2>
+            <p>
+              When a project needs more than the default image, keep the recipe next to the code. Name a Dockerfile
+              or a <code>devcontainer.json</code> in the repository, and each runner builds the image the first time a
+              session needs it, then again only when the recipe or the directory it copies from changes.
+            </p>
+            <p>
+              Here milkfloat's sandboxes add the solvers its benchmarks compare against, and maturin for its Python
+              bindings. The first session on Noor's MacBook built it in a few seconds; the ones after start from it.
+            </p>
+            <a class="f-link" href="/docs/sandbox-images/#building-it-from-the-repository">Building it from the repository <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/sandboxes/build-dark.webp" width="2200" height="1375" alt="A milkfloat session's setup: Noor's MacBook builds the sandbox from .fctl/Dockerfile first, then creates it." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sandboxes/build-light.webp" width="2200" height="1375" alt="A milkfloat session's setup: Noor's MacBook builds the sandbox from .fctl/Dockerfile first, then creates it." loading="lazy" />
+            </figure>
+            <div class="term">
+              <div class="term-bar"><i></i><i></i><i></i><span>.fctl/Dockerfile</span></div>
+              <div class="term-body">
+<p class="f"># fctl's image, and the solvers</p>
+<p class="f"># the benchmarks compare against.</p>
+<p><span class="p">FROM</span> <span class="y">ghcr.io/hyperstructure/sandbox:0.23</span></p>
+<p></p>
+<p><span class="p">USER</span> root</p>
+<p><span class="p">RUN</span> apt-get update \</p>
+<p>  &amp;&amp; apt-get install -y coinor-cbc glpk-utils</p>
+<p><span class="p">USER</span> agent</p>
+<p></p>
+<p><span class="p">RUN</span> uv tool install <span class="y">maturin==1.9.6</span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="settings">
+          <div class="f-copy reveal">
+            <h2 id="settings">Set up once, the same every time.</h2>
+            <p>
+              A setup script runs in the fresh clone before the agent starts: <code>npm ci</code>, <code>cargo fetch</code>,
+              a database migration. With package caches on, each runner keeps the project's downloads, so the
+              script fetches only what is new.
+            </p>
+            <ul class="f-list">
+              <li><strong>Caches for the usual suspects.</strong> npm, pnpm, Yarn, Bun, Cargo, uv, pip, Go modules and Playwright's browsers.</li>
+              <li><strong>Room to work.</strong> CPUs and memory for each of the project's sandboxes, where its runners allow them.</li>
+              <li><strong>Plain variables too.</strong> Environment for every session, beside the secrets that stay out of sight.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/p/milkfloat?tab=settings">
+            <img class="theme-dark" src="/src/features/shots/sandboxes/settings-dark.webp" width="2200" height="1375" alt="milkfloat's sandbox settings: uv sync as its setup script, package caches on, built from .fctl/Dockerfile, and 8 CPUs and 16 GB for each sandbox." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/sandboxes/settings-light.webp" width="2200" height="1375" alt="milkfloat's sandbox settings: uv sync as its setup script, package caches on, built from .fctl/Dockerfile, and 8 CPUs and 16 GB for each sandbox." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section wide" aria-labelledby="drivers">
+          <div class="f-copy reveal">
+            <h2 id="drivers">Apple container on a Mac, Docker everywhere.</h2>
+            <p>
+              Runners use what their machine has. <code>fctl host install</code> looks, and picks: Apple's own
+              <code>container</code> runtime on a Mac with Apple silicon, Docker on Linux and on any Mac that prefers it.
+              Either way the agent gets the same Linux, the same image and the same tools.
+            </p>
+          </div>
+          <div class="f-drivers">
+            <article class="reveal" style="--glow: var(--c-highlight)">
+              <span class="menu-icon y"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="12" rx="2.5" /><path d="M8.5 20h7M12 16.5V20" /><rect x="8" y="8" width="8" height="5" rx="1.2" /></svg></span>
+              <h3>Apple container</h3>
+              <p>Each session is a lightweight virtual machine with a Linux kernel of its own, from Apple's container runtime for macOS 26.</p>
+              <dl>
+                <dt>isolation</dt><dd>A VM per session</dd>
+                <dt>runs on</dt><dd>Macs with Apple silicon and macOS 26 or later</dd>
+                <dt>images</dt><dd>fctl's, a registry's, or built with <code>container build</code></dd>
+                <dt>caches</dt><dd>A directory on the Mac, mounted into each sandbox</dd>
+              </dl>
+            </article>
+            <article class="reveal" style="--glow: var(--c-pink)">
+              <span class="menu-icon p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 13.5h17l-1.6 4.2a2 2 0 0 1-1.9 1.3H7a2 2 0 0 1-1.9-1.3z" /><rect x="5" y="9" width="3.5" height="3" rx=".6" /><rect x="9.25" y="9" width="3.5" height="3" rx=".6" /><rect x="13.5" y="9" width="3.5" height="3" rx=".6" /><rect x="9.25" y="5.25" width="3.5" height="3" rx=".6" /></svg></span>
+              <h3>Docker</h3>
+              <p>Each session is a container in Docker, OrbStack or Colima, on a network of its own: sandboxes reach the internet, never each other.</p>
+              <dl>
+                <dt>isolation</dt><dd>A container per session</dd>
+                <dt>runs on</dt><dd>Linux servers, and Macs with a Docker of their choice</dd>
+                <dt>images</dt><dd>fctl's, a registry's, or built with <code>docker build</code></dd>
+                <dt>caches</dt><dd>A volume for each project, on the daemon's disk</dd>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>What's in the default image, how hosts get it, and how to make one of your own.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/sandbox-images/#the-default-image"><span>The default image</span><small>What every sandbox starts with</small></a></li>
+            <li><a href="/docs/sandbox-images/#your-own-image"><span>Your own image</span><small>From a registry, for the tools yours need</small></a></li>
+            <li><a href="/docs/architecture/#package-caches"><span>Package caches</span><small>Where they live, and when they go</small></a></li>
+            <li><a href="/docs/security/#sandboxes"><span>Sandboxes and security</span><small>What a session can reach, and what it can't</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/workspaces/"><small>Previous</small><strong>Workspaces and projects</strong><span>Your team, your repositories, your rules</span></a>
+          <a href="/features/linear/"><small>Next</small><strong>Linear</strong><span>Hand a ticket to an agent</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

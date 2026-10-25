@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Workspaces and projects · fctl</title>
+    <meta
+      name="description"
+      content="A workspace for each team and a project for each repository: who may start sessions, which repositories agents may touch, what they may do on GitHub, the secrets they get and the Claude plan they run on."
+    />
+    <meta property="og:title" content="Workspaces and projects · fctl" />
+    <meta property="og:description" content="Your team, your repositories, your rules: workspaces, projects, roles and the settings that decide what agents may do." />
+    <meta property="og:url" content="https://fctl.sh/features/workspaces/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="workspaces" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4" /><rect x="8" y="8" width="8" height="8" rx="2" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Workspaces and projects</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">Room for the team, <span class="dim">and</span> <span class="hot">every repo.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            A workspace is the people who work together: their projects, the machines their sessions run on and
+            the GitHub accounts their code lives in. A project is one repository and everything its agents need
+            to work on it, down to what they may do on GitHub and the secrets they get.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Open the app</a>
+            <a class="f-link" href="/docs/getting-started/#6-create-a-project">Create your first project <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/w/romanesco">
+              <img class="theme-dark" src="/src/features/shots/workspaces/workspace-dark.webp" width="2200" height="1375" alt="Romanesco's workspace: its four projects, with their repositories and sessions, and the sessions that ran lately." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/workspaces/workspace-light.webp" width="2200" height="1375" alt="Romanesco's workspace: its four projects, with their repositories and sessions, and the sessions that ran lately." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/workspaces/phone-workspace-dark.webp" width="780" height="1688" alt="Romanesco's workspace on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/workspaces/phone-workspace-light.webp" width="780" height="1688" alt="Romanesco's workspace on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Teams</span>
+            <strong>A workspace each</strong>
+            <p>The company, the open-source project, the weekend one: each with its own people, runners and GitHub accounts.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Roles</span>
+            <strong>Viewer to owner</strong>
+            <p>Viewers follow sessions, editors start and steer them, maintainers run the settings, and owners decide the rest.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Limits</span>
+            <strong>Set per project</strong>
+            <p>Read, comment or push: a project says the most its agents may do on GitHub, and no session gets more.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Plans</span>
+            <strong>Whose Claude, where</strong>
+            <p>Work runs on the company's Claude plan, side projects on yours. Each person picks one for each workspace.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="project">
+          <div class="f-copy reveal">
+            <h2 id="project">A project is a repository, with a crew.</h2>
+            <p>
+              Each project has a page that holds what happens in it: the sessions at work and those that finished,
+              the tickets they came from, the schedules that start them, what the review agents found, and what
+              agents learned along the way. Start the next task from the box at the top of it.
+            </p>
+            <ul class="f-list">
+              <li><strong>More than one repository.</strong> Let agents read a private library, or open pull requests in the design system too.</li>
+              <li><strong>Secrets, kept back.</strong> The project's keys reach its sandboxes as environment variables, and nothing else.</li>
+              <li><strong>A number for everything.</strong> Sessions count up per project, so <code>shop#231</code> means one thing to everyone.</li>
+            </ul>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/p/shop">
+              <img class="theme-dark" src="/src/features/shots/workspaces/project-dark.webp" width="2200" height="1375" alt="The Shop project: two sessions at work and the ones that finished lately, under the box to start the next." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/workspaces/project-light.webp" width="2200" height="1375" alt="The Shop project: two sessions at work and the ones that finished lately, under the box to start the next." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/workspaces/phone-project-dark.webp" width="780" height="1688" alt="The Shop project on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/workspaces/phone-project-light.webp" width="780" height="1688" alt="The Shop project on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="settings">
+          <div class="f-copy reveal">
+            <h2 id="settings">House rules, written down once.</h2>
+            <p>
+              A project's settings are where its maintainers say how its agents work: the model and effort they
+              start with, instructions that join Claude's system prompt in every session, whether they open a pull
+              request when they finish, and how much they write in it.
+            </p>
+            <ul class="f-list">
+              <li><strong>Credit where it's due.</strong> Commits can name the person who asked, and Claude, as co-authors.</li>
+              <li><strong>Called back, or not.</strong> Choose which events on a pull request bring its agent back: failed checks, comments, conflicts, the merge.</li>
+              <li><strong>Memory and retrospectives.</strong> On by default, and a switch away for projects that want neither.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/p/shop?tab=settings">
+            <img class="theme-dark" src="/src/features/shots/workspaces/settings-dark.webp" width="2200" height="1375" alt="The Shop project's settings: its name and description, its default branch, and the instructions and model its agents start with." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/workspaces/settings-light.webp" width="2200" height="1375" alt="The Shop project's settings: its name and description, its default branch, and the instructions and model its agents start with." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section wide" aria-labelledby="people">
+          <div class="f-copy reveal">
+            <h2 id="people">Everyone in their place.</h2>
+            <p>
+              Invite people by the address they sign in with. The workspace's base role decides what everyone may do
+              in its projects; a project's members get more where they need it. Admins can require two-factor
+              sign-in of everyone, and the workspace's audit log keeps who changed what.
+            </p>
+          </div>
+          <div class="f-trio">
+            <figure class="f-tile reveal">
+              <div class="shot crop zoom" style="--zoom: 1.55; --at: 64% 0%">
+                <img class="theme-dark" src="/src/features/shots/workspaces/people-dark.webp" width="2200" height="1375" alt="Romanesco's people: Noor as primary admin, Kofi as admin, and the team as members." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/workspaces/people-light.webp" width="2200" height="1375" alt="Romanesco's people: Noor as primary admin, Kofi as admin, and the team as members." loading="lazy" />
+              </div>
+              <figcaption>The workspace's people, and their roles.</figcaption>
+            </figure>
+            <figure class="f-tile reveal">
+              <div class="shot crop zoom" style="--zoom: 1.55; --at: 64% 0%">
+                <img class="theme-dark" src="/src/features/shots/workspaces/members-dark.webp" width="2200" height="1375" alt="The Shop project's members: Tomás as owner and Lucía as maintainer." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/workspaces/members-light.webp" width="2200" height="1375" alt="The Shop project's members: Tomás as owner and Lucía as maintainer." loading="lazy" />
+              </div>
+              <figcaption>A project's own members, for more than the base role.</figcaption>
+            </figure>
+            <figure class="f-tile reveal">
+              <div class="shot crop zoom" style="--zoom: 1.55; --at: 64% 0%">
+                <img class="theme-dark" src="/src/features/shots/workspaces/workspace-settings-dark.webp" width="2200" height="1375" alt="Romanesco's settings as Noor has them: her sessions there run on the company's Claude Max plan." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/workspaces/workspace-settings-light.webp" width="2200" height="1375" alt="Romanesco's settings as Noor has them: her sessions there run on the company's Claude Max plan." loading="lazy" />
+              </div>
+              <figcaption>Which Claude plan your sessions there run on.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>Roles, invitations, GitHub accounts and every setting a project has.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/getting-started/#6-create-a-project"><span>Create a project</span><small>From the app or with <code>fctl projects create</code></small></a></li>
+            <li><a href="/docs/getting-started/#9-work-together"><span>Work together</span><small>Invitations, roles and sharing a session</small></a></li>
+            <li><a href="/docs/architecture/#workspaces"><span>Workspaces</span><small>Who sees what, and who decides</small></a></li>
+            <li><a href="/docs/architecture/#github-access"><span>GitHub access</span><small>Read, comment or push, and how it is held</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/sessions/"><small>Previous</small><strong>Sessions</strong><span>Agents at work, in plain sight</span></a>
+          <a href="/features/sandboxes/"><small>Next</small><strong>Sandboxes</strong><span>A fresh machine for every session</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

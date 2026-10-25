@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Linear · fctl</title>
+    <meta
+      name="description"
+      content="Delegate a Linear issue to fctl the way you would to a teammate: a session starts as you, moves the ticket to In Progress, answers in its thread, and opens a pull request that Linear links. Or ask it to explore and come back with a plan."
+    />
+    <meta property="og:title" content="Linear · fctl" />
+    <meta property="og:description" content="Delegate a ticket to fctl in Linear and get a pull request back, with the ticket kept current." />
+    <meta property="og:url" content="https://fctl.sh/features/linear/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="linear" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 8.5V6a1.5 1.5 0 0 1 1.5-1.5h12A1.5 1.5 0 0 1 19.5 6v2.5a2 2 0 0 0 0 4V18a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 18v-5.5a2 2 0 0 0 0-4z" /><path d="M9 9.5h6M9 13.5h4" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Linear</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">Delegate the ticket. <span class="hot">Get the pull request.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Install fctl's app in your Linear workspace and fctl turns up wherever you hand out work. Delegate an
+            issue to it, and a session starts in the project that takes the issue's team, as you, on your Claude
+            plan. The ticket moves to In Progress, the agent answers in its thread, and the pull request comes back
+            linked.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="/docs/automation/#delegate-tickets-in-linear">Connect Linear</a>
+            <a class="f-link" href="/docs/architecture/#linear">How it works <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/linear/delegated-dark.webp" width="2200" height="1375" alt="shop#231 as it started: Tomás delegated SHOP-419, Danish translations for the shop, to fctl in Linear, and fctl moved the ticket to In Progress." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/linear/delegated-light.webp" width="2200" height="1375" alt="shop#231 as it started: Tomás delegated SHOP-419, Danish translations for the shop, to fctl in Linear, and fctl moved the ticket to In Progress." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/linear/phone-delegated-dark.webp" width="780" height="1688" alt="Aiko's delegated ticket, DEL-97, at the top of its session on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/linear/phone-delegated-light.webp" width="780" height="1688" alt="Aiko's delegated ticket, DEL-97, at the top of its session on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Delegate</span>
+            <strong>Like a teammate</strong>
+            <p>Assign the issue to fctl, or mention <code>@fctl</code> in a comment. You stay its assignee; fctl does the work.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Explore</span>
+            <strong>A plan first</strong>
+            <p>Label it <code>explore</code>, and the agent comes back with a plan and a size, and changes nothing until you say go.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Reply</span>
+            <strong>In the thread</strong>
+            <p>The agent answers where the ticket's people talk. Reply there, and your message reaches it at its next step.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Link</span>
+            <strong>Ticket to merge</strong>
+            <p>Branches carry the ticket's key, so Linear's GitHub integration links the pull request and moves the ticket as it merges.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="explore">
+          <div class="f-copy reveal">
+            <h2 id="explore">Not sure yet? Ask for a plan.</h2>
+            <p>
+              Some tickets need thinking before typing. Jonas wanted to know what gift boxes for companies would
+              take, so he labelled the ticket <code>explore</code> and delegated it. The agent read how the shop orders
+              and how the platform invoices, built nothing, and answered in the ticket with four pieces of work, a
+              size, and the three questions that would change it.
+            </p>
+            <p>A reply there with the answers starts the work, in the same session, with everything it read.</p>
+          </div>
+          <article class="ticket reveal" aria-label="SHOP-398 in Linear">
+            <p class="ticket-id"><span>SHOP-398</span><span class="state">In Progress</span><span class="label">explore</span></p>
+            <h3>Gift boxes for companies</h3>
+            <p>
+              Three companies asked whether they can send boxes to their staff for Christmas. Explore what it would
+              take: ordering for many addresses at once, invoicing the company, a card with a message. Don't build it
+              yet: I'd like a plan and a rough size first.
+            </p>
+            <ol>
+              <li>
+                <img src="/src/features/people/jweber87.webp" alt="" width="22" height="22" loading="lazy" />
+                <div><b>Jonas Weber</b> delegated the issue to <b>fctl</b> · 6 days ago</div>
+              </li>
+              <li>
+                <img src="/favicon.svg" alt="" width="22" height="22" loading="lazy" />
+                <div><b>fctl</b> · Exploring this in fctl session shop#212, as Jonas Weber.</div>
+              </li>
+              <li>
+                <img src="/favicon.svg" alt="" width="22" height="22" loading="lazy" />
+                <div>
+                  <b>fctl</b> replied · 6 days ago
+                  <div class="note">
+                    <p>A plan for gift boxes for companies, and a rough size. Nothing is built yet.</p>
+                    <p>
+                      <b>1. Company orders</b> (platform, about 4 days)<br />
+                      <b>2. An address list</b> (shop, about 3 days)<br />
+                      <b>3. One invoice</b> (platform, about 4 days)<br />
+                      <b>4. A card in each box</b> (shop and packing, about 2 days)
+                    </p>
+                    <p>
+                      <b>Size:</b> about three weeks for one person. Before I start: invoice only, or card as well? One
+                      box for everyone? Homes only, or the office too?
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </article>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="session">
+          <div class="f-copy reveal">
+            <h2 id="session">Linear sees the gist. You see everything.</h2>
+            <p>
+              In Linear, the agent's steps show as it works, its to-do list as the session's plan, and its last message
+              of each turn as a reply. Each step says what the agent does without what could hold a secret: a
+              command's description, not the command.
+            </p>
+            <p>
+              The fctl session has the rest: every command, every edit, and a line for each thing fctl did in Linear,
+              so nobody wonders whether the ticket heard.
+            </p>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/linear/exploration-dark.webp" width="2200" height="1375" alt="The end of shop#212: the agent's plan for gift boxes, and fctl's note that it replied on SHOP-398 in Linear." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/linear/exploration-light.webp" width="2200" height="1375" alt="The end of shop#212: the agent's plan for gift boxes, and fctl's note that it replied on SHOP-398 in Linear." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="setup">
+          <div class="f-copy reveal">
+            <h2 id="setup">One team, one project, a few switches.</h2>
+            <p>
+              A workspace's admin connects Linear once. Each project then picks the team whose tickets it takes, or
+              one of the team's Linear projects, and decides whether delegated tickets move to In Progress and which
+              label asks for an exploration.
+            </p>
+            <ul class="f-list">
+              <li><strong>As the person who asked.</strong> Sessions start as whoever delegated, while they may start sessions in the project.</li>
+              <li><strong>On GitHub instead?</strong> Projects can take their repositories' GitHub issues as tickets the same way.</li>
+              <li><strong>Agents use tickets too.</strong> They read, file and comment on them with <code>fctl ticket</code>, where the project allows.</li>
+            </ul>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/p/shop?tab=tickets">
+              <img class="theme-dark" src="/src/features/shots/linear/tickets-dark.webp" width="2200" height="1375" alt="The Shop project's tickets: Linear, the Shop team, delegated tickets moved to In Progress, and explore as the label for an exploration." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/linear/tickets-light.webp" width="2200" height="1375" alt="The Shop project's tickets: Linear, the Shop team, delegated tickets moved to In Progress, and explore as the label for an exploration." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/linear/phone-delegated-dark.webp" width="780" height="1688" alt="A delegated ticket's session on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/linear/phone-delegated-light.webp" width="780" height="1688" alt="A delegated ticket's session on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>Connecting Linear, linking people's accounts, and what goes back to the ticket.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/automation/#delegate-tickets-in-linear"><span>Delegate tickets in Linear</span><small>Setting it up, step by step</small></a></li>
+            <li><a href="/docs/architecture/#linear"><span>Linear, in detail</span><small>Delegations, replies, and who it runs as</small></a></li>
+            <li><a href="/docs/architecture/#ticket-trackers"><span>Ticket trackers</span><small>Linear or GitHub issues, per project</small></a></li>
+            <li><a href="/docs/cli/#ticket-trackers"><span>From the CLI</span><small><code>fctl projects tickets</code> and <code>fctl ticket</code></small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/sandboxes/"><small>Previous</small><strong>Sandboxes</strong><span>A fresh machine for every session</span></a>
+          <a href="/features/review-agents/"><small>Next</small><strong>Review agents</strong><span>A second pair of eyes on every commit</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

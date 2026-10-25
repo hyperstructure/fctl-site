@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Review agents · fctl</title>
+    <meta
+      name="description"
+      content="An agent reviews every new commit of every pull request in your repositories, your team's and your agents' alike, and posts what it found on the lines it is about. Findings on an fctl agent's pull request go back to that agent, which fixes them."
+    />
+    <meta property="og:title" content="Review agents · fctl" />
+    <meta property="og:description" content="A second pair of eyes on every commit: findings on the lines they are about, and back to the agent that wrote them." />
+    <meta property="og:url" content="https://fctl.sh/features/review-agents/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="review-agents" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5M8 10.5l1.8 1.8 3.2-3.6" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Review agents</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">A second pair of eyes <span class="dim">on</span> <span class="hot">every commit.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Turn review agents on, and an agent reads each new commit of every pull request in the project's
+            repositories, whoever wrote it: your agents, your teammates, Dependabot. It says what it found where you
+            already look, on the lines it is about, and stays quiet when there is nothing to say.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Turn them on</a>
+            <a class="f-link" href="/docs/architecture/#review-agents">How review agents work <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/p/platform?tab=reviews">
+              <img class="theme-dark" src="/src/features/shots/review-agents/reviews-dark.webp" width="2200" height="1375" alt="The Platform project's reviews: review agents on, on Asha's Claude subscription, and every review of the last days with its pull request, commit and outcome." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/review-agents/reviews-light.webp" width="2200" height="1375" alt="The Platform project's reviews: review agents on, on Asha's Claude subscription, and every review of the last days with its pull request, commit and outcome." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/review-agents/phone-reviews-dark.webp" width="780" height="1688" alt="The Platform project's reviews on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/review-agents/phone-reviews-light.webp" width="780" height="1688" alt="The Platform project's reviews on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Everyone's</span>
+            <strong>Not just your agents'</strong>
+            <p>Pull requests from your team, your agents and the apps you choose. Outside contributors' when someone asks.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Focused</span>
+            <strong>Bugs, not nitpicks</strong>
+            <p>What the change breaks, security problems and breaks of the repository's rules, most severe first.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Returned</span>
+            <strong>To the agent that wrote it</strong>
+            <p>Findings on an fctl agent's pull request go back to that agent, which fixes what's real and answers in the thread.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Resolved</span>
+            <strong>By the next commit</strong>
+            <p>The next review strikes out what was fixed and resolves its own threads. The check on the commit says where things stand.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="github">
+          <div class="f-copy reveal">
+            <h2 id="github">Where you already read.</h2>
+            <p>
+              A review is one summary on the pull request, then each finding on its lines: a title, how severe it is,
+              a few sentences on why, and a suggested change where one helps. The commit gets a check,
+              <code>fctl review</code>: green when there's nothing to look at, neutral when there is, since acting on it is
+              up to the pull request's people.
+            </p>
+            <p>
+              Anouk sent milkfloat her first pull request, driver breaks. Noor asked for a review, and its agent read
+              the code, ran none of it, and found the break that could hang the solver.
+            </p>
+          </div>
+          <figure class="gh reveal" aria-label="A finding of fctl's review on milkfloat's pull request 311, on GitHub">
+            <div class="gh-thread">
+              <div class="gh-file">src/insert.rs</div>
+              <div class="gh-diff">
+                <div><span>51</span><span>+</span><span>pub fn insert_break(route: &amp;mut Route, brk: &amp;Break) -&gt; Result&lt;(), Infeasible&gt; {</span></div>
+                <div><span>52</span><span>+</span><span>    let mut at = brk.window.start.max(route.vehicle.shift.start);</span></div>
+                <div><span>53</span><span>+</span><span>    loop {</span></div>
+              </div>
+              <div class="gh-comment">
+                <img src="/favicon.svg" alt="" width="26" height="26" loading="lazy" />
+                <div>
+                  <p class="gh-meta"><b>fctl-sh</b><span class="gh-tag">Bot</span><span>yesterday</span></p>
+                  <h4>A break it can't reach makes <code>insert_break</code> loop forever</h4>
+                  <p>
+                    <b>Medium severity.</b> When the break's window ends before the shift starts, or no stop departs
+                    inside it, <code>at &lt;= brk.window.end</code> never holds, and once the van has no departures left,
+                    <code>next_departure</code> returns <code>at</code> itself: <code>solve</code> never returns. Stop at the window's
+                    end and return <code>Infeasible</code> after the loop. None of the three tests tries a window the route
+                    can't reach.
+                  </p>
+                  <div class="gh-suggest">
+                    <span>Suggested change</span>
+                    <div class="gh-diff">
+                      <div class="del"><span>−</span><span>    loop {</span></div>
+                      <div><span>+</span><span>    let end = brk.window.end.min(route.vehicle.shift.end);</span></div>
+                      <div><span>+</span><span>    while at &lt;= end {</span></div>
+                    </div>
+                    <div class="gh-actions"><span>Apply suggestion</span><span>Add suggestion to batch</span></div>
+                  </div>
+                  <p class="gh-found">Found by <span class="gh-link">fctl review</span> in <code>9c2e1f4</code>.</p>
+                </div>
+              </div>
+            </div>
+          </figure>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="back">
+          <div class="f-copy reveal">
+            <h2 id="back">From finding to fix, before anyone wakes up.</h2>
+            <p>
+              Noor's agent opened shop#1287 at eleven at night: a link in the reminder email that skips next week's
+              box. Two minutes later the review agent found that last week's email would skip this week's box too.
+              fctl handed the finding to the agent that opened the pull request. It agreed, signed the delivery's
+              date into the link, pushed, and answered in the thread. The next review saw the fix and resolved it.
+            </p>
+            <ul class="f-list">
+              <li><strong>A reading, not an order.</strong> The agent checks each finding, fixes what's real, and says why when it disagrees.</li>
+              <li><strong>No ping-pong.</strong> After five reviews in a row without a person in between, findings wait for one.</li>
+              <li><strong>On someone's subscription.</strong> Reviews run on the Claude plan of the owner who turned them on.</li>
+            </ul>
+          </div>
+          <figure class="gh reveal" aria-label="A finding of fctl's review on the shop's pull request 1287, fixed and resolved">
+            <div class="gh-thread">
+              <div class="gh-file">src/app/skip/[token]/route.ts <span class="gh-tag">Outdated</span></div>
+              <div class="gh-diff">
+                <div><span>6</span><span>+</span><span>  const subscriptionId = verifySkip(params.token);</span></div>
+                <div><span>7</span><span>+</span><span>  if (!subscriptionId) return NextResponse.redirect(new URL("/skip/expired", _req.url));</span></div>
+                <div><span>8</span><span>+</span><span>  const delivery = await nextDelivery(subscriptionId);</span></div>
+              </div>
+              <div class="gh-comment">
+                <img src="/favicon.svg" alt="" width="26" height="26" loading="lazy" />
+                <div>
+                  <p class="gh-meta"><b>fctl-sh</b><span class="gh-tag">Bot</span><span>yesterday · edited</span></p>
+                  <p><b>Fixed in <code>4e1c9a2</code>.</b> The token carries the delivery's date now, and an old one stops working once that day has passed.</p>
+                  <h4 class="gh-strike">The skip token isn't tied to a delivery</h4>
+                  <p>
+                    <b>Medium severity.</b> The token only names the subscription, and the route skips whatever delivery
+                    comes next, so last week's email skips this week's box. Sign the delivery's date into the token and
+                    refuse it once that day has passed.
+                  </p>
+                  <p class="gh-found">Found by <span class="gh-link">fctl review</span> in <code>b81d0e7</code>.</p>
+                </div>
+              </div>
+              <div class="gh-comment">
+                <img src="/favicon.svg" alt="" width="26" height="26" loading="lazy" />
+                <div>
+                  <p class="gh-meta"><b>fctl-sh</b><span class="gh-tag">Bot</span><span>yesterday</span></p>
+                  <p>
+                    Fixed in <code>4e1c9a2</code>: <code>signSkip</code> signs the subscription and the delivery's date, and
+                    <code>verifySkip</code> refuses a token whose date has passed. Two tests try last week's link.
+                  </p>
+                </div>
+              </div>
+              <div class="gh-resolved"><span>Unresolve conversation</span><b>fctl-sh[bot]</b> marked this conversation as resolved.</div>
+            </div>
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="sessions">
+          <div class="f-copy reveal">
+            <h2 id="sessions">Every review is a session you can open.</h2>
+            <p>
+              Each review runs in a sandbox of its own, as a session of the project, with a token that only reads on
+              GitHub: no secrets, no setup script, no memory. Open it to see what the agent read, what it ran and why it
+              concluded what it did. The session that received the findings shows them in a few lines, each a click
+              from its thread.
+            </p>
+            <a class="f-link" href="/docs/architecture/#review-agents">What a review agent may do <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/review-agents/review-dark.webp" width="2200" height="1375" alt="The review of platform#840: it found one high-severity issue, posted it on GitHub, and sent it to the agent that opened the pull request." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/review-agents/review-light.webp" width="2200" height="1375" alt="The review of platform#840: it found one high-severity issue, posted it on GitHub, and sent it to the agent that opened the pull request." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/review-agents/phone-review-dark.webp" width="780" height="1688" alt="The same review on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/review-agents/phone-review-light.webp" width="780" height="1688" alt="The same review on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="received">
+          <div class="f-copy reveal">
+            <h2 id="received">The agent that wrote it gets the memo.</h2>
+            <p>
+              Asha's agent was chasing a double charge. Its fix still let two workers race to charge the same card,
+              and the review said so. The finding arrived in the agent's session as a message from fctl, it
+              reproduced the race with two workers, and pushed the fix that the next review passed.
+            </p>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/review-agents/findings-dark.webp" width="2200" height="1375" alt="platform#437 receives the review's finding, two workers can still both charge the card, and fixes it." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/review-agents/findings-light.webp" width="2200" height="1375" alt="platform#437 receives the review's finding, two workers can still both charge the card, and fixes it." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section wide" aria-labelledby="before">
+          <div class="f-copy reveal">
+            <h2 id="before">Off until an owner says on.</h2>
+            <p>
+              A project's owners turn review agents on, on their own Claude subscription, and choose the model, the
+              effort, instructions of their own and the apps whose pull requests are reviewed by themselves. Pull
+              requests from people who can't write to the repository start nothing alone: whoever looks at one first
+              asks for its review from the Reviews tab, or with <code>fctl review start</code>.
+            </p>
+          </div>
+          <div class="f-trio">
+            <figure class="f-tile reveal">
+              <div class="shot crop zoom" style="--zoom: 1.5; --at: 60% 4%">
+                <img class="theme-dark" src="/src/features/shots/review-agents/off-dark.webp" width="2200" height="1375" alt="The Driver app's Reviews tab before review agents are on: what they do, and a button that turns them on." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/review-agents/off-light.webp" width="2200" height="1375" alt="The Driver app's Reviews tab before review agents are on: what they do, and a button that turns them on." loading="lazy" />
+              </div>
+              <figcaption>Before: what they would do, and the switch.</figcaption>
+            </figure>
+            <figure class="f-tile reveal">
+              <div class="shot crop zoom" style="--zoom: 1.45; --at: 46% 0%">
+                <img class="theme-dark" src="/src/features/shots/review-agents/outside-dark.webp" width="2200" height="1375" alt="The review of Anouk's pull request, which Noor asked for: three issues, posted on GitHub." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/review-agents/outside-light.webp" width="2200" height="1375" alt="The review of Anouk's pull request, which Noor asked for: three issues, posted on GitHub." loading="lazy" />
+              </div>
+              <figcaption>An outside contributor's, when someone asks.</figcaption>
+            </figure>
+            <figure class="f-tile reveal">
+              <div class="shot crop zoom" style="--zoom: 1.5; --at: 60% 0%">
+                <img class="theme-dark" src="/src/features/shots/review-agents/reviews-dark.webp" width="2200" height="1375" alt="The Platform project's reviews, newest first." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/review-agents/reviews-light.webp" width="2200" height="1375" alt="The Platform project's reviews, newest first." loading="lazy" />
+              </div>
+              <figcaption>After: every review, with what came of it.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>What starts a review, what its agent may do, and what it posts.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/architecture/#review-agents"><span>Review agents</span><small>Settings, what starts one, and posting</small></a></li>
+            <li><a href="/docs/cli/#review-agents"><span>From the CLI</span><small><code>fctl review</code>, settings and threads</small></a></li>
+            <li><a href="/docs/automation/#review-pull-requests-from-github-actions"><span>From GitHub Actions</span><small>Reviews on your own CI, with an access token</small></a></li>
+            <li><a href="/docs/architecture/#follow-ups"><span>Follow-ups</span><small>What else brings an agent back to its pull request</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/linear/"><small>Previous</small><strong>Linear</strong><span>Hand a ticket to an agent</span></a>
+          <a href="/features/memory/"><small>Next</small><strong>Memory and retrospectives</strong><span>What agents learn, kept</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

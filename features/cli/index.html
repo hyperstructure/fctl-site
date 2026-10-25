@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>The CLI · fctl</title>
+    <meta
+      name="description"
+      content="Everything fctl's app does, from your terminal: start a session and follow it as it streams, steer it, search every transcript, run your runners and schedules, and get JSON from every command for scripts and other agents."
+    />
+    <meta property="og:title" content="The CLI · fctl" />
+    <meta property="og:description" content="Everything the app does, from your terminal and your scripts, with --json on every command." />
+    <meta property="og:url" content="https://fctl.sh/features/cli/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="cli" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5" /><path d="m7 9.5 3 2.5-3 2.5M12.5 15H17" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>The CLI</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">All of fctl, <span class="hot">from your terminal.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Everything the app does, the CLI does too: start a session and watch it stream, steer it, search every
+            transcript, manage projects, runners and schedules. And every command answers in JSON when a script, a
+            pipeline or another agent is the one asking.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="/docs/cli/">The CLI reference</a>
+            <a class="f-link" href="/docs/agents/">fctl for agents <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <div class="term big" data-type role="img" aria-label="fctl run starts a session in the shop project and follows it in the terminal: its sandbox comes up on kohlrabi, the agent finds why the farm photos are squashed, edits the card and runs its tests.">
+              <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~/src/shop</span></div>
+              <div class="term-body">
+<p class="cmd">fctl run -p shop "The farm photos on the box page are squashed on small phones. Keep them in proportion."</p>
+<p><span class="y">✓</span> <span class="w">shop#233 Keep the farm photos in proportion on small phones</span> <span class="f">https://app.fctl.sh/s/ses_01K8ZW6QH3N5B1D7XKT2C4MVRE</span></p>
+<p class="p">▍ Noor Haddad</p>
+<p><span class="p">▍</span> The farm photos on the box page are squashed on small phones. Keep them in proportion.</p>
+<p></p>
+<p class="out"><span class="y">◌</span> provisioning — Creating the sandbox on kohlrabi</p>
+<p class="f">  Creating sandbox fctl-ses-01k8zw6qh3 from ghcr.io/hyperstructure/sandbox:0.23.1</p>
+<p class="f">  Cloning romanescohq/shop</p>
+<p class="f">  added 642 packages, and audited 643 packages in 6s</p>
+<p class="out"><span class="y">●</span> running</p>
+<p><span class="b">⏺</span> Grep(farm-photo)</p>
+<p class="out">  ⎿ src/components/FarmCard.tsx:14:  &lt;img className="farm-photo" width={320} height={180} …</p>
+<p>The photos have a fixed width and height and nothing that keeps their proportions, so a narrow card squashes them. I'll keep the size for layout and crop with object-fit.</p>
+<p><span class="b">⏺</span> Edit(src/components/FarmCard.tsx)</p>
+<p><span class="b">⏺</span> Bash(npx playwright test farm-card --project="iPhone SE")</p>
+<p class="out">  ⎿ <span class="ok">2 passed</span> (6.1s)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Follow</span>
+            <strong>Live, in the shell</strong>
+            <p><code>fctl run</code> and <code>fctl attach</code> stream the transcript as the app shows it, and take your messages.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Script</span>
+            <strong>JSON everywhere</strong>
+            <p>Add <code>--json</code> to any command. Exit codes say what went wrong, so scripts can tell.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Agents</span>
+            <strong>For them too</strong>
+            <p>Another agent with the CLI and the docs at <code>fctl.sh/llms.txt</code> hands work to fctl and collects the result.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Machines</span>
+            <strong>Runners included</strong>
+            <p>The same binary runs your hosts: install, status, drain, logs and its own updates.</p>
+          </div>
+        </div>
+
+        <section class="f-section wide" aria-labelledby="glance">
+          <div class="f-copy reveal">
+            <h2 id="glance">The floor, in a dozen lines.</h2>
+            <p>
+              <code>fctl sessions</code> lists what's at work and what finished, across your workspaces or in one, and
+              <code>fctl show</code> tells you everything about one: who asked, its ticket, its branch, its pull request
+              and checks, where it runs and how full its context is. Sessions go by <code>shop#231</code>, their id or
+              their link, whichever you have to hand.
+            </p>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~</span></div>
+            <div class="term-body">
+<p class="cmd">fctl sessions -w romanesco --limit 6</p>
+<p><span class="w">infra#38            </span> <span class="y">● running         </span> Check production and staging for Terraform … <span class="f">8m ago</span></p>
+<p><span class="w">shop#231            </span> <span class="y">● running         </span> Add Danish to the shop                       <span class="f">1m ago</span></p>
+<p><span class="w">driver-app#77       </span> <span class="y">● running         </span> Show the delivery window on each stop        <span class="f">2m ago</span></p>
+<p><span class="w">platform#445        </span> <span class="b">○ idle            </span> Retry Stripe webhook processing that fails   <span class="f">21m ago</span></p>
+<p><span class="w">shop#230            </span> <span class="p">◍ paused          </span> Match the box builder to the new illustrati… <span class="f">33m ago</span></p>
+<p><span class="w">shop#227            </span> <span class="f">○ stopped         </span> Update 9 npm dependencies                    <span class="f">6h ago</span></p>
+<p class="cmd">fctl show shop#231</p>
+<p class="w">shop#231 Add Danish to the shop</p>
+<p class="out">Translates the shop for the Copenhagen launch: Lucía's copy from SHOP-419, prices in kroner and delivery days from the Copenhagen depot.</p>
+<p class="out">status:   <span class="y">● running</span></p>
+<p class="out">ticket:   SHOP-419 Danish translations for the shop · https://linear.app/romanesco/issue/SHOP-419/danish-translations-for-the-shop</p>
+<p class="out">by:       Tomás Ferreira</p>
+<p class="out">branch:   fctl/231-add-danish-to-the-shop (from main)</p>
+<p class="out">pr:       shop#1291 open, <span class="y">12 of 23 checks pending</span> https://github.com/romanescohq/shop/pull/1291</p>
+<p class="out">runner:   kohlrabi</p>
+<p class="out">model:    opus</p>
+<p class="out">effort:   high</p>
+<p class="out">work:     1 turn · 21 tool calls · 4 files (<span class="ok">+127</span> <span class="r">−4</span>)</p>
+<p class="out">context:  46.5k of 200k tokens (23%) · compacts at 167k</p>
+<p class="f">https://app.fctl.sh/s/ses_01K8YD4T2W9QXN6B3HVM7CZRPE</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="steer">
+          <div class="f-copy reveal">
+            <h2 id="steer">Steer it like you'd steer a colleague.</h2>
+            <p>
+              A message reaches the agent at its next step, with files attached if you like. Interrupt the turn it's
+              on, stop it, resume it tomorrow with a new task, or share it with a teammate. The same session is in the
+              app, on your phone and in your terminal at once, and everyone sees the same thing.
+            </p>
+            <a class="f-link" href="/docs/getting-started/#8-follow-along-and-steer">Follow along and steer <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>tomas@studio ~/src/shop</span></div>
+            <div class="term-body">
+<p class="cmd">fctl send shop#231 -a dk-prices.png "Prices end in ,- in Denmark: 189,- not 189,00 kr."</p>
+<p class="out"><span class="y">✓</span> Sent to shop#231</p>
+<p class="cmd">fctl attach shop#231</p>
+<p class="p">▍ Tomás Ferreira</p>
+<p><span class="p">▍</span> Prices end in ,- in Denmark: 189,- not 189,00 kr.</p>
+<p>Good catch. Danish shops write whole kroner as 189,- so I'll format DKK that way when the øre are zero, and keep 189,50 kr. otherwise.</p>
+<p><span class="b">⏺</span> Edit(src/lib/money.ts)</p>
+<p><span class="b">⏺</span> Bash(npm test -- money)</p>
+<p class="out">  ⎿ <span class="ok">✓</span> src/lib/money.test.ts (9 tests) 5ms</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="json">
+          <div class="f-copy reveal">
+            <h2 id="json">Made for scripts, and the agents that write them.</h2>
+            <p>
+              With <code>-d</code>, <code>fctl run</code> returns as soon as the session exists; with <code>--json</code>, it
+              says so in a form <code>jq</code> can read. Check on it when you like, read what it did, and move on: the
+              same commands work in a cron job, a GitHub Actions step, or another agent's tool call.
+            </p>
+            <ul class="f-list">
+              <li><strong>Signed in as you, or as a token.</strong> <code>fctl login</code> on your machine, <code>FCTL_TOKEN</code> anywhere else.</li>
+              <li><strong>A guide for agents.</strong> The docs say how a program should drive fctl, and what to avoid.</li>
+            </ul>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>ci@build-7 ~/platform</span></div>
+            <div class="term-body">
+<p class="cmd">id=$(fctl run -p platform -d --json -f tasks/flaky.md | jq -r .id)</p>
+<p class="f"># …once its turn has ended</p>
+<p class="cmd">fctl show $id --json | jq '{status, pr: .pull_requests[0].url}'</p>
+<p class="out">{</p>
+<p class="out">  "status": <span class="ok">"idle"</span>,</p>
+<p class="out">  "pr": <span class="y">"https://github.com/romanescohq/platform/pull/846"</span></p>
+<p class="out">}</p>
+<p class="cmd">fctl memory -p platform --json | jq -r '.memories[0].text'</p>
+<p class="out">Answer Stripe's webhooks at once and do the work in the job queue (`jobs::enqueue`): a handler slower than Stripe's timeout gets the event again.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-section wide" aria-labelledby="all">
+          <div class="f-copy reveal">
+            <h2 id="all">And the rest of the factory.</h2>
+            <p>Every capability of the app has its command. A few of them:</p>
+          </div>
+          <div class="f-commands">
+            <article class="reveal">
+              <h3>Sessions</h3>
+              <ul>
+                <li><code>fctl run</code><span>Start one, and follow it</span></li>
+                <li><code>fctl attach</code><span>Stream it and type messages</span></li>
+                <li><code>fctl logs -f</code><span>The transcript, as it grows</span></li>
+                <li><code>fctl search</code><span>Every transcript, by what was said</span></li>
+              </ul>
+            </article>
+            <article class="reveal">
+              <h3>Projects</h3>
+              <ul>
+                <li><code>fctl projects set</code><span>Model, setup script, image, sizes</span></li>
+                <li><code>fctl projects secrets</code><span>Secrets for its sandboxes</span></li>
+                <li><code>fctl projects repos</code><span>Other repositories it may use</span></li>
+                <li><code>fctl projects tickets</code><span>Linear or GitHub issues</span></li>
+              </ul>
+            </article>
+            <article class="reveal">
+              <h3>Reviews and memory</h3>
+              <ul>
+                <li><code>fctl review settings</code><span>Turn review agents on</span></li>
+                <li><code>fctl review start</code><span>Review a pull request now</span></li>
+                <li><code>fctl memory</code><span>What agents left for each other</span></li>
+                <li><code>fctl retro list</code><span>How each piece of work went</span></li>
+              </ul>
+            </article>
+            <article class="reveal">
+              <h3>Runners and teams</h3>
+              <ul>
+                <li><code>fctl host install</code><span>Turn this machine into a runner</span></li>
+                <li><code>fctl host drain</code><span>Finish its sessions, take no new ones</span></li>
+                <li><code>fctl workspaces invite</code><span>Bring someone in</span></li>
+                <li><code>fctl share</code><span>One session, with one person</span></li>
+              </ul>
+            </article>
+            <article class="reveal">
+              <h3>Automation</h3>
+              <ul>
+                <li><code>fctl schedules add</code><span>Work that starts on its own</span></li>
+                <li><code>fctl schedules run</code><span>Now, with context</span></li>
+                <li><code>fctl token</code><span>A token for a tool, with limits</span></li>
+                <li><code>fctl ticket</code><span>Tickets, from an agent's sandbox</span></li>
+              </ul>
+            </article>
+            <article class="reveal">
+              <h3>You</h3>
+              <ul>
+                <li><code>fctl login</code><span>Through your browser and passkey</span></li>
+                <li><code>fctl claude connect</code><span>Your Claude subscription</span></li>
+                <li><code>fctl account two-factor</code><span>An authenticator app</span></li>
+                <li><code>fctl self update</code><span>The newest fctl</span></li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>Every command and flag, and how programs should use them.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/cli/"><span>The CLI</span><small>Every command, grouped as here</small></a></li>
+            <li><a href="/docs/agents/"><span>fctl for agents</span><small>Commands that return, output and exit codes</small></a></li>
+            <li><a href="/docs/cli/#exit-codes-and-output"><span>Exit codes and output</span><small>What scripts can count on</small></a></li>
+            <li><a href="/docs/getting-started/#2-install-the-cli"><span>Install the CLI</span><small>macOS and Linux, Homebrew or the script</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/sign-in/"><small>Previous</small><strong>Sign-in and security</strong><span>Passkeys, codes and a second look</span></a>
+          <a href="/features/"><small>Overview</small><strong>Every feature</strong><span>All of fctl on one page</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>
