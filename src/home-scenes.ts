@@ -21,23 +21,39 @@ uniform int uLinks;
 uniform vec4 uCore;      // the control plane: its center and half its size, in heights
 uniform float uPx;       // a CSS pixel, in heights
 uniform float uDown;     // 1 when the columns are stacked and the links run down
+uniform float uWave;     // 0 in a still frame (reduced motion), where a wave would be a stray line
 vec3 palette(float k) {
   return k < 0.5 ? uY : (k < 1.5 ? uP : uB);
 }
 void field(vec2 p, inout vec3 col, inout float v) {
   // The board the parts sit on: a grid of faint points.
   vec2 g = mod(floor(gl_FragCoord.xy), 7.0);
-  take(col, v, uN, step(g.x, 0.5) * step(g.y, 0.5) * 0.2);
+  float point = step(g.x, 0.5) * step(g.y, 0.5);
+  take(col, v, uN, point * 0.2);
   vec2 m = vec2(uMouse.x * gAspect, uMouse.y);
   float near = uMouse.z * exp(-length(p - m) * 5.0);
-  // Rings going out from the control plane's outline, as events fan out to everyone.
   if (uCore.z > 0.0) {
     float px = uPx;
     float away = sdRoundBox(p - uCore.xy, uCore.zw, 14.0 * px);
     if (away > 0.0) {
+      // Rings close around the control plane, as events fan out to everyone.
       float ring = fract(away / (42.0 * px) - uTime * 0.3);
       float fade = exp(-away / (72.0 * px)) * (1.0 - smoothstep(120.0 * px, 230.0 * px, away));
       take(col, v, uY, smoothstep(0.88, 1.0, ring) * fade * 0.6);
+      // And a wave that runs out to the map's farthest corner, lighting the board's
+      // points as it passes them, then another.
+      vec2 b = uCore.zw;
+      float r = 14.0 * px;
+      float far = max(
+        max(sdRoundBox(-uCore.xy, b, r), sdRoundBox(vec2(gAspect, 0.0) - uCore.xy, b, r)),
+        max(sdRoundBox(vec2(0.0, 1.0) - uCore.xy, b, r), sdRoundBox(vec2(gAspect, 1.0) - uCore.xy, b, r))
+      );
+      float speed = 300.0 * px;
+      float behind = mod(uTime, far / speed + 0.8) * speed - away;
+      float reach = mix(0.55, 1.0, exp(-away / (320.0 * px))) * uWave;
+      take(col, v, uY, line(behind, 1.3) * reach * 1.3);
+      float wake = step(0.0, behind) * (1.0 - smoothstep(0.0, 120.0 * px, behind));
+      take(col, v, uY, point * wake * reach * 1.6);
     }
   }
   for (int i = 0; i < ${MAX_LINKS}; i++) {
@@ -121,7 +137,7 @@ export function mapScene(): MapHandle {
     init(gl) {
       prog = compile(gl, FULLSCREEN_VS, HEAD + MAP + MAIN);
       vao = gl.createVertexArray();
-      for (const n of [...UNIFORMS, "uLink", "uKind", "uLit", "uLinks", "uCore", "uPx", "uDown"]) {
+      for (const n of [...UNIFORMS, "uLink", "uKind", "uLit", "uLinks", "uCore", "uPx", "uDown", "uWave"]) {
         u[n] = gl.getUniformLocation(prog, n);
       }
     },
@@ -153,6 +169,7 @@ export function mapScene(): MapHandle {
       );
       gl.uniform1f(u.uPx ?? null, core ? core.px : 0);
       gl.uniform1f(u.uDown ?? null, down ? 1 : 0);
+      gl.uniform1f(u.uWave ?? null, still ? 0 : 1);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       gl.bindVertexArray(null);
     },
