@@ -79,6 +79,22 @@
   color: var(--c-highlight-ink);
   filter: brightness(1.06);
 }
+/* Small phones: the mark without its word, and tighter letters, so that
+   Features, Docs and the app fit on one line. */
+@media (max-width: 380px) {
+  .nav nav {
+    gap: 12px;
+    letter-spacing: 0.08em;
+  }
+  .nav .nav-app {
+    padding: 8px 10px;
+  }
+}
+@media (max-width: 350px) {
+  .brand span {
+    display: none;
+  }
+}
 /* Features: a menu of the feature pages, a details element that works without JavaScript
    (src/nav.ts closes it on Escape and outside clicks). It hangs from the header's right edge. */
 .nav-menu > summary {
@@ -226,8 +242,12 @@
   color: var(--c-accent);
   background: none;
 }
+.nav .nav-app {
+  white-space: nowrap;
+}
 @media (max-width: 640px) {
-  .nav nav > a:not(.nav-app) {
+  /* Docs, the Features menu and the app: the rest is in the footer. */
+  .nav nav > a:not(.nav-app):not(:first-of-type) {
     display: none;
   }
   .menu {
@@ -1202,7 +1222,7 @@ pre .prompt {
 .err.live .err-hint {
   opacity: 1;
 }
-.err-page .nav nav a:not(.nav-app):not(:first-child) {
+.err-page .nav nav > a:not(.nav-app):not(:first-of-type) {
   display: revert;
 }
 @media (max-width: 640px) {
@@ -1213,7 +1233,7 @@ pre .prompt {
   .err-code {
     width: 80vw;
   }
-  .err-page .nav nav a:not(.nav-app):not(:first-child) {
+  .err-page .nav nav > a:not(.nav-app):not(:first-of-type) {
     display: none;
   }
 }
