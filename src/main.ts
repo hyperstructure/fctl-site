@@ -8,6 +8,7 @@ import "./home.css";
 import { mount, prefersReducedMotion } from "@hyperstructure/design/gl/core";
 import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foundry";
 import { band } from "./band";
+import { branches } from "./branches";
 import { footer } from "./footer";
 import { type MapLink, mapScene } from "./home-scenes";
 import { menus } from "./nav";
@@ -166,6 +167,7 @@ function map() {
 hero();
 copyButtons();
 reveals();
+branches();
 band();
 map();
 footer();
