@@ -17,7 +17,7 @@ import {
   type Scene,
 } from "@hyperstructure/design/gl/core";
 
-const HEAD = `#version 300 es
+export const HEAD = `#version 300 es
 precision highp float;
 out vec4 outColor;
 uniform vec2 uRes;
@@ -61,7 +61,11 @@ vec2 anchor(float x, float y) {
 }
 `;
 
-const MAIN = `
+/**
+ * The scenes' main(): the field, then stars and film grain on the empty dark,
+ * as the foundry has them, as much as sky (a GLSL expression of p) says.
+ */
+export const main = (sky = "1.0") => `
 void main() {
   vec2 px = floor(gl_FragCoord.xy);
   gAspect = uRes.x / uRes.y;
@@ -75,17 +79,19 @@ void main() {
     outColor = vec4(col, 1.0);
     return;
   }
-  // Stars and film grain on the empty dark, as the foundry has them.
+  float sky = ${sky};
   float h = hash12(px * 0.913 + 17.0);
   float twinkle = 0.55 + 0.45 * sin(uTime * (0.6 + h * 2.4) + h * 40.0);
   if (h > 0.9978) {
-    outColor = vec4(uInk * twinkle, twinkle);
+    outColor = vec4(uInk * twinkle, twinkle) * sky;
     return;
   }
   float g = hash12(px + floor(uTime * 10.0) * 13.17);
   float a = g > 0.94 ? (uDark > 0.5 ? 0.05 : 0.035) : 0.0;
-  outColor = vec4(uInk * a, a);
+  outColor = vec4(uInk * a, a) * sky;
 }`;
+
+export const MAIN = main();
 
 /** Workspaces: rounded squares turning inside each other, hyperstructure's symbol, nested. */
 const TWIST = `
@@ -550,53 +556,49 @@ export interface FieldHandle {
   pointerLeave(): void;
 }
 
-/** The scene for a feature page: its field, dithered to the brand palette. */
-export function featureScene(name: SceneName): FieldHandle {
-  let prog: WebGLProgram | null = null;
-  let vao: WebGLVertexArrayObject | null = null;
-  const u: Record<string, WebGLUniformLocation | null> = {};
+/** The uniforms every field has, from HEAD. */
+export const UNIFORMS = ["uRes", "uTime", "uDark", "uInk", "uY", "uP", "uB", "uN", "uMouse", "uWide"];
+
+/**
+ * Sets HEAD's uniforms for a frame: the size, the time, the theme's palette
+ * (yellow is ink on light pages) and the pointer.
+ */
+export function setUniforms(
+  gl: WebGL2RenderingContext,
+  u: Record<string, WebGLUniformLocation | null>,
+  width: number,
+  height: number,
+  time: number,
+  mouse: Float32Array,
+) {
+  const dark = isDark();
+  const ink = dark ? cssColor("--c-ink", [0.98, 0.98, 0.98]) : cssColor("--c-ink", [0.09, 0.09, 0.09]);
+  gl.uniform2f(u.uRes ?? null, width, height);
+  gl.uniform1f(u.uTime ?? null, time);
+  gl.uniform1f(u.uDark ?? null, dark ? 1 : 0);
+  gl.uniform3fv(u.uInk ?? null, ink);
+  gl.uniform3fv(u.uY ?? null, dark ? cssColor("--c-accent", [1, 1, 0.36]) : ink);
+  gl.uniform3fv(u.uP ?? null, cssColor("--c-pink", [1, 0, 0.85]));
+  gl.uniform3fv(u.uB ?? null, cssColor("--c-blue", [0, 0.49, 1]));
+  gl.uniform3fv(
+    u.uN ?? null,
+    dark ? cssColor("--c-ink-3", [0.55, 0.55, 0.55]) : cssColor("--c-ink-4", [0.64, 0.64, 0.64]),
+  );
+  gl.uniform3fv(u.uMouse ?? null, mouse);
+  gl.uniform1f(u.uWide ?? null, width / Math.max(1, height) > 1.15 ? 1 : 0);
+}
+
+/** A pointer that eases towards where it is, for a scene's uMouse. */
+export function easedPointer() {
   const mouse = new Float32Array([0.5, 0.5, 0]);
   const target = new Float32Array([0.5, 0.5, 0]);
-  const names = ["uRes", "uTime", "uDark", "uInk", "uY", "uP", "uB", "uN", "uMouse", "uWide"];
-  const scene: Scene = {
-    init(gl) {
-      prog = compile(gl, FULLSCREEN_VS, HEAD + FIELDS[name] + MAIN);
-      vao = gl.createVertexArray();
-      for (const n of names) u[n] = gl.getUniformLocation(prog, n);
-    },
-    frame({ gl, width, height, time, dt }) {
-      if (!prog) return;
+  return {
+    mouse,
+    step(dt: number) {
       const k = 1 - Math.exp(-dt * 6);
       for (let i = 0; i < 3; i++) mouse[i] = (mouse[i] ?? 0) + ((target[i] ?? 0) - (mouse[i] ?? 0)) * k;
-      const dark = isDark();
-      const ink = dark ? cssColor("--c-ink", [0.98, 0.98, 0.98]) : cssColor("--c-ink", [0.09, 0.09, 0.09]);
-      gl.disable(gl.BLEND);
-      gl.useProgram(prog);
-      gl.bindVertexArray(vao);
-      gl.uniform2f(u.uRes ?? null, width, height);
-      gl.uniform1f(u.uTime ?? null, time);
-      gl.uniform1f(u.uDark ?? null, dark ? 1 : 0);
-      gl.uniform3fv(u.uInk ?? null, ink);
-      gl.uniform3fv(u.uY ?? null, dark ? cssColor("--c-accent", [1, 1, 0.36]) : ink);
-      gl.uniform3fv(u.uP ?? null, cssColor("--c-pink", [1, 0, 0.85]));
-      gl.uniform3fv(u.uB ?? null, cssColor("--c-blue", [0, 0.49, 1]));
-      gl.uniform3fv(
-        u.uN ?? null,
-        dark ? cssColor("--c-ink-3", [0.55, 0.55, 0.55]) : cssColor("--c-ink-4", [0.64, 0.64, 0.64]),
-      );
-      gl.uniform3fv(u.uMouse ?? null, mouse);
-      gl.uniform1f(u.uWide ?? null, width / Math.max(1, height) > 1.15 ? 1 : 0);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-      gl.bindVertexArray(null);
     },
-    dispose(gl) {
-      if (prog) gl.deleteProgram(prog);
-      if (vao) gl.deleteVertexArray(vao);
-    },
-  };
-  return {
-    scene,
-    pointer(x, y) {
+    pointer(x: number, y: number) {
       target[0] = x;
       target[1] = 1 - y;
       target[2] = 1;
@@ -605,4 +607,34 @@ export function featureScene(name: SceneName): FieldHandle {
       target[2] = 0;
     },
   };
+}
+
+/** The scene for a feature page: its field, dithered to the brand palette. */
+export function featureScene(name: SceneName): FieldHandle {
+  let prog: WebGLProgram | null = null;
+  let vao: WebGLVertexArrayObject | null = null;
+  const u: Record<string, WebGLUniformLocation | null> = {};
+  const p = easedPointer();
+  const scene: Scene = {
+    init(gl) {
+      prog = compile(gl, FULLSCREEN_VS, HEAD + FIELDS[name] + MAIN);
+      vao = gl.createVertexArray();
+      for (const n of UNIFORMS) u[n] = gl.getUniformLocation(prog, n);
+    },
+    frame({ gl, width, height, time, dt }) {
+      if (!prog) return;
+      p.step(dt);
+      gl.disable(gl.BLEND);
+      gl.useProgram(prog);
+      gl.bindVertexArray(vao);
+      setUniforms(gl, u, width, height, time, p.mouse);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      gl.bindVertexArray(null);
+    },
+    dispose(gl) {
+      if (prog) gl.deleteProgram(prog);
+      if (vao) gl.deleteVertexArray(vao);
+    },
+  };
+  return { scene, pointer: p.pointer, pointerLeave: p.pointerLeave };
 }

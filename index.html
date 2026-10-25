@@ -73,10 +73,14 @@
               <h3>Turn a machine into a runner</h3>
               <p>
                 One command registers it and starts it as a service. Each session gets its own lightweight
-                Linux VM — Apple's container runtime or Lima on a Mac, Docker on Linux — with a fresh clone,
-                its own branch and your project's setup script.
+                Linux VM — Apple's container runtime on a Mac, Docker on Linux — with a fresh clone, its own
+                branch and your project's setup script.
               </p>
               <pre><code><span class="prompt">$</span> fctl host install</code></pre>
+              <p class="step-links">
+                <a href="/features/runners/">Runners <span aria-hidden="true">→</span></a>
+                <a href="/features/sandboxes/">Sandboxes <span aria-hidden="true">→</span></a>
+              </p>
             </div>
           </li>
           <li class="reveal">
@@ -99,9 +103,178 @@
                 open a pull request when they are done. Message them any time to steer.
               </p>
               <pre><code><span class="prompt">$</span> fctl run -p my-app "Add a dark mode toggle"</code></pre>
+              <p class="step-links">
+                <a href="/features/sessions/">Sessions <span aria-hidden="true">→</span></a>
+                <a href="/features/cli/">The CLI <span aria-hidden="true">→</span></a>
+              </p>
             </div>
           </li>
         </ol>
+      </section>
+
+      <section class="tour" aria-labelledby="tour">
+        <div class="tour-head">
+          <h2 id="tour" class="section-title reveal">The rest of the factory.</h2>
+          <p class="tour-lede reveal">
+            One agent in a terminal is a tool. These are the parts that make many of them a factory you can leave
+            running: reviews on every commit, tickets handed over, work that starts on its own, and the machines it
+            all runs on.
+          </p>
+        </div>
+        <div class="bento">
+          <article class="card card-reviews reveal" style="--glow: var(--c-pink)">
+            <div class="card-copy">
+              <span class="menu-icon p"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5M8 10.5l1.8 1.8 3.2-3.6" /></svg></span>
+              <h3><a class="card-link" href="/features/review-agents/">Review agents</a></h3>
+              <p>
+                An agent reads every new commit of every pull request, your team's included, and says what it found on
+                the lines it's about. On an fctl agent's pull request, the findings go back to it, and it fixes them.
+              </p>
+              <span class="card-more">Read a review <span aria-hidden="true">→</span></span>
+            </div>
+            <div class="card-art" aria-hidden="true">
+              <div class="gh mini">
+                <div class="gh-thread">
+                  <div class="gh-file">src/insert.rs</div>
+                  <div class="gh-diff">
+                    <div><span>52</span><span>+</span><span>    let mut at = brk.window.start.max(shift.start);</span></div>
+                    <div><span>53</span><span>+</span><span>    loop {</span></div>
+                  </div>
+                  <div class="gh-comment">
+                    <img src="/favicon.svg" alt="" width="26" height="26" />
+                    <div>
+                      <p class="gh-meta"><b>fctl-sh</b><span class="gh-tag">Bot</span><span>just now</span></p>
+                      <h4>A break it can't reach makes <code>insert_break</code> loop forever</h4>
+                      <p>
+                        <b>Medium severity.</b> When the break's window ends before the shift starts, the loop never
+                        ends, and neither does <code>solve</code>. Stop at the window's end and return
+                        <code>Infeasible</code>.
+                      </p>
+                      <p class="gh-found">Found by <span class="gh-link">fctl review</span> in <code>9c2e1f4</code>.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card card-runners reveal" style="--glow: var(--c-highlight)">
+            <div class="card-copy">
+              <span class="menu-icon y"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="6.5" rx="1.8" /><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.8" /><path d="M7 7.25h.01M7 16.75h.01M11 7.25h6M11 16.75h6" /></svg></span>
+              <h3><a class="card-link" href="/features/runners/">Runners and sandboxes</a></h3>
+              <p>
+                One command turns a Mac or a Linux box into a runner. Every session gets a fresh sandbox of its own
+                there, in Apple's container runtime or Docker.
+              </p>
+              <span class="card-more card-pair">
+                <span>Runners <span aria-hidden="true">→</span></span>
+                <a class="card-also" href="/features/sandboxes/">Sandboxes <span aria-hidden="true">→</span></a>
+              </span>
+            </div>
+            <div class="card-art" aria-hidden="true">
+              <div class="term mini">
+                <div class="term-bar"><i></i><i></i><i></i><span>kofi@kohlrabi ~</span></div>
+                <div class="term-body">
+<p class="cmd">fctl host install -w romanesco</p>
+<p class="out"><span class="y">✓</span> Driver: apple (ready)</p>
+<p class="out"><span class="y">✓</span> Sandboxes: 4 CPUs and 8 GiB by default</p>
+<p class="out"><span class="y">✓</span> Registered runner <span class="w">kohlrabi</span></p>
+                </div>
+              </div>
+              <ul class="sandboxes">
+                <li><span class="dot y"></span>shop#231 <small>working</small></li>
+                <li><span class="dot b"></span>platform#445 <small>waiting</small></li>
+                <li><span class="dot y"></span>infra#38 <small>working</small></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card card-linear reveal" style="--glow: var(--c-blue)">
+            <div class="card-copy">
+              <span class="menu-icon b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 8.5V6a1.5 1.5 0 0 1 1.5-1.5h12A1.5 1.5 0 0 1 19.5 6v2.5a2 2 0 0 0 0 4V18a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 18v-5.5a2 2 0 0 0 0-4z" /><path d="M9 9.5h6M9 13.5h4" /></svg></span>
+              <h3><a class="card-link" href="/features/linear/">Linear</a></h3>
+              <p>
+                Delegate a ticket to fctl the way you would to a teammate. It moves to In Progress, the agent answers in
+                its thread, and the pull request comes back linked.
+              </p>
+              <span class="card-more">Hand one over <span aria-hidden="true">→</span></span>
+            </div>
+            <div class="card-art" aria-hidden="true">
+              <div class="ticket mini">
+                <p class="ticket-id"><span>SHOP-419</span><span class="state">In Progress</span></p>
+                <h3>Danish translations for the shop</h3>
+                <ol>
+                  <li>
+                    <img src="/src/features/people/tferreira-pt.webp" alt="" width="22" height="22" />
+                    <div><b>Tomás Ferreira</b> delegated the issue to <b>fctl</b></div>
+                  </li>
+                  <li>
+                    <img src="/favicon.svg" alt="" width="22" height="22" />
+                    <div><b>fctl</b> · Working on this in fctl session shop#231</div>
+                  </li>
+                  <li>
+                    <img src="/favicon.svg" alt="" width="22" height="22" />
+                    <div><b>fctl</b> linked <b>shop#1291</b>, Add Danish to the shop</div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <article class="card card-workspaces reveal" style="--glow: var(--c-pink)">
+            <div class="card-copy">
+              <span class="menu-icon p"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4" /><rect x="8" y="8" width="8" height="8" rx="2" /></svg></span>
+              <h3><a class="card-link" href="/features/workspaces/">Workspaces and projects</a></h3>
+              <p>
+                A workspace for each team and a project for each repository, with roles, limits on what agents may do
+                on GitHub, and the Claude plan each person's work runs on.
+              </p>
+              <span class="card-more">Set one up <span aria-hidden="true">→</span></span>
+            </div>
+            <div class="card-art" aria-hidden="true">
+              <div class="ws">
+                <div class="ws-head">
+                  <span class="ws-logo">R</span>
+                  <span><strong>Romanesco</strong><small>4 projects</small></span>
+                  <span class="ws-faces">
+                    <img src="/src/features/people/tferreira-pt.webp" alt="" width="24" height="24" />
+                    <img src="/src/features/people/jweber87.webp" alt="" width="24" height="24" />
+                    <img src="/src/features/people/luciadraws.webp" alt="" width="24" height="24" />
+                    <span>+5</span>
+                  </span>
+                </div>
+                <ul>
+                  <li><span><strong>Shop</strong><small>romanescohq/shop</small></span><span><span class="dot y"></span>2 working</span></li>
+                  <li><span><strong>Platform</strong><small>romanescohq/platform</small></span><span><span class="dot b"></span>1 waiting</span></li>
+                  <li><span><strong>Driver app</strong><small>romanescohq/driver-app</small></span><span><span class="dot y"></span>1 working</span></li>
+                  <li><span><strong>Infra</strong><small>romanescohq/infra</small></span><span><span class="dot y"></span>1 working</span></li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="card card-schedules reveal" style="--glow: var(--c-highlight)">
+            <div class="card-copy">
+              <span class="menu-icon y"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5v5l3 2" /><path d="M19.5 4.5 21 6" /></svg></span>
+              <h3><a class="card-link" href="/features/schedules/">Schedules</a></h3>
+              <p>
+                Dependency updates every week, benchmarks every night: work that starts on its own, each run a session
+                you follow like any other.
+              </p>
+              <span class="card-more">Set a schedule <span aria-hidden="true">→</span></span>
+            </div>
+            <div class="card-art" aria-hidden="true">
+              <ul class="sched">
+                <li><span class="dot y"></span><span><strong>Weekly dependency updates</strong><small>Tuesdays at 02:00 · Shop</small></span></li>
+                <li><span class="dot y"></span><span><strong>Nightly benchmarks</strong><small>Every day at 01:00 · Benchmarks</small></span></li>
+                <li><span class="dot y"></span><span><strong>Weekly flaky test hunt</strong><small>Saturdays at 03:00 · Platform</small></span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+        <p class="tour-all reveal">
+          <a href="/features/">Every feature, from sessions to the CLI <span aria-hidden="true">→</span></a>
+        </p>
       </section>
 
       <section class="features" aria-labelledby="features">
@@ -109,7 +282,7 @@
         <div class="grid">
           <article class="reveal">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M10.5 18.5h3" /></svg>
-            <h3>Follow along anywhere</h3>
+            <h3><a href="/features/sessions/">Follow along anywhere</a></h3>
             <p>
               Sessions join Claude's Remote Control, so they show up in Claude on your phone and desktop, where
               you can read along and reply.
@@ -117,7 +290,7 @@
           </article>
           <article class="reveal">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2" /><path d="M3 20c.6-3.4 3-5.5 6-5.5s5.4 2.1 6 5.5" /><circle cx="17" cy="9" r="2.4" /><path d="M16.5 14.6c2.3.3 4 2.2 4.5 4.9" /></svg>
-            <h3>Work as a team</h3>
+            <h3><a href="/features/workspaces/">Work as a team</a></h3>
             <p>
               Share projects and sessions. Everyone sees the same live transcript, who else is watching, and
               anyone with access can steer the agent.
@@ -125,7 +298,7 @@
           </article>
           <article class="reveal">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="2.5" /><path d="m7 9.5 3 2.5-3 2.5M12.5 15h4.5" /></svg>
-            <h3>A terminal that keeps up</h3>
+            <h3><a href="/features/cli/">A terminal that keeps up</a></h3>
             <p>
               <code>fctl attach</code> streams any session into your terminal, token by token. <code>send</code>,
               <code>interrupt</code> and <code>stop</code> steer it from scripts and CI.
@@ -133,7 +306,7 @@
           </article>
           <article class="reveal">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 20 8v8l-8 4.5L4 16V8z" /><path d="M12 12.5 20 8M12 12.5V20.5M12 12.5 4 8" /></svg>
-            <h3>Yours to run</h3>
+            <h3><a href="/docs/self-hosting/">Yours to run</a></h3>
             <p>
               The control plane runs on Cloudflare, or in one container anywhere; agents run on your
               hardware. Deploy your own instance with one command. MIT licensed.
@@ -141,18 +314,19 @@
           </article>
           <article class="reveal">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7" /><path d="M20 4v4.7h-4.7" /><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15.3" /><path d="M4 20v-4.7h4.7" /></svg>
-            <h3>Built not to drop work</h3>
+            <h3><a href="/docs/architecture/">Built not to drop work</a></h3>
             <p>
               A Rust core end to end. Agents journal every event before it leaves the sandbox, links reconnect
-              and replay, and hosts pick running sessions back up after a restart.
+              and replay, hosts pick running sessions back up after a restart, and agents leave notes for the
+              agents after them.
             </p>
           </article>
           <article class="reveal">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5v5l3 2" /></svg>
-            <h3>Around the clock</h3>
+            <h3><a href="/features/runners/">Around the clock</a></h3>
             <p>
-              Hosts keep their machine from sleeping, idle sessions wind down on their own, and a queue holds
-              work until a runner is free.
+              Hosts keep their machine from sleeping, idle sessions wind down on their own, a queue holds work
+              until a runner is free, and access tokens let your other tools start work as you.
             </p>
           </article>
         </div>
@@ -160,30 +334,61 @@
 
       <section class="flow" aria-labelledby="flow">
         <h2 id="flow" class="section-title reveal">How the pieces fit.</h2>
-        <div class="diagram reveal" role="img" aria-label="Browsers, the CLI and Claude apps talk to the control plane on Cloudflare; hosts on your machines connect out to it and run each session in its own sandbox.">
-          <div class="col">
-            <div class="node">Web app</div>
-            <div class="node">fctl CLI</div>
-            <div class="node">Claude apps<small>Remote Control</small></div>
-          </div>
-          <div class="wire" aria-hidden="true"><span></span></div>
-          <div class="col">
-            <div class="node strong">Control plane<small>Worker · Durable Objects · D1</small></div>
-          </div>
-          <div class="wire" aria-hidden="true"><span></span></div>
-          <div class="col">
-            <div class="node">Your Mac<small>fctl host</small></div>
-          </div>
-          <div class="wire" aria-hidden="true"><span></span></div>
-          <div class="col">
-            <div class="node">Sandbox<small>Claude Code · fctl-agent</small></div>
-            <div class="node">Sandbox</div>
-            <div class="node">Sandbox</div>
+        <p class="flow-lede reveal">
+          You talk to the control plane. Your machines dial out to it and run each session in a sandbox of its own,
+          so nothing on your network listens for anyone.
+        </p>
+        <div
+          class="map reveal"
+          role="img"
+          aria-label="The web app, the fctl CLI and the Claude apps talk to fctl's control plane, a Worker with Durable Objects and D1. Hosts on your machines connect out to it and run each session in a sandbox of its own: requests travel out to the sandboxes, and their events stream back to everyone watching."
+        >
+          <canvas class="map-canvas" aria-hidden="true"></canvas>
+          <div class="map-cols">
+            <div class="map-col">
+              <span class="map-label">You</span>
+              <div class="map-node" data-from="clients">
+                <span class="map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5" /><path d="M3 9h18M6.5 6.8h.01M9 6.8h.01" /></svg></span>
+                <span><strong>Web app</strong><small>Desk and phone</small></span>
+              </div>
+              <div class="map-node" data-from="clients">
+                <span class="map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5" /><path d="m7 9.5 3 2.5-3 2.5M12.5 15H17" /></svg></span>
+                <span><strong>fctl CLI</strong><small>Scripts and CI</small></span>
+              </div>
+              <div class="map-node" data-from="clients">
+                <span class="map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M10.5 18.5h3" /></svg></span>
+                <span><strong>Claude apps</strong><small>Remote Control</small></span>
+              </div>
+            </div>
+            <div class="map-col">
+              <span class="map-label">fctl</span>
+              <div class="map-node map-core" data-core>
+                <span class="map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z" /><path d="M12 12 20 7.5M12 12v9M12 12 4 7.5" /></svg></span>
+                <span><strong>Control plane</strong><small>Cloudflare or a container</small></span>
+              </div>
+            </div>
+            <div class="map-col">
+              <span class="map-label">Your machines</span>
+              <div class="map-node" data-host="mac">
+                <span class="map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="2" /><path d="M2.5 19h19" /></svg></span>
+                <span><strong>A Mac</strong><small>Apple container</small></span>
+              </div>
+              <div class="map-node" data-host="linux">
+                <span class="map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="6.5" rx="1.8" /><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.8" /><path d="M7 7.25h.01M7 16.75h.01" /></svg></span>
+                <span><strong>A Linux box</strong><small>Docker</small></span>
+              </div>
+            </div>
+            <div class="map-col">
+              <span class="map-label">Sandboxes</span>
+              <div class="map-node map-sb" data-on="mac"><span class="dot y"></span><span><strong>shop#231</strong><small>Working</small></span></div>
+              <div class="map-node map-sb" data-on="mac"><span class="dot b"></span><span><strong>platform#445</strong><small>Waiting for Asha</small></span></div>
+              <div class="map-node map-sb" data-on="linux"><span class="dot y"></span><span><strong>infra#38</strong><small>terraform plan</small></span></div>
+              <div class="map-node map-sb" data-on="linux"><span class="dot p"></span><span><strong>shop#230</strong><small>Paused at the limit</small></span></div>
+            </div>
           </div>
         </div>
         <p class="flow-note reveal">
-          Hosts dial out, so nothing on your network is exposed. Every session lives in a Durable Object that
-          keeps its event log and fans it out to everyone watching.
+          Every session lives in a Durable Object that keeps its event log and fans it out to everyone watching.
           <a href="/docs/architecture/">Read the architecture <span aria-hidden="true">→</span></a>
         </p>
       </section>
