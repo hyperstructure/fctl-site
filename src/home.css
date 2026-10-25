@@ -430,20 +430,20 @@
 }
 
 /* Status dots: yellow working (ink on light), blue waiting, pink paused. */
-.dot {
+.status-dot {
   flex-shrink: 0;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--c-accent);
 }
-.dot.p {
+.status-dot.p {
   background: var(--c-pink);
 }
-.dot.b {
+.status-dot.b {
   background: var(--c-blue);
 }
-.dot.y {
+.status-dot.y {
   animation: beat 2.4s var(--ease-out) infinite;
 }
 @keyframes beat {
@@ -730,7 +730,7 @@
   .card:hover .card-art > * {
     translate: none;
   }
-  .dot.y {
+  .status-dot.y {
     animation: none;
   }
 }
