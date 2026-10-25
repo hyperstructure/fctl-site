@@ -569,6 +569,7 @@
 .map-node small {
   display: block;
   margin-top: 2px;
+  text-wrap: balance;
   font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1.4;
