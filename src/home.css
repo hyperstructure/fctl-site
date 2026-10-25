@@ -544,6 +544,64 @@
   padding-top: clamp(56px, 7vw, 100px);
 }
 
+/* ───────────────────────────── the showcase ───────────────────────────── */
+
+/* The app as it looks, under Made for the long run: a session in a browser,
+   and the Agent Floor and a session on phones, side by side at about the
+   same height. It runs a little wider than the text, so the screenshots
+   stay legible. */
+.showcase {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 3.1fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(16px, 2.2vw, 32px);
+  margin: clamp(44px, 6vw, 72px) calc((100% - min(1360px, 100vw - 32px)) / 2) 0;
+}
+.showcase figure {
+  margin: 0;
+  min-width: 0;
+}
+.showcase .phone {
+  width: 100%;
+}
+.showcase figcaption {
+  margin-top: 16px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--c-ink-3);
+}
+/* A glow of the brand's colors under them. */
+.showcase::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 10% 4% 6%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side at 30% 50%, var(--c-pink-soft), transparent),
+    radial-gradient(closest-side at 72% 50%, var(--c-blue-soft), transparent),
+    radial-gradient(closest-side at 50% 40%, var(--c-accent-soft), transparent);
+  filter: blur(40px);
+  opacity: 0.9;
+}
+/* Narrower: the browser above, the phones side by side below it. */
+@media (max-width: 980px) {
+  .showcase {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 36px;
+  }
+  .showcase figure:first-child {
+    grid-column: 1 / -1;
+  }
+  .showcase .phone {
+    width: min(100%, 260px);
+    margin: 0 auto;
+  }
+}
+
 /* The six cards below: their titles lead to the pages that tell more. */
 .features h3 a {
   color: inherit;

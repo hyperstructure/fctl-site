@@ -4,6 +4,7 @@
 
 import "./site.css";
 import "./mocks.css";
+import "./frames.css";
 import "./home.css";
 import { mount, prefersReducedMotion } from "@hyperstructure/design/gl/core";
 import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foundry";
