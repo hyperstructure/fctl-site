@@ -440,6 +440,61 @@ void field(vec2 p, inout vec3 col, inout float v) {
 }`;
 
 /**
+ * Team management: five people, a strand each, braided into one rope that
+ * ends in the project they share, the workspace's mark. Their work runs up
+ * the strands into it.
+ */
+const BRAID = `
+void field(vec2 p, inout vec3 col, inout float v) {
+  // Where the strands meet: beside the copy, or behind it on phones.
+  vec2 c = mix(vec2(gAspect * 0.62, 0.56), vec2(gAspect * 0.8, 0.51), uWide);
+  vec2 dir = normalize(vec2(0.3, 1.0));
+  vec2 nrm = vec2(dir.y, -dir.x);
+  vec2 q = p - c;
+  float along = dot(q, dir);
+  float across = dot(q, nrm);
+  float low = -0.17;   // the people
+  float top = 0.3;     // the project
+  vec2 m = vec2(uMouse.x * gAspect, uMouse.y);
+  float near = uMouse.z * exp(-length(p - m) * 6.0);
+  float R = 0.04 * (1.0 + 0.9 * near);
+  float spin = uTime * 0.6;
+  // The braid: nothing where the strands meet, widest in the middle, nothing at the project.
+  float env = smoothstep(low * 0.4, 0.04, along) * (1.0 - smoothstep(top * 0.6, top, along));
+  float inside = step(low, along) * step(along, top);
+  vec3 cols[5] = vec3[5](uY, uP, uB, uInk, uP);
+  for (int k = 0; k < 5; k++) {
+    float fk = float(k);
+    float spread = (fk - 2.0) * 0.072;
+    float t = clamp(along / low, 0.0, 1.0);
+    float fan = spread * t * t * (3.0 - 2.0 * t);
+    float ph = 24.0 * along - spin + fk * 1.2566;
+    float y = fan + R * env * sin(ph);
+    float slope = spread * 6.0 * t * (1.0 - t) / low + R * env * 24.0 * cos(ph);
+    float d = abs(across - y) / sqrt(1.0 + slope * slope);
+    float front = mix(1.0, 0.5 + 0.5 * cos(ph), env);
+    take(col, v, cols[k], line(d, 0.9 + 0.9 * front) * (0.3 + 0.65 * front) * inside);
+    // Work running up the strand into the project.
+    float b = along * 8.0 - uTime * (0.45 + 0.07 * fk) + hash12(vec2(fk, 2.0));
+    float bead = fract(b);
+    float lit = smoothstep(0.8, 0.96, bead) * step(bead, 0.99) * line(d, 2.6) * inside;
+    take(col, v, cols[k], lit * (0.5 + 0.7 * front) * 1.3);
+    // The person at the strand's end: a disc in its color, with a ring.
+    vec2 at = c + dir * low + nrm * spread;
+    float dp = length(p - at);
+    take(col, v, cols[k], smoothstep(0.015, 0.0, dp) * (0.9 + 0.1 * sin(uTime * 1.3 + fk)));
+    take(col, v, uInk, line(dp - 0.024, 0.9) * 0.7);
+  }
+  // The project they share: a rounded square in a rounded square, turning slowly.
+  vec2 pc = c + dir * top;
+  float s1 = sdRoundBox(rot(uTime * 0.15) * (p - pc), vec2(0.038), 0.012);
+  float s2 = sdRoundBox(rot(-uTime * 0.25) * (p - pc), vec2(0.018), 0.006);
+  take(col, v, uY, line(s1, 1.2) * 1.1);
+  take(col, v, uP, line(s2, 1.0) * 0.95);
+  take(col, v, uY, exp(-length(p - pc) * 40.0) * 0.5);
+}`;
+
+/**
  * Sessions: a session as a double helix, the agent's strand and yours,
  * turning out of its live end, where the agent works (blue while it waits for
  * you) and the people watching circle it. Its events stream back along the
@@ -535,6 +590,7 @@ void field(vec2 p, inout vec3 col, inout float v) {
 const FIELDS = {
   sessions: HELIX,
   workspaces: TWIST,
+  team: BRAID,
   sandboxes: BOXES,
   linear: LANES,
   "review-agents": LENS,
