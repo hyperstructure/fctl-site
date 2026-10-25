@@ -4,6 +4,7 @@
 import "./site.css";
 import { mount, prefersReducedMotion } from "@hyperstructure/design/gl/core";
 import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foundry";
+import { menus } from "./nav";
 
 document.documentElement.classList.add("js");
 
@@ -147,3 +148,4 @@ hero();
 copyButtons();
 reveals();
 wires();
+menus();

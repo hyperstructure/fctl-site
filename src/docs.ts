@@ -1,6 +1,7 @@
 // Docs pages: styles, plus a copy button on every code block.
 
 import "./site.css";
+import { menus } from "./nav";
 
 for (const pre of document.querySelectorAll<HTMLPreElement>(".doc pre")) {
   const button = document.createElement("button");
@@ -21,3 +22,4 @@ for (const pre of document.querySelectorAll<HTMLPreElement>(".doc pre")) {
   pre.classList.add("has-copy");
   pre.append(button);
 }
+menus();

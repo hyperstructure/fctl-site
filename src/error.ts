@@ -7,6 +7,7 @@
 import "./site.css";
 import { mount } from "@hyperstructure/design/gl/core";
 import { play, type StreamHandle, stream } from "@hyperstructure/design/gl/stream";
+import { menus } from "./nav";
 import { suggest } from "./suggest";
 
 const main = document.querySelector<HTMLElement>(".err");
@@ -123,3 +124,4 @@ function retry(s: StreamHandle | null) {
 const s = scene();
 if (main?.dataset.code === "404") void notFound();
 else retry(s);
+menus();

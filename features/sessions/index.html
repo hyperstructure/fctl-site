@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#171717" />
+    <title>Sessions · fctl</title>
+    <meta
+      name="description"
+      content="Watch Claude Code agents work, live, in their own sandboxes: every command, edit and pull request, with the checks GitHub runs. Steer them with a message, and let fctl bring them back when their pull request needs them."
+    />
+    <meta property="og:title" content="Sessions · fctl" />
+    <meta property="og:description" content="Agents at work, in plain sight: live transcripts, pull requests and their checks, and follow-ups that bring the agent back." />
+    <meta property="og:url" content="https://fctl.sh/features/sessions/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="sessions" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M4 12h13M4 17h7" /><circle cx="18.5" cy="16.5" r="2.5" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Sessions</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">Agents at work, <span class="dim">in</span> <span class="hot">plain sight.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            A session is one agent on one task: a sandbox of its own, a branch of its own, and a transcript
+            that streams as it thinks, runs commands and edits files. Follow it from your desk or your phone,
+            steer it with a message, and let fctl call it back when its pull request needs it.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Open the app</a>
+            <a class="f-link" href="/docs/getting-started/#7-start-a-session">Start your first session <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh">
+              <img class="theme-dark" src="/src/features/shots/sessions/floor-dark.webp" width="2200" height="1375" alt="The Agent Floor at 09:10: four agents working, one waiting for Asha, Noor's Claude plan at 34% of its five hours, and the night's finished sessions below." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/floor-light.webp" width="2200" height="1375" alt="The Agent Floor at 09:10: four agents working, one waiting for Asha, Noor's Claude plan at 34% of its five hours, and the night's finished sessions below." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/sessions/phone-floor-dark.webp" width="780" height="1688" alt="The Agent Floor on a phone at 09:10: four agents working and one waiting." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/phone-floor-light.webp" width="780" height="1688" alt="The Agent Floor on a phone at 09:10: four agents working and one waiting." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Live</span>
+            <strong>To the token</strong>
+            <p>Transcripts stream as Claude writes them: its thinking, the commands it runs, the files it edits and the diffs they leave.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Steer</span>
+            <strong>Any time, from anywhere</strong>
+            <p>Your message reaches the agent at its next step. Interrupt it mid-command, or stop it, from the app, the terminal or your phone.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Ship</span>
+            <strong>Pull requests, tracked</strong>
+            <p>Each session's pull request shows where you look, with its checks as GitHub runs them and the moment it merges.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Return</span>
+            <strong>Called back when needed</strong>
+            <p>A failed check, a comment, a conflict with main: fctl brings the agent that opened the pull request back to deal with it.</p>
+          </div>
+        </div>
+
+        <section class="f-section" aria-labelledby="page">
+          <div class="f-copy reveal">
+            <h2 id="page">One page holds the whole story.</h2>
+            <p>
+              Every session has a page: what was asked, everything the agent did since, and what it changed. Runs of
+              commands fold into a line that opens when you want the detail, so a two-hour session still reads in a
+              minute. Memory notes, screenshots and retrospectives show where they happened.
+            </p>
+            <ul class="f-list">
+              <li><strong>See who else is watching.</strong> Avatars in the header show everyone with the page open.</li>
+              <li><strong>Steer it like a colleague.</strong> A message waits for the agent's next step, so nothing it is in the middle of breaks.</li>
+              <li><strong>Keep score on the side.</strong> Files changed, commits pushed, the pull request and its checks, and the tokens it used.</li>
+            </ul>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/sessions/session-dark.webp" width="2200" height="1375" alt="shop#231, “Add Danish to the shop”, at work: its memory notes, the pull request it opened with 12 of 23 checks still running, and Tomás and Lucía watching." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/session-light.webp" width="2200" height="1375" alt="shop#231, “Add Danish to the shop”, at work: its memory notes, the pull request it opened with 12 of 23 checks still running, and Tomás and Lucía watching." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/sessions/phone-session-dark.webp" width="780" height="1688" alt="The same session on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/phone-session-light.webp" width="780" height="1688" alt="The same session on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="back">
+          <div class="f-copy reveal">
+            <h2 id="back">When the pull request needs it, the agent comes back.</h2>
+            <p>
+              Pushing isn't the end of the job. When a check fails, a reviewer writes to <code>@fctl</code>, the branch
+              falls into conflict with main or the pull request merges, fctl tells the session that opened it what
+              happened. The agent picks the work back up on the same branch, with everything it knew.
+            </p>
+            <p>Each project chooses which of these come back, and what stays a notice on the page.</p>
+            <a class="f-link" href="/docs/architecture/#follow-ups">How follow-ups work <span aria-hidden="true">→</span></a>
+          </div>
+          <figure class="shot crop reveal">
+            <img class="theme-dark" src="/src/features/shots/sessions/follow-up-dark.webp" width="2200" height="1375" alt="A session that fixed what its review found, recorded a retrospective and stopped once idle." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/sessions/follow-up-light.webp" width="2200" height="1375" alt="A session that fixed what its review found, recorded a retrospective and stopped once idle." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="floor">
+          <div class="f-copy reveal">
+            <h2 id="floor">Your factory, at a glance.</h2>
+            <p>
+              Home is the Agent Floor: everything at work across your workspaces, what waits for you, and what finished
+              while you slept. Start the next task from the box at the top. It goes to the project, model and effort you
+              pick, and joins the floor a moment later.
+            </p>
+            <ul class="f-list">
+              <li><strong>Working, waiting, paused.</strong> Each row says which, with its ticket, branch and pull request.</li>
+              <li><strong>Your plan's limits in view.</strong> How much of the five hours and the week your Claude plan has left.</li>
+              <li><strong>On your phone, too.</strong> The app installs to your home screen and notifies you when a session waits for you.</li>
+            </ul>
+          </div>
+          <div class="f-phones reveal">
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/sessions/phone-floor-dark.webp" width="780" height="1688" alt="The Agent Floor on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/phone-floor-light.webp" width="780" height="1688" alt="The Agent Floor on a phone." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/sessions/phone-session-dark.webp" width="780" height="1688" alt="A session at work on a phone." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/phone-session-light.webp" width="780" height="1688" alt="A session at work on a phone." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>The details, from starting a session to what fctl tells an agent when its pull request changes.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/getting-started/#7-start-a-session"><span>Start a session</span><small>From the app, the CLI, or the Claude app on your phone</small></a></li>
+            <li><a href="/docs/getting-started/#8-follow-along-and-steer"><span>Follow along and steer</span><small>Messages, interrupts and stops</small></a></li>
+            <li><a href="/docs/architecture/#pull-request-state-and-checks"><span>Pull request state and checks</span><small>How fctl follows them on GitHub</small></a></li>
+            <li><a href="/docs/architecture/#follow-ups"><span>Follow-ups</span><small>What brings an agent back, and what it is told</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/"><small>Overview</small><strong>Every feature</strong><span>All of fctl on one page</span></a>
+          <a href="/features/workspaces/"><small>Next</small><strong>Workspaces and projects</strong><span>Your team, your repositories, your rules</span></a>
+        </nav>
+
+        <section class="f-end reveal">
+          <h2>Start a factory <em>tonight.</em></h2>
+          <div class="install">
+            <span class="prompt" aria-hidden="true">$</span>
+            <code>curl -fsSL https://fctl.sh/install | sh</code>
+            <button type="button" class="copy" data-copy="curl -fsSL https://fctl.sh/install | sh">Copy</button>
+          </div>
+          <p class="hero-links">
+            <a href="/docs/getting-started/">Get started <span aria-hidden="true">→</span></a>
+            <a href="https://app.fctl.sh">Open the app <span aria-hidden="true">→</span></a>
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+  </body>
+</html>

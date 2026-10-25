@@ -1,0 +1,1316 @@
+/* The feature pages (features/*): a hero over a dithered scene, then the
+   feature's story in sections, each with a figure: a screenshot of the app in
+   a browser or phone frame, or a terminal, a chat or a pull request drawn in
+   HTML. Screenshots come in both themes and show the page's (theme-dark,
+   theme-light). */
+
+/* ───────────────────────────── shared ───────────────────────────── */
+
+:root[data-theme="dark"] .theme-light,
+:root[data-theme="light"] .theme-dark {
+  display: none !important;
+}
+
+.f-wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 64px);
+}
+
+/* A word the heading leans on: yellow on dark, a highlighter stroke on light. */
+.hot {
+  color: var(--c-accent);
+}
+:root[data-theme="light"] .hot {
+  color: var(--c-ink);
+  background: linear-gradient(to top, var(--c-highlight) 0.26em, transparent 0.26em) no-repeat;
+  background-size: calc(100% - 0.1em) 100%;
+}
+.dim {
+  color: var(--c-ink-3);
+  font-style: italic;
+}
+
+.f-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: var(--c-highlight);
+  color: var(--c-highlight-ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: filter 160ms var(--ease-out);
+}
+.f-btn:hover {
+  filter: brightness(1.06);
+}
+.f-link {
+  color: var(--c-ink-2);
+  font-size: 15px;
+  transition: color 160ms var(--ease-out);
+}
+.f-link span {
+  display: inline-block;
+  transition: transform 220ms var(--ease-out);
+}
+.f-link:hover {
+  color: var(--c-accent);
+}
+.f-link:hover span {
+  transform: translateX(3px);
+}
+
+/* ───────────────────────────── hero ───────────────────────────── */
+
+.f-hero,
+main > section.f-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: none;
+  margin: 0;
+  padding: clamp(120px, 15vw, 176px) 0 0;
+}
+.f-canvas {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: min(100svh, 880px);
+  z-index: -2;
+}
+.f-shade {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(100svh, 880px);
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 54% 58% at 25% 44%, var(--c-canvas) 46%, transparent 86%),
+    linear-gradient(to bottom, transparent 64%, var(--c-canvas) 100%);
+  opacity: 0.96;
+}
+@media (max-width: 860px) {
+  .f-shade {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--c-canvas) 30%, transparent),
+      var(--c-canvas) 34%,
+      color-mix(in srgb, var(--c-canvas) 72%, transparent) 70%,
+      var(--c-canvas) 100%
+    );
+  }
+}
+.f-crumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-ink-3);
+}
+.f-crumb a {
+  color: var(--c-ink-3);
+  transition: color 160ms var(--ease-out);
+}
+.f-crumb a:hover {
+  color: var(--c-accent);
+}
+.f-crumb svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--c-accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.f-title {
+  margin-top: 22px;
+  max-width: 11.5em;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(50px, 7.4vw, 104px);
+  line-height: 0.96;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.f-lede {
+  margin-top: 28px;
+  max-width: 34em;
+  font-size: clamp(16.5px, 1.4vw, 19px);
+  line-height: 1.6;
+  color: var(--c-ink-2);
+  text-wrap: pretty;
+}
+.f-actions {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 28px;
+}
+
+/* The hero's screenshot: wide, tilted back a touch on big screens. */
+.f-stage {
+  position: relative;
+  margin-top: clamp(56px, 8vw, 96px);
+  perspective: 2400px;
+}
+.f-stage > .shot {
+  transform: rotateX(7deg) scale(0.985);
+  transform-origin: 50% 100%;
+  transition: transform 1200ms var(--ease-out);
+}
+.f-stage.seen > .shot,
+:root:not(.js) .f-stage > .shot {
+  transform: none;
+}
+@media (max-width: 860px) {
+  .f-stage > .shot {
+    transform: none;
+  }
+}
+/* Phones see a phone's screenshot where desktops see the desktop's. */
+.only-phone {
+  display: none;
+}
+@media (max-width: 640px) {
+  .only-desk {
+    display: none;
+  }
+  .only-phone {
+    display: block;
+  }
+  .f-stage > .phone {
+    margin: 0 auto;
+    width: min(78%, 300px);
+  }
+}
+/* A glow of the page's colors under the hero shot. */
+.f-stage::before {
+  content: "";
+  position: absolute;
+  inset: 12% 6% -4%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side at 30% 50%, var(--c-pink-soft), transparent),
+    radial-gradient(closest-side at 70% 50%, var(--c-blue-soft), transparent),
+    radial-gradient(closest-side at 50% 40%, var(--c-accent-soft), transparent);
+  filter: blur(40px);
+  opacity: 0.9;
+}
+
+/* ───────────────────────────── frames ───────────────────────────── */
+
+.shot {
+  position: relative;
+  margin: 0;
+  border-radius: 14px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-surface);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.04) inset,
+    0 40px 90px -30px rgb(0 0 0 / 0.7),
+    0 12px 30px -12px rgb(0 0 0 / 0.45);
+  overflow: hidden;
+}
+:root[data-theme="light"] .shot {
+  box-shadow:
+    0 40px 90px -36px rgb(23 23 23 / 0.32),
+    0 12px 30px -14px rgb(23 23 23 / 0.16);
+}
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* A browser's bar above an app screenshot, with the address it is at. */
+.shot.browser::before {
+  content: "";
+  display: block;
+  height: 38px;
+  border-bottom: 1px solid var(--c-line);
+  background:
+    radial-gradient(circle at 18px 19px, var(--c-ink-4) 4.5px, transparent 5px),
+    radial-gradient(circle at 36px 19px, var(--c-ink-4) 4.5px, transparent 5px),
+    radial-gradient(circle at 54px 19px, var(--c-ink-4) 4.5px, transparent 5px), var(--c-sunken);
+  opacity: 0.95;
+}
+.shot.browser[data-url]::after {
+  content: attr(data-url);
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 50%;
+  padding: 3px 14px;
+  border-radius: 7px;
+  background: var(--c-canvas);
+  border: 1px solid var(--c-line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--c-ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* A part of the app, cut out: no bar, softer corners. */
+.shot.crop {
+  border-radius: 12px;
+}
+
+/* A phone, with the app on its screen. */
+.phone {
+  position: relative;
+  margin: 0;
+  width: min(100%, 320px);
+  padding: 9px;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #2c2c2e, #0d0d0f 45%, #1d1d1f);
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.08) inset,
+    0 50px 90px -30px rgb(0 0 0 / 0.75),
+    0 14px 30px -12px rgb(0 0 0 / 0.5);
+}
+:root[data-theme="light"] .phone {
+  background: linear-gradient(145deg, #f2f2f4, #c9c9ce 45%, #e8e8ea);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.08) inset,
+    0 50px 90px -36px rgb(23 23 23 / 0.38),
+    0 14px 30px -14px rgb(23 23 23 / 0.2);
+}
+.phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 41px;
+}
+.phone::after {
+  content: "";
+  position: absolute;
+  top: 19px;
+  left: 50%;
+  width: 30%;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  background: #050505;
+}
+
+figcaption {
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--c-ink-3);
+}
+.phone + figcaption,
+.f-phones figcaption {
+  text-align: center;
+}
+
+/* ───────────────────────────── sections ───────────────────────────── */
+
+.f-points {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px clamp(24px, 4vw, 48px);
+  margin-top: clamp(64px, 9vw, 110px);
+}
+@media (max-width: 1000px) {
+  .f-points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .f-points {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.f-points > div {
+  padding-top: 20px;
+  border-top: 1px solid var(--c-line);
+}
+.f-points strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--c-ink);
+}
+.f-points p {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+}
+.f-points .num {
+  display: block;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-accent);
+}
+
+.f-section {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 88px);
+  margin-top: clamp(96px, 13vw, 168px);
+}
+.f-section.flip {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+.f-section.flip > .f-copy {
+  order: 2;
+}
+.f-section.wide {
+  grid-template-columns: minmax(0, 1fr);
+}
+.f-section.wide > .f-copy {
+  max-width: 46em;
+}
+@media (max-width: 960px) {
+  .f-section,
+  .f-section.flip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .f-section.flip > .f-copy {
+    order: 0;
+  }
+}
+.f-copy h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(36px, 4.4vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.f-copy > p {
+  margin-top: 20px;
+  font-size: 16.5px;
+  line-height: 1.68;
+  color: var(--c-ink-2);
+  text-wrap: pretty;
+}
+.f-copy > p + p {
+  margin-top: 14px;
+}
+.f-copy code,
+.f-points code,
+.f-docs code,
+.f-all p code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+  background: var(--c-raised);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+}
+.f-list {
+  margin-top: 24px;
+  display: grid;
+  gap: 12px;
+}
+.f-list li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+}
+.f-list li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0.62em;
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  border: 1.5px solid var(--c-accent);
+  transform: rotate(45deg);
+}
+.f-list li:nth-child(3n + 2)::before {
+  border-color: var(--c-pink);
+}
+.f-list li:nth-child(3n)::before {
+  border-color: var(--c-blue);
+}
+.f-list strong {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+.f-copy .f-link {
+  display: inline-block;
+  margin-top: 24px;
+}
+
+/* Figures that stack: a big one with a smaller one overlapping its corner. */
+.f-stack {
+  position: relative;
+  padding-bottom: 8%;
+}
+.f-stack > .shot:nth-child(2),
+.f-stack > .phone:nth-child(2) {
+  position: absolute;
+  right: -3%;
+  bottom: 0;
+  width: 48%;
+}
+.f-stack > .phone:nth-child(2) {
+  width: min(34%, 240px);
+  bottom: -6%;
+}
+@media (max-width: 640px) {
+  .f-stack {
+    padding-bottom: 0;
+  }
+  .f-stack > .shot:nth-child(2) {
+    position: relative;
+    right: auto;
+    width: 92%;
+    margin: -12% 0 0 auto;
+  }
+  .f-stack > .phone:nth-child(2) {
+    display: none;
+  }
+}
+
+/* Phones side by side. */
+.f-phones {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(16px, 4vw, 48px);
+}
+.f-phones > figure:nth-child(2) {
+  margin-top: 56px;
+}
+@media (max-width: 640px) {
+  .f-phones > figure:nth-child(n + 2) {
+    display: none;
+  }
+}
+
+/* A strip of three figures, captioned, below a wide section. */
+.f-trio {
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.6vw, 32px);
+}
+@media (max-width: 860px) {
+  .f-trio {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A quote of what fctl or an agent writes, set apart. */
+.f-quote {
+  margin-top: 24px;
+  padding: 16px 18px;
+  border-left: 2px solid var(--c-pink);
+  border-radius: 0 10px 10px 0;
+  background: var(--c-pink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+}
+
+/* ───────────────────────────── docs and next ───────────────────────────── */
+
+.f-docs {
+  margin-top: clamp(96px, 13vw, 160px);
+  padding-top: 40px;
+  border-top: 1px solid var(--c-line);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 5vw, 80px);
+}
+@media (max-width: 860px) {
+  .f-docs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.f-docs h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(32px, 3.6vw, 46px);
+  line-height: 1.05;
+}
+.f-docs > p {
+  margin-top: 14px;
+  color: var(--c-ink-3);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.f-docs ul {
+  display: grid;
+  gap: 2px;
+}
+.f-docs li a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink);
+  transition: color 160ms var(--ease-out);
+}
+.f-docs li a span {
+  font-size: 16.5px;
+  font-weight: 500;
+}
+.f-docs li a small {
+  grid-column: 1;
+  font-size: 14px;
+  color: var(--c-ink-3);
+}
+.f-docs li a::after {
+  content: "→";
+  grid-row: 1;
+  grid-column: 2;
+  color: var(--c-ink-3);
+  transition:
+    transform 220ms var(--ease-out),
+    color 160ms var(--ease-out);
+}
+.f-docs li a:hover {
+  color: var(--c-accent);
+}
+.f-docs li a:hover::after {
+  transform: translateX(4px);
+  color: var(--c-accent);
+}
+
+.f-next {
+  margin-top: clamp(64px, 9vw, 110px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.f-next a {
+  display: grid;
+  gap: 8px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface);
+  transition:
+    border-color 200ms var(--ease-out),
+    transform 300ms var(--ease-out);
+}
+.f-next a:hover {
+  border-color: var(--c-line-strong);
+  transform: translateY(-2px);
+}
+.f-next a:last-child {
+  text-align: right;
+}
+.f-next small {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}
+.f-next strong {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 32px);
+  line-height: 1.1;
+  color: var(--c-ink);
+}
+.f-next span {
+  font-size: 14px;
+  color: var(--c-ink-3);
+}
+@media (max-width: 640px) {
+  .f-next {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .f-next a:last-child {
+    text-align: left;
+  }
+}
+.f-end {
+  margin-top: clamp(96px, 12vw, 150px);
+  padding-bottom: clamp(80px, 10vw, 130px);
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+.f-end h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(42px, 5.8vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.012em;
+  margin-bottom: 32px;
+}
+.f-end h2 em {
+  color: var(--c-accent);
+}
+:root[data-theme="light"] .f-end h2 em {
+  color: var(--c-ink);
+}
+.f-end .install {
+  width: min(100%, 560px);
+  text-align: left;
+}
+.f-end .hero-links {
+  justify-content: center;
+}
+
+/* ───────────────────────────── the terminal ───────────────────────────── */
+
+/* A terminal window drawn in HTML: its lines are in the markup, so it reads
+   without JavaScript; src/features.ts types the commands out once it shows. */
+.term {
+  --t-bg: #0e0e10;
+  --t-bar: #1a1a1d;
+  --t-ink: #ececec;
+  --t-dim: #8c8c92;
+  --t-faint: #5c5c62;
+  --t-line: rgb(255 255 255 / 0.08);
+  --t-yellow: #ffff5d;
+  --t-pink: #ff4fe6;
+  --t-blue: #4aa3ff;
+  --t-green: #7ee787;
+  --t-red: #ff6b6b;
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid var(--t-line);
+  background: var(--t-bg);
+  color: var(--t-ink);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.4),
+    0 40px 90px -30px rgb(0 0 0 / 0.75),
+    0 12px 30px -12px rgb(0 0 0 / 0.5);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: clamp(11.5px, 1.05vw, 13px);
+  line-height: 1.62;
+}
+:root[data-theme="light"] .term {
+  --t-bg: #fbfbfa;
+  --t-bar: #efefee;
+  --t-ink: #1b1b1d;
+  --t-dim: #66666c;
+  --t-faint: #a3a3a8;
+  --t-line: rgb(0 0 0 / 0.08);
+  --t-yellow: #6b6b00;
+  --t-pink: #c4009f;
+  --t-blue: #0062c4;
+  --t-green: #1a7f37;
+  --t-red: #c21d1d;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.06),
+    0 40px 90px -36px rgb(23 23 23 / 0.32),
+    0 12px 30px -14px rgb(23 23 23 / 0.16);
+}
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--t-line);
+  background: var(--t-bar);
+}
+.term-bar i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--t-faint);
+  opacity: 0.6;
+}
+.term-bar i:nth-child(1) {
+  background: #ff5f57;
+  opacity: 0.9;
+}
+.term-bar i:nth-child(2) {
+  background: #febc2e;
+  opacity: 0.9;
+}
+.term-bar i:nth-child(3) {
+  background: #28c840;
+  opacity: 0.9;
+}
+.term-bar span {
+  flex: 1;
+  text-align: center;
+  margin-right: 46px;
+  font-size: 11.5px;
+  color: var(--t-dim);
+}
+.term-body {
+  padding: 18px 20px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: pre;
+}
+.term-body p {
+  min-height: 1.62em;
+}
+.term .cmd::before {
+  content: "$ ";
+  color: var(--t-pink);
+}
+.term .cmd {
+  color: var(--t-ink);
+}
+.term .cmd b {
+  font-weight: 400;
+  color: var(--t-yellow);
+}
+.term .out {
+  color: var(--t-dim);
+}
+.term .ok {
+  color: var(--t-green);
+}
+.term .y {
+  color: var(--t-yellow);
+}
+.term .p {
+  color: var(--t-pink);
+}
+.term .b {
+  color: var(--t-blue);
+}
+.term .w {
+  color: var(--t-ink);
+}
+.term .f {
+  color: var(--t-faint);
+}
+.term .r {
+  color: var(--t-red);
+}
+.term .u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.term .caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.15em;
+  margin-left: 1px;
+  vertical-align: -0.2em;
+  background: var(--t-ink);
+  animation: caret 1.05s steps(1) infinite;
+}
+/* While the terminal types: lines not reached yet are hidden. */
+.term.typing p.later {
+  visibility: hidden;
+}
+
+/* ───────────────────────────── a chat ───────────────────────────── */
+
+.chat {
+  border-radius: 18px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-surface);
+  box-shadow:
+    0 40px 90px -30px rgb(0 0 0 / 0.6),
+    0 12px 30px -12px rgb(0 0 0 / 0.4);
+  overflow: hidden;
+}
+:root[data-theme="light"] .chat {
+  box-shadow:
+    0 40px 90px -36px rgb(23 23 23 / 0.3),
+    0 12px 30px -14px rgb(23 23 23 / 0.14);
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--c-line);
+  font-size: 14px;
+  font-weight: 600;
+}
+.chat-head small {
+  margin-left: auto;
+  font-weight: 400;
+  font-size: 12.5px;
+  color: var(--c-ink-3);
+}
+.chat-head .hash {
+  font-family: var(--font-mono);
+  color: var(--c-ink-3);
+}
+.chat-body {
+  display: grid;
+  gap: 18px;
+  padding: 20px 18px 22px;
+}
+.msg {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 12px;
+}
+.msg img,
+.msg .av {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.msg .av {
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--c-highlight);
+  color: var(--c-highlight-ink);
+}
+.msg .who {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+.msg .who small {
+  margin-left: 6px;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--c-ink-4);
+}
+.msg .who .tag {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: var(--c-raised);
+  border: 1px solid var(--c-line);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--c-ink-3);
+}
+.msg p {
+  margin-top: 3px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--c-ink-2);
+}
+.msg code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  padding: 0.05em 0.35em;
+  border-radius: 5px;
+  background: var(--c-raised);
+  color: var(--c-ink);
+}
+.msg .card {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--c-line);
+  background: var(--c-canvas);
+  font-size: 13.5px;
+}
+.msg .card img {
+  grid-row: span 2;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+}
+.msg .card strong {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+.msg .card span {
+  color: var(--c-ink-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* ───────────────────────────── a pull request on GitHub ───────────────────────────── */
+
+/* How a review agent's findings look where people read them: drawn in HTML, in
+   GitHub's manner, with the demo's pull request. */
+.gh {
+  --g-bg: #0d1117;
+  --g-box: #151b23;
+  --g-line: #3d444d;
+  --g-ink: #f0f6fc;
+  --g-dim: #9198a1;
+  --g-link: #4493f8;
+  --g-add: rgb(46 160 67 / 0.15);
+  --g-add-num: rgb(63 185 80 / 0.3);
+  --g-del: rgb(248 81 73 / 0.1);
+  --g-del-num: rgb(248 81 73 / 0.3);
+  --g-del-word: rgb(248 81 73 / 0.4);
+  --g-button: #212830;
+  border-radius: 14px;
+  border: 1px solid var(--g-line);
+  background: var(--g-bg);
+  color: var(--g-ink);
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow:
+    0 40px 90px -30px rgb(0 0 0 / 0.7),
+    0 12px 30px -12px rgb(0 0 0 / 0.45);
+}
+:root[data-theme="light"] .gh {
+  --g-bg: #ffffff;
+  --g-box: #f6f8fa;
+  --g-line: #d1d9e0;
+  --g-ink: #1f2328;
+  --g-dim: #59636e;
+  --g-link: #0969da;
+  --g-add: #dafbe1;
+  --g-add-num: #aceebb;
+  --g-del: #ffebe9;
+  --g-del-num: #ffcecb;
+  --g-del-word: #ff818266;
+  --g-button: #f6f8fa;
+  box-shadow:
+    0 40px 90px -36px rgb(23 23 23 / 0.3),
+    0 12px 30px -14px rgb(23 23 23 / 0.14);
+}
+.gh-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+  color: var(--g-dim);
+}
+.gh-head img {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+}
+.gh-head b {
+  color: var(--g-ink);
+}
+.gh-tag {
+  padding: 0 7px;
+  border-radius: 999px;
+  border: 1px solid var(--g-line);
+  font-size: 11.5px;
+  line-height: 18px;
+  color: var(--g-dim);
+}
+.gh-thread {
+  border: 1px solid var(--g-line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.gh-file {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--g-line);
+  background: var(--g-box);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+.gh-diff {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: pre;
+}
+.gh-diff div {
+  display: grid;
+  grid-template-columns: 52px 20px minmax(0, 1fr);
+  background: var(--g-add);
+}
+.gh-diff div span:first-child {
+  padding-right: 10px;
+  text-align: right;
+  color: var(--g-dim);
+  background: var(--g-add-num);
+}
+.gh-diff div.del {
+  background: var(--g-del);
+}
+.gh-diff div.del span:first-child {
+  background: var(--g-del-num);
+}
+.gh-diff mark {
+  color: inherit;
+  background: var(--g-del-word);
+  border-radius: 3px;
+}
+.gh-comment {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 10px;
+  padding: 14px;
+  border-top: 1px solid var(--g-line);
+}
+.gh-comment img {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+}
+.gh-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--g-dim);
+}
+.gh-meta b {
+  color: var(--g-ink);
+}
+.gh-comment h4 {
+  margin-top: 8px;
+  font-size: 15.5px;
+  font-weight: 600;
+}
+.gh-comment p {
+  margin-top: 6px;
+  font-size: 13.5px;
+}
+.gh-comment p code,
+.gh-comment h4 code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: var(--g-box);
+  border: 1px solid var(--g-line);
+}
+.gh-suggest {
+  margin-top: 12px;
+  border: 1px solid var(--g-line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.gh-suggest > span {
+  display: block;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--g-line);
+  background: var(--g-box);
+  font-size: 12px;
+  color: var(--g-dim);
+}
+.gh-suggest .gh-diff div {
+  grid-template-columns: 20px minmax(0, 1fr);
+}
+.gh-suggest .gh-diff div span:first-child {
+  text-align: center;
+  padding: 0;
+}
+.gh-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--g-line);
+}
+.gh-actions span {
+  padding: 3px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--g-line);
+  background: var(--g-button);
+  font-size: 12px;
+  font-weight: 500;
+}
+.gh-found {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--g-dim);
+}
+.gh-found a,
+.gh-link {
+  color: var(--g-link);
+}
+.gh-found code {
+  font-family: var(--font-mono);
+  padding: 0 4px;
+  border-radius: 6px;
+  background: rgb(56 139 253 / 0.15);
+  color: var(--g-link);
+}
+.gh-resolved {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--g-line);
+  background: var(--g-box);
+  font-size: 12.5px;
+  color: var(--g-dim);
+}
+.gh-resolved span {
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--g-line);
+  background: var(--g-button);
+  color: var(--g-ink);
+  font-weight: 500;
+}
+.gh-strike {
+  text-decoration: line-through;
+  color: var(--g-dim);
+}
+
+/* ───────────────────────────── a ticket ───────────────────────────── */
+
+/* A ticket in a tracker, drawn in HTML: what was asked, and fctl's activity on it. */
+.ticket {
+  border-radius: 16px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-surface);
+  padding: 22px 24px;
+  box-shadow:
+    0 40px 90px -30px rgb(0 0 0 / 0.6),
+    0 12px 30px -12px rgb(0 0 0 / 0.4);
+}
+:root[data-theme="light"] .ticket {
+  box-shadow:
+    0 40px 90px -36px rgb(23 23 23 / 0.3),
+    0 12px 30px -14px rgb(23 23 23 / 0.14);
+}
+.ticket-id {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-ink-3);
+}
+.ticket-id .state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  font-family: var(--font-sans);
+  color: var(--c-ink-2);
+}
+.ticket-id .state::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid #f2c94c;
+  border-right-color: transparent;
+}
+.ticket h3 {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.ticket > p {
+  margin-top: 8px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+}
+.ticket ol {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--c-line);
+}
+.ticket li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--c-ink-3);
+}
+.ticket li img {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+}
+.ticket li b {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+.ticket li .note {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--c-line);
+  background: var(--c-canvas);
+  color: var(--c-ink-2);
+}
+
+/* ───────────────────────────── the features page ───────────────────────────── */
+
+.f-all {
+  margin-top: clamp(56px, 8vw, 96px);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+}
+.f-all a {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 26px 26px 28px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface);
+  overflow: hidden;
+  transition:
+    border-color 200ms var(--ease-out),
+    transform 300ms var(--ease-out);
+}
+.f-all a:hover {
+  border-color: var(--c-line-strong);
+  transform: translateY(-3px);
+}
+.f-all .menu-icon {
+  margin-bottom: 8px;
+}
+.f-all strong {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.05;
+  color: var(--c-ink);
+}
+.f-all p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--c-ink-2);
+}
+.f-all span.more {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--c-ink-3);
+}
+.f-all a:hover span.more {
+  color: var(--c-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .f-stage > .shot,
+  .f-next a,
+  .f-all a {
+    transition: none;
+  }
+  .term .caret {
+    animation: none;
+  }
+}
