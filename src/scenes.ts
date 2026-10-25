@@ -494,7 +494,101 @@ void field(vec2 p, inout vec3 col, inout float v) {
   take(col, v, uY, exp(-length(p - pc) * 40.0) * 0.5);
 }`;
 
+/**
+ * Sessions: a session as a double helix, the agent's strand and yours,
+ * turning out of its live end, where the agent works (blue while it waits for
+ * you) and the people watching circle it. Its events stream back along the
+ * strands into the past; now and then your reply runs up to the live end.
+ */
+const HELIX = `
+void field(vec2 p, inout vec3 col, inout float v) {
+  // The live end beside the copy, the past running out of it to the lower left.
+  vec2 head = mix(vec2(gAspect * 0.8, 0.8), vec2(gAspect * 0.83, 0.5), uWide);
+  vec2 dir = normalize(mix(vec2(0.62, 1.0), vec2(1.0, 0.26), uWide));
+  vec2 nrm = vec2(-dir.y, dir.x);
+  vec2 q = p - head;
+  float along = dot(q, dir);
+  float across = dot(q, nrm);
+  vec2 m = vec2(uMouse.x * gAspect, uMouse.y);
+  float near = uMouse.z * exp(-length(p - m) * 7.0);
+
+  // Every twelve seconds the agent stops to ask you something, and your reply comes in.
+  float cyc = mod(uTime, 12.0);
+  float waiting = step(7.5, cyc) * step(cyc, 10.6);
+  vec3 live = waiting > 0.5 ? uB : uY;
+  // The agent's own clock, which stands still while it waits.
+  float work = floor(uTime / 12.0) * 8.9 + min(cyc, 7.5) + max(cyc - 10.6, 0.0);
+
+  float len = mix(1.3, 1.7, uWide);
+  if (along < 0.01 && along > -len) {
+    float A = mix(0.06, 0.08, uWide) * (1.0 + 0.8 * near);
+    // The strands meet at the live end, and fade into the past.
+    float amp = A * (1.0 - smoothstep(-0.32, 0.0, along));
+    float past = smoothstep(-len, -len * 0.4, along);
+    float k = 21.0;
+    float spin = uTime * 0.7;
+    for (int s = 0; s < 2; s++) {
+      float fs = float(s);
+      float ph = k * along - spin + fs * 3.14159;
+      float y = amp * sin(ph);
+      float front = 0.5 + 0.5 * cos(ph);
+      float slope = amp * k * cos(ph);
+      float d = abs(across - y) / sqrt(1.0 + slope * slope);
+      // The agent's strand in yellow, yours in pink; the far side dimmer.
+      vec3 c = s == 0 ? uY : uP;
+      take(col, v, c, line(d, 1.0 + 1.0 * front) * (0.3 + 0.7 * front) * past);
+      // Events: beads streaming back from the live end, many more of the agent's than yours.
+      float n = s == 0 ? 15.0 : 4.0;
+      float t = s == 0 ? work * 0.9 : uTime * 0.35;
+      float b = along * n + t + fs * 0.37;
+      float bead = fract(b);
+      float h = hash12(vec2(floor(b), fs + 3.0));
+      float lit = smoothstep(0.74, 0.94, bead) * step(bead, 0.99) * line(d, 3.0);
+      vec3 bc = s == 0 ? (h > 0.88 ? uP : (h > 0.78 ? uB : uY)) : uP;
+      float show = s == 0 ? 1.0 : step(0.45, h);
+      take(col, v, bc, lit * show * (0.45 + 0.75 * front) * past * (1.3 + near));
+      // Your reply, running up your strand to the live end.
+      if (s == 1 && cyc > 9.4 && cyc < 10.6) {
+        float at = mix(-0.8, 0.0, (cyc - 9.4) / 1.2);
+        float r = smoothstep(0.035, 0.0, abs(along - at)) * line(d, 3.2);
+        take(col, v, uP, r * 1.6);
+      }
+    }
+    // Rungs: five a turn, holding the strands together.
+    float R = 6.28318 / 5.0;
+    float w = k * along / R;
+    float ri = floor(w + 0.5);
+    float da = abs(w - ri) * R / k;
+    float half_ = abs(amp * sin(ri * R - spin));
+    take(col, v, uN, step(abs(across), half_) * line(da, 0.8) * 0.5 * past);
+  }
+
+  // The live end: the agent at work, breathing.
+  float dh = length(q);
+  float breathe = 0.8 + 0.2 * sin(uTime * 2.6);
+  take(col, v, live, smoothstep(0.02, 0.0, dh) * 1.3);
+  take(col, v, live, exp(-dh * 48.0) * 0.7 * breathe);
+  take(col, v, uInk, line(dh - 0.032, 0.9) * 0.8);
+  // The people watching, circling it: three of them, in front and behind.
+  vec2 axes = vec2(0.12, 0.05);
+  vec2 e = vec2(along, across) / axes;
+  float le = length(e);
+  vec2 g = e / axes / max(le, 1e-4);
+  float orbit = abs(le - 1.0) / max(length(g), 1e-4);
+  take(col, v, uN, line(orbit, 0.8) * 0.35);
+  for (int i = 0; i < 3; i++) {
+    float fi = float(i);
+    float a = uTime * 0.42 + fi * 2.094;
+    vec2 o = dir * cos(a) * axes.x + nrm * sin(a) * axes.y;
+    float dw = length(q - o);
+    float fr = 0.5 + 0.5 * cos(a + 1.2);
+    vec3 wc = i == 0 ? uP : (i == 1 ? uB : uInk);
+    take(col, v, wc, smoothstep(0.016, 0.0, dw) * (0.55 + 0.7 * fr));
+  }
+}`;
+
 const FIELDS = {
+  sessions: HELIX,
   workspaces: TWIST,
   team: BRAID,
   sandboxes: BOXES,

@@ -99,7 +99,7 @@ function reveals() {
 
 /** A color of the map scene's palette for a status dot: 0 yellow, 1 pink, 2 blue. */
 function dotColor(node: HTMLElement) {
-  const dot = node.querySelector(".dot");
+  const dot = node.querySelector(".status-dot");
   return dot?.classList.contains("p") ? 1 : dot?.classList.contains("b") ? 2 : 0;
 }
 
