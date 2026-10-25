@@ -4,8 +4,10 @@
 
 import "./site.css";
 import "./features.css";
+import "./mocks.css";
 import { mount, prefersReducedMotion } from "@hyperstructure/design/gl/core";
 import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foundry";
+import { footer } from "./footer";
 import { menus } from "./nav";
 import { featureScene, isSceneName } from "./scenes";
 
@@ -149,4 +151,5 @@ hero();
 reveals();
 copyButtons();
 terminals();
+footer();
 menus();

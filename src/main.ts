@@ -1,9 +1,14 @@
 // The landing page: the foundry scene as the hero, with a few imaginary
-// sessions at work, plus copy buttons and scroll reveals.
+// sessions at work, the map of how the pieces fit, the footer's melting
+// wordmark, plus copy buttons and scroll reveals.
 
 import "./site.css";
+import "./mocks.css";
+import "./home.css";
 import { mount, prefersReducedMotion } from "@hyperstructure/design/gl/core";
 import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foundry";
+import { footer } from "./footer";
+import { type MapLink, mapScene } from "./home-scenes";
 import { menus } from "./nav";
 
 document.documentElement.classList.add("js");
@@ -92,60 +97,104 @@ function reveals() {
   for (const el of els) io.observe(el);
 }
 
-/** Connects every node of the architecture strip to its neighbours. */
-function wires() {
-  const root = document.querySelector<HTMLElement>(".diagram");
-  if (!root) return;
-  const NS = "http://www.w3.org/2000/svg";
-  const svg = document.createElementNS(NS, "svg");
-  svg.classList.add("links");
-  svg.setAttribute("aria-hidden", "true");
-  root.append(svg);
-  const cols = [...root.querySelectorAll<HTMLElement>(":scope > .col")];
-  let pulse = 0;
-  const draw = () => {
-    // Side by side only: on narrow screens the columns stack and the plain wires show.
-    const wide = getComputedStyle(root).gridTemplateColumns.split(" ").length > 1;
-    root.classList.toggle("linked", wide);
-    svg.replaceChildren();
-    if (!wide) return;
-    const box = root.getBoundingClientRect();
-    svg.setAttribute("viewBox", `0 0 ${box.width} ${box.height}`);
-    pulse = 0;
-    for (let i = 0; i + 1 < cols.length; i++) {
-      const from = [...(cols[i]?.children ?? [])];
-      const to = [...(cols[i + 1]?.children ?? [])];
-      for (const a of from) {
-        for (const b of to) {
-          const ra = a.getBoundingClientRect();
-          const rb = b.getBoundingClientRect();
-          const x1 = ra.right - box.left;
-          const y1 = ra.top + ra.height / 2 - box.top;
-          const x2 = rb.left - box.left;
-          const y2 = rb.top + rb.height / 2 - box.top;
-          const mx = (x1 + x2) / 2;
-          const d = `M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`;
-          for (const cls of ["", "pulse"]) {
-            const path = document.createElementNS(NS, "path");
-            path.setAttribute("d", d);
-            path.setAttribute("pathLength", "600");
-            if (cls) {
-              path.classList.add(cls);
-              path.style.animationDelay = `${(pulse++ * 0.43) % 3.2}s`;
-            }
-            svg.append(path);
+/** A colour of the map scene's palette for a status dot: 0 yellow, 1 pink, 2 blue. */
+function dotColor(node: HTMLElement) {
+  const dot = node.querySelector(".dot");
+  return dot?.classList.contains("p") ? 1 : dot?.classList.contains("b") ? 2 : 0;
+}
+
+/**
+ * The map of how the pieces fit: a scene behind the nodes draws the links
+ * between them, from where the page lays them out. Pointing at a node
+ * lights the way from it to you, or to its sandboxes, and dims the rest.
+ */
+function map() {
+  const root = document.querySelector<HTMLElement>(".map");
+  const canvas = root?.querySelector<HTMLCanvasElement>(".map-canvas");
+  const cols = root?.querySelector<HTMLElement>(".map-cols");
+  const core = root?.querySelector<HTMLElement>("[data-core]");
+  if (!root || !canvas || !cols || !core) return;
+  const scene = mapScene();
+  mount(canvas, scene.scene, { pixel: 3 });
+  if (canvas.dataset.webgl) return;
+  root.classList.add("gl");
+
+  // Requests go out pink; events come back yellow, or in a sandbox's colour.
+  const nodes = [...root.querySelectorAll<HTMLElement>(".map-node")];
+  const hosts = nodes.filter((n) => n.dataset.host);
+  const pairs = [
+    ...nodes.filter((n) => n.dataset.from === "clients").map((a) => ({ a, b: core, back: 0 })),
+    ...hosts.map((b) => ({ a: core, b, back: 0 })),
+    ...nodes.flatMap((b) => {
+      const a = hosts.find((h) => b.dataset.on && h.dataset.host === b.dataset.on);
+      return a ? [{ a, b, back: dotColor(b) }] : [];
+    }),
+  ];
+
+  const place = () => {
+    const box = canvas.getBoundingClientRect();
+    if (!box.width || !box.height) return;
+    // Side by side, the links run across; stacked, on phones, they run down.
+    const down = getComputedStyle(cols).gridTemplateColumns.split(" ").length < 2;
+    const at = (x: number, y: number): [number, number] => [
+      (x - box.left) / box.width,
+      (y - box.top) / box.height,
+    ];
+    const links: MapLink[] = pairs.map(({ a, b, back }) => {
+      const ra = a.getBoundingClientRect();
+      const rb = b.getBoundingClientRect();
+      return {
+        from: down ? at(ra.left + ra.width / 2, ra.bottom) : at(ra.right, ra.top + ra.height / 2),
+        to: down ? at(rb.left + rb.width / 2, rb.top) : at(rb.left, rb.top + rb.height / 2),
+        out: 1,
+        back,
+        both: true,
+      };
+    });
+    const rc = core.getBoundingClientRect();
+    const [x, y] = at(rc.left + rc.width / 2, rc.top + rc.height / 2);
+    scene.set(links, { x, y, size: rc.width / 2 / box.height }, down);
+  };
+  new ResizeObserver(place).observe(root);
+  void document.fonts?.ready.then(place);
+  place();
+
+  // The parts a node leads to, both ways along the links.
+  const path = (node: HTMLElement) => {
+    const on = new Set([node]);
+    for (const ahead of [true, false]) {
+      const next = [node];
+      for (let n = next.pop(); n; n = next.pop()) {
+        for (const { a, b } of pairs) {
+          const [from, to] = ahead ? [a, b] : [b, a];
+          if (from === n && !on.has(to)) {
+            on.add(to);
+            next.push(to);
           }
         }
       }
     }
+    return on;
   };
-  new ResizeObserver(draw).observe(root);
-  void document.fonts?.ready.then(draw);
-  draw();
+  const point = (node: HTMLElement | null) => {
+    const on = node ? path(node) : null;
+    scene.light(on ? pairs.map(({ a, b }) => on.has(a) && on.has(b)) : null);
+    for (const n of nodes) n.classList.toggle("dim", !!on && !on.has(n));
+  };
+  for (const n of nodes) {
+    n.addEventListener("pointerenter", () => point(n));
+    n.addEventListener("pointerleave", () => point(null));
+  }
+  root.addEventListener("pointermove", (e) => {
+    const r = canvas.getBoundingClientRect();
+    scene.pointer((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+  });
+  root.addEventListener("pointerleave", () => scene.pointerLeave());
 }
 
 hero();
 copyButtons();
 reveals();
-wires();
+map();
+footer();
 menus();
