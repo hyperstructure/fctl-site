@@ -4,6 +4,12 @@
 
 /* The landing page and the docs, on the tokens of @hyperstructure/design. */
 
+/* Images in both themes show the page's. */
+:root[data-theme="dark"] .theme-light,
+:root[data-theme="light"] .theme-dark {
+  display: none !important;
+}
+
 .skip {
   position: absolute;
   left: -999px;
@@ -91,7 +97,7 @@
   }
 }
 @media (max-width: 350px) {
-  .brand span {
+  .nav .brand span {
     display: none;
   }
 }
@@ -576,92 +582,6 @@ pre .prompt {
   stroke: var(--c-blue);
 }
 
-/* The architecture strip: nodes joined by wires with light running along them. */
-.diagram {
-  margin-top: clamp(44px, 6vw, 72px);
-  display: grid;
-  grid-template-columns: 1fr 48px 1.2fr 48px 1fr 48px 1fr;
-  align-items: center;
-}
-.diagram .col {
-  display: grid;
-  gap: 10px;
-}
-.node {
-  display: grid;
-  align-content: center;
-  gap: 4px;
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid var(--c-line-strong);
-  background: var(--c-surface);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--c-ink);
-}
-.node small {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--c-ink-3);
-}
-.node.strong {
-  border-color: var(--c-accent);
-  box-shadow: 0 0 0 4px var(--c-accent-soft);
-}
-.wire {
-  position: relative;
-  height: 1px;
-  background: var(--c-line-strong);
-  overflow: hidden;
-}
-.wire span {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 40%;
-  background: linear-gradient(90deg, transparent, var(--c-pink), transparent);
-  animation: wire 2.8s var(--ease-in-out) infinite;
-}
-.wire:nth-of-type(4) span {
-  animation-delay: 0.9s;
-}
-.wire:nth-of-type(6) span {
-  animation-delay: 1.8s;
-}
-@keyframes wire {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(250%);
-  }
-}
-@media (max-width: 860px) {
-  .diagram {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .wire {
-    width: 1px;
-    height: 32px;
-    margin: 0 auto;
-  }
-  .wire span {
-    inset: 0 0 auto 0;
-    width: 100%;
-    height: 40%;
-    background: linear-gradient(180deg, transparent, var(--c-pink), transparent);
-    animation-name: wire-down;
-  }
-}
-@keyframes wire-down {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(250%);
-  }
-}
 .flow-note {
   margin-top: 32px;
   max-width: 44em;
@@ -713,6 +633,142 @@ pre .prompt {
   color: var(--c-accent);
 }
 
+/* The landing and feature pages' footer: where everything is, over the
+   wordmark melting into the end of the page (src/footer.ts). */
+.site-foot {
+  position: relative;
+  margin-top: clamp(40px, 6vw, 88px);
+  overflow: hidden;
+}
+/* A hairline that fades out at the sides, where the page gives way. */
+.site-foot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--c-line-strong) 22%,
+    var(--c-line-strong) 78%,
+    transparent
+  );
+}
+.foot-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
+  gap: 40px clamp(32px, 6vw, 88px);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 80px) clamp(16px, 5vw, 64px) 8px;
+}
+.foot-brand .brand {
+  color: var(--c-ink);
+}
+.foot-brand p {
+  margin-top: 16px;
+  max-width: 36ch;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--c-ink-3);
+}
+.foot-brand .foot-made {
+  max-width: none;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--c-ink-4);
+}
+.foot-made a {
+  color: var(--c-ink-2);
+}
+.foot-nav {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+}
+.foot-col h2 {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-4);
+}
+.foot-col ul {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.foot-features ul {
+  display: block;
+  columns: 2;
+  column-gap: 24px;
+}
+.foot-features li {
+  break-inside: avoid;
+  margin-bottom: 10px;
+}
+.foot-col a {
+  font-size: 14px;
+  color: var(--c-ink-2);
+  transition: color 160ms var(--ease-out);
+}
+.foot-col a:hover,
+.foot-made a:hover {
+  color: var(--c-accent);
+}
+.foot-col .foot-all {
+  color: var(--c-ink);
+}
+/* The wordmark: dithered and melting where WebGL runs, type where it doesn't. */
+.foot-mark {
+  position: relative;
+  height: clamp(180px, 29vw, 450px);
+  margin-top: clamp(16px, 3vw, 40px);
+}
+.foot-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.foot-mark span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+  font-size: clamp(130px, 21.5vw, 340px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  color: transparent;
+  background: linear-gradient(180deg, var(--c-accent) 34%, var(--c-pink) 62%, transparent 94%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+}
+:root[data-theme="light"] .foot-mark span {
+  background-image: linear-gradient(180deg, var(--c-ink) 34%, var(--c-pink) 62%, transparent 94%);
+}
+.foot-mark.gl span {
+  visibility: hidden;
+}
+@media (max-width: 900px) {
+  .foot-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .foot-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .foot-features {
+    grid-column: 1 / -1;
+  }
+}
+
 /* Scroll reveals (main.ts adds .seen). Without JS everything is visible. */
 .js .reveal {
   opacity: 0;
@@ -727,8 +783,7 @@ pre .prompt {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise,
-  .wire span {
+  .rise {
     animation: none;
   }
   .js .reveal {
@@ -984,53 +1039,10 @@ pre .prompt {
   }
 }
 
-/* The architecture strip, wired: main.ts draws a curve from every node to
-   its neighbours and sends light along them; the plain wires stay as the
-   fallback (no JavaScript, narrow screens). */
-.diagram {
-  position: relative;
-}
-.diagram.linked .wire {
-  visibility: hidden;
-}
-.diagram.linked .col {
-  grid-auto-rows: 1fr;
-}
-.diagram .links {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-.links path {
-  fill: none;
-  stroke: var(--c-line-strong);
-  stroke-width: 1;
-}
-.links path.pulse {
-  stroke: var(--c-pink);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-dasharray: 34 566;
-  animation: linkflow 3.2s var(--ease-in-out) infinite;
-}
-@keyframes linkflow {
-  from {
-    stroke-dashoffset: 34;
-  }
-  to {
-    stroke-dashoffset: -566;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .brandword,
   .brandword:hover {
     animation: none;
-  }
-  .links path.pulse {
-    display: none;
   }
 }
 
