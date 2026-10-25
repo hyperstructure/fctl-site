@@ -488,30 +488,35 @@
 .flow-lede {
   margin-top: 22px;
 }
+/* The text around the map stays above its scene, which runs past it. */
+.flow-lede,
+.flow-note {
+  position: relative;
+  z-index: 1;
+}
 .map {
   position: relative;
   isolation: isolate;
   margin-top: clamp(40px, 5vw, 64px);
-  border-radius: 28px;
-  border: 1px solid var(--c-line);
-  background:
-    radial-gradient(55% 75% at 38% 50%, color-mix(in oklab, var(--c-accent) 5%, transparent), transparent 70%),
-    color-mix(in oklab, var(--c-sunken) 72%, transparent);
-  overflow: hidden;
 }
+/* The scene runs the whole width of the window, past the map's columns, and
+   fades out above and below them into the page. */
 .map-canvas {
   position: absolute;
   z-index: -1;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: -40px;
+  left: 50%;
+  width: 100vw;
+  height: calc(100% + 80px);
+  translate: -50% 0;
+  mask-image: linear-gradient(to bottom, transparent, #000 130px, #000 calc(100% - 130px), transparent);
 }
 .map-cols {
   --gap: clamp(36px, 4vw, 60px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--gap);
-  padding: clamp(28px, 3.4vw, 44px) clamp(18px, 2.6vw, 36px) clamp(32px, 3.8vw, 52px);
+  padding: clamp(28px, 3.4vw, 44px) 0 clamp(32px, 3.8vw, 52px);
 }
 .map-col {
   position: relative;
