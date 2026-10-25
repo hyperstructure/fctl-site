@@ -427,7 +427,8 @@
   max-width: 640px;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--c-ink-4);
+  /* Between ink-3 and ink-4: #767676 on dark, #878787 on light. */
+  color: color-mix(in srgb, var(--c-ink-3), var(--c-ink-4));
 }
 .works span::before {
   content: "+ ";
