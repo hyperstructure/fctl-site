@@ -512,7 +512,7 @@ void field(vec2 p, inout vec3 col, inout float v) {
   float dh = length(q);
   float breathe = 0.8 + 0.2 * sin(uTime * 2.6);
   take(col, v, live, smoothstep(0.02, 0.0, dh) * 1.3);
-  take(col, v, live, exp(-dh * 30.0) * 0.55 * breathe);
+  take(col, v, live, exp(-dh * 48.0) * 0.7 * breathe);
   take(col, v, uInk, line(dh - 0.032, 0.9) * 0.8);
   // The people watching, circling it: three of them, in front and behind.
   vec2 axes = vec2(0.12, 0.05);
