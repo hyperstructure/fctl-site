@@ -65,13 +65,13 @@ void main() {
   float aa = 1.2 / uCell;
   // Small dots dim, big ones bright.
   float a = (1.0 - smoothstep(r - aa, r + aa, d)) * step(0.04, r) * mix(0.4, 1.0, k) * mix(0.5, 1.0, env);
-  // Each dot one color: a second, slower field picks yellow, pink or blue in
-  // broad regions, dithered only along the seams between them; the small dots
-  // between stay neutral.
+  // Each dot one color: yellow, pink and blue take turns along the band in
+  // broad, wavering regions that drift with the field, dithered only along
+  // the seams between them; the small dots between stay neutral.
   float th = bayer4(cell);
-  float s = smoothstep(0.32, 0.68, vnoise(vec2(uv.x * 0.22 + t * 0.016, 5.0 + uv.y * 0.3 + t * 0.008)));
-  float pick = floor(clamp(s * 3.0 + (th - 0.5) * 0.5, 0.0, 2.999));
-  vec3 col = pick < 0.5 ? uB : (pick < 1.5 ? uP : uY);
+  float s = uv.x * 0.14 + 0.35 * vnoise(uv * vec2(0.5, 1.2) + vec2(0.0, t * 0.02)) - t * 0.01;
+  float pick = mod(floor(s * 3.0 + (th - 0.5) * 0.5), 3.0);
+  vec3 col = pick < 0.5 ? uY : (pick < 1.5 ? uP : uB);
   float lit = smoothstep(0.1, 0.55, k + 0.25 * near);
   if (lit < th) {
     col = uN;
