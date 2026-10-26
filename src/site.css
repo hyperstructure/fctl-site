@@ -430,7 +430,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 22px;
-  max-width: 640px;
   font-family: var(--font-mono);
   font-size: 12px;
   /* Between ink-3 and ink-4: #767676 on dark, #878787 on light. */
