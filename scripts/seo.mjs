@@ -14,9 +14,10 @@
 // feature pages; fctl checks its docs' own) must lead to something in dist,
 // and links to a heading of a page to a heading it has.
 //
-// Problems with the docs' titles and headings, which come from fctl, are
-// warnings: fctl's CI pins the docs on main, where a failed build would hold
-// back the deploy. Everything else fails the build.
+// Problems that the docs' Markdown decides (their titles, descriptions,
+// headings and images), which comes from fctl, are warnings: fctl's CI pins
+// the docs on main, where a failed build would hold back the deploy.
+// Everything else fails the build.
 
 import { readdir, readFile } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
@@ -140,7 +141,7 @@ export function audit(files) {
     const title = titles[0] ?? "";
     const description = meta.get("description") ?? "";
     if (titles.length !== 1 || !title) problem(`needs one <title>, has ${titles.length}`);
-    if (!description) problem("has no meta description");
+    if (!description) problem("has no meta description", docs);
     if (title.length > LIMITS.title)
       problem(`title is ${title.length} characters, over ${LIMITS.title}`, docs);
     if (description.length > LIMITS.description) {
@@ -163,7 +164,7 @@ export function audit(files) {
     }
     if (meta.get("og:url") !== url) problem(`og:url is ${meta.get("og:url") ?? "missing"}, not ${url}`);
     for (const key of ["og:title", "og:description", "og:type", "og:site_name", "og:image:alt"]) {
-      if (!meta.get(key)) problem(`has no ${key}`);
+      if (!meta.get(key)) problem(`has no ${key}`, docs && key === "og:description");
     }
     if (meta.get("twitter:card") !== "summary_large_image") problem("needs twitter:card summary_large_image");
     if ((meta.get("robots") ?? "").includes("noindex")) problem("is in the sitemap but noindex");
@@ -211,7 +212,7 @@ export function audit(files) {
     const h1s = (html.match(/<h1\b/g) ?? []).length;
     if (h1s !== 1) problem(`has ${h1s} h1 headings, not one`, docs);
     for (const img of tags(html, "img")) {
-      if (!("alt" in img)) problem(`image ${img.src} has no alt text`);
+      if (!("alt" in img)) problem(`image ${img.src} has no alt text`, docs);
     }
 
     // Links on the pages written here; fctl checks its docs' links itself.

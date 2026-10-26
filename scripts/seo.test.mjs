@@ -220,3 +220,21 @@ test("links lead to pages and files in dist, and headings that exist", () => {
   ]);
   assert.deepEqual(warnings, ["index.html: links to /docs/cli/#walk, a heading /docs/cli/ doesn't have"]);
 });
+
+test("what the docs' Markdown decides only warns", () => {
+  const { errors, warnings } = audit(
+    dist({
+      "docs/cli/index.html": page("/docs/cli/", {
+        description: "",
+        body: '<h1>The CLI</h1><h1>Again</h1><img src="/og/home.png" />',
+      }),
+    }),
+  );
+  assert.deepEqual(errors, []);
+  assert.deepEqual(warnings, [
+    "docs/cli/index.html: has no meta description",
+    "docs/cli/index.html: has no og:description",
+    "docs/cli/index.html: has 2 h1 headings, not one",
+    "docs/cli/index.html: image /og/home.png has no alt text",
+  ]);
+});
