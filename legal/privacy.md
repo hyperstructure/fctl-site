@@ -434,10 +434,10 @@ repositories, the session's work and Claude's local files, and you are
 responsible for them.
 
 Profile pictures people upload, and the copies we keep of Google
-pictures, load from app.fctl.sh. GitHub accounts' pictures, and profile
-pictures people gave as an address on another site before they could
-upload them, load from the servers they are on, which see the request from
-your browser.
+pictures, load from app.fctl.sh. GitHub accounts' pictures, Google pictures
+saved as an address before we kept copies, and profile pictures people gave
+as an address on another site before they could upload them, load from the
+servers they are on, which see the request from your browser.
 
 We may disclose personal data when the law requires it, or when it is
 necessary to protect the rights, property or safety of our users, others or
