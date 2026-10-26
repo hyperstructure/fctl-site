@@ -87,8 +87,9 @@ account, you can ask for early access on its sign-in page.
   you connected each, first and last name, profile picture (if you upload
   one, or link Google while you have none: then we keep a copy of your
   Google picture), the commit email you choose for each address (if you set
-  one), role, a hash of your password (never the password itself), and when
-  you last signed in.
+  one), role, a hash of your password (never the password itself), when
+  you last signed in, and when you were last active (signed in or started
+  a session yourself).
 - **Workspaces**: for each, its name, address, color and avatar image (if
   an admin uploads one), whether it requires two-factor sign-in, and who
   created it and when. For each of its members, the email address they are
