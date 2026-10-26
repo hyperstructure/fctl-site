@@ -148,7 +148,9 @@ account, you can ask for early access on its sign-in page.
   link and their author's GitHub login and picture, failed checks,
   conflicts with the base branch and merges. Transcripts include the agent's
   tool calls and their results, so they can contain your source code, file
-  contents and command output. For each project you start sessions in, the
+  contents and command output, and for a week, the images the agent read
+  (PNG, JPEG, GIF or WebP, up to 5 MB each), such as the screenshots it
+  took of your app. For each project you start sessions in, the
   model and effort level you asked for when you last started one, which
   its task boxes start on next time.
 - **Review agents**, in projects whose owners turn them on: whether they
@@ -507,6 +509,10 @@ clauses.
   most; which of Linear's agent sessions reaches
   which session, as long as the session, and 30 days for one that started
   none.
+- **Images agents read**: 7 days after the agent read them, when they are
+  deleted, or sooner once their session has more than 1,000 of them or
+  200 MB, its oldest first; deleting the project deletes them with its
+  sessions. The transcript keeps saying what the agent read.
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days; their
   links stop working then, and they are deleted within the hour. People who
