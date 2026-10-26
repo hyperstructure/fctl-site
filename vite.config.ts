@@ -65,6 +65,38 @@ function partials(): Plugin {
   };
 }
 
+/**
+ * Preloads the fonts of each page's first screen, Inter's and JetBrains Mono's Latin files and,
+ * under the feature pages' headings, Instrument Serif's, so that they arrive with the stylesheet
+ * rather than once the page has been laid out, and text doesn't jump as they replace the fallback
+ * it was drawn in. Not on the landing page: its first paint waits for more stylesheets and
+ * scripts, and in Lighthouse's mobile runs any of the fonts held it back by about half a second.
+ */
+function preloadFonts(): Plugin {
+  const fonts = [/^inter-latin-opsz-normal-/, /^jetbrains-mono-latin-wght-normal-/];
+  const serif = [/^instrument-serif-latin-400-normal-/, /^instrument-serif-latin-400-italic-/];
+  return {
+    name: "preload-fonts",
+    apply: "build",
+    transformIndexHtml: {
+      order: "post",
+      handler(html, ctx) {
+        if (ctx.path === "/index.html") return [];
+        const wanted = html.includes('class="f-title') ? [...fonts, ...serif] : fonts;
+        const files = Object.keys(ctx.bundle ?? {}).filter((f) => {
+          const name = f.split("/").pop() ?? "";
+          return name.endsWith(".woff2") && wanted.some((re) => re.test(name));
+        });
+        return files.map((f) => ({
+          tag: "link",
+          attrs: { rel: "preload", href: `/${f}`, as: "font", type: "font/woff2", crossorigin: "" },
+          injectTo: "head" as const,
+        }));
+      },
+    },
+  };
+}
+
 /** The feature pages: features/index.html and features/<slug>/index.html, served at /features/<slug>/. */
 function featurePages(): Record<string, string> {
   const dir = page("./features");
@@ -76,7 +108,7 @@ function featurePages(): Record<string, string> {
 }
 
 export default defineConfig({
-  plugins: [tailwindcss(), brandAssets(), partials()],
+  plugins: [tailwindcss(), brandAssets(), partials(), preloadFonts()],
   build: {
     target: "es2023",
     // Fonts and images come from 'self' only (see public/_headers).
