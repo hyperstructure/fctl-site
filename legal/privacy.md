@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-24
+updated: 2026-10-26
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -84,8 +84,9 @@ account, you can ask for early access on its sign-in page.
   request. We keep nothing else about you for it, and use it only to
   invite you.
 - **Your account**: your email addresses, which one is primary and when
-  you connected each, first and last name, profile picture (if you add one
-  or link Google), the commit email you choose for each address (if you set
+  you connected each, first and last name, profile picture (if you upload
+  one, or link Google while you have none: then we keep a copy of your
+  Google picture), the commit email you choose for each address (if you set
   one), role, a hash of your password (never the password itself), and when
   you last signed in.
 - **Workspaces**: for each, its name, address, color and avatar image (if
@@ -417,7 +418,9 @@ workspace's name, avatar, primary admin and size, the GitHub accounts
 workspaces use,
 and the audit log of app.fctl.sh, but not what is inside workspaces they
 aren't members of. When a workspace's primary admin's account is
-disabled, they see its members' names, to choose who runs it.
+disabled, they see its members' names, to choose who runs it. Your
+picture shows with your name, and anyone signed in to app.fctl.sh who has
+its address, which holds your user ID, can load it.
 
 **Anyone who has a published screenshot's link** can open it, without
 signing in, until it expires: the people who can read the pull request
@@ -430,8 +433,11 @@ and search engines are asked not to index the screenshots.
 repositories, the session's work and Claude's local files, and you are
 responsible for them.
 
-Profile pictures from Google or GitHub load from their servers, which see
-the request from your browser.
+Profile pictures people upload, and the copies we keep of Google
+pictures, load from app.fctl.sh. GitHub accounts' pictures, and profile
+pictures people gave as an address on another site before they could
+upload them, load from the servers they are on, which see the request from
+your browser.
 
 We may disclose personal data when the law requires it, or when it is
 necessary to protect the rights, property or safety of our users, others or
