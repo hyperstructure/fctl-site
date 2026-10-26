@@ -25,3 +25,8 @@ id = "18294bb05fdc4f7faad659ea4e339f0c"
 
 [observability]
 enabled = true
+
+# wrangler dev hands the Worker https://fctl.sh/… addresses, as Cloudflare does
+# for HTTPS requests, so that it serves pages rather than redirecting them.
+[dev]
+upstream_protocol = "https"

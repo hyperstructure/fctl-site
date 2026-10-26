@@ -20,10 +20,16 @@ export const slugify = (s) =>
 export const esc = (s) =>
   s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 
+/** HTML's text as plain text: tags dropped, and the entities marked writes decoded. */
+export const plain = (html) =>
+  html
+    .replace(/<[^>]+>/g, "")
+    .replace(/&(amp|lt|gt|quot|#39);/g, (_, e) => ({ amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'" })[e]);
+
 /**
  * A renderer. `render(source, { href, afterTitle })` returns the page's title
- * (its h1), a description (its first paragraph) and its HTML. `href` maps
- * link targets; `afterTitle` is HTML placed right after the h1.
+ * (its h1) and first paragraph as plain text, for its head, and its HTML.
+ * `href` maps link targets; `afterTitle` is HTML placed right after the h1.
  */
 export async function markdown() {
   const highlighter = await createHighlighter({
@@ -39,7 +45,7 @@ export async function markdown() {
         heading({ tokens, depth }) {
           const text = this.parser.parseInline(tokens);
           if (depth === 1) {
-            title = text.replace(/<[^>]+>/g, "");
+            title = plain(text);
             return `<h1>${text}</h1>\n${afterTitle}`;
           }
           const id = slugify(text);
@@ -47,7 +53,7 @@ export async function markdown() {
         },
         paragraph({ tokens }) {
           const html = this.parser.parseInline(tokens);
-          if (!description) description = html.replace(/<[^>]+>/g, "").slice(0, 200);
+          if (!description) description = plain(html);
           return `<p>${html}</p>\n`;
         },
         link({ href: target, title: t, tokens }) {

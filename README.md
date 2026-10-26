@@ -12,8 +12,10 @@ One Cloudflare Worker with static assets.
 | `legal.html`, `legal/*.md`, `scripts/legal.mjs` | The privacy policy and terms of service, at `/privacy` and `/terms` |
 | `fctl-docs.ref` | Which fctl commit the docs come from (`main`, or a commit fctl's CI pins) |
 | `scripts/sitemap.mjs` | `/sitemap.xml`, of every page the build writes (and `/llms.txt`); `public/robots.txt` names it |
+| `scripts/seo.mjs` | The build's last step: checks every page's title, description, canonical link, link preview, structured data and links |
+| `public/og/`, `scripts/og.mjs` | Each page's link preview (`og:image`): its hero at 1200 × 630, rendered with Playwright |
 | `public/install.sh` | `curl -fsSL https://fctl.sh/install \| sh` |
-| `worker/index.ts` | `/install`, `/releases/*` (from the `fctl-releases` KV namespace), the www redirect, and the 5xx page when answering fails |
+| `worker/index.ts` | `/install`, `/releases/*` (from the `fctl-releases` KV namespace), the redirects to `https://fctl.sh` (from plain HTTP and www), and the 5xx page when answering fails |
 | `404.html`, `500.html`, `src/error.ts` | Not found and something broke: the status code in `@hyperstructure/design`'s stream, with "Did you mean …?" and "Try again" |
 | `wrangler.toml` | The `fctl-site` Worker on fctl.sh and www.fctl.sh |
 

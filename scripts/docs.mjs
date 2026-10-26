@@ -17,7 +17,8 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, markdown } from "./markdown.mjs";
-import { asMarkdown, llmsFull, markdownUrl, PAGES, pageUrl, REPO, rewriteHref } from "./pages.mjs";
+import { asMarkdown, llmsFull, markdownUrl, PAGES, pageUrl, REPO, rewriteHref, SITE } from "./pages.mjs";
+import { breadcrumbs, cardPath, summary } from "./seo.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const site = join(here, "..");
@@ -61,13 +62,36 @@ async function main() {
       const current = p === page ? ' aria-current="page"' : "";
       return `<a href="${pageUrl(p)}"${current}>${esc(p.nav)}</a>`;
     }).join("");
+    const heading = title || page.nav;
+    // A page fctl added since scripts/og.mjs last ran shows the docs' own image until it does.
+    let card = cardPath(pageUrl(page));
+    if (!existsSync(join(dist, card))) {
+      console.warn(
+        `no ${card} for ${pageUrl(page)} yet: it shows /og/docs.png (render it with scripts/og.mjs)`,
+      );
+      card = cardPath("/docs/");
+    }
+    const crumbs = page.slug
+      ? `<script type="application/ld+json">${breadcrumbs([
+          ["Docs", "/docs/"],
+          [page.nav, pageUrl(page)],
+        ])}</script>`
+      : "";
+    // Functions, so that a `$&` or `$'` in a page isn't read as a replacement pattern.
     const html = template
-      .replace("<!--TITLE-->", esc(title || page.nav))
-      .replace("<!--DESCRIPTION-->", esc(description))
-      .replace("<!--MARKDOWN-->", `<link rel="alternate" type="text/markdown" href="${markdownUrl(page)}" />`)
-      .replace("<!--NAV-->", nav)
-      .replace("<!--DOC-->", body)
-      .replace("<!--SOURCE-->", `${REPO}/edit/main/${page.file}`);
+      .replaceAll("<!--TITLE-->", () => esc(page.slug ? `${heading} · fctl docs` : heading))
+      .replaceAll("<!--DESCRIPTION-->", () => esc(summary(description)))
+      .replaceAll("<!--URL-->", () => `${SITE}${pageUrl(page)}`)
+      .replace("<!--IMAGE-->", () => `${SITE}${card}`)
+      .replace("<!--IMAGE_ALT-->", () => esc(page.slug ? `fctl docs: ${page.nav}` : "fctl docs"))
+      .replace(
+        "<!--MARKDOWN-->",
+        () => `<link rel="alternate" type="text/markdown" href="${markdownUrl(page)}" />`,
+      )
+      .replace("<!--BREADCRUMBS-->", () => crumbs)
+      .replace("<!--NAV-->", () => nav)
+      .replace("<!--DOC-->", () => body)
+      .replace("<!--SOURCE-->", () => `${REPO}/edit/main/${page.file}`);
     const dir = join(dist, "docs", page.slug);
     await mkdir(dir, { recursive: true });
     await writeFile(join(dir, "index.html"), html);

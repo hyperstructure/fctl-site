@@ -4,6 +4,12 @@
 //   /releases/latest      the latest version, as text ("0.1.0")
 //   /releases/v<x.y.z>/*  release archives and checksums, from the RELEASES KV namespace
 //
+// Everything has one address, https://fctl.sh/<path>: requests over plain
+// HTTP, the installer's and releases' too, and to www.fctl.sh redirect there,
+// permanently, and so do the assets' redirects to a page's own form of its
+// path (/docs → /docs/, /privacy/ → /privacy). A docs page's Markdown copy
+// (/docs/cli.md) names the page as canonical in a Link header.
+//
 // Unknown pages get 404.html (the assets' not_found_handling). When answering
 // fails, a page request gets 500.html with status 500, anything else a line
 // of text, instead of Cloudflare's error page.
@@ -89,10 +95,33 @@ async function failure(req: Request, env: Env): Promise<Response> {
   });
 }
 
+/**
+ * The assets' redirects to a page's own form of its path, which Cloudflare sends as 307s, as
+ * permanent ones, so that search engines move what they know to the page's address. Browsers
+ * keep them for a day, not for good, in case html_handling ever changes which form is the page's.
+ */
+function permanent(res: Response): Response {
+  if (res.status !== 307) return res;
+  const headers = new Headers(res.headers);
+  headers.set("cache-control", "public, max-age=86400");
+  return new Response(null, { status: 301, headers });
+}
+
+/**
+ * The page a docs page's Markdown copies (/docs/cli.md → /docs/cli/, /docs/index.md → /docs/),
+ * which it names as canonical, so that search engines list the page rather than the copy.
+ */
+export function markdownPage(path: string): string | undefined {
+  const m = /^\/docs\/([a-z0-9-]+)\.md$/.exec(path);
+  if (!m?.[1]) return undefined;
+  return `https://fctl.sh/docs/${m[1] === "index" ? "" : `${m[1]}/`}`;
+}
+
 async function handle(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
-  if (url.hostname.startsWith("www.")) {
-    url.hostname = url.hostname.slice(4);
+  if (url.protocol === "http:" || url.hostname.startsWith("www.")) {
+    url.protocol = "https:";
+    url.hostname = url.hostname.replace(/^www\./, "");
     return Response.redirect(url.toString(), 301);
   }
   if (url.pathname === "/install" || url.pathname === "/install.sh") {
@@ -107,7 +136,12 @@ async function handle(req: Request, env: Env): Promise<Response> {
     });
   }
   if (url.pathname.startsWith("/releases/")) return release(req, env, url.pathname);
-  return env.ASSETS.fetch(req);
+  const res = permanent(await env.ASSETS.fetch(req));
+  const page = markdownPage(url.pathname);
+  if (!page || !res.ok) return res;
+  const copy = new Response(res.body, res);
+  copy.headers.set("link", `<${page}>; rel="canonical"`);
+  return copy;
 }
 
 export default {

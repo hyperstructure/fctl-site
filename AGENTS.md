@@ -20,8 +20,19 @@ npx wrangler dev                     # the Worker with the built assets (after a
   `@hyperstructure/design` (pinned to a tag in package.json). Change them
   there, tag a release, then bump the tag here. The `brand-assets` plugin in
   `vite.config.ts` serves the package's `favicon.svg` (also the mark in each
-  page's nav), `apple-touch-icon.png` and `icon-512.png` (the link preview
-  image, `og:image`); don't copy them into the pages.
+  page's nav), `apple-touch-icon.png` and `icon-512.png` (app.fctl.sh's link
+  preview image); don't copy them into the pages.
+- **Search engines and link previews**: every page's head has its own title
+  (at most 60 characters) and description (at most 160), a canonical link to
+  its address, Open Graph and Twitter tags, and structured data (JSON-LD):
+  the site and fctl itself on the landing page, breadcrumbs on the feature
+  and docs pages. Copy a neighbour's head for a new page. Its link preview,
+  `og:image`, is its hero at 1200 × 630 in `public/og/` at its path
+  (`/features/sessions/` → `og/features/sessions.png`), rendered by
+  `scripts/og.mjs` with Playwright, as its header says; render it again when
+  you change the page's heading or scene, and look at it before you commit
+  it. `scripts/seo.mjs`, the build's last step, fails the build when a page
+  lacks any of this or links to something that isn't there.
 - **Docs**: the Markdown lives in hyperstructure/fctl under `docs/`. Edit it
   there. `scripts/pages.mjs` maps files to URLs (`PAGES`), rewrites links
   between docs, and links other repository files to GitHub;
