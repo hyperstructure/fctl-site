@@ -7,7 +7,8 @@
 // Everything has one address, https://fctl.sh/<path>: requests over plain
 // HTTP, the installer's and releases' too, and to www.fctl.sh redirect there,
 // permanently, and so do the assets' redirects to a page's own form of its
-// path (/docs → /docs/, /privacy/ → /privacy).
+// path (/docs → /docs/, /privacy/ → /privacy). A docs page's Markdown copy
+// (/docs/cli.md) names the page as canonical in a Link header.
 //
 // Unknown pages get 404.html (the assets' not_found_handling). When answering
 // fails, a page request gets 500.html with status 500, anything else a line
@@ -106,6 +107,16 @@ function permanent(res: Response): Response {
   return new Response(null, { status: 301, headers });
 }
 
+/**
+ * The page a docs page's Markdown copies (/docs/cli.md → /docs/cli/, /docs/index.md → /docs/),
+ * which it names as canonical, so that search engines list the page rather than the copy.
+ */
+export function markdownPage(path: string): string | undefined {
+  const m = /^\/docs\/([a-z0-9-]+)\.md$/.exec(path);
+  if (!m?.[1]) return undefined;
+  return `https://fctl.sh/docs/${m[1] === "index" ? "" : `${m[1]}/`}`;
+}
+
 async function handle(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
   if (url.protocol === "http:" || url.hostname.startsWith("www.")) {
@@ -125,7 +136,12 @@ async function handle(req: Request, env: Env): Promise<Response> {
     });
   }
   if (url.pathname.startsWith("/releases/")) return release(req, env, url.pathname);
-  return permanent(await env.ASSETS.fetch(req));
+  const res = permanent(await env.ASSETS.fetch(req));
+  const page = markdownPage(url.pathname);
+  if (!page || !res.ok) return res;
+  const copy = new Response(res.body, res);
+  copy.headers.set("link", `<${page}>; rel="canonical"`);
+  return copy;
 }
 
 export default {

@@ -2,7 +2,7 @@
 // and what it answers when something fails.
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import worker from "../worker/index.ts";
+import worker, { markdownPage } from "../worker/index.ts";
 
 const PAGE = "<!doctype html><title>Something broke · fctl</title>";
 
@@ -79,6 +79,7 @@ const site = {
         });
       }
       if (url.pathname === "/install.sh") return new Response("#!/bin/sh\n");
+      if (url.pathname === "/docs/gone.md") return new Response("Not found", { status: 404 });
       return new Response(`page ${url.pathname}`, { headers: { "content-type": "text/html" } });
     },
   },
@@ -110,4 +111,16 @@ test("the assets' redirects to a page's address are permanent, and kept for a da
   assert.equal(res.headers.get("strict-transport-security"), "max-age=63072000");
   const page = await at("https://fctl.sh/docs/");
   assert.equal(page.status, 200);
+});
+
+test("a docs page's Markdown names the page as canonical", async () => {
+  assert.equal(markdownPage("/docs/cli.md"), "https://fctl.sh/docs/cli/");
+  assert.equal(markdownPage("/docs/index.md"), "https://fctl.sh/docs/");
+  assert.equal(markdownPage("/docs/cli/"), undefined);
+  assert.equal(markdownPage("/llms-full.txt"), undefined);
+  const res = await at("https://fctl.sh/docs/getting-started.md");
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get("link"), '<https://fctl.sh/docs/getting-started/>; rel="canonical"');
+  assert.equal((await at("https://fctl.sh/docs/gone.md")).headers.get("link"), null);
+  assert.equal((await at("https://fctl.sh/docs/cli/")).headers.get("link"), null);
 });
