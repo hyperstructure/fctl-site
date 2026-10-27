@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#171717" />
-    <title>fctl — Claude Code agents that build while you sleep</title>
+    <title>fctl — an open source software factory for Claude Code</title>
     <meta
       name="description"
-      content="fctl runs Claude Code agents in sandboxes on your own machines, around the clock, on your Claude subscription. Start them from the web, the CLI or your phone."
+      content="Claude Code agents in sandboxes on your own machines, around the clock, on your Claude subscription. Open source: use app.fctl.sh or host all of it yourself."
     />
     <link rel="canonical" href="https://fctl.sh/" />
-    <meta property="og:title" content="fctl — a software factory for Claude Code" />
+    <meta property="og:title" content="fctl — an open source software factory for Claude Code" />
     <meta property="og:description" content="Claude Code agents in sandboxes on machines you own, around the clock, on your Claude subscription." />
     <meta property="og:url" content="https://fctl.sh/" />
     <meta property="og:type" content="website" />
@@ -19,7 +19,7 @@
     <meta property="og:image" content="https://fctl.sh/og/home.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Agents that build while you sleep. fctl is a software factory for Claude Code." />
+    <meta property="og:image:alt" content="Agents that build while you sleep. fctl is an open source software factory." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="robots" content="max-image-preview:large" />
     <script type="application/ld+json">
@@ -46,7 +46,7 @@
             "@id": "https://fctl.sh/#fctl",
             "name": "fctl",
             "url": "https://fctl.sh/",
-            "description": "A software factory for Claude Code: agents in sandboxes on machines you own, around the clock, on your Claude subscription.",
+            "description": "An open source software factory for Claude Code: agents in sandboxes on machines you own, around the clock, on your Claude subscription.",
             "applicationCategory": "DeveloperApplication",
             "operatingSystem": "macOS, Linux",
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -57,6 +57,17 @@
             "image": "https://fctl.sh/og/home.png",
             "author": { "@id": "https://fctl.sh/#hyperstructure" },
             "sameAs": ["https://github.com/hyperstructure/fctl"]
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://fctl.sh/#source",
+            "name": "fctl",
+            "description": "fctl's source code: the control plane, the host, the CLI and the web app.",
+            "codeRepository": "https://github.com/hyperstructure/fctl",
+            "programmingLanguage": ["Rust", "TypeScript"],
+            "license": "https://github.com/hyperstructure/fctl/blob/main/LICENSE",
+            "author": { "@id": "https://fctl.sh/#hyperstructure" },
+            "targetProduct": { "@id": "https://fctl.sh/#fctl" }
           }
         ]
       }
@@ -80,9 +91,9 @@
             <span class="hot">sleep<span class="dot">.</span></span>
           </h1>
           <p class="lede rise" style="--d: 90ms">
-            <code class="brandword">fctl</code> is a software factory for Claude Code. Agents work in sandboxes on
-            your own Mac, around the clock, on your Claude subscription. Start them from the web, your terminal or
-            your phone, and follow every session live.
+            <code class="brandword">fctl</code> is an open source software factory. Agents work in sandboxes on your
+            own Mac, around the clock, on your Claude subscription. Start them from the web, your terminal or your
+            phone, and follow every session live.
           </p>
           <div class="install-block rise" style="--d: 180ms">
             <div class="install-tabs">
@@ -381,10 +392,11 @@
           </article>
           <article class="reveal">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 20 8v8l-8 4.5L4 16V8z" /><path d="M12 12.5 20 8M12 12.5V20.5M12 12.5 4 8" /></svg>
-            <h3><a href="/docs/self-hosting/">Yours to run</a></h3>
+            <h3><a href="/docs/self-hosting/">Open source, yours to run</a></h3>
             <p>
-              The control plane runs on Cloudflare, or in one container anywhere; agents run on your
-              hardware. Deploy your own instance with one command. MIT licensed.
+              All of fctl is on GitHub, MIT licensed. Use the managed control plane at app.fctl.sh, or deploy
+              your own with one command, on Cloudflare or in one container anywhere. Agents run on your
+              hardware either way.
             </p>
           </article>
           <article class="reveal">
@@ -479,6 +491,7 @@
         <p class="hero-links">
           <a href="/docs/getting-started/">Get started <span aria-hidden="true">→</span></a>
           <a href="/docs/self-hosting/">Run your own instance <span aria-hidden="true">→</span></a>
+          <a href="https://github.com/hyperstructure/fctl">Read the source on GitHub <span aria-hidden="true">→</span></a>
         </p>
       </section>
     </main>

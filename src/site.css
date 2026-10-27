@@ -772,24 +772,27 @@ pre .prompt {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-@media (max-width: 840px) {
+@media (max-width: 880px) {
   .foot-features ul {
     columns: 2;
   }
 }
 /* Phones: the features above, Docs and Project below, in the features' two
-   columns. */
-@media (max-width: 680px) {
+   columns, and Project under Docs where its links wouldn't fit beside them
+   (GitHub / Open Source, under some 390px). */
+@media (max-width: 720px) {
   .foot-nav {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 32px;
   }
   .foot-features {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
   }
   .foot-features ul {
     column-gap: 32px;
+  }
+  .foot-col:not(.foot-features) {
+    flex: 0 0 calc(50% - 16px);
+    min-width: max-content;
   }
 }
 
