@@ -53,8 +53,7 @@
             <a class="f-link" href="/docs/automation/#start-agents-from-other-tools">Start agents from other tools <span aria-hidden="true">→</span></a>
           </p>
           <div class="f-stage">
-            <figure class="shot browser only-desk">
-              <a class="url" href="https://app.fctl.sh">app.fctl.sh/settings</a>
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/settings">
               <img class="theme-dark" src="/src/features/shots/access-tokens/tokens-dark.webp" width="2200" height="1375" alt="Noor's devices and access tokens: Raycast reads all her projects, Team chat runs sessions in Shop and Platform, and milkfloat CI runs sessions whose agents comment and push nothing." loading="lazy" />
               <img class="theme-light" src="/src/features/shots/access-tokens/tokens-light.webp" width="2200" height="1375" alt="Noor's devices and access tokens: Raycast reads all her projects, Team chat runs sessions in Shop and Platform, and milkfloat CI runs sessions whose agents comment and push nothing." loading="lazy" />
             </figure>
@@ -162,8 +161,7 @@
             <a class="f-link" href="/features/sign-in/">Confirming it's you <span aria-hidden="true">→</span></a>
           </div>
           <div class="f-stack reveal">
-            <figure class="shot browser">
-              <a class="url" href="https://app.fctl.sh">app.fctl.sh/settings</a>
+            <figure class="shot browser" data-url="app.fctl.sh/settings">
               <img class="theme-dark" src="/src/features/shots/access-tokens/new-dark.webp" width="2200" height="1375" alt="A new access token, Team chat: it runs sessions in Shop and Platform, its agents may push, and it expires in 90 days, said in a sentence under the form." loading="lazy" />
               <img class="theme-light" src="/src/features/shots/access-tokens/new-light.webp" width="2200" height="1375" alt="A new access token, Team chat: it runs sessions in Shop and Platform, its agents may push, and it expires in 90 days, said in a sentence under the form." loading="lazy" />
             </figure>
@@ -196,7 +194,7 @@
 <p class="f">Shown once. Use it as FCTL_TOKEN or an `Authorization: Bearer` header.</p>
 <p class="cmd">curl -H "Authorization: Bearer $FCTL_TOKEN" -H "Content-Type: application/json" \</p>
 <p class="w">    -d '{"context": "SHOP-433: The postcode field rejects Danish postcodes"}' \</p>
-<p class="w">    <a href="https://app.fctl.sh">https://app.fctl.sh/api/v1/schedules/sch_01K8ZY3T6WQ4M9PB2HVN0C5RXA/runs</a></p>
+<p class="w">    https://app.fctl.sh/api/v1/schedules/sch_01K8ZY3T6WQ4M9PB2HVN0C5RXA/runs</p>
 <p class="out">{"outcome": "started", "trigger": "token", "session": {"number": 234, "title": "Triage an issue", …}, …}</p>
             </div>
           </div>
