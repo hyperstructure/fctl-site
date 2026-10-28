@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-26
+updated: 2026-10-28
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -84,12 +84,12 @@ account, you can ask for early access on its sign-in page.
   request. We keep nothing else about you for it, and use it only to
   invite you.
 - **Your account**: your email addresses, which one is primary and when
-  you connected each, first and last name, profile picture (if you upload
-  one, or link Google while you have none: then we keep a copy of your
-  Google picture), the commit email you choose for each address (if you set
-  one), role, a hash of your password (never the password itself), when
-  you last signed in, and when you were last active (signed in or started
-  a session yourself).
+  you connected each, first and last name, the name agents call you (if
+  you choose one), profile picture (if you upload one, or link Google
+  while you have none: then we keep a copy of your Google picture), the
+  commit email you choose for each address (if you set one), role, a hash
+  of your password (never the password itself), when you last signed in,
+  and when you were last active (signed in or started a session yourself).
 - **Workspaces**: for each, its name, address, color and avatar image (if
   an admin uploads one), whether it requires two-factor sign-in, and who
   created it and when. For each of its members, the email address they are
@@ -386,7 +386,12 @@ processing terms:
 - **Anthropic**, which provides Claude. Claude Code runs on your hosts with
   the Claude account you connect, so Anthropic receives your prompts, the
   code the agent reads and the conversation, under your agreement with
-  Anthropic. If a session joins Remote Control, the conversation is also
+  Anthropic. A session's agent is told the name of the person who started
+  it (for a schedule's run, the person it runs for) and of everyone who
+  writes to it, with what each of them asked agents to call them (or their
+  first names), so these go to the Claude account the session runs on;
+  fctl tells review agents nobody's name.
+  If a session joins Remote Control, the conversation is also
   available in your Claude apps. A project's memory notes go into the
   prompts of its later sessions, on the Claude accounts of the people who
   start them. A project's review agents run on the Claude account of the
@@ -569,12 +574,12 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   sessions you started with their full transcripts and the sessions you
   follow, and your activity log. Sessions of workspaces you left stay with
   those workspaces.
-- **Correct it**: change your name and picture under Profile, your email
-  addresses and their commit emails under Email addresses, the workspaces
-  you are in under Workspaces, what notifies you and in which browsers
-  under Notifications, and your sign-in methods, passkeys, two-factor
-  sign-in, Claude connections, Linear accounts, devices and tokens in their
-  sections.
+- **Correct it**: change your name, the name agents call you and your
+  picture under Profile, your email addresses and their commit emails
+  under Email addresses, the workspaces you are in under Workspaces, what
+  notifies you and in which browsers under Notifications, and your sign-in
+  methods, passkeys, two-factor sign-in, Claude connections, Linear
+  accounts, devices and tokens in their sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
