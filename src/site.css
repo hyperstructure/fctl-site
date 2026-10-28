@@ -559,6 +559,17 @@ pre .prompt {
   margin-right: 0.7em;
   user-select: none;
 }
+.features p a {
+  color: var(--c-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--c-accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 160ms var(--ease-out);
+}
+.features p a:hover {
+  color: var(--c-accent);
+}
 .features p code {
   font-family: var(--font-mono);
   font-size: 0.84em;

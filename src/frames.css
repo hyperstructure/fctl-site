@@ -36,9 +36,9 @@
     radial-gradient(circle at 54px 19px, var(--c-ink-4) 4.5px, transparent 5px), var(--c-sunken);
   opacity: 0.95;
 }
-/* The address, centered on the bar's line, level with the dots. */
-.shot.browser[data-url]::after {
-  content: attr(data-url);
+/* The address, centered on the bar's line, level with the dots: a link to
+   the app. */
+.shot.browser > .url {
   position: absolute;
   top: 19px;
   left: 50%;
@@ -55,6 +55,13 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition:
+    color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out);
+}
+.shot.browser > .url:hover {
+  color: var(--c-ink);
+  border-color: var(--c-accent);
 }
 /* A part of the app, cut out: no bar, softer corners. */
 .shot.crop {

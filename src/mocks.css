@@ -136,6 +136,15 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+/* Addresses on app.fctl.sh lead there, underlined on hover as a terminal
+   shows a link. */
+.term-body a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+.term-body a:hover {
+  text-decoration: underline;
+}
 .term .caret {
   display: inline-block;
   width: 0.6em;
