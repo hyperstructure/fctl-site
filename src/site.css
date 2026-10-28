@@ -71,7 +71,8 @@
   color: var(--c-ink-2);
   transition: color 160ms var(--ease-out);
 }
-.nav nav a:hover {
+/* The header's own links: the Features menu's light up their own way, below. */
+.nav nav > a:hover {
   color: var(--c-accent);
 }
 .nav .nav-app {
@@ -125,7 +126,6 @@
   transform: rotate(45deg);
   transition: transform 220ms var(--ease-out);
 }
-.nav-menu > summary:hover,
 .nav-menu[open] > summary {
   color: var(--c-ink);
 }
@@ -180,7 +180,6 @@
   color: var(--c-ink);
   transition: background-color 160ms var(--ease-out);
 }
-.nav nav .menu a:hover,
 .nav nav .menu a:focus-visible {
   color: var(--c-ink);
   background: var(--c-hover);
@@ -244,9 +243,20 @@
   color: var(--c-ink-2);
   background: none;
 }
-.nav nav .menu-foot a:hover {
-  color: var(--c-accent);
-  background: none;
+/* The menu lights up under a mouse or a trackpad, not under a finger: on a touchscreen, :hover
+   lands on whatever the finger touches, so scrolling the menu on a phone lit up item after item,
+   and Features stayed lit after a tap closed it. */
+@media (hover: hover) {
+  .nav-menu > summary:hover {
+    color: var(--c-ink);
+  }
+  .nav nav .menu a:hover {
+    background: var(--c-hover);
+  }
+  .nav nav .menu-foot a:hover {
+    color: var(--c-accent);
+    background: none;
+  }
 }
 .nav .nav-app {
   white-space: nowrap;
