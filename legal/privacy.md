@@ -160,7 +160,8 @@ account, you can ask for early access on its sign-in page.
   each review, its session, the pull request it reviews (its repository,
   number, title and link, and its author's GitHub login), the commit, how
   it went (how many findings it posted, marked fixed or left open, or why
-  it stopped), the link to the review it posted and its check on GitHub.
+  it stopped), the link to the review it posted and its check on GitHub,
+  and which of our two GitHub Apps posted them.
 - **Schedules**: for each of a project's schedules, its name, the task its
   sessions start with, when it runs (a cron expression and a time zone, a
   time to run once, or only when asked), the model, effort level, branch
@@ -200,7 +201,12 @@ account, you can ask for early access on its sign-in page.
   instead, you don't give it to us: we keep only that you connected it
   that way, and that usage.
 - **GitHub**: the repositories you link through our GitHub App, and the
-  branches and pull requests agents create. We never sign you in to GitHub;
+  branches and pull requests agents create. Review agents post their
+  reviews through our second app, fctl-review, where your GitHub account
+  installed it, and through the first otherwise; to show a workspace
+  where it is installed, we ask GitHub about its installations on the
+  workspace's accounts and the repositories they reach, and keep none of
+  it. We never sign you in to GitHub;
   agents work with short-lived tokens limited to their project's
   repositories, within the GitHub accounts its workspace uses. GitHub also
   tells us, through our app's webhook, when pull requests and their checks
