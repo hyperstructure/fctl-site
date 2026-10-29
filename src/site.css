@@ -439,11 +439,18 @@
   margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 22px;
+  gap: 8px 18px;
   font-family: var(--font-mono);
   font-size: 12px;
-  /* Between ink-3 and ink-4: #767676 on dark, #878787 on light. */
-  color: color-mix(in srgb, var(--c-ink-3), var(--c-ink-4));
+  font-weight: 500;
+  /* Between ink-2 and ink-3: #aaaaaa on dark, #545454 on light. */
+  color: color-mix(in srgb, var(--c-ink-3), var(--c-ink-2));
+  /* A halo of the canvas's color lifts the names off the scene behind them: a shadow on
+     dark, a glow on light. */
+  text-shadow:
+    0 0 2px var(--c-canvas),
+    0 1px 3px var(--c-canvas),
+    0 0 10px color-mix(in srgb, var(--c-canvas) 70%, transparent);
 }
 .works span::before {
   content: "+ ";
