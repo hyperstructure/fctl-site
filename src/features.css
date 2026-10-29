@@ -479,6 +479,17 @@ figcaption {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
 }
+/* Three in a row where they fit; two to a row, an odd one out takes its row. */
+@media (min-width: 1081px) {
+  .f-drivers:has(> article:nth-child(3)) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 761px) and (max-width: 1080px) {
+  .f-drivers > article:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
 @media (max-width: 760px) {
   .f-drivers {
     grid-template-columns: minmax(0, 1fr);
