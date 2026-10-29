@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-28
+updated: 2026-10-29
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -279,8 +279,9 @@ workspaces, and password-reset messages; tell you when your two-factor
 sign-in is turned on, replaced, turned off or reset by an admin, when a
 recovery code signs you in, when wrong codes follow your password, when a
 passkey or a Google account is added to your account or an email address
-connected to it, when your password is changed, set or reset, and when an
-admin makes a password reset link for you. That means giving the
+connected to it, when a Claude subscription is connected to it, when
+Google sign-ins stop asking you for a code, when your password is changed,
+set or reset, and when an admin makes a password reset link for you. That means giving the
 recipient's address and the message to our email provider.
 
 ### Cookies and browser storage
