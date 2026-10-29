@@ -24,8 +24,9 @@ This policy doesn't apply to either.
 - **fctl.sh** has no analytics, no advertising and no cookies.
 - **app.fctl.sh** stores what it needs to run your factory: your account,
   the workspaces you are in, their projects and sessions, and the machines
-  you connect. Agents run on those machines, not on ours. A session keeps a full transcript of what agents and people
-  did in it, which can contain your code. Projects also keep their agents'
+  you connect. Agents run on those machines, not on ours. A session keeps
+  a full transcript of what agents and people did in it, which can contain
+  your code. Projects also keep their agents'
   notes and retrospectives, review agents' reviews of pull requests, and
   the schedules that start sessions on their own.
 - **We don't train AI models on your data or your code, but Anthropic
@@ -46,8 +47,8 @@ This policy doesn't apply to either.
   admin of app.fctl.sh has to allow them and a project has to turn them on.
   Then anyone who has a screenshot's link can open it without signing in,
   until it expires: after 30 days, or what the project chooses between 24
-  hours and 60 days. On a public repository's
-  pull request, that means everyone. Screenshots can show your app, your
+  hours and 60 days. On a public repository's pull request, that means
+  everyone. Screenshots can show your app, your
   code or your data.
 - **Commit emails become public.** If you set a commit email, it goes into
   the `Co-authored-by` lines of the commits agents make in the sessions you
