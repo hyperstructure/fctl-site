@@ -12,9 +12,10 @@ receives it, how long we keep it, and what you can do about it.
 
 fctl is also open-source software that anyone can run. If you
 [run your own control plane](/docs/self-hosting/), you decide where its data
-is kept and who receives it: none of it comes to us, and this policy doesn't
-apply to it. If you use an instance that someone else runs, its operator is
-responsible for your data there.
+is kept and who receives it: none of the data it keeps comes to us (your
+hosts still download releases from fctl.sh, below). If you use an instance
+that someone else runs, its operator is responsible for your data there.
+This policy doesn't apply to either.
 
 ## The short version
 
@@ -23,29 +24,36 @@ responsible for your data there.
 - **fctl.sh** has no analytics, no advertising and no cookies.
 - **app.fctl.sh** stores what it needs to run your factory: your account,
   the workspaces you are in, their projects and sessions, and the machines
-  you connect. A session keeps a full transcript of what agents and people
+  you connect. Agents run on those machines, not on ours. A session keeps a full transcript of what agents and people
   did in it, which can contain your code. Projects also keep their agents'
   notes and retrospectives, review agents' reviews of pull requests, and
   the schedules that start sessions on their own.
-- **We don't train AI models on your data, but Anthropic receives it.** That
-  promise covers only us. Agents run Claude Code with someone's Claude
-  account, so your code and messages go to Anthropic under that account's
-  agreement with Anthropic, not ours
-  ([Anthropic](#services-you-connect)):
-  - a session's work goes to the account of the person who started it,
-    whoever wrote the messages in it;
-  - review agents use the account of the project owner who turned them on;
+- **We don't train AI models on your data or your code, but Anthropic
+  receives your code and messages.** That promise covers only us. Agents
+  run Claude Code with someone's Claude account, so what they read and what
+  people write to them go to Anthropic under that account's agreement with
+  Anthropic, not ours. For example
+  ([Anthropic](#services-you-connect) has the rest):
+  - a session's work goes to the account of the person who started it, or
+    for a schedule's run, usually its owner's, whoever wrote the messages
+    in it;
+  - review agents use the account of the project owner who turned them on
+    or took them over;
   - a Linear ticket goes to the account of the person who delegated it,
-    with its comments, whoever wrote them.
-- **Published screenshots are public links.** They are off by default.
-  Where a project turns them on, anyone who has a screenshot's link can
-  open it without signing in, for up to 60 days. On a public repository's
+    with its comments and the replies people write to the agent there,
+    whoever wrote them.
+- **Published screenshots are public links.** They are off by default: an
+  admin of app.fctl.sh has to allow them and a project has to turn them on.
+  Then anyone who has a screenshot's link can open it without signing in,
+  until it expires: after 30 days, or what the project chooses between 24
+  hours and 60 days. On a public repository's
   pull request, that means everyone. Screenshots can show your app, your
   code or your data.
 - **Commit emails become public.** If you set a commit email, it goes into
-  the `Co-authored-by` lines of the commits agents make for you. Everyone
-  who can read the repository sees it, and it stays in the repository's
-  history for good.
+  the `Co-authored-by` lines of the commits agents make in the sessions you
+  start, unless the project turns that off. Everyone who can read the
+  repository sees it, and it stays in the repository's history: removing it
+  here doesn't change commits already made.
 - **Linear**: if your workspace connects Linear, we keep our app's access to
   your Linear workspace (encrypted), and who you are there once you link
   your Linear account. A ticket you delegate to fctl there goes to its
@@ -60,8 +68,8 @@ responsible for your data there.
 
 ## Who we are
 
-fctl.sh and app.fctl.sh are run by fctl's maintainers and collaborators: the
-people who maintain fctl in the
+fctl.sh and app.fctl.sh are run by fctl's maintainers: the people who
+maintain fctl in the
 [hyperstructure](https://github.com/hyperstructure) organization on GitHub.
 hyperstructure is not a company, and no business runs these services.
 Together, these people are the controller of the personal data described
@@ -208,8 +216,8 @@ account, you can ask for early access on its sign-in page.
     start with; when it runs (a cron expression and a time zone, a time to
     run once, or only when asked); the model, effort level, branch and
     GitHub access its sessions start with; whose Claude account it runs on;
-    who set it up and last changed it, and when; and why it is paused, when
-    fctl paused it;
+    who set it up and last changed it, and when; and, when fctl paused it,
+    why;
   - for each of its runs: when it was due and started; what started it (its
     time, a person, or another tool with someone's access token, and
     whose); and the session it started, or why it started none;
@@ -245,8 +253,8 @@ account, you can ask for early access on its sign-in page.
   reported. If you keep your Claude token on your own hosts instead, you
   don't give it to us: we keep only that you connected it that way, and
   that usage.
-- **GitHub**: app.fctl.sh never signs you in with GitHub, and never acts on
-  GitHub as you. Agents work with our GitHub App's short-lived tokens,
+- **GitHub**: you never sign in to app.fctl.sh with GitHub. Agents work
+  with our GitHub App's short-lived tokens,
   limited to their project's repositories, within the GitHub accounts its
   workspace uses. The only GitHub sign-in is an admin's, when they connect
   a GitHub account to a workspace (above).
@@ -429,7 +437,8 @@ They receive data under their own privacy policies.
   your data doesn't cover Anthropic: that account's agreement and settings
   do. Whose account it is:
   - **Sessions**: the account of the person who started the session,
-    whoever wrote the messages in it. If a session joins Remote Control,
+    whoever wrote the messages in it. A schedule's runs follow the
+    schedule's rule, below. If a session joins Remote Control,
     the conversation is also available in that account's Claude apps.
   - **Review agents**: the account of the project owner who turned them on,
     or took them over. The pull requests they review go there. Those of
@@ -463,7 +472,8 @@ They receive data under their own privacy policies.
     requests, with a check on each commit and a reaction. Where the
     project's owners turn it on, they also put a summary at the end of each
     pull request's description. Our review app, fctl-review, posts them
-    where the account installed it, and our GitHub App elsewhere.
+    where the repository's GitHub account installed it, and our GitHub App
+    elsewhere.
   - In projects whose follow-ups are on, our GitHub App reacts to each
     comment it passes on to an agent.
   - **Commit emails are public.** If you set a commit email, the commits
@@ -547,7 +557,7 @@ which see the request from your browser: GitHub accounts' pictures, Google
 pictures saved as an address before we kept copies, and profile pictures
 people gave as an address on another site before they could upload them.
 
-### When the law requires it
+### Disclosures and transfers
 
 We may disclose personal data when the law requires it, or when it is
 necessary to protect the rights, property or safety of our users, others or
@@ -574,9 +584,9 @@ clauses.
   - Sessions you started in workspaces that others are in stay with their
     projects, shown as started by a deleted user: your name, email
     addresses and picture are removed from them.
-  - So do the notes you, or your sessions' agents, wrote in their projects'
-    memories, without your name, and the schedules you set up or took over,
-    which stop running on your Claude account.
+  - The notes you, or your sessions' agents, wrote in their projects'
+    memories stay too, without your name, and so do the schedules you set
+    up or took over, which stop running on your Claude account.
 - **Your other email addresses**: until you disconnect them in Settings or
   delete your account. Disconnecting one takes you out of the workspaces
   you are in as that address.
@@ -674,8 +684,8 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   addresses, sign-in methods, passkeys and two-factor sign-in (without its
   secrets), devices and tokens, Claude connections (without their secrets)
   and their plan usage, your Linear accounts, notification settings and
-  browsers, and the workspaces you are in. From those open to you, it also
-  has the projects you are a member of, the notes you and your sessions'
+  browsers, and the workspaces you are in. From the workspaces open to you,
+  it also has the projects you are a member of, the notes you and your sessions'
   agents wrote in their memories, the sessions you started with their full
   transcripts, the sessions you follow, and your activity log. Sessions of
   workspaces you left stay with those workspaces.
