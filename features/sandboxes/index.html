@@ -76,7 +76,7 @@
           <div class="reveal">
             <span class="num">Quick</span>
             <strong>Up in seconds</strong>
-            <p>From an image the runner already has, with the project's package downloads kept between sessions.</p>
+            <p>From an image the runner already has, with the project's package downloads kept between sessions on Apple container and Docker runners.</p>
           </div>
           <div class="reveal">
             <span class="num">Sized</span>
@@ -86,7 +86,7 @@
           <div class="reveal">
             <span class="num">Yours</span>
             <strong>Your own image</strong>
-            <p>Use fctl's, name one in a registry, or let runners build it from a Dockerfile in the repository.</p>
+            <p>Use fctl's, name one in a registry, or let Apple container and Docker runners build it from a Dockerfile in the repository.</p>
           </div>
         </div>
 
@@ -127,8 +127,9 @@
             <h2 id="dockerfile">Purpose-built, from your own Dockerfile.</h2>
             <p>
               When a project needs more than the default image, keep the recipe next to the code. Name a Dockerfile
-              or a <code>devcontainer.json</code> in the repository, and each runner builds the image the first time a
-              session needs it, then again only when the recipe or the directory it copies from changes.
+              or a <code>devcontainer.json</code> in the repository, and each Apple container or Docker runner builds the
+              image the first time a session needs it, then again only when the recipe or the directory it copies from
+              changes.
             </p>
             <p>
               Here milkfloat's sandboxes add the solvers its benchmarks compare against, and maturin for its Python
@@ -164,8 +165,8 @@
             <h2 id="settings">Set up once, the same every time.</h2>
             <p>
               A setup script runs in the fresh clone before the agent starts: <code>npm ci</code>, <code>cargo fetch</code>,
-              a database migration. With package caches on, each runner keeps the project's downloads, so the
-              script fetches only what is new.
+              a database migration. With package caches on, each Apple container or Docker runner keeps the project's
+              downloads, so the script fetches only what is new.
             </p>
             <ul class="f-list">
               <li><strong>Caches for the usual suspects.</strong> npm, pnpm, Yarn, Bun, Cargo, uv, pip, Go modules and Playwright's browsers.</li>
@@ -185,7 +186,8 @@
             <p>
               Runners use what their machine has. <code>fctl host install</code> looks, and picks: Apple's own
               <code>container</code> runtime on a Mac with Apple silicon, Docker on Linux and on any Mac that prefers it.
-              On Linux with KVM, <code>--driver firecracker</code> gives each session a microVM of its own instead.
+              On Linux with KVM, <code>--driver firecracker</code> gives each session a microVM of its own instead, for
+              now as an experiment.
               Whichever it is, the agent gets the same Linux, the same image and the same tools.
             </p>
           </div>
@@ -204,12 +206,12 @@
             <article class="reveal" style="--glow: var(--c-blue)">
               <span class="menu-icon b"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="5.5" width="13" height="13" rx="2.5" /><rect x="9.5" y="9.5" width="5" height="5" rx="1" /><path d="M9 2.5v3M15 2.5v3M9 18.5v3M15 18.5v3M2.5 9h3M2.5 15h3M18.5 9h3M18.5 15h3" /></svg></span>
               <h3>Firecracker</h3>
-              <p>Each session is a microVM with a Linux kernel of its own, from Firecracker, the virtual machine monitor AWS Lambda runs on. Nothing on the host runs as root.</p>
+              <p>Experimental: each session is a microVM with a Linux kernel of its own, from Firecracker, the virtual machine monitor AWS Lambda runs on. Nothing on the host runs as root.</p>
               <dl>
                 <dt>isolation</dt><dd>A microVM per session</dd>
                 <dt>runs on</dt><dd>Linux machines with KVM, x86_64 or arm64</dd>
-                <dt>images</dt><dd>fctl's or a registry's, pulled without Docker</dd>
-                <dt>caches</dt><dd>None yet: the VMs share no files with the host</dd>
+                <dt>images</dt><dd>fctl's or a registry's, pulled without Docker; it builds none</dd>
+                <dt>caches</dt><dd>None: the VMs share no files with the host</dd>
               </dl>
             </article>
             <article class="reveal" style="--glow: var(--c-pink)">
