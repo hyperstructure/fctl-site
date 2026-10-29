@@ -160,7 +160,8 @@ account, you can ask for early access on its sign-in page.
   each review, its session, the pull request it reviews (its repository,
   number, title and link, and its author's GitHub login), the commit, how
   it went (how many findings it posted, marked fixed or left open, or why
-  it stopped), the link to the review it posted and its check on GitHub.
+  it stopped), the link to the review it posted and its check on GitHub,
+  and which of our two GitHub Apps posted them.
 - **Schedules**: for each of a project's schedules, its name, the task its
   sessions start with, when it runs (a cron expression and a time zone, a
   time to run once, or only when asked), the model, effort level, branch
@@ -200,7 +201,12 @@ account, you can ask for early access on its sign-in page.
   instead, you don't give it to us: we keep only that you connected it
   that way, and that usage.
 - **GitHub**: the repositories you link through our GitHub App, and the
-  branches and pull requests agents create. We never sign you in to GitHub;
+  branches and pull requests agents create. Review agents post their
+  reviews through our second app, fctl-review, where your GitHub account
+  installed it, and through the first otherwise; to show a workspace
+  where it is installed, we ask GitHub about its installations on the
+  workspace's accounts and the repositories they reach, and keep none of
+  it. We never sign you in to GitHub;
   agents work with short-lived tokens limited to their project's
   repositories, within the GitHub accounts its workspace uses. GitHub also
   tells us, through our app's webhook, when pull requests and their checks
@@ -357,11 +363,13 @@ processing terms:
   subscription and how big it is, but not what it says.
 - **GitHub**, for the repositories you link: agents push branches and open
   pull requests there, and we ask GitHub what became of the pull requests
-  sessions list. In projects whose review agents are on, our GitHub App
-  posts their reviews on the pull requests, with a check on each commit
+  sessions list. In projects whose review agents are on, our review app,
+  fctl-review, posts their reviews on the pull requests where the account
+  installed it, and our GitHub App elsewhere, with a check on each commit
   and a reaction, where everyone who can read the repository sees them. In
-  projects whose follow-ups are on, it reacts to each comment it passes on
-  to an agent, which everyone who can read the repository sees too.
+  projects whose follow-ups are on, our GitHub App reacts to each comment
+  it passes on to an agent, which everyone who can read the repository
+  sees too.
   If you set a commit email, the commits agents make
   in the sessions you start end with a `Co-authored-by` line that has your
   name and that address, unless the project's maintainers turn that off.
