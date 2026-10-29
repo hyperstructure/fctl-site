@@ -8,13 +8,18 @@ const page = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 const require = createRequire(import.meta.url);
 
 /**
- * The favicon (also the mark in the nav, and fctl-sh's avatar in the pages' GitHub threads), the home
- * screen icon, the mark at 512 px (app.fctl.sh's link preview image) and fctl-review's avatar (the
- * app review agents post as, in those threads), and where they are in @hyperstructure/design.
- * fctl.sh's own link previews are in public/og (scripts/og.mjs).
+ * The favicon (also the mark in the nav, and fctl-sh's avatar in the pages' GitHub threads), the
+ * favicon for search results, the home screen icon, the mark at 512 px (app.fctl.sh's link preview
+ * image) and fctl-review's avatar (the app review agents post as, in those threads), and where they
+ * are in @hyperstructure/design. fctl.sh's own link previews are in public/og (scripts/og.mjs).
  */
 const BRAND_ASSETS: Record<string, string> = {
   "favicon.svg": "assets/favicon.svg",
+  // The favicon for search results: Google Search takes no SVG, and crops a favicon that is
+  // opaque to its edges into its circle, where it draws one with transparent corners, like
+  // favicon.svg, small on a white disc. Tabs still show favicon.svg: Chrome prefers an icon
+  // link without sizes there, and Firefox an SVG.
+  "icon-maskable-512.png": "assets/icons/icon-maskable-512.png",
   "apple-touch-icon.png": "assets/icons/apple-touch-icon.png",
   "icon-512.png": "assets/icons/icon-512.png",
   "fctl-review.svg": "assets/fctl-review/avatar.svg",

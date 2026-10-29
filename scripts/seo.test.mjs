@@ -74,6 +74,7 @@ function page(path, o = {}) {
     description = `What is at ${path}.`,
     canonical = url,
     image = "https://fctl.sh/og/home.png",
+    favicon = '<link rel="icon" href="/icon-maskable-512.png" type="image/png" sizes="512x512" />',
     head = "",
     body = "<h1>A page</h1>",
   } = o;
@@ -93,13 +94,15 @@ function page(path, o = {}) {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="The page's heading" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    ${favicon}
     ${head}
   </head>
   <body>${body}</body>
 </html>`;
 }
 
-/** dist with a landing page, a feature page, a docs page and the landing page's image. */
+/** dist with a landing page, a feature page, a docs page, the landing page's image and the favicons. */
 function dist(changes = {}) {
   return new Map(
     Object.entries({
@@ -107,6 +110,8 @@ function dist(changes = {}) {
       "features/sessions/index.html": page("/features/sessions/"),
       "docs/cli/index.html": page("/docs/cli/", { body: '<h1>The CLI</h1><h2 id="run">Run</h2>' }),
       "og/home.png": png(1200, 630),
+      "favicon.svg": Buffer.from("<svg/>"),
+      "icon-maskable-512.png": png(512, 512),
       ...changes,
     }),
   );
@@ -146,6 +151,27 @@ test("a link preview that isn't there, or isn't 1200 × 630, fails", () => {
     errors.some((e) => /^index.html: og:image .* is not a 1200 × 630 PNG/.test(e)),
     errors.join("\n"),
   );
+});
+
+test("a page without a square PNG favicon of 48 px or more, with its sizes, fails", () => {
+  const svgOnly = audit(dist({ "index.html": page("/", { body: "<h1>Home</h1>", favicon: "" }) }));
+  assert.deepEqual(svgOnly.errors, [
+    "index.html: has no PNG favicon, which search results need (they take no SVG)",
+  ]);
+  const icon = (href, sizes) => `<link rel="icon" href="${href}" type="image/png" sizes="${sizes}" />`;
+  const { errors } = audit(
+    dist({
+      "features/sessions/index.html": page("/features/sessions/", { favicon: icon("/icon-32.png", "32x32") }),
+      "docs/cli/index.html": page("/docs/cli/", { favicon: icon("/favicon.svg", "any") }),
+      "index.html": page("/", { body: "<h1>Home</h1>", favicon: icon("/icon-maskable-512.png", "192x192") }),
+      "icon-32.png": png(32, 32),
+    }),
+  );
+  assert.deepEqual(errors, [
+    "docs/cli/index.html: favicon /favicon.svg is not a PNG in dist",
+    "features/sessions/index.html: favicon /icon-32.png is 32 × 32, not a square of at least 48 px",
+    'index.html: favicon /icon-maskable-512.png has sizes="192x192", not 512x512',
+  ]);
 });
 
 test("two pages with one title fail", () => {

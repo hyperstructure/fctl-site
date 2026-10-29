@@ -6,6 +6,8 @@
 //   - a canonical link to its own address, and og:url the same;
 //   - og:title, og:description, og:image and twitter:card summary_large_image,
 //     with an image 1200 × 630 in dist (scripts/og.mjs renders them);
+//   - a PNG favicon, square, at least 48 px and with sizes that say so: Google
+//     Search takes no SVG one;
 //   - structured data (JSON-LD) that parses, with breadcrumbs that lead to
 //     pages of the site;
 //   - one h1, and alternative text on every image.
@@ -33,6 +35,9 @@ export const cardPath = (path) => `/og/${path === "/" ? "home" : path.replace(/^
 
 /** Search results show about this much of a title and of a description. */
 export const LIMITS = { title: 60, description: 160 };
+
+/** The smallest favicon side, in pixels, that looks sharp in search results (Google's advice). */
+export const FAVICON = 48;
 
 /** Paths the Worker answers itself, not files in dist. */
 const WORKER_PATHS = ["/install", "/releases/"];
@@ -181,6 +186,19 @@ export function audit(files) {
       const w = Number(meta.get("og:image:width"));
       const h = Number(meta.get("og:image:height"));
       if (w !== CARD.width || h !== CARD.height) problem(`og:image:width and height say ${w} × ${h}`);
+    }
+
+    const favicons = tags(html, "link").filter((l) => l.rel === "icon" && l.type === "image/png");
+    if (!favicons.length) problem("has no PNG favicon, which search results need (they take no SVG)");
+    for (const { href, sizes } of favicons) {
+      const bytes = files.get(href?.slice(1) ?? "");
+      const size = bytes instanceof Buffer ? pngSize(bytes) : undefined;
+      if (!size) problem(`favicon ${href} is not a PNG in dist`);
+      else if (size.width !== size.height || size.width < FAVICON) {
+        problem(`favicon ${href} is ${size.width} × ${size.height}, not a square of at least ${FAVICON} px`);
+      } else if (sizes !== `${size.width}x${size.height}`) {
+        problem(`favicon ${href} has sizes="${sizes ?? ""}", not ${size.width}x${size.height}`);
+      }
     }
 
     for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
