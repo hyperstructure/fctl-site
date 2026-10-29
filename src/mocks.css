@@ -449,6 +449,12 @@
 .gh-meta b {
   color: var(--g-ink);
 }
+/* As tall as the avatar beside it, from its top, so that the name, the tag and the time sit on its
+   middle, as on GitHub. */
+.gh-comment .gh-meta {
+  margin-top: 0;
+  min-height: 26px;
+}
 .gh-comment h4 {
   margin-top: 8px;
   font-size: 15.5px;
