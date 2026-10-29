@@ -108,7 +108,7 @@
             </div>
           </div>
           <p class="works rise" style="--d: 260ms">
-            <span>Claude Code</span><span>Cloudflare Workers</span><span>Apple container</span><span>Docker</span
+            <span>Claude Code</span><span>Cloudflare Workers</span><span>Apple container</span><span>Firecracker</span><span>Docker</span
             ><span>GitHub</span><span>Linear</span>
           </p>
         </div>
@@ -122,9 +122,9 @@
             <div>
               <h3>Turn a machine into a runner</h3>
               <p>
-                One command registers it and starts it as a service. Each session gets its own lightweight
-                Linux VM — Apple's container runtime on a Mac, Docker on Linux — with a fresh clone, its own
-                branch and your project's setup script.
+                One command registers it and starts it as a service. Each session gets a Linux sandbox of its
+                own — a lightweight VM with Apple's container runtime on a Mac, a Firecracker microVM or a Docker
+                container on Linux — with a fresh clone, its own branch and your project's setup script.
               </p>
               <pre><code><span class="prompt">$</span> fctl host install</code></pre>
               <p class="step-links">
@@ -226,7 +226,7 @@
               <h3><a class="card-link" href="/features/runners/">Runners and sandboxes</a></h3>
               <p>
                 One command turns a Mac or a Linux box into a runner. Every session gets a fresh sandbox of its own
-                there, in Apple's container runtime or Docker.
+                there, in Apple's container runtime, a Firecracker microVM or Docker.
               </p>
               <span class="card-more card-pair">
                 <span>Runners <span aria-hidden="true">→</span></span>
@@ -463,7 +463,7 @@
               </div>
               <div class="map-node" data-host="linux">
                 <span class="map-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="6.5" rx="1.8" /><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.8" /><path d="M7 7.25h.01M7 16.75h.01" /></svg></span>
-                <span><strong>A Linux box</strong><small>Docker</small></span>
+                <span><strong>A Linux box</strong><small>Firecracker or Docker</small></span>
               </div>
             </div>
             <div class="map-col map-sandboxes">
