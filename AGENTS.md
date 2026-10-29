@@ -21,6 +21,7 @@ npx wrangler dev                     # the Worker with the built assets (after a
   there, tag a release, then bump the tag here. The `brand-assets` plugin in
   `vite.config.ts` serves the package's `favicon.svg` (also the mark in each
   page's nav, and fctl-sh's avatar in the pages' GitHub threads),
+  `icon-maskable-512.png` (the favicon in search results),
   `apple-touch-icon.png`, `icon-512.png` (app.fctl.sh's link preview image)
   and `fctl-review.svg` (fctl-review's avatar, the review agent's in those
   threads); don't copy them into the pages.
@@ -28,7 +29,11 @@ npx wrangler dev                     # the Worker with the built assets (after a
   (at most 60 characters) and description (at most 160), a canonical link to
   its address, Open Graph and Twitter tags, and structured data (JSON-LD):
   the site and fctl itself on the landing page, breadcrumbs on the feature
-  and docs pages. Copy a neighbour's head for a new page. Its link preview,
+  and docs pages. Beside `favicon.svg`, which browsers show, it links the
+  mark yellow to the edges as a PNG for search results: Google Search takes
+  no SVG favicon, and fills its circle only with one that is opaque to its
+  edges (it draws one with transparent corners small on a white disc). Copy a
+  neighbour's head for a new page. Its link preview,
   `og:image`, is its hero at 1200 × 630 in `public/og/` at its path
   (`/features/sessions/` → `og/features/sessions.png`), rendered by
   `scripts/og.mjs` with Playwright, as its header says; render it again when
