@@ -155,8 +155,9 @@ account, you can ask for early access on its sign-in page.
   its task boxes start on next time.
 - **Review agents**, in projects whose owners turn them on: whether they
   are on, whose Claude account they run on, the model, effort level and
-  instructions they review with, the GitHub Apps whose pull requests they
-  review without being asked, whether they sum pull requests up in their
+  instructions they review with, the repositories they skip, whether
+  drafts get reviews, the GitHub Apps whose pull requests they review
+  without being asked, whether they sum pull requests up in their
   descriptions, and who changed that and when; and for each review, its
   session, the pull request it reviews (its repository, number, title and
   link, and its author's GitHub login), the commit, how it went (how many
@@ -219,9 +220,11 @@ account, you can ask for early access on its sign-in page.
   state, when it changed, their latest commit and how many of their checks
   passed, failed or haven't finished. In projects whose review agents are
   on, we also start a review when a pull request in their repositories
-  opens or gets a new commit, if its author may write to the repository,
-  or one of fctl's agents or of the GitHub Apps the project's owners chose
-  opened it (others' when someone in the project asks for their review),
+  opens or gets a new commit (a draft's only once it's marked ready for
+  review, where the owners chose so), if its author may write to the
+  repository, or one of fctl's agents or of the GitHub Apps the project's
+  owners chose opened it (others' when someone in the project asks for
+  their review),
   and keep what the review needs (above). While the owners choose those
   apps, we ask GitHub which apps opened the newest pull requests in the
   project's repositories, and about the apps they name, and keep none of
