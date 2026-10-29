@@ -511,9 +511,12 @@ clauses.
   deletes it, or the project is deleted. Marking a note stale keeps it.
 - **Retrospectives**: as long as their session, until someone who manages
   the session deletes one or the project is deleted.
-- **Review agents**: their settings as long as the project; each review as
-  long as its session, until the project is deleted. Reviews posted on
-  GitHub stay there, where the repository's owners control them.
+- **Review agents**: their settings as long as the project; each review,
+  the summary it put in the pull request's description included, as long
+  as its session, until the project is deleted. Reviews posted on GitHub,
+  and summaries in pull requests' descriptions, stay there until someone
+  edits or deletes them (GitHub keeps a description's earlier versions in
+  its edit history), where the repository's owners control them.
 - **Schedules**: until their owner or one of the project's maintainers or
   owners deletes them, or the project is deleted; each schedule's newest
   100 runs, as long as the schedule. Deleting a schedule leaves the
