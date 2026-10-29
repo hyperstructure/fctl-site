@@ -363,11 +363,13 @@ processing terms:
   subscription and how big it is, but not what it says.
 - **GitHub**, for the repositories you link: agents push branches and open
   pull requests there, and we ask GitHub what became of the pull requests
-  sessions list. In projects whose review agents are on, our GitHub App
-  posts their reviews on the pull requests, with a check on each commit
+  sessions list. In projects whose review agents are on, our review app,
+  fctl-review, posts their reviews on the pull requests where the account
+  installed it, and our GitHub App elsewhere, with a check on each commit
   and a reaction, where everyone who can read the repository sees them. In
-  projects whose follow-ups are on, it reacts to each comment it passes on
-  to an agent, which everyone who can read the repository sees too.
+  projects whose follow-ups are on, our GitHub App reacts to each comment
+  it passes on to an agent, which everyone who can read the repository
+  sees too.
   If you set a commit email, the commits agents make
   in the sessions you start end with a `Co-authored-by` line that has your
   name and that address, unless the project's maintainers turn that off.
