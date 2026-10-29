@@ -201,10 +201,10 @@ account, you can ask for early access on its sign-in page.
     time.
 - **Review agents**, in projects whose owners turn them on:
   - their settings: whether they are on, whose Claude account they run on,
-    the model, effort level and instructions they review with, the GitHub
-    Apps whose pull requests they review without being asked, whether they
-    sum pull requests up in their descriptions, and who changed that and
-    when;
+    the model, effort level and instructions they review with, the
+    repositories they skip, whether drafts get reviews, the GitHub Apps
+    whose pull requests they review without being asked, whether they sum
+    pull requests up in their descriptions, and who changed that and when;
   - for each review: its session; the pull request it reviews (its
     repository, number, title and link, and its author's GitHub login) and
     the commit; how it went (how many findings it posted, marked fixed or
@@ -277,11 +277,12 @@ account, you can ask for early access on its sign-in page.
     GitHub about its installations on the workspace's accounts and the
     repositories they reach, and keep none of it.
   - In projects whose review agents are on, we start a review when a pull
-    request in their repositories opens or gets a new commit, if its author
-    may write to the repository, or if one of fctl's agents, or one of the
-    GitHub Apps the project's owners chose, opened it. Others get a review
-    when someone in the project asks for one. We keep what the review needs
-    (above). While the owners choose those apps, we ask GitHub which apps
+    request in their repositories opens or gets a new commit (a draft's
+    only once it's marked ready for review, where the owners chose so), if
+    its author may write to the repository, or if one of fctl's agents, or
+    one of the GitHub Apps the project's owners chose, opened it. Others get
+    a review when someone in the project asks for one. We keep what the
+    review needs (above). While the owners choose those apps, we ask GitHub which apps
     opened the newest pull requests in the project's repositories, and
     about the apps they name, and keep none of it.
   - In projects whose follow-ups are on, some of what happens to a pull
