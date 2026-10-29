@@ -360,7 +360,7 @@ recipient's address and the message to our email provider.
 
 ### Cookies and browser storage
 
-app.fctl.sh sets six cookies, all needed for it to work:
+app.fctl.sh sets seven cookies, all needed for it to work:
 
 | Cookie | What for | How long |
 |---|---|---|
@@ -369,6 +369,7 @@ app.fctl.sh sets six cookies, all needed for it to work:
 | `__Host-fctl-2fa` | Holds a sign-in that waits for your two-factor code | 10 minutes |
 | `__Host-fctl-github` | Protects the GitHub sign-in that connects a GitHub account to a workspace | The 10 minutes it may take |
 | `__Host-fctl-github-install` | Holds which workspace you install our GitHub App from, or give it more repositories from, so that GitHub's way back leads there | The hour it may take |
+| `__Host-fctl-github-review-install` | Holds which workspace you install our review app, fctl-review, from, or give it more repositories from, so that GitHub's way back leads there | The hour it may take |
 | `__Host-fctl-linear` | Protects the Linear sign-in that installs our app in a Linear workspace or links your Linear account | The 10 minutes it may take |
 
 Your browser also keeps:

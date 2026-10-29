@@ -1,15 +1,17 @@
 ---
-updated: 2026-10-18
-description: The terms for using fctl.sh and app.fctl.sh, the fctl instance hyperstructure runs.
+updated: 2026-10-29
+description: The terms for using fctl.sh and app.fctl.sh, the fctl instance fctl's maintainers run.
 ---
 
 # Terms of service
 
 These terms apply to [fctl.sh](https://fctl.sh) and
-[app.fctl.sh](https://app.fctl.sh) (the "services"), which
-[hyperstructure](https://github.com/hyperstructure) ("we", "us") runs. By using the services, you agree to these terms. If you
-use them on behalf of an organization, you agree to them for that
-organization and confirm that you may.
+[app.fctl.sh](https://app.fctl.sh) (the "services"), which fctl's
+maintainers ("we", "us") run: the people who maintain fctl in the
+[hyperstructure](https://github.com/hyperstructure) organization on GitHub,
+not a company. By using the services, you agree to these terms. If you use
+them on behalf of an organization, you agree to them for that organization
+and confirm that you may.
 
 The fctl software is open source under the
 [MIT license](https://github.com/hyperstructure/fctl/blob/main/LICENSE). The
@@ -67,7 +69,9 @@ messages, code, files, transcripts and secrets. You keep all rights to it.
 You allow us to host, store, copy, transmit and display it only as needed to
 run the services for you and for the people you share it with, which for
 the screenshots your agents publish means anyone who has their links. We do
-not use it to train AI models.
+not use it to train AI models. What your agents send to Anthropic goes
+through a Claude account, under that account's agreement with Anthropic,
+not these terms: the [privacy policy](/privacy) says whose account.
 
 You are responsible for your content and for having the right to use it,
 including the code and data your agents work with. Keep your own copies of
