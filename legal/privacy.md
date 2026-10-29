@@ -377,9 +377,9 @@ processing terms:
   (what they work on, their steps, their pull requests, their replies and
   questions), adds the session's link to the ticket, and moves a ticket on
   through its team's workflow as its session works (to In Progress, In
-  Review and Done), as far as the project lets it. Agents read, file,
-  comment on and change the tickets of their project's teams through
-  fctl, in our app's name.
+  Review and Done), as far as the project lets it. Through fctl, agents
+  read, file, comment on and change the tickets their project takes from
+  Linear, in our app's name.
   Everyone who can see a ticket in Linear sees what we post on it. When
   you link your Linear account, we send you to Linear to sign in, and
   Linear gives us a short-lived token that tells us who you are there. We
