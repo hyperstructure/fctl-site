@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-28
+updated: 2026-10-29
 description: What personal data hyperstructure collects on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -375,10 +375,11 @@ processing terms:
 - **Linear**, where a workspace connects a Linear workspace: our app shows
   what agents do in the agent sessions of the tickets delegated to it
   (what they work on, their steps, their pull requests, their replies and
-  questions), adds the session's link to the ticket, and moves a ticket to
-  its team's first started state as its session starts, unless the
-  project turns that off. Agents read, file, comment on and change the
-  tickets of their project's team through fctl, in our app's name.
+  questions), adds the session's link to the ticket, and moves a ticket on
+  through its team's workflow as its session works (to In Progress, In
+  Review and Done), as far as the project lets it. Agents read, file,
+  comment on and change the tickets of their project's teams through
+  fctl, in our app's name.
   Everyone who can see a ticket in Linear sees what we post on it. When
   you link your Linear account, we send you to Linear to sign in, and
   Linear gives us a short-lived token that tells us who you are there. We
