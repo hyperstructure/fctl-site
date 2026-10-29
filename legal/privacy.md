@@ -156,12 +156,15 @@ account, you can ask for early access on its sign-in page.
 - **Review agents**, in projects whose owners turn them on: whether they
   are on, whose Claude account they run on, the model, effort level and
   instructions they review with, the GitHub Apps whose pull requests they
-  review without being asked, and who changed that and when; and for
-  each review, its session, the pull request it reviews (its repository,
-  number, title and link, and its author's GitHub login), the commit, how
-  it went (how many findings it posted, marked fixed or left open, or why
-  it stopped), the link to the review it posted and its check on GitHub,
-  and which of our two GitHub Apps posted them.
+  review without being asked, whether they sum pull requests up in their
+  descriptions, and who changed that and when; and for each review, its
+  session, the pull request it reviews (its repository, number, title and
+  link, and its author's GitHub login), the commit, how it went (how many
+  findings it posted, marked fixed or left open, or why it stopped), the
+  summary its agent put in the pull request's description (how risky it
+  looked, why, what it does and what deserved a closer look), the link to
+  the review it posted and its check on GitHub, and which of our two
+  GitHub Apps posted them.
 - **Schedules**: for each of a project's schedules, its name, the task its
   sessions start with, when it runs (a cron expression and a time zone, a
   time to run once, or only when asked), the model, effort level, branch
@@ -367,7 +370,9 @@ processing terms:
   sessions list. In projects whose review agents are on, our review app,
   fctl-review, posts their reviews on the pull requests where the account
   installed it, and our GitHub App elsewhere, with a check on each commit
-  and a reaction, where everyone who can read the repository sees them. In
+  and a reaction, and where the project's owners turn it on, a summary at
+  the end of each pull request's description, where everyone who can read
+  the repository sees them. In
   projects whose follow-ups are on, our GitHub App reacts to each comment
   it passes on to an agent, which everyone who can read the repository
   sees too.
