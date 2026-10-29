@@ -8,17 +8,19 @@ const page = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 const require = createRequire(import.meta.url);
 
 /**
- * The favicon (also the mark in the nav), the home screen icon and the mark at 512 px (app.fctl.sh's
- * link preview image), and where they are in @hyperstructure/design. fctl.sh's own link previews
- * are in public/og (scripts/og.mjs).
+ * The favicon (also the mark in the nav, and fctl-sh's avatar in the pages' GitHub threads), the home
+ * screen icon, the mark at 512 px (app.fctl.sh's link preview image) and fctl-review's avatar (the
+ * app review agents post as, in those threads), and where they are in @hyperstructure/design.
+ * fctl.sh's own link previews are in public/og (scripts/og.mjs).
  */
 const BRAND_ASSETS: Record<string, string> = {
   "favicon.svg": "assets/favicon.svg",
   "apple-touch-icon.png": "assets/icons/apple-touch-icon.png",
   "icon-512.png": "assets/icons/icon-512.png",
+  "fctl-review.svg": "assets/fctl-review/avatar.svg",
 };
 
-/** Serves and emits the favicon and icons from @hyperstructure/design (one source for the mark). */
+/** Serves and emits the favicon, icons and avatars from @hyperstructure/design (one source for the marks). */
 function brandAssets(): Plugin {
   const read = (file: string) =>
     readFileSync(require.resolve(`@hyperstructure/design/${BRAND_ASSETS[file]}`));

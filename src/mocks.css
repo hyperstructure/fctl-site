@@ -523,12 +523,19 @@
   color: var(--g-dim);
 }
 .gh-resolved span {
+  flex: none;
   padding: 3px 10px;
   border-radius: 6px;
   border: 1px solid var(--g-line);
   background: var(--g-button);
   color: var(--g-ink);
   font-weight: 500;
+  white-space: nowrap;
+}
+/* Who resolved it and how wraps beside the button, as GitHub's does. */
+.gh-resolved p {
+  margin: 0;
+  min-width: 0;
 }
 .gh-strike {
   text-decoration: line-through;
