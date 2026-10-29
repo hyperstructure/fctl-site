@@ -20,8 +20,10 @@ npx wrangler dev                     # the Worker with the built assets (after a
   `@hyperstructure/design` (pinned to a tag in package.json). Change them
   there, tag a release, then bump the tag here. The `brand-assets` plugin in
   `vite.config.ts` serves the package's `favicon.svg` (also the mark in each
-  page's nav), `apple-touch-icon.png` and `icon-512.png` (app.fctl.sh's link
-  preview image); don't copy them into the pages.
+  page's nav, and fctl-sh's avatar in the pages' GitHub threads),
+  `apple-touch-icon.png`, `icon-512.png` (app.fctl.sh's link preview image)
+  and `fctl-review.svg` (fctl-review's avatar, the review agent's in those
+  threads); don't copy them into the pages.
 - **Search engines and link previews**: every page's head has its own title
   (at most 60 characters) and description (at most 160), a canonical link to
   its address, Open Graph and Twitter tags, and structured data (JSON-LD):

@@ -449,6 +449,12 @@
 .gh-meta b {
   color: var(--g-ink);
 }
+/* As tall as the avatar beside it, from its top, so that the name, the tag and the time sit on its
+   middle, as on GitHub. */
+.gh-comment .gh-meta {
+  margin-top: 0;
+  min-height: 26px;
+}
 .gh-comment h4 {
   margin-top: 8px;
   font-size: 15.5px;
@@ -523,12 +529,19 @@
   color: var(--g-dim);
 }
 .gh-resolved span {
+  flex: none;
   padding: 3px 10px;
   border-radius: 6px;
   border: 1px solid var(--g-line);
   background: var(--g-button);
   color: var(--g-ink);
   font-weight: 500;
+  white-space: nowrap;
+}
+/* Who resolved it and how wraps beside the button, as GitHub's does. */
+.gh-resolved p {
+  margin: 0;
+  min-width: 0;
 }
 .gh-strike {
   text-decoration: line-through;
