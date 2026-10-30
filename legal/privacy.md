@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-29
+updated: 2026-10-30
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -353,8 +353,8 @@ recipient's address and the message to our email provider.
   reset by an admin, when a recovery code signs you in, and when wrong codes
   follow your password.
 - Notices when a passkey or a Google account is added to your account, an
-  email address is connected to it, or a Claude subscription is connected to
-  it.
+  email address is connected to it, a Claude subscription is connected to
+  it, or a Linear account is linked to it.
 - Notices when Google sign-ins stop asking you for a code, when your
   password is changed, set or reset, and when an admin makes a password
   reset link for you.
