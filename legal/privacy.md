@@ -1,5 +1,5 @@
 ---
-updated: 2026-10-30
+updated: 2026-11-01
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -248,7 +248,9 @@ account, you can ask for early access on its sign-in page.
   - that browser keeps a note of which account turned them on, and the
     app's service worker shows them.
 - **Your Claude connection**: the Claude credential you connect (encrypted),
-  with the Claude account's email address and subscription type. Also how
+  with the Claude account's email address, subscription type and, when you
+  sign in with a full Claude login, its rate limit tier, which tells Claude's
+  Ultra plan from Max. Also how
   much of the plan's usage limits is used, as your sessions last reported
   it: for each limit, the share used, when it resets and when it was
   reported. If you keep your Claude token on your own hosts instead, you
