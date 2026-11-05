@@ -16,7 +16,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { esc, markdown } from "./markdown.mjs";
+import { contents, esc, markdown } from "./markdown.mjs";
 import { asMarkdown, llmsFull, markdownUrl, PAGES, pageUrl, REPO, rewriteHref, SITE } from "./pages.mjs";
 import { breadcrumbs, cardPath, summary } from "./seo.mjs";
 
@@ -51,13 +51,19 @@ async function main() {
   const pages = [];
   for (const page of PAGES) {
     const source = await readFile(join(root, page.file), "utf8");
-    const {
-      title,
-      description,
-      html: body,
-    } = await render(source, {
+    const rendered = await render(source, {
       href: (href) => rewriteHref(href, page.file),
+      afterTitle: "<!--CONTENTS-->",
     });
+    const { title, description } = rendered;
+    // The table of contents goes under the title on narrow screens, and
+    // beside the page on wide ones (site.css).
+    const list = contents(rendered.headings);
+    const inline = list ? `<details class="doc-toc"><summary>On this page</summary>${list}</details>\n` : "";
+    const rail = list
+      ? `<nav class="docs-toc" aria-label="On this page"><p>On this page</p>${list}</nav>`
+      : "";
+    const body = rendered.html.replace("<!--CONTENTS-->", () => inline);
     const nav = PAGES.map((p) => {
       const current = p === page ? ' aria-current="page"' : "";
       return `<a href="${pageUrl(p)}"${current}>${esc(p.nav)}</a>`;
@@ -91,6 +97,7 @@ async function main() {
       .replace("<!--BREADCRUMBS-->", () => crumbs)
       .replace("<!--NAV-->", () => nav)
       .replace("<!--DOC-->", () => body)
+      .replace("<!--TOC-->", () => rail)
       .replace("<!--SOURCE-->", () => `${REPO}/edit/main/${page.file}`);
     const dir = join(dist, "docs", page.slug);
     await mkdir(dir, { recursive: true });
