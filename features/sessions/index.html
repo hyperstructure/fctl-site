@@ -116,7 +116,28 @@
           </div>
         </section>
 
-        <section class="f-section flip" aria-labelledby="back">
+        <section class="f-section flip" aria-labelledby="changes">
+          <div class="f-copy reveal">
+            <h2 id="changes">Every change, line by line.</h2>
+            <p>
+              Click a file under Changes and its diff opens over the page: highlighted as its language is, numbered as
+              the file is, with the words that changed marked. <code>j</code> and <code>k</code> step through the
+              session's other files, and <code>s</code> lays them side by side. The agent sends its diffs as it works,
+              so they're there while it's at it, and after the session has stopped.
+            </p>
+            <ul class="f-list">
+              <li><strong>Any language.</strong> Rust, TypeScript, Python, Terraform, Dockerfiles, lockfiles, <code>.env</code> files and many more.</li>
+              <li><strong>Before it's pushed.</strong> Uncommitted work counts: whatever the branch changed since it left its base.</li>
+              <li><strong>In your terminal, too.</strong> <code>fctl diff platform#437</code> prints them as git does, ready for <code>git apply</code>.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/sessions/diff-dark.webp" width="2200" height="1375" alt="platform#437's change to src/billing/charge.rs over its page: a charge now claims a key first, so a retry can't take the money twice. The session's other changed files are beside it." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/sessions/diff-light.webp" width="2200" height="1375" alt="platform#437's change to src/billing/charge.rs over its page: a charge now claims a key first, so a retry can't take the money twice. The session's other changed files are beside it." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="back">
           <div class="f-copy reveal">
             <h2 id="back">When the pull request needs it, the agent comes back.</h2>
             <p>
@@ -133,7 +154,7 @@
           </figure>
         </section>
 
-        <section class="f-section" aria-labelledby="floor">
+        <section class="f-section flip" aria-labelledby="floor">
           <div class="f-copy reveal">
             <h2 id="floor">Your factory, at a glance.</h2>
             <p>
@@ -144,7 +165,7 @@
             <ul class="f-list">
               <li><strong>Working, waiting, paused.</strong> Each row says which, with its ticket, branch and pull request.</li>
               <li><strong>Your plan's limits in view.</strong> How much of the five hours and the week your Claude plan has left.</li>
-              <li><strong>On your phone, too.</strong> The app installs to your home screen and notifies you when a session waits for you.</li>
+              <li><strong>On your phone, too.</strong> The app installs to your home screen, notifies you when a session waits for you, and shows what it changed, long lines wrapped.</li>
             </ul>
           </div>
           <div class="f-phones reveal">
@@ -153,8 +174,8 @@
               <img class="theme-light" src="/src/features/shots/sessions/phone-floor-light.webp" width="780" height="1576" alt="The Agent Floor on a phone." loading="lazy" />
             </figure>
             <figure class="phone">
-              <img class="theme-dark" src="/src/features/shots/sessions/phone-session-dark.webp" width="780" height="1576" alt="A session at work on a phone." loading="lazy" />
-              <img class="theme-light" src="/src/features/shots/sessions/phone-session-light.webp" width="780" height="1576" alt="A session at work on a phone." loading="lazy" />
+              <img class="theme-dark" src="/src/features/shots/sessions/phone-diff-dark.webp" width="780" height="1576" alt="shop#231's change to src/lib/money.ts on a phone: Danish kroner beside Swedish kronor." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/phone-diff-light.webp" width="780" height="1576" alt="shop#231's change to src/lib/money.ts on a phone: Danish kroner beside Swedish kronor." loading="lazy" />
             </figure>
           </div>
         </section>
