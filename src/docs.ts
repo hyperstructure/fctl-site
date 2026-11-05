@@ -40,7 +40,7 @@ if (toc) {
     // The last heading above the top of the window, below the sticky header.
     let reading: HTMLElement | undefined;
     for (const h of headings) {
-      if (h.getBoundingClientRect().top > 120) break;
+      if (h.getBoundingClientRect().top > 136) break;
       reading = h;
     }
     // At the bottom, the last sections' headings can't scroll up that far:
