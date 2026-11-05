@@ -3,6 +3,7 @@
 
 import "./site.css";
 import { menus } from "./nav";
+import { searchTriggers } from "./search";
 
 for (const pre of document.querySelectorAll<HTMLPreElement>(".doc pre")) {
   const button = document.createElement("button");
@@ -73,3 +74,4 @@ if (toc) {
   mark();
 }
 menus();
+searchTriggers();

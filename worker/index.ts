@@ -1,8 +1,10 @@
-// fctl.sh: static pages from the assets binding, plus two dynamic routes.
+// fctl.sh: static pages from the assets binding, plus some dynamic routes.
 //
 //   /install              the installer script (curl -fsSL https://fctl.sh/install | sh)
 //   /releases/latest      the latest version, as text ("0.1.0")
 //   /releases/v<x.y.z>/*  release archives and checksums, from the RELEASES KV namespace
+//   /api/search?q=        search over the docs, as JSON, and /docs/search/?q= as a page
+//                         (worker/search.ts, with SearchBudget from worker/budget.ts)
 //
 // Everything has one address, https://fctl.sh/<path>: requests over plain
 // HTTP, the installer's and releases' too, and to www.fctl.sh redirect there,
@@ -18,9 +20,16 @@
 // the KV namespace bound here as RELEASES. They are immutable once published,
 // so they cache for a year; `latest` for a minute.
 
-interface Env {
+import { SearchBudget } from "./budget.ts";
+import { type SearchEnv, searchApi, searchPage } from "./search.ts";
+
+export { SearchBudget };
+
+interface Env extends SearchEnv {
   ASSETS: Fetcher;
   RELEASES: KVNamespace;
+  SEARCH_DAILY_BUDGET?: string;
+  SEARCH_DAILY_PER_VISITOR?: string;
 }
 
 const RELEASE_KEY = /^(latest|v\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?\/[A-Za-z0-9][A-Za-z0-9._-]*)$/;
@@ -117,7 +126,7 @@ export function markdownPage(path: string): string | undefined {
   return `https://fctl.sh/docs/${m[1] === "index" ? "" : `${m[1]}/`}`;
 }
 
-async function handle(req: Request, env: Env): Promise<Response> {
+async function handle(req: Request, env: Env, ctx?: ExecutionContext): Promise<Response> {
   const url = new URL(req.url);
   if (url.protocol === "http:" || url.hostname.startsWith("www.")) {
     url.protocol = "https:";
@@ -136,6 +145,11 @@ async function handle(req: Request, env: Env): Promise<Response> {
     });
   }
   if (url.pathname.startsWith("/releases/")) return release(req, env, url.pathname);
+  if (url.pathname === "/api/search") return searchApi(req, env, ctx);
+  if (url.pathname === "/docs/search") {
+    return Response.redirect(`https://fctl.sh/docs/search/${url.search}`, 301);
+  }
+  if (url.pathname === "/docs/search/") return searchPage(req, env, ctx);
   const res = permanent(await env.ASSETS.fetch(req));
   const page = markdownPage(url.pathname);
   if (!page || !res.ok) return res;
@@ -145,9 +159,9 @@ async function handle(req: Request, env: Env): Promise<Response> {
 }
 
 export default {
-  async fetch(req: Request, env: Env): Promise<Response> {
+  async fetch(req: Request, env: Env, ctx?: ExecutionContext): Promise<Response> {
     try {
-      return await handle(req, env);
+      return await handle(req, env, ctx);
     } catch (e) {
       console.error("fctl.sh: request failed", req.method, new URL(req.url).pathname, e);
       return failure(req, env);

@@ -11,8 +11,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 export const ORIGIN = "https://fctl.sh";
 
-/** Not pages people search for: the error pages. */
-const SKIP = new Set(["404.html", "500.html"]);
+/** Not pages people search for: the error pages, and the docs' search, whose results are other pages. */
+const SKIP = new Set(["404.html", "500.html", "docs/search/index.html"]);
 
 /** Files that aren't HTML but belong in the sitemap. */
 const EXTRA = ["/llms.txt"];

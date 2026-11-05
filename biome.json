@@ -29,7 +29,14 @@
   },
   "overrides": [
     {
-      "includes": ["src/site.css", "src/features.css", "src/mocks.css", "src/home.css", "src/frames.css"],
+      "includes": [
+        "src/site.css",
+        "src/features.css",
+        "src/mocks.css",
+        "src/home.css",
+        "src/frames.css",
+        "src/search.css"
+      ],
       "linter": {
         "rules": {
           "complexity": {

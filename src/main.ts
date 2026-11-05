@@ -13,6 +13,7 @@ import { branches } from "./branches";
 import { footer } from "./footer";
 import { type MapLink, mapScene } from "./home-scenes";
 import { menus } from "./nav";
+import { searchTriggers } from "./search";
 
 document.documentElement.classList.add("js");
 
@@ -173,3 +174,4 @@ band();
 map();
 footer();
 menus();
+searchTriggers();
