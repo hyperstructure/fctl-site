@@ -443,10 +443,10 @@ They process personal data on our behalf, under data processing terms:
 
 By default, while you have no picture of your own, app.fctl.sh asks
 [Gravatar](https://gravatar.com), run by Automattic Inc., for your picture:
-when you sign up, and about once a day while you use app.fctl.sh, whether
-or not you have a Gravatar account. It sends
-the SHA-256 hash of your primary email address, not the address itself,
-and asks from our servers, not from your browser. Gravatar receives it under
+when you sign up, turn it on or change your primary address, and about once
+a day while you use app.fctl.sh, whether or not you have a Gravatar account.
+It sends the SHA-256 hash of your primary email address, not the address
+itself, and asks from our servers, not from your browser. Gravatar receives it under
 its own privacy policy, and can tell whether the hash is that of an address
 with a Gravatar account. You can turn this off under Settings → Profile, and
 removing your picture there turns it off too; an admin of app.fctl.sh can
@@ -620,10 +620,10 @@ nothing goes there.
     memories stay too, without your name, and so do the schedules you set
     up or took over, which stop running on your Claude account.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
-  or turn Gravatar off under Settings → Profile, an admin of app.fctl.sh
-  turns it off for everyone, your Gravatar goes (we look about once a day),
-  or you delete your account. A new picture on
-  Gravatar replaces it.
+  turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
+  it off for everyone, you no longer have a Gravatar (we look about once a
+  day, and delete the copy when you don't), or you delete your account. A
+  new picture on Gravatar replaces it.
 - **Your other email addresses**: until you disconnect them in Settings or
   delete your account. Disconnecting one takes you out of the workspaces
   you are in as that address.
