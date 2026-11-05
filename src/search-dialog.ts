@@ -102,7 +102,11 @@ let options: Option[] = [];
 let active = 0;
 let entries: TitleEntry[] = [];
 let titles: Promise<void> | undefined;
-/** The full search shown, for the query in the field. */
+/**
+ * The full search shown, for the query in the field. Results that match words only because of a
+ * limit (`notice`) last only until the field changes or the dialog opens again, when the row that
+ * runs a full search is back, so that Enter asks again.
+ */
 let shown: Results | undefined;
 let pending: { query: string; controller: AbortController } | undefined;
 /** A query whose full search couldn't reach fctl.sh. */
@@ -411,6 +415,7 @@ function build() {
   );
 
   input.addEventListener("input", () => {
+    if (shown?.notice) shown = undefined;
     const q = normalize(input.value);
     if (pending && pending.query !== q) {
       pending.controller.abort();
@@ -454,6 +459,7 @@ export function openSearch(query?: string) {
   ui ??= build();
   const { dialog, input } = ui;
   if (query !== undefined) input.value = query;
+  if (shown?.notice) shown = undefined;
   loadTitles();
   render();
   if (!dialog.open) {
