@@ -21,7 +21,8 @@ This policy doesn't apply to either.
 
 - **People run it, not a company.** fctl's maintainers run fctl.sh and
   app.fctl.sh ([Who we are](#who-we-are)).
-- **fctl.sh** has no analytics, no advertising and no cookies.
+- **fctl.sh** has no analytics, no advertising and no cookies. What you
+  type in its search goes to Cloudflare, to search the docs.
 - **app.fctl.sh** stores what it needs to run your factory: your account,
   the workspaces you are in, their projects and sessions, and the machines
   you connect. Agents run on those machines, not on ours. A session keeps
@@ -91,6 +92,17 @@ are kept for a few days.
 
 fctl.sh sets no cookies, stores nothing in your browser and loads nothing
 from other websites.
+
+When you search fctl's docs on fctl.sh, what you type goes to Cloudflare's
+AI Search, which finds the parts of the docs that match it. A search is part
+of the address you ask for, so it is in our request logs for a few days, as
+any address is. Cloudflare keeps a search's results, under what you
+typed, in the data center that answered it for up to an hour, so that the
+same search costs nothing again. So that nobody can search without end, fctl.sh
+counts the searches from your IP address (for IPv6, from the network it is
+in): for a minute in that data center, and for the rest of the day (UTC)
+under a hash of the address with a random value, which is deleted with the
+counts when the day ends, so that a count can't be traced back to you.
 
 The install script and `fctl host` download releases from fctl.sh. A host
 downloads each new release by itself, unless you turn that off. `fctl host`
@@ -430,6 +442,7 @@ There are no analytics or advertising cookies.
 | Passing the tickets people delegate to fctl in Linear on to the agents of the project that takes them, with their comments and the replies people write there, and showing what the agents do in Linear | Contract, and our legitimate interest in letting the teams that connect Linear hand their tickets to agents |
 | Looking up your Gravatar while you have no picture of your own, which we do by default, and showing it as your picture | Legitimate interests: showing the people you work with who you are, with the picture you published on Gravatar if you have one; you can turn it off |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
+| Searching fctl's docs for you on fctl.sh, and counting each address's searches so that nobody can search without end | Legitimate interests: helping people find what they need in the docs, at a cost we can keep paying |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
 
@@ -446,7 +459,7 @@ They process personal data on our behalf, under data processing terms:
 
 | Provider | What for | What they receive |
 |---|---|---|
-| Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs | Everything app.fctl.sh stores, and request data |
+| Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs, and fctl.sh's search | Everything app.fctl.sh stores, request data, and what people search for on fctl.sh |
 | Resend, Inc. | Sending invitations, password resets, and notices about how you sign in, when email is enabled | The recipient's address and the message |
 
 ### Gravatar
@@ -734,6 +747,9 @@ nothing goes there.
   once no machine they enrolled is left, and with their workspace.
 - **Audit logs**: one year.
 - **Request logs**: a few days.
+- **Searches on fctl.sh**: their results up to an hour in Cloudflare's cache.
+  The count of your searches for a minute, and, under a hash of your
+  address, until the end of the day (UTC).
 - **Backups**: Cloudflare keeps the database and storage recoverable for up
   to 30 days, so deleted data is gone for good after that.
 

@@ -57,8 +57,22 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
+      # Search (scripts/search-sync.mjs): the docs' new and changed sections go to
+      # the AI Search instance the Worker searches (fctl-docs) before the deploy, so
+      # that it is indexing them by the time the Worker that knows them goes live;
+      # the ones the docs no longer have go after it.
+      - name: Upload new search sections
+        run: node scripts/search-sync.mjs --keep
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       - name: Deploy
         run: npx --yes wrangler@4.151.1 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Sync search
+        run: node scripts/search-sync.mjs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -69,5 +83,10 @@ jobs:
           curl -fsS -o /dev/null https://fctl.sh/docs/getting-started/
           curl -fsS -o /dev/null https://fctl.sh/llms.txt
           curl -fsS -o /dev/null https://fctl.sh/docs/getting-started.md
+          curl -fsS https://fctl.sh/docs/search/ | grep -q "Search the docs"
+          # One full search (cached for an hour after): it answers, and its limits and AI Search work.
+          curl -fsS "https://fctl.sh/api/search?q=install%20the%20cli" > search.json
+          grep -q '"hits":\[{' search.json
+          if grep -q '"notice":"unavailable"' search.json; then cat search.json; exit 1; fi
           test "$(curl -s -o /dev/null -w '%{http_code}' https://www.fctl.sh/)" = 301
           test "$(curl -s -o /dev/null -w '%{redirect_url}' http://fctl.sh/docs/)" = https://fctl.sh/docs/

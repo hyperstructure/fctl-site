@@ -11,7 +11,7 @@ npm install
 npm run dev                          # landing page with hot reload
 FCTL_DOCS_DIR=../fctl npm run build  # build with docs from a local fctl checkout
 npm run check                        # Biome + TypeScript (src, vite config, worker); CI runs this
-npx wrangler dev                     # the Worker with the built assets (after a build)
+npx wrangler dev --local             # the Worker with the built assets (after a build)
 ```
 
 ## Where things come from
@@ -49,6 +49,13 @@ npx wrangler dev                     # the Worker with the built assets (after a
   at `/docs/index.md`), as Markdown whose links are absolute; fctl's
   `docs/llms.txt` is at `/llms.txt`, and `/llms-full.txt` is it followed by
   every page (https://llmstxt.org). Edit `llms.txt` in fctl too.
+- **Search**: the README's Search section. AI Search bills by the search:
+  keep every full search behind the cache, `SEARCH_LIMITER` and
+  `SearchBudget`, in that order (worker/search.ts), and test with
+  `npx wrangler dev --local`, where search matches words only, or with
+  scripts/search.test.mjs's stand-in for AI Search. Without `--local`,
+  wrangler dev asks the real instance. A change to what search sends
+  anywhere or keeps needs `legal/privacy.md` to say so.
 - **Legal pages**: `legal/privacy.md` and `legal/terms.md`, rendered by
   `scripts/legal.mjs` to `/privacy` and `/terms` (Google sign-in's consent
   screen links them). They state what app.fctl.sh stores, who receives it

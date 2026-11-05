@@ -11,6 +11,7 @@ import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foun
 import { footer } from "./footer";
 import { menus } from "./nav";
 import { featureScene, isSceneName } from "./scenes";
+import { searchTriggers } from "./search";
 
 document.documentElement.classList.add("js");
 
@@ -154,3 +155,4 @@ copyButtons();
 terminals();
 footer();
 menus();
+searchTriggers();

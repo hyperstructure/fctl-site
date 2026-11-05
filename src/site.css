@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "@hyperstructure/design/fonts.css";
 @import "@hyperstructure/design/tokens.css";
+@import "./search.css";
 
 /* The landing page and the docs, on the tokens of @hyperstructure/design. */
 
@@ -262,8 +263,8 @@
   white-space: nowrap;
 }
 @media (max-width: 640px) {
-  /* Docs, the Features menu and the app: the rest is in the footer. */
-  .nav nav > a:not(.nav-app):not(:first-of-type) {
+  /* Docs, the Features menu, search and the app: the rest is in the footer. */
+  .nav nav > a:not(.nav-app):not(.nav-search):not(:first-of-type) {
     display: none;
   }
   .menu {
@@ -858,10 +859,8 @@ pre .prompt {
   margin: 0 auto;
   padding: 48px clamp(16px, 5vw, 64px) 120px;
 }
+/* The sidebar: search (src/search.css) above the pages, sticky on wide screens. */
 .docs-nav {
-  position: sticky;
-  top: 90px;
-  align-self: start;
   display: grid;
   gap: 2px;
   font-size: 14px;
@@ -887,7 +886,6 @@ pre .prompt {
     grid-template-columns: minmax(0, 1fr);
   }
   .docs-nav {
-    position: static;
     display: flex;
     flex-wrap: wrap;
   }
@@ -1394,7 +1392,7 @@ pre .prompt {
 .err.live .err-hint {
   opacity: 1;
 }
-.err-page .nav nav > a:not(.nav-app):not(:first-of-type) {
+.err-page .nav nav > a:not(.nav-app):not(.nav-search):not(:first-of-type) {
   display: revert;
 }
 @media (max-width: 640px) {
@@ -1405,7 +1403,7 @@ pre .prompt {
   .err-code {
     width: 80vw;
   }
-  .err-page .nav nav > a:not(.nav-app):not(:first-of-type) {
+  .err-page .nav nav > a:not(.nav-app):not(.nav-search):not(:first-of-type) {
     display: none;
   }
 }

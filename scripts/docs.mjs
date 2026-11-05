@@ -4,7 +4,9 @@
 // time; pages ship no Markdown parser. For agents (https://llmstxt.org), it
 // also writes each page's Markdown to dist/docs/<slug>.md, fctl's
 // docs/llms.txt to dist/llms.txt, and both together to dist/llms-full.txt
-// (scripts/pages.mjs).
+// (scripts/pages.mjs). For search, it writes the search page,
+// dist/docs/search/index.html, which the Worker fills with results, and the
+// sections and titles it searches (scripts/search-index.mjs).
 //
 // Where the docs come from:
 //   FCTL_DOCS_DIR=<path to a checkout of fctl>   use it as is (local work, CI)
@@ -18,6 +20,8 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contents, esc, markdown } from "./markdown.mjs";
 import { asMarkdown, llmsFull, markdownUrl, PAGES, pageUrl, REPO, rewriteHref, SITE } from "./pages.mjs";
+import { sections, sectionsFile, titlesFile } from "./search-index.mjs";
+import { searchField, searchPage } from "./search-page.mjs";
 import { breadcrumbs, cardPath, summary } from "./seo.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -49,6 +53,7 @@ async function main() {
   const render = await markdown();
 
   const pages = [];
+  const found = [];
   for (const page of PAGES) {
     const source = await readFile(join(root, page.file), "utf8");
     const rendered = await render(source, {
@@ -95,6 +100,7 @@ async function main() {
         () => `<link rel="alternate" type="text/markdown" href="${markdownUrl(page)}" />`,
       )
       .replace("<!--BREADCRUMBS-->", () => crumbs)
+      .replace("<!--SIDE_SEARCH-->", () => searchField())
       .replace("<!--NAV-->", () => nav)
       .replace("<!--DOC-->", () => body)
       .replace("<!--TOC-->", () => rail)
@@ -106,12 +112,22 @@ async function main() {
     const md = asMarkdown(source, page.file);
     await writeFile(join(dist, markdownUrl(page)), md);
     pages.push({ page, markdown: md });
+    found.push(...sections(source, page, rendered));
   }
+  const search = join(dist, "docs", "search");
+  await mkdir(search, { recursive: true });
+  const index = sectionsFile(found);
+  await writeFile(join(search, "sections.json"), JSON.stringify(index));
+  await writeFile(join(search, "titles.json"), JSON.stringify(titlesFile(found)));
+  await writeFile(join(search, "index.html"), searchPage(template));
   await rm(join(dist, "docs.html"));
   const llms = await readFile(join(root, "docs/llms.txt"), "utf8");
   await writeFile(join(dist, "llms.txt"), llms);
   await writeFile(join(dist, "llms-full.txt"), llmsFull(llms, pages));
   console.log(`rendered ${PAGES.length} docs pages, their Markdown, llms.txt and llms-full.txt`);
+  console.log(
+    `indexed ${index.sections.length} sections for search (of ${found.length}), and the search page`,
+  );
 }
 
 await main();

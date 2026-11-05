@@ -15,13 +15,43 @@ directory = "dist"
 binding = "ASSETS"
 html_handling = "auto-trailing-slash"
 not_found_handling = "404-page"
-# Every request passes the Worker (it redirects www and serves /install and /releases).
+# Every request passes the Worker (it redirects www and serves /install, /releases and search).
 run_worker_first = true
 
 # Release archives, written by `cargo xtask publish`.
 [[kv_namespaces]]
 binding = "RELEASES"
 id = "18294bb05fdc4f7faad659ea4e339f0c"
+
+# Search over the docs (worker/search.ts): AI Search's instance, which
+# scripts/search-sync.mjs fills from dist/docs/search/sections.json after each
+# deploy. AI Search bills by the search, so full searches are limited: 10 a
+# minute from one visitor (counted in each Cloudflare location), and in a day,
+# for everyone and for each visitor, by SearchBudget (worker/budget.ts).
+[[ai_search]]
+binding = "DOCS_SEARCH"
+instance_name = "fctl-docs"
+
+# 2001, not app.fctl.sh's 1001: limiters with the same namespace in an
+# account share their counts.
+[[ratelimits]]
+name = "SEARCH_LIMITER"
+namespace_id = "2001"
+simple = { limit = 10, period = 60 }
+
+[[durable_objects.bindings]]
+name = "SEARCH_BUDGET"
+class_name = "SearchBudget"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["SearchBudget"]
+
+[vars]
+# Full searches a day for everyone (at most about $22 a month in AI Search
+# queries), and for one visitor.
+SEARCH_DAILY_BUDGET = "1000"
+SEARCH_DAILY_PER_VISITOR = "100"
 
 [observability]
 enabled = true
@@ -30,3 +60,4 @@ enabled = true
 # for HTTPS requests, so that it serves pages rather than redirecting them.
 [dev]
 upstream_protocol = "https"
+
