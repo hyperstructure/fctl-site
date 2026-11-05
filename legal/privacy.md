@@ -59,9 +59,9 @@ This policy doesn't apply to either.
   your Linear workspace (encrypted), and who you are there once you link
   your Linear account. A ticket you delegate to fctl there goes to its
   agent, with its comments, and into the session's transcript.
-- **Gravatar**: while you have no picture of your own, we ask Gravatar for
-  yours by a hash of your email address, and show a copy. Turn that off
-  under Settings → Profile.
+- **Gravatar**: by default, while you have no picture of your own, we ask
+  Gravatar for yours by a hash of your email address, and show a copy if
+  you have one there. Turn that off under Settings → Profile.
 - **Early access**: if you ask for it, we keep your email address to invite
   you, until you have an account, you withdraw the request or a year
   passes.
@@ -418,7 +418,7 @@ There are no analytics or advertising cookies.
 | Passing the comments people write to a project's agents on GitHub on to them, where its follow-ups are on, and asking GitHub whether their authors may write to the repository | Legitimate interests: letting the people a repository trusts direct its agents from GitHub, and nobody else |
 | Asking you to sign in to Linear when you link your Linear account, to know who you are there | Legitimate interests: starting the sessions of the tickets you delegate to fctl as you, and nobody else |
 | Passing the tickets people delegate to fctl in Linear on to the agents of the project that takes them, with their comments and the replies people write there, and showing what the agents do in Linear | Contract, and our legitimate interest in letting the teams that connect Linear hand their tickets to agents |
-| Showing your Gravatar as your picture while you have none of your own | Legitimate interests: showing the people you work with who you are, as you chose to on Gravatar; you can turn it off |
+| Looking up your Gravatar while you have no picture of your own, which we do by default, and showing it as your picture | Legitimate interests: showing the people you work with who you are, with the picture you published on Gravatar if you have one; you can turn it off |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -441,9 +441,10 @@ They process personal data on our behalf, under data processing terms:
 
 ### Gravatar
 
-While you have no picture of your own, app.fctl.sh asks
+By default, while you have no picture of your own, app.fctl.sh asks
 [Gravatar](https://gravatar.com), run by Automattic Inc., for your picture:
-when you sign up, and about once a day while you use app.fctl.sh. It sends
+when you sign up, and about once a day while you use app.fctl.sh, whether
+or not you have a Gravatar account. It sends
 the SHA-256 hash of your primary email address, not the address itself,
 and asks from our servers, not from your browser. Gravatar receives it under
 its own privacy policy, and can tell whether the hash is that of an address
@@ -599,6 +600,12 @@ Area, the UK or Switzerland, the transfer relies on an adequacy decision,
 such as the EU–US Data Privacy Framework, or on standard contractual
 clauses.
 
+Gravatar isn't one of our providers: Automattic Inc. runs it in the United
+States, under its own privacy policy, and we have no contract with it. The
+hash of your email address goes there from our servers while Gravatar is on
+for you ([Gravatar](#gravatar)); turn it off under Settings → Profile and
+nothing goes there.
+
 ## How long we keep it
 
 - **Your account**: until you delete it in Settings, or an admin deletes it.
@@ -613,8 +620,9 @@ clauses.
     memories stay too, without your name, and so do the schedules you set
     up or took over, which stop running on your Claude account.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
-  or turn Gravatar off under Settings → Profile, or your Gravatar goes
-  (we look about once a day), or you delete your account. A new picture on
+  or turn Gravatar off under Settings → Profile, an admin of app.fctl.sh
+  turns it off for everyone, your Gravatar goes (we look about once a day),
+  or you delete your account. A new picture on
   Gravatar replaces it.
 - **Your other email addresses**: until you disconnect them in Settings or
   delete your account. Disconnecting one takes you out of the workspaces
