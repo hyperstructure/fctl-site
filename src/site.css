@@ -43,7 +43,6 @@
   background: color-mix(in srgb, var(--c-canvas) 84%, transparent);
   backdrop-filter: blur(16px) saturate(1.2);
   border-bottom: 1px solid var(--c-line);
-  padding-block: 14px;
 }
 .brand {
   display: inline-flex;
@@ -979,9 +978,9 @@ pre .prompt {
   .docs-toc {
     display: block;
     position: sticky;
-    top: 90px;
+    top: 106px;
     align-self: start;
-    max-height: calc(100vh - 110px);
+    max-height: calc(100vh - 126px);
     overflow-y: auto;
     overscroll-behavior: contain;
     padding-left: 12px;
@@ -1027,7 +1026,7 @@ pre .prompt {
   font-family: var(--font-display);
   color: var(--c-ink);
   line-height: 1.2;
-  scroll-margin-top: 90px;
+  scroll-margin-top: 106px;
 }
 .doc h2 {
   font-weight: 600;
