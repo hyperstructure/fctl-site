@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-01
+updated: 2026-11-05
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -59,6 +59,9 @@ This policy doesn't apply to either.
   your Linear workspace (encrypted), and who you are there once you link
   your Linear account. A ticket you delegate to fctl there goes to its
   agent, with its comments, and into the session's transcript.
+- **Gravatar**: while you have no picture of your own, we ask Gravatar for
+  yours by a hash of your email address, and show a copy. Turn that off
+  under Settings → Profile.
 - **Early access**: if you ask for it, we keep your email address to invite
   you, until you have an account, you withdraw the request or a year
   passes.
@@ -120,7 +123,9 @@ account, you can ask for early access on its sign-in page.
   - your first and last name, and the name agents call you, if you choose
     one;
   - your profile picture, if you upload one. If you link Google while you
-    have none, we keep a copy of your Google picture;
+    have none, we keep a copy of your Google picture. While you have none
+    of your own, we keep a copy of your Gravatar, if you have one, unless
+    you or an admin of app.fctl.sh turn that off;
   - the commit email you choose for each address, if you set one;
   - your role, and a hash of your password (never the password itself);
   - when you last signed in, and when you were last active (signed in or
@@ -396,7 +401,9 @@ Your browser also keeps:
   with it or you sign out, so that leaving the page doesn't lose it;
 - if you use passkeys: a short hash of the name and email address the app
   last gave your password manager for them (not the name or address
-  themselves), so that it gives them again only when they change.
+  themselves), so that it gives them again only when they change;
+- if your picture is your Gravatar: its address on app.fctl.sh, which holds
+  your user ID, so that the app says it is your Gravatar only once.
 
 There are no analytics or advertising cookies.
 
@@ -411,6 +418,7 @@ There are no analytics or advertising cookies.
 | Passing the comments people write to a project's agents on GitHub on to them, where its follow-ups are on, and asking GitHub whether their authors may write to the repository | Legitimate interests: letting the people a repository trusts direct its agents from GitHub, and nobody else |
 | Asking you to sign in to Linear when you link your Linear account, to know who you are there | Legitimate interests: starting the sessions of the tickets you delegate to fctl as you, and nobody else |
 | Passing the tickets people delegate to fctl in Linear on to the agents of the project that takes them, with their comments and the replies people write there, and showing what the agents do in Linear | Contract, and our legitimate interest in letting the teams that connect Linear hand their tickets to agents |
+| Showing your Gravatar as your picture while you have none of your own | Legitimate interests: showing the people you work with who you are, as you chose to on Gravatar; you can turn it off |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -430,6 +438,18 @@ They process personal data on our behalf, under data processing terms:
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs | Everything app.fctl.sh stores, and request data |
 | Resend, Inc. | Sending invitations, password resets, and notices about how you sign in, when email is enabled | The recipient's address and the message |
+
+### Gravatar
+
+While you have no picture of your own, app.fctl.sh asks
+[Gravatar](https://gravatar.com), run by Automattic Inc., for your picture:
+when you sign up, and about once a day while you use app.fctl.sh. It sends
+the SHA-256 hash of your primary email address, not the address itself,
+and asks from our servers, not from your browser. Gravatar receives it under
+its own privacy policy, and can tell whether the hash is that of an address
+with a Gravatar account. You can turn this off under Settings → Profile, and
+removing your picture there turns it off too; an admin of app.fctl.sh can
+turn it off for everyone.
 
 ### Services you connect
 
@@ -556,8 +576,8 @@ responsible for them.
 
 ### Pictures from other sites
 
-Profile pictures people upload, and the copies we keep of Google pictures,
-load from app.fctl.sh. Other pictures load from the servers they are on,
+Profile pictures people upload, and the copies we keep of Google and
+Gravatar pictures, load from app.fctl.sh. Other pictures load from the servers they are on,
 which see the request from your browser: GitHub accounts' pictures, Google
 pictures saved as an address before we kept copies, and profile pictures
 people gave as an address on another site before they could upload them.
@@ -592,6 +612,10 @@ clauses.
   - The notes you, or your sessions' agents, wrote in their projects'
     memories stay too, without your name, and so do the schedules you set
     up or took over, which stop running on your Claude account.
+- **The copy of your Gravatar**: until you upload a picture, remove it,
+  or turn Gravatar off under Settings → Profile, or your Gravatar goes
+  (we look about once a day), or you delete your account. A new picture on
+  Gravatar replaces it.
 - **Your other email addresses**: until you disconnect them in Settings or
   delete your account. Disconnecting one takes you out of the workspaces
   you are in as that address.
