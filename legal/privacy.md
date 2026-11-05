@@ -552,11 +552,12 @@ They see what you share with them.
   who connected each.
 - **A workspace's admins** also see who has two-factor sign-in, its
   invitations and its audit log, with the IP addresses of what they did
-  themselves, not of what others did, and its enrollment tokens (its
-  members' own too) and the machines that enroll with them, with the IP
-  address and approximate location each of the workspace's own enrolled
-  from. The IP address and location of a machine you enrolled for your own
-  sessions are yours alone to see.
+  themselves, not of what others did, and its enrollment tokens, its
+  members' own included, and the machines that enroll with them, with
+  whose each is. For the machines that belong to the workspace, they also
+  see the IP address and approximate location each enrolled from; for a
+  machine a member enrolled for their own sessions, the app shows those to
+  that member instead.
 - **Members of a project** see its sessions, including transcripts and who
   took part; its memory and retrospectives, with who wrote each note; and
   its schedules, with who set up and changed each, whose Claude account it
@@ -625,8 +626,10 @@ nothing goes there.
 - **Your account**: until you delete it in Settings, or an admin deletes it.
   - That deletes its email addresses, sign-in methods, devices and tokens,
     Claude connections, Linear accounts and memberships, the model and
-    effort level you last asked for in each project, and the workspaces only
-    you are in, with their projects, sessions and transcripts.
+    effort level you last asked for in each project, the machines you
+    enrolled for your own sessions, and the workspaces only you are in,
+    with their projects, sessions and transcripts, and it revokes the
+    enrollment tokens you made for your own sessions.
   - Sessions you started in workspaces that others are in stay with their
     projects, shown as started by a deleted user: your name, email
     addresses and picture are removed from them.
