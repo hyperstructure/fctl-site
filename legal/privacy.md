@@ -342,7 +342,14 @@ account, you can ask for early access on its sign-in page.
   version and whether it updates fctl by itself. Also the sandbox image it
   uses and the images and repositories it allows, the workspaces it runs
   sessions for, a hash of its token, whether it keeps your Claude token and
-  since when (never the token), and when it was last online.
+  since when (never the token), and when it was last online. For a machine
+  that enrolls in a workspace with one of its enrollment tokens, also the
+  IP address it enrolled from, its approximate location (city and country,
+  derived from the IP address), the enrollment token it used and, while it
+  waits for an admin's approval, until when.
+- **Enrollment tokens**: for each enrollment token a workspace's admins
+  make, its name, a hash of it (never the token), its settings, who made
+  and who revoked it and when, and when it last enrolled a machine.
 - **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
   address. Also each comment fctl passes on to an agent, with its author's
@@ -542,7 +549,9 @@ They see what you share with them.
   who connected each.
 - **A workspace's admins** also see who has two-factor sign-in, its
   invitations and its audit log, with the IP addresses of what they did
-  themselves, not of what others did.
+  themselves, not of what others did, and its enrollment tokens and the
+  machines that enroll with them, with the IP address and approximate
+  location each enrolled from.
 - **Members of a project** see its sessions, including transcripts and who
   took part; its memory and retrospectives, with who wrote each note; and
   its schedules, with who set up and changed each, whose Claude account it
@@ -634,7 +643,8 @@ nothing goes there.
 - **Workspaces**: until their primary admin or an admin of app.fctl.sh
   deletes them, or their last member deletes their account. Deleting a
   workspace deletes its projects, as deleting each would, its avatar, its
-  invitations and its audit log. Leaving a workspace, or being removed
+  invitations, its enrollment tokens and the machines that enrolled with
+  them, and its audit log. Leaving a workspace, or being removed
   from it, deletes your membership, your roles in its projects and the
   model and effort level you last asked for in them. Invitations to
   workspaces expire after 30 days.
@@ -703,6 +713,13 @@ nothing goes there.
   and is not kept afterwards. The sessions you follow are kept until you
   unfollow them or they are deleted, and your notification settings until
   you delete your account.
+- **Hosts**: until the person who registered one, or an admin, removes it.
+  A machine that enrolled in a workspace goes when its admins reject or
+  remove it, when it uninstalls, once it stays offline longer than its
+  enrollment token allows, or a week after it enrolled if nobody approves
+  it, and with the workspace.
+- **Enrollment tokens**: until 90 days after they were revoked or expired,
+  once no machine they enrolled is left, and with their workspace.
 - **Audit logs**: one year.
 - **Request logs**: a few days.
 - **Backups**: Cloudflare keeps the database and storage recoverable for up
