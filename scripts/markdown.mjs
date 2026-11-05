@@ -28,7 +28,8 @@ export const plain = (html) =>
 
 /**
  * A renderer. `render(source, { href, afterTitle })` returns the page's title
- * (its h1) and first paragraph as plain text, for its head, and its HTML.
+ * (its h1) and first paragraph as plain text, for its head, its HTML, and
+ * its other headings (`{ depth, id, html }`, in order) for `contents`.
  * `href` maps link targets; `afterTitle` is HTML placed right after the h1.
  */
 export async function markdown() {
@@ -39,16 +40,31 @@ export async function markdown() {
   return async function render(source, { href = (h) => h, afterTitle = "" } = {}) {
     let title = "";
     let description = "";
+    const headings = [];
+    // Ids as GitHub gives them (github-slugger): every heading, the h1 too,
+    // takes its slug, and a repeat the first number after it that is free.
+    const counts = new Map();
+    const unique = (slug) => {
+      let id = slug;
+      while (counts.has(id)) {
+        const n = counts.get(slug) + 1;
+        counts.set(slug, n);
+        id = `${slug}-${n}`;
+      }
+      counts.set(id, 0);
+      return id;
+    };
     const marked = new Marked({
       gfm: true,
       renderer: {
         heading({ tokens, depth }) {
           const text = this.parser.parseInline(tokens);
+          const id = unique(slugify(text));
           if (depth === 1) {
             title = plain(text);
             return `<h1>${text}</h1>\n${afterTitle}`;
           }
-          const id = slugify(text);
+          headings.push({ depth, id, html: text });
           return `<h${depth} id="${id}"><a href="#${id}" style="color:inherit;text-decoration:none">${text}</a></h${depth}>\n`;
         },
         paragraph({ tokens }) {
@@ -74,8 +90,43 @@ export async function markdown() {
       },
     });
     const html = await marked.parse(source);
-    return { title, description, html };
+    return { title, description, html, headings };
   };
+}
+
+/**
+ * A page's table of contents: its h2s, each with its h3s nested under it, as
+ * an `<ol>`, or "" when there are fewer than two to list. Links inside a
+ * heading become text, as a link can't hold another.
+ */
+export function contents(headings) {
+  const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+  if (items.length < 2) return "";
+  const link = (h) => `<a href="#${h.id}">${h.html.replace(/<\/?a\b[^>]*>/g, "")}</a>`;
+  let html = "<ol>";
+  let open = false; // an h2's item whose nested list is open
+  let item = false; // an h2's item that is open
+  for (const h of items) {
+    if (h.depth === 2) {
+      if (open) html += "</ol>";
+      if (item) html += "</li>";
+      html += `<li>${link(h)}`;
+      item = true;
+      open = false;
+    } else {
+      if (!item) {
+        // An h3 before any h2 stands at the top level.
+        html += `<li>${link(h)}</li>`;
+        continue;
+      }
+      if (!open) html += "<ol>";
+      html += `<li>${link(h)}</li>`;
+      open = true;
+    }
+  }
+  if (open) html += "</ol>";
+  if (item) html += "</li>";
+  return `${html}</ol>`;
 }
 
 /** Splits `---`-fenced `key: value` front matter from a Markdown source. */

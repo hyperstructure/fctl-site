@@ -893,6 +893,110 @@ pre .prompt {
   }
 }
 
+/* A page's table of contents (scripts/docs.mjs): its h2s with their h3s
+   nested, beside the page where there is room for a third column, and folded
+   under its title elsewhere. src/docs.ts marks the section being read. */
+.docs-toc {
+  display: none;
+}
+.docs-toc p,
+.doc-toc summary {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--c-ink-4);
+}
+.docs-toc ol,
+.doc .doc-toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.docs-toc ol ol,
+.doc .doc-toc ol ol {
+  margin-left: 12px;
+  padding-left: 10px;
+  border-left: 1px solid var(--c-line);
+}
+.docs-toc a,
+.doc .doc-toc a {
+  display: block;
+  padding: 3px 0;
+  color: var(--c-ink-3);
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 160ms var(--ease-out);
+}
+.docs-toc a:hover,
+.doc .doc-toc a:hover,
+.docs-toc a[aria-current] {
+  color: var(--c-ink);
+}
+/* The section being read: a bar over the nested lists' line, or in the
+   rail's left padding for an h2. */
+.docs-toc a[aria-current] {
+  position: relative;
+}
+.docs-toc a[aria-current]::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: -11.5px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--c-accent);
+}
+.docs-toc code,
+.doc .doc-toc code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.doc .doc-toc {
+  font-size: 14px;
+  border: 1px solid var(--c-line);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.doc-toc summary {
+  cursor: pointer;
+}
+.doc-toc[open] summary {
+  margin-bottom: 8px;
+}
+.doc .doc-toc li + li {
+  margin-top: 0;
+}
+/* Only pages with contents to show (not the legal pages) get the third column. */
+@media (min-width: 1240px) {
+  .docs.with-toc {
+    grid-template-columns: 200px minmax(0, 1fr) 200px;
+    gap: 56px;
+    max-width: 1440px;
+  }
+  .docs-toc {
+    display: block;
+    position: sticky;
+    top: 90px;
+    align-self: start;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-left: 12px;
+    font-size: 13px;
+  }
+  .docs-toc p {
+    margin-bottom: 8px;
+  }
+  .doc .doc-toc {
+    display: none;
+  }
+}
+
 .doc {
   font-size: 16px;
   line-height: 1.72;
