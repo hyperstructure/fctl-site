@@ -97,8 +97,8 @@ When you search fctl's docs on fctl.sh, what you type goes to Cloudflare's
 AI Search, which finds the parts of the docs that match it. A search is part
 of the address you ask for, so it is in our request logs for a few days, as
 any address is. Cloudflare keeps a search's results, under what you
-typed, in the data center that answered it for up to a day, so that the same
-search costs nothing again. So that nobody can search without end, fctl.sh
+typed, in the data center that answered it for up to an hour, so that the
+same search costs nothing again. So that nobody can search without end, fctl.sh
 counts the searches from your IP address (for IPv6, from the network it is
 in): for a minute in that data center, and for the rest of the day (UTC)
 under a hash of the address with a random value, which is deleted with the
@@ -747,7 +747,7 @@ nothing goes there.
   once no machine they enrolled is left, and with their workspace.
 - **Audit logs**: one year.
 - **Request logs**: a few days.
-- **Searches on fctl.sh**: their results up to a day in Cloudflare's cache.
+- **Searches on fctl.sh**: their results up to an hour in Cloudflare's cache.
   The count of your searches for a minute, and, under a hash of your
   address, until the end of the day (UTC).
 - **Backups**: Cloudflare keeps the database and storage recoverable for up

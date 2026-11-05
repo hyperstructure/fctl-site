@@ -155,6 +155,14 @@ test("syncing uploads only new sections, then deletes what the docs no longer ha
     "POST c.333333333333.md # Overview › C\n\nCc.\n",
     "DELETE /items/2",
   ]);
+  // Before a deploy, --keep uploads and deletes only broken copies: the live Worker still searches the rest.
+  calls.length = 0;
+  await sync({ sections: full, call, keep: true, log: () => {} });
+  assert.deepEqual(calls.slice(2), [
+    "DELETE /items/3",
+    "POST b.222222222222.md # Overview › B\n\nBb.\n",
+    "POST c.333333333333.md # Overview › C\n\nCc.\n",
+  ]);
   calls.length = 0;
   await sync({ sections: full, call, dryRun: true, log: () => {} });
   assert.deepEqual(calls, [
@@ -331,6 +339,8 @@ test("visitors are IPv4 addresses, or IPv6 /64s", () => {
   assert.equal(visitor(null), "unknown");
   assert.equal(normalize("  a \n b  "), "a b");
   assert.equal(normalize("x".repeat(300)).length, 200);
+  // Cut between characters, never inside an emoji.
+  assert.equal(normalize(`${"x".repeat(199)}😀😀`), `${"x".repeat(199)}😀`);
   assert.equal(normalize(null), "");
 });
 
@@ -490,7 +500,12 @@ test("the same query, in any case, comes from the cache: no limits, no AI Search
     },
   };
   try {
-    const e = env();
+    // Chunks of sections the docs all have: complete results, which are cached.
+    const chunks = [
+      { key: SECTIONS.sections[1].key, score: 0.81, text: "A draining runner." },
+      { key: SECTIONS.sections[0].key, score: 0.74, text: "fctl runners lists the machines." },
+    ];
+    const e = env({ chunks });
     await api("Draining runners", e);
     await new Promise((r) => setTimeout(r, 0));
     const { body } = await api("draining RUNNERS", e);
@@ -499,14 +514,34 @@ test("the same query, in any case, comes from the cache: no limits, no AI Search
     assert.equal(body.hits.length, 2);
     assert.equal(e.calls.ai.length, 1);
     assert.equal(e.calls.limit.length, 1);
+    assert.match(stored.values().next().value.headers.get("cache-control"), /max-age=3600$/);
     // Results that match words because of a limit aren't cached.
-    const limited = env({ limited: true });
-    await api("sessions finish", limited);
-    await api("sessions finish", env());
+    await api("sessions finish", env({ limited: true }));
+    assert.equal([...stored.keys()].filter((k) => k.includes("sessions")).length, 0);
+    await api("sessions finish", env({ chunks }));
     assert.equal([...stored.keys()].filter((k) => k.includes("sessions")).length, 1);
+    // Nor are results with a chunk of a section the docs don't have: AI Search and the docs
+    // are out of step, as around a deploy.
+    const halfSynced = env();
+    const first = await api("runners drain", halfSynced);
+    assert.equal(first.body.hits.length, 2);
+    await api("runners drain", halfSynced);
+    assert.equal(halfSynced.calls.ai.length, 2);
   } finally {
     delete globalThis.caches;
   }
+});
+
+test("a long query ending in an emoji is searched, cut before it", async () => {
+  const q = `${"a".repeat(199)}😀`;
+  const { res, body } = await api(q, env({ chunks: [] }));
+  assert.equal(res.status, 200);
+  assert.equal(body.query, q);
+  const page = await worker.fetch(
+    new Request(`https://fctl.sh/docs/search/?q=${encodeURIComponent(`${q}😀`)}`),
+    env(),
+  );
+  assert.equal(page.status, 200);
 });
 
 test("the API takes GET only", async () => {

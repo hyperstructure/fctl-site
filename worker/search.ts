@@ -6,8 +6,8 @@
 // as well as words, and which Cloudflare bills by the search. So that nobody
 // can run up that bill, a full search must pass, in order:
 //
-//   1. the cache: the same query (in any case) since the docs last changed is
-//      answered from Cloudflare's cache, and costs nothing;
+//   1. the cache: the same query (in any case) within the hour, since the docs
+//      last changed, is answered from Cloudflare's cache, and costs nothing;
 //   2. SEARCH_LIMITER: at most 10 a minute from one visitor (an IPv4 address,
 //      or an IPv6 /64), counted in each Cloudflare location;
 //   3. SearchBudget (worker/budget.ts): a day's searches, for everyone and for
@@ -57,12 +57,19 @@ export interface Results {
 export const MAX_QUERY = 200;
 /** Results a search gives. */
 export const MAX_HITS = 8;
-/** How long a full search's results are cached, in seconds (until the docs change, anyway). */
-const CACHE_TTL = 86_400;
+/**
+ * How long a full search's results are cached, in seconds (and only until the docs change): an
+ * hour, so that results from just after a deploy, when AI Search may still be indexing the new
+ * sections, don't last.
+ */
+const CACHE_TTL = 3600;
 
-/** A query as searched: on one line, at most `MAX_QUERY` characters. */
+/**
+ * A query as searched: on one line, at most `MAX_QUERY` characters, cut between characters (not
+ * inside an emoji, whose half `encodeURIComponent` would refuse).
+ */
 export const normalize = (q: string | null) =>
-  (q ?? "").replace(/\s+/g, " ").trim().slice(0, MAX_QUERY).trim();
+  [...(q ?? "").replace(/\s+/g, " ").trim()].slice(0, MAX_QUERY).join("").trim();
 
 /**
  * Who is searching, for the limits: their IPv4 address, or for IPv6 the /64 it is in, which
@@ -129,8 +136,17 @@ function byWords(index: Index, query: string, notice?: Notice): Results {
   return { query, mode: "words", hits, ...(notice ? { notice, message: NOTICES[notice] } : {}) };
 }
 
-/** AI Search's results: its chunks' sections, each once, at its best chunk. */
-async function full(env: SearchEnv, index: Index, query: string): Promise<Hit[]> {
+/**
+ * AI Search's results: its chunks' sections, each once, at its best chunk. `complete` is false
+ * when a chunk was of a section the docs don't have: AI Search and the docs are out of step, as
+ * they are for a moment around a deploy (scripts/search-sync.mjs), and the results aren't worth
+ * caching.
+ */
+async function full(
+  env: SearchEnv,
+  index: Index,
+  query: string,
+): Promise<{ hits: Hit[]; complete: boolean }> {
   if (!env.DOCS_SEARCH) throw new Error("no DOCS_SEARCH binding");
   const res = await env.DOCS_SEARCH.search({
     query,
@@ -138,19 +154,24 @@ async function full(env: SearchEnv, index: Index, query: string): Promise<Hit[]>
   });
   const terms = queryTerms(query);
   const best = new Map<string, { section: Section; score: number; text: string }>();
+  let complete = true;
   for (const chunk of res.chunks) {
     const hash = /\.([0-9a-f]{12})\.md$/.exec(chunk.item.key)?.[1];
     const section = hash ? index.byHash.get(hash) : undefined;
-    // A section the docs no longer have (a deploy's sync hasn't removed it yet).
-    if (!section) continue;
+    // A section the docs no longer have, or don't have yet.
+    if (!section) {
+      complete = false;
+      continue;
+    }
     const seen = best.get(section.url);
     if (!seen || chunk.score > seen.score)
       best.set(section.url, { section, score: chunk.score, text: chunk.text });
   }
-  return [...best.values()]
+  const hits = [...best.values()]
     .sort((a, b) => b.score - a.score)
     .slice(0, MAX_HITS)
     .map((b) => hit(b.section, b.text, terms));
+  return { hits, complete };
 }
 
 /** Whether `visitor` may make a full search now: "ok", or the notice for why not. */
@@ -171,6 +192,17 @@ const cacheKey = (version: string, query: string) =>
 /** Cloudflare's cache in this location, where there is one (not in tests). */
 const cache = (): Cache | undefined => (globalThis as { caches?: { default?: Cache } }).caches?.default;
 
+/** A query's cached results, if any: a cache that fails only means searching again. */
+async function cached(key: Request): Promise<Results | undefined> {
+  try {
+    const res = await cache()?.match(key);
+    return res ? ((await res.json()) as Results) : undefined;
+  } catch (e) {
+    console.error("search: the cache failed", e);
+    return undefined;
+  }
+}
+
 /** Searches the docs for `query`, as `who` (`visitor`). */
 export async function search(
   env: SearchEnv,
@@ -181,8 +213,8 @@ export async function search(
   if (query.length < 2) return { query, mode: "full", hits: [] };
   const index = await load(env);
   const key = cacheKey(index.version, query);
-  const cached = await cache()?.match(key);
-  if (cached) return { ...((await cached.json()) as Results), query };
+  const known = await cached(key);
+  if (known) return { ...known, query };
 
   let verdict: "ok" | Notice;
   try {
@@ -193,20 +225,24 @@ export async function search(
   }
   if (verdict !== "ok") return byWords(index, query, verdict);
 
-  let hits: Hit[];
+  let found: { hits: Hit[]; complete: boolean };
   try {
-    hits = await full(env, index, query);
+    found = await full(env, index, query);
   } catch (e) {
     console.error("search: AI Search failed", e);
     return byWords(index, query, "unavailable");
   }
   // AI Search found nothing it was sure enough of: the words may still be there.
-  const results: Results = hits.length ? { query, mode: "full", hits } : byWords(index, query);
-  const stored = new Response(JSON.stringify(results), {
-    headers: { "content-type": "application/json", "cache-control": `public, max-age=${CACHE_TTL}` },
-  });
-  const put = cache()?.put(key, stored);
-  if (put) ctx?.waitUntil(put.catch(() => {}));
+  const results: Results = found.hits.length
+    ? { query, mode: "full", hits: found.hits }
+    : byWords(index, query);
+  if (found.complete) {
+    const stored = new Response(JSON.stringify(results), {
+      headers: { "content-type": "application/json", "cache-control": `public, max-age=${CACHE_TTL}` },
+    });
+    const put = cache()?.put(key, stored);
+    if (put) ctx?.waitUntil(put.catch(() => {}));
+  }
   return results;
 }
 

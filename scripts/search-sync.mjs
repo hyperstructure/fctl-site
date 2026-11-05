@@ -1,7 +1,15 @@
 // Brings the AI Search instance that fctl.sh searches (DOCS_SEARCH in
-// wrangler.toml) up to date with the docs, after each deploy (.github/workflows/ci.yml):
-// it uploads the sections of dist/docs/search/sections.json the instance
-// doesn't have, then deletes the items the docs no longer have.
+// wrangler.toml) up to date with the docs, in two steps around each deploy
+// (.github/workflows/ci.yml):
+//
+//   before it, with --keep: uploads the sections of dist/docs/search/sections.json
+//     the instance doesn't have, and deletes nothing, so that AI Search is
+//     indexing them by the time the Worker that knows them goes live;
+//   after it: uploads any still missing, then deletes the items the docs no
+//     longer have, which the old Worker searched until then.
+//
+// The Worker skips results of sections it doesn't know, and caches no results
+// that had any (worker/search.ts), so neither step leaves stale results behind.
 //
 // A section's key ends in a hash of what AI Search indexes for it
 // (scripts/search-index.mjs), so the instance's own list of items is the
@@ -10,7 +18,8 @@
 //
 //   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID   a token with AI Search Edit and Run
 //   AI_SEARCH_INSTANCE                            the instance, fctl-docs unless set
-//   node scripts/search-sync.mjs [--dry-run]     --dry-run says what it would do
+//   node scripts/search-sync.mjs [--keep] [--dry-run]
+//                                                --keep uploads only; --dry-run says what it would do
 
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -78,9 +87,12 @@ async function list(call) {
   }
 }
 
-export async function sync({ sections, call, dryRun = false, log = console.log }) {
+export async function sync({ sections, call, keep = false, dryRun = false, log = console.log }) {
   const items = await list(call);
-  const { upload, remove, kept } = plan(items, sections);
+  const planned = plan(items, sections);
+  const { upload, kept } = planned;
+  // With --keep, only broken copies go, to be uploaded again.
+  const remove = keep ? planned.remove.filter((i) => i.status === "error") : planned.remove;
   log(
     `AI Search has ${items.length} items: ${kept} sections as they are, ${upload.length} to upload, ${remove.length} to delete`,
   );
@@ -118,7 +130,8 @@ async function main() {
   const dist = join(dirname(fileURLToPath(import.meta.url)), "..", "dist");
   const { sections } = JSON.parse(await readFile(join(dist, "docs/search/sections.json"), "utf8"));
   const call = client({ token, account, instance });
-  await sync({ sections, call, dryRun: process.argv.includes("--dry-run") });
+  const flags = process.argv.slice(2);
+  await sync({ sections, call, keep: flags.includes("--keep"), dryRun: flags.includes("--dry-run") });
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

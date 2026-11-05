@@ -48,14 +48,14 @@ works without JavaScript.
 - **The build** (`scripts/docs.mjs`) splits each page at its h2s and h3s
   into sections (`scripts/search-index.mjs`): `sections.json`, which the
   Worker searches, and `titles.json`.
-- **After each deploy**, CI uploads new and changed sections to AI Search
-  and deletes the ones the docs no longer have (`scripts/search-sync.mjs`).
-  A section's key ends in a hash of its text, so unchanged ones are never
-  indexed again.
+- **Around each deploy**, CI uploads new and changed sections to AI Search
+  before it, and deletes the ones the docs no longer have after it
+  (`scripts/search-sync.mjs`). A section's key ends in a hash of its text,
+  so unchanged ones are never indexed again.
 
 AI Search bills by the search (1,000 a month are included, then $0.75 per
 1,000), so a full search must get past, in order: Cloudflare's cache (the
-same query since the docs changed costs nothing), 10 a minute from one
+same query within the hour costs nothing), 10 a minute from one
 visitor (`SEARCH_LIMITER`), and a day's budget, 1,000 for everyone and 100
 for each visitor (`SearchBudget`, a Durable Object; `SEARCH_DAILY_BUDGET`
 and `SEARCH_DAILY_PER_VISITOR` in `wrangler.toml`). That caps AI Search's

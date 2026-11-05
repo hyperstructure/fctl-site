@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
-# Search results are other pages, and each search costs.
-Disallow: /docs/search/
+# Searches cost: crawl no query. The search page itself says noindex, which
+# crawlers have to fetch it to read.
+Disallow: /docs/search/?
 Disallow: /api/
 
 Sitemap: https://fctl.sh/sitemap.xml

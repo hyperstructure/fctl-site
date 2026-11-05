@@ -111,7 +111,11 @@ const done = new Map<string, Results>();
 
 function loadTitles() {
   titles ??= fetch("/docs/search/titles.json")
-    .then((r) => (r.ok ? (r.json() as Promise<TitleEntry[]>) : []))
+    .then((r) => {
+      // Thrown, so that the next opening asks again (a 5xx during a deploy, say).
+      if (!r.ok) throw new Error(`titles.json: ${r.status}`);
+      return r.json() as Promise<TitleEntry[]>;
+    })
     .then((list) => {
       entries = list;
       if (ui?.dialog.open) render();
@@ -146,10 +150,21 @@ function setActive(i: number, scroll = true) {
   if (scroll) el.scrollIntoView({ block: "nearest" });
 }
 
-/** Closes the dialog, and lets the page scroll again at once (its close event comes later). */
+/** What had focus before the dialog opened. */
+let opener: HTMLElement | undefined;
+
+/**
+ * Closes the dialog, lets the page scroll again and gives focus back, at once: its close event
+ * comes later, and a key pressed before then would go to the closed dialog's field.
+ */
 function shut() {
   document.documentElement.classList.remove("sd-open");
-  ui?.dialog.close();
+  if (!ui) return;
+  ui.dialog.close();
+  if (ui.dialog.contains(document.activeElement)) {
+    ui.input.blur();
+    opener?.focus({ preventScroll: true });
+  }
 }
 
 function follow(url: string, newTab: boolean) {
@@ -263,7 +278,6 @@ function render() {
   if (!ui) return;
   const { list, input, msg } = ui;
   const q = normalize(input.value);
-  const keep = options[active]?.el.id;
   list.replaceChildren();
   msg.replaceChildren();
   options = [];
@@ -281,9 +295,8 @@ function render() {
     actionRow(q);
     headings(q);
   }
-  // The same row stays active as the list redraws (a result that loads, say); else the first.
-  const again = options.findIndex((o) => o.el.id === keep);
-  setActive(again >= 0 && shown?.query !== q ? again : 0, false);
+  // A new list starts at its first row: the full search while typing, the best result after it.
+  setActive(0, false);
 }
 
 function results(r: Results) {
@@ -442,11 +455,9 @@ export function openSearch(query?: string) {
   const { dialog, input } = ui;
   if (query !== undefined) input.value = query;
   loadTitles();
-  // A new start: the first row, not the one followed last time.
-  options = [];
-  active = 0;
   render();
   if (!dialog.open) {
+    opener = document.activeElement instanceof HTMLElement ? document.activeElement : undefined;
     document.documentElement.classList.add("sd-open");
     dialog.showModal();
   }
