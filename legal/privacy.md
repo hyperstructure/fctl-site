@@ -213,6 +213,12 @@ account, you can ask for early access on its sign-in page.
     can contain your source code, file contents and command output. For a
     week, they also keep the images the agent read (PNG, JPEG, GIF or WebP,
     up to 5 MB each), such as the screenshots it took of your app;
+  - the diff of each file a session's agent changed in the session's
+    repositories, uncommitted work included, as the agent last read it (up
+    to 512 KB a file and 8 MB a session), so that the session's page shows
+    the changes. Diffs contain your code. A newer diff of a file replaces
+    the one before, and a file's goes once the agent's work no longer
+    changes it;
   - for each project you start sessions in: the model and effort level you
     asked for when you last started one, which its task boxes start on next
     time.
@@ -672,8 +678,9 @@ nothing goes there.
   you made there for them. Invitations to
   workspaces expire after 30 days.
 - **Projects and sessions**: until the project is deleted. Deleting a project
-  deletes its sessions with their transcripts, normally right away and at
-  the latest within a few hours. Archiving a session only hides it.
+  deletes its sessions with their transcripts and diffs, normally right
+  away and at the latest within a few hours. Archiving a session only hides
+  it.
 - **Project memory**: each note until someone who can edit the project
   deletes it, or the project is deleted. Marking a note stale keeps it.
 - **Retrospectives**: as long as their session, until someone who manages
