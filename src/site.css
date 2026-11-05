@@ -971,8 +971,9 @@ pre .prompt {
 .doc .doc-toc li + li {
   margin-top: 0;
 }
+/* Only pages with contents to show (not the legal pages) get the third column. */
 @media (min-width: 1240px) {
-  .docs {
+  .docs.with-toc {
     grid-template-columns: 200px minmax(0, 1fr) 200px;
     gap: 56px;
     max-width: 1440px;

@@ -42,6 +42,13 @@ if (toc) {
       if (h.getBoundingClientRect().top > 120) break;
       reading = h;
     }
+    // At the bottom, the last sections' headings can't scroll up that far:
+    // the one a link led to if it is in the window, or else the last one.
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) {
+      const target = headings.find((h) => `#${encodeURIComponent(h.id)}` === location.hash);
+      const top = target?.getBoundingClientRect().top;
+      reading = target && top !== undefined && top >= 0 && top < innerHeight ? target : headings.at(-1);
+    }
     const link = reading && links.get(reading.id);
     if (link === current) return;
     current?.removeAttribute("aria-current");
@@ -62,6 +69,7 @@ if (toc) {
   };
   addEventListener("scroll", queue, { passive: true });
   addEventListener("resize", queue);
+  addEventListener("hashchange", queue);
   mark();
 }
 menus();

@@ -45,3 +45,10 @@ test("headings with the same text get numbered ids, as on GitHub", async () => {
   );
   assert.match(html, /<h3 id="run-1">/);
 });
+
+test("numbered ids count the title and skip ids that are taken, as on GitHub", async () => {
+  const render = await markdown();
+  const ids = async (source) => (await render(source)).headings.map((h) => h.id);
+  assert.deepEqual(await ids("# Foo\n\n## Foo\n"), ["foo-1"]);
+  assert.deepEqual(await ids("## A 1\n\n## A\n\n## A\n\n## A\n"), ["a-1", "a", "a-2", "a-3"]);
+});

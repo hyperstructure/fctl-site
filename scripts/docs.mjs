@@ -98,6 +98,7 @@ async function main() {
       .replace("<!--NAV-->", () => nav)
       .replace("<!--DOC-->", () => body)
       .replace("<!--TOC-->", () => rail)
+      .replace("<!--WITH_TOC-->", () => (rail ? " with-toc" : ""))
       .replace("<!--SOURCE-->", () => `${REPO}/edit/main/${page.file}`);
     const dir = join(dist, "docs", page.slug);
     await mkdir(dir, { recursive: true });

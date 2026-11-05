@@ -41,20 +41,29 @@ export async function markdown() {
     let title = "";
     let description = "";
     const headings = [];
-    const ids = new Map(); // how many headings took each id, numbered on as GitHub does
+    // Ids as GitHub gives them (github-slugger): every heading, the h1 too,
+    // takes its slug, and a repeat the first number after it that is free.
+    const counts = new Map();
+    const unique = (slug) => {
+      let id = slug;
+      while (counts.has(id)) {
+        const n = counts.get(slug) + 1;
+        counts.set(slug, n);
+        id = `${slug}-${n}`;
+      }
+      counts.set(id, 0);
+      return id;
+    };
     const marked = new Marked({
       gfm: true,
       renderer: {
         heading({ tokens, depth }) {
           const text = this.parser.parseInline(tokens);
+          const id = unique(slugify(text));
           if (depth === 1) {
             title = plain(text);
             return `<h1>${text}</h1>\n${afterTitle}`;
           }
-          const slug = slugify(text);
-          const n = ids.get(slug) ?? 0;
-          ids.set(slug, n + 1);
-          const id = n ? `${slug}-${n}` : slug;
           headings.push({ depth, id, html: text });
           return `<h${depth} id="${id}"><a href="#${id}" style="color:inherit;text-decoration:none">${text}</a></h${depth}>\n`;
         },
