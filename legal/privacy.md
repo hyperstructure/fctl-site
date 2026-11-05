@@ -346,10 +346,13 @@ account, you can ask for early access on its sign-in page.
   that enrolls in a workspace with one of its enrollment tokens, also the
   IP address it enrolled from, its approximate location (city and country,
   derived from the IP address), the enrollment token it used and, while it
-  waits for an admin's approval, until when.
+  waits for approval, until when. A machine that enrolls with a token you
+  made for your own sessions is registered as yours.
 - **Enrollment tokens**: for each enrollment token a workspace's admins
-  make, its name, a hash of it (never the token), its settings, who made
-  and who revoked it and when, and when it last enrolled a machine.
+  make, or a member makes for their own sessions, its name, a hash of it
+  (never the token), its settings, whether it is for its maker's own
+  sessions, who made and who revoked it and when, and when it last
+  enrolled a machine.
 - **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
   address. Also each comment fctl passes on to an agent, with its author's
@@ -549,9 +552,12 @@ They see what you share with them.
   who connected each.
 - **A workspace's admins** also see who has two-factor sign-in, its
   invitations and its audit log, with the IP addresses of what they did
-  themselves, not of what others did, and its enrollment tokens and the
-  machines that enroll with them, with the IP address and approximate
-  location each enrolled from.
+  themselves, not of what others did, and its enrollment tokens, its
+  members' own included, and the machines that enroll with them, with
+  whose each is. For the machines that belong to the workspace, they also
+  see the IP address and approximate location each enrolled from; for a
+  machine a member enrolled for their own sessions, the app shows those to
+  that member instead.
 - **Members of a project** see its sessions, including transcripts and who
   took part; its memory and retrospectives, with who wrote each note; and
   its schedules, with who set up and changed each, whose Claude account it
@@ -620,8 +626,10 @@ nothing goes there.
 - **Your account**: until you delete it in Settings, or an admin deletes it.
   - That deletes its email addresses, sign-in methods, devices and tokens,
     Claude connections, Linear accounts and memberships, the model and
-    effort level you last asked for in each project, and the workspaces only
-    you are in, with their projects, sessions and transcripts.
+    effort level you last asked for in each project, the machines you
+    enrolled for your own sessions, and the workspaces only you are in,
+    with their projects, sessions and transcripts, and it revokes the
+    enrollment tokens you made for your own sessions.
   - Sessions you started in workspaces that others are in stay with their
     projects, shown as started by a deleted user: your name, email
     addresses and picture are removed from them.
@@ -645,8 +653,10 @@ nothing goes there.
   workspace deletes its projects, as deleting each would, its avatar, its
   invitations, its enrollment tokens and the machines that enrolled with
   them, and its audit log. Leaving a workspace, or being removed
-  from it, deletes your membership, your roles in its projects and the
-  model and effort level you last asked for in them. Invitations to
+  from it, deletes your membership, your roles in its projects, the
+  model and effort level you last asked for in them, and the machines you
+  enrolled in it for your own sessions, and revokes the enrollment tokens
+  you made there for them. Invitations to
   workspaces expire after 30 days.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts, normally right away and at
@@ -714,10 +724,12 @@ nothing goes there.
   unfollow them or they are deleted, and your notification settings until
   you delete your account.
 - **Hosts**: until the person who registered one, or an admin, removes it.
-  A machine that enrolled in a workspace goes when its admins reject or
-  remove it, when it uninstalls, once it stays offline longer than its
-  enrollment token allows, or a week after it enrolled if nobody approves
-  it, and with the workspace.
+  A machine that enrolled in a workspace goes when its admins, or the
+  member it belongs to, reject or remove it, when it uninstalls, once it
+  stays offline longer than its enrollment token allows, or a week after
+  it enrolled if nobody approves it, and with the workspace; one a member
+  enrolled for their own sessions also goes when they leave the workspace
+  or delete their account.
 - **Enrollment tokens**: until 90 days after they were revoked or expired,
   once no machine they enrolled is left, and with their workspace.
 - **Audit logs**: one year.
