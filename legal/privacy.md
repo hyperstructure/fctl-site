@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-05
+updated: 2026-11-06
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -234,7 +234,11 @@ account, you can ask for early access on its sign-in page.
     left open, or why it stopped); the summary its agent put in the pull
     request's description (how risky it looked, why, what it does and what
     deserved a closer look); the links to the review it posted and its
-    check on GitHub; and which of our two GitHub Apps posted them.
+    check on GitHub; and which of our two GitHub Apps posted them. Where
+    one of fctl's agents opened the pull request but no session took the
+    review's findings when it posted, we also keep the message with those
+    findings that fctl sends that agent (their titles, text, files and
+    lines), until a session takes it.
 - **Schedules**:
   - for each of a project's schedules: its name and the task its sessions
     start with; when it runs (a cron expression and a time zone, a time to
