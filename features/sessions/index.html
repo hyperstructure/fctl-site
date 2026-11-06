@@ -123,7 +123,8 @@
               Click a file under Changes and its diff opens over the page: highlighted as its language is, numbered as
               the file is, with the words that changed marked. <code>j</code> and <code>k</code> step through the
               session's other files, and <code>s</code> lays them side by side. The agent sends its diffs as it works,
-              so they're there while it's at it, and after the session has stopped.
+              and they change as you read: the lines it writes come in where you look, while the ones you're reading
+              stay where they are. They're still there after the session has stopped.
             </p>
             <ul class="f-list">
               <li><strong>Any language.</strong> Rust, TypeScript, Python, Terraform, Dockerfiles, lockfiles, <code>.env</code> files and many more.</li>
@@ -132,8 +133,14 @@
             </ul>
           </div>
           <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
-            <img class="theme-dark" src="/src/features/shots/sessions/diff-dark.webp" width="2200" height="1375" alt="platform#437's change to src/billing/charge.rs over its page: a charge now claims a key first, so a retry can't take the money twice. The session's other changed files are beside it." loading="lazy" />
-            <img class="theme-light" src="/src/features/shots/sessions/diff-light.webp" width="2200" height="1375" alt="platform#437's change to src/billing/charge.rs over its page: a charge now claims a key first, so a retry can't take the money twice. The session's other changed files are beside it." loading="lazy" />
+            <video class="theme-dark" width="2200" height="1376" poster="/src/features/shots/sessions/diff-dark.webp" muted loop playsinline preload="none" data-play-in-view aria-label="platform#437's diffs over its page as its agent works: charge.rs comes in under the migration it wrote first, its tests and queries arrive above and below while the lines in view stay where they are, and charge_once changes a line at a time until a charge claims its key before Stripe is called.">
+              <source src="/src/features/shots/sessions/diff-live-dark.webm" type="video/webm" />
+              <source src="/src/features/shots/sessions/diff-live-dark.mp4" type="video/mp4" />
+            </video>
+            <video class="theme-light" width="2200" height="1376" poster="/src/features/shots/sessions/diff-light.webp" muted loop playsinline preload="none" data-play-in-view aria-label="platform#437's diffs over its page as its agent works: charge.rs comes in under the migration it wrote first, its tests and queries arrive above and below while the lines in view stay where they are, and charge_once changes a line at a time until a charge claims its key before Stripe is called.">
+              <source src="/src/features/shots/sessions/diff-live-light.webm" type="video/webm" />
+              <source src="/src/features/shots/sessions/diff-live-light.mp4" type="video/mp4" />
+            </video>
           </figure>
         </section>
 

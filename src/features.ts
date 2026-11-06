@@ -150,7 +150,29 @@ function terminals() {
 }
 
 hero();
+/**
+ * Videos of the app play while they show, the page's theme's (the other's
+ * shows nothing), and stop once scrolled away: nothing loads before. Where
+ * motion is reduced they don't play, and their posters stand in.
+ */
+function videos() {
+  const all = document.querySelectorAll<HTMLVideoElement>("video[data-play-in-view]");
+  if (all.length === 0 || prefersReducedMotion() || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      }
+    },
+    { threshold: 0.25 },
+  );
+  for (const v of all) io.observe(v);
+}
+
 reveals();
+videos();
 copyButtons();
 terminals();
 footer();

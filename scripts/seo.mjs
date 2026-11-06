@@ -232,12 +232,17 @@ export function audit(files) {
     for (const img of tags(html, "img")) {
       if (!("alt" in img)) problem(`image ${img.src} has no alt text`, docs);
     }
+    for (const video of tags(html, "video")) {
+      if (!video["aria-label"]) problem(`video ${video.poster ?? ""} says nothing of what it shows`, docs);
+    }
 
     // Links on the pages written here; fctl checks its docs' links itself.
     if (docs) continue;
     const targets = [
       ...tags(html, "a").map((a) => a.href),
       ...tags(html, "img").map((i) => i.src),
+      ...tags(html, "video").map((v) => v.poster),
+      ...tags(html, "source").map((s) => s.src),
       ...tags(html, "link").map((l) => l.href),
       ...tags(html, "script").map((s) => s.src),
     ];
