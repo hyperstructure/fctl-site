@@ -247,6 +247,18 @@ test("links lead to pages and files in dist, and headings that exist", () => {
   assert.deepEqual(warnings, ["index.html: links to /docs/cli/#walk, a heading /docs/cli/ doesn't have"]);
 });
 
+test("videos say what they show, and their posters and sources are in dist", () => {
+  const body = `<h1>Home</h1>
+    <video poster="/og/home.png" aria-label="The diffs as the agent works"><source src="/diff.webm" type="video/webm" /></video>
+    <video poster="/gone.webp"><source src="/gone.mp4" type="video/mp4" /></video>`;
+  const { errors } = audit(dist({ "index.html": page("/", { body }), "diff.webm": Buffer.from("") }));
+  assert.deepEqual(errors, [
+    "index.html: video /gone.webp says nothing of what it shows",
+    "index.html: links to /gone.webp, which isn't in dist",
+    "index.html: links to /gone.mp4, which isn't in dist",
+  ]);
+});
+
 test("what the docs' Markdown decides only warns", () => {
   const { errors, warnings } = audit(
     dist({

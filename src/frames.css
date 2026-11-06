@@ -19,7 +19,8 @@
     0 40px 90px -36px rgb(23 23 23 / 0.32),
     0 12px 30px -14px rgb(23 23 23 / 0.16);
 }
-.shot img {
+.shot img,
+.shot video {
   display: block;
   width: 100%;
   height: auto;
