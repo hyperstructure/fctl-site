@@ -86,7 +86,7 @@
           <div class="reveal">
             <span class="num">Current</span>
             <strong>Updates itself</strong>
-            <p>Hosts move to the version the control plane runs, so a fleet of them never needs a weekend.</p>
+            <p>Runners move to the version the control plane runs, so a fleet of them never needs a weekend.</p>
           </div>
         </div>
 
@@ -95,8 +95,8 @@
             <h2 id="install">One command per machine.</h2>
             <p>
               Install the CLI, sign in, and run <code>fctl host install</code>. It finds the runtime the machine has,
-              works out how big a sandbox it can give, registers the runner for your workspace and starts the host as
-              a service. On a Mac, it also says how to keep the Mac awake through the night.
+              works out how big a sandbox it can give, registers the machine as a runner for your workspace and starts
+              the host service that runs its sessions. On a Mac, it also says how to keep the Mac awake through the night.
             </p>
             <ul class="f-list">
               <li><strong>Its owner decides.</strong> Which images it runs, which repositories it builds images from, how much disk it keeps free.</li>
@@ -199,7 +199,7 @@
         <section class="f-docs" aria-labelledby="docs">
           <div class="reveal">
             <h2 id="docs">In the docs</h2>
-            <p>Installing a host, what it needs, and how it keeps itself up to date.</p>
+            <p>Making a machine a runner, what it needs, and how it keeps itself up to date.</p>
           </div>
           <ul class="reveal">
             <li><a href="/docs/getting-started/#5-bring-a-machine-online"><span>Bring a machine online</span><small>Step by step, on a Mac or Linux</small></a></li>
