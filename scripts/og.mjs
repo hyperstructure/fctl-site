@@ -69,7 +69,7 @@ function cards() {
 const CSS = `
   html, body { overflow: hidden !important; }
   .skip, .nav nav, .lede:not(.og-first), .install-block, .works, .f-lede, .f-actions, .f-stage,
-  .f-all, main > :not(.hero):not(.f-hero), .site-foot { display: none !important; }
+  .f-group, main > :not(.hero):not(.f-hero), .site-foot { display: none !important; }
   .hero, .f-hero, main > section.f-hero { height: ${CARD.height}px; min-height: 0; }
   .f-canvas, .f-shade { height: ${CARD.height}px; }
   .rise, .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
