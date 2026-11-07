@@ -322,15 +322,34 @@
   border-bottom: 1px solid var(--c-line);
 }
 .ws-logo {
-  display: grid;
-  place-items: center;
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: var(--c-blue);
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
+}
+/* A project's icon on its soft square, in its color, as the app draws it:
+   its colors in each theme come in its style attribute. */
+.ws-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--soft);
+  color: var(--ink);
+}
+:root[data-theme="light"] .ws-icon {
+  background: var(--soft-light);
+  color: var(--ink-light);
+}
+.ws-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .ws strong {
   display: block;
@@ -344,9 +363,15 @@
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--c-ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+/* Rows as wide as the card, not as their content: a long repository
+   name ends in an ellipsis rather than pushing the row out. */
 .ws ul {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   padding: 6px 8px;
 }
 .ws li {
@@ -359,7 +384,7 @@
 .ws li:first-child {
   background: var(--c-hover);
 }
-.ws li > span:first-child {
+.ws li > span:nth-child(2) {
   flex: 1;
   min-width: 0;
 }
