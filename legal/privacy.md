@@ -426,6 +426,10 @@ Your browser also keeps:
   opens: the names, colors and avatar addresses of your workspaces and of
   those that invited you, your role in each, and the names of their projects
   with how many sessions each has going. Signing out removes it;
+- the IDs of the sessions you hide from the sidebar, each with how many
+  turns its agent had finished, when the session last changed and when you
+  hid it, so that they stay hidden until their agents work again, for up
+  to 7 days. Signing out removes them;
 - if you skip the notice that asks you to update the fctl on your runners:
   the version you skipped, so that the notice stays away until a newer one;
 - the task you are writing on the floor, and the one you are writing on each
