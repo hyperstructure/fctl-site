@@ -928,7 +928,7 @@ figcaption {
 .f-feature .menu-icon {
   margin-bottom: 8px;
 }
-.f-feature strong {
+.f-feature-copy strong {
   font-family: var(--font-serif);
   font-weight: 400;
   font-size: clamp(28px, 2.6vw, 34px);
@@ -936,7 +936,7 @@ figcaption {
   letter-spacing: -0.01em;
   color: var(--c-ink);
 }
-.f-feature.side strong {
+.f-feature.side .f-feature-copy strong {
   font-size: clamp(32px, 3.4vw, 44px);
 }
 .f-feature-copy p {
