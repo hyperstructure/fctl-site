@@ -310,7 +310,7 @@ figcaption {
 .f-copy code,
 .f-points code,
 .f-docs code,
-.f-all p code {
+.f-feature p code {
   font-family: var(--font-mono);
   font-size: 0.86em;
   padding: 0.1em 0.35em;
@@ -755,124 +755,348 @@ figcaption {
 
 /* ───────────────────────────── the features page ───────────────────────────── */
 
-.f-all {
-  margin-top: clamp(56px, 8vw, 96px);
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: clamp(16px, 2.4vw, 28px);
+/* Every feature, in three groups: handing out the work, the agents doing it,
+   and keeping it all running. A group is a heading, then its features as
+   tiles of different sizes, each the link to its page, with a part of that
+   page: the app at its own size, a window, a phone, or a terminal that types.
+   The parts run off the tile's edges, as if the app went on beyond it. */
+.f-group {
+  --tone: var(--c-accent);
+  margin-top: clamp(96px, 12vw, 150px);
 }
-.f-all a {
-  position: relative;
+.f-actions + .f-group {
+  margin-top: clamp(72px, 10vw, 128px);
+}
+.f-group.p {
+  --tone: var(--c-pink);
+}
+.f-group.b {
+  --tone: var(--c-blue);
+}
+:root[data-theme="light"] .f-group.p {
+  --tone: #c4009f;
+}
+:root[data-theme="light"] .f-group.b {
+  --tone: #0062c4;
+}
+.f-group-head {
   display: grid;
-  align-content: start;
-  gap: 10px;
-  padding: 26px 26px 28px;
-  border-radius: 18px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 18px clamp(32px, 6vw, 88px);
+}
+@media (max-width: 860px) {
+  .f-group-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.f-group-head h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(44px, 5.6vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+/* The heading's word in the group's color: on light, its highlighter. */
+.f-group .hot {
+  color: var(--tone);
+}
+.f-group.y .hot {
+  color: var(--c-accent);
+}
+:root[data-theme="light"] .f-group .hot {
+  color: var(--c-ink);
+}
+:root[data-theme="light"] .f-group.p .hot {
+  background-image: linear-gradient(to top, rgb(255 0 216 / 0.26) 0.26em, transparent 0.26em);
+}
+:root[data-theme="light"] .f-group.b .hot {
+  background-image: linear-gradient(to top, rgb(0 126 255 / 0.24) 0.26em, transparent 0.26em);
+}
+.f-group-head p {
+  max-width: 34em;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--c-ink-2);
+}
+
+.f-bento {
+  margin-top: clamp(32px, 4vw, 52px);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 20px);
+}
+.f-feature {
+  --pad: clamp(22px, 2.4vw, 30px);
+  grid-column: span 6;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-radius: 22px;
   border: 1px solid var(--c-line);
   background: var(--c-surface);
   overflow: hidden;
   transition:
-    border-color 200ms var(--ease-out),
-    transform 300ms var(--ease-out);
+    translate 320ms var(--ease-out),
+    border-color 220ms var(--ease-out),
+    box-shadow 320ms var(--ease-out);
 }
-.f-all a:hover {
+.f-feature.s4 {
+  grid-column: span 4;
+}
+.f-feature.s5 {
+  grid-column: span 5;
+}
+.f-feature.s7 {
+  grid-column: span 7;
+}
+.f-feature.s8 {
+  grid-column: span 8;
+}
+.f-feature.side {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  min-height: clamp(360px, 36vw, 450px);
+}
+.f-feature.side.flip {
+  flex-direction: row-reverse;
+}
+.f-feature.tall {
+  grid-row: span 2;
+}
+/* The reveal's transitions, and the hover's, which moves the tile with
+   translate rather than the reveal's transform. */
+.js .f-feature.reveal {
+  transition-property: opacity, transform, translate, border-color, box-shadow;
+  transition-duration: 800ms, 900ms, 320ms, 220ms, 320ms;
+  transition-timing-function: var(--ease-out);
+  transition-delay: var(--d, 0ms), var(--d, 0ms), 0ms, 0ms, 0ms;
+}
+.f-feature:nth-child(even) {
+  --d: 90ms;
+}
+.f-feature:hover {
+  translate: 0 -3px;
   border-color: var(--c-line-strong);
-  transform: translateY(-3px);
+  box-shadow: 0 44px 90px -56px color-mix(in oklab, var(--glow) 60%, transparent);
 }
-.f-all .menu-icon {
+.f-feature:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+/* A glow of the tile's color in its corner, brighter under the pointer. */
+.f-feature::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -40%;
+  right: -22%;
+  width: min(82%, 520px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--glow) 18%, transparent), transparent);
+  opacity: 0.75;
+  transition:
+    opacity 320ms var(--ease-out),
+    scale 700ms var(--ease-out);
+  pointer-events: none;
+}
+.f-feature.flip::before {
+  right: auto;
+  left: -22%;
+}
+.f-feature:hover::before {
+  opacity: 1;
+  scale: 1.12;
+}
+
+.f-feature-copy {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 10px;
+  padding: var(--pad) var(--pad) 0;
+}
+.f-feature.side > .f-feature-copy {
+  flex: 0 0 min(36%, 390px);
+  align-content: center;
+  padding-bottom: var(--pad);
+}
+.f-feature .menu-icon {
   margin-bottom: 8px;
 }
-/* A glimpse of the page: its first screenshot, the app's content in it. */
-.f-all .thumb {
-  display: block;
-  margin: -26px -26px 4px;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-bottom: 1px solid var(--c-line);
-  background: var(--c-canvas);
-}
-.f-all .thumb img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 700ms var(--ease-out);
-}
-.f-all a:hover .thumb img {
-  transform: scale(1.035);
-}
-/* The icon sits on the glimpse's lower edge. */
-.f-all .thumb + .menu-icon {
-  position: relative;
-  margin-top: -30px;
-  box-shadow: 0 0 0 5px var(--c-surface);
-}
-/* The CLI's glimpse: a terminal's last lines. */
-.f-all .term-thumb {
-  display: grid;
-  align-content: end;
-  gap: 3px;
-  padding: 18px 22px 30px;
-  background: #0e0e10;
-  color: #ececec;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  line-height: 1.5;
-  font-variant-ligatures: none;
-  white-space: pre;
-}
-.f-all .term-thumb b {
-  font-weight: 400;
-  color: #ff4fe6;
-}
-.f-all .term-thumb i {
-  font-style: normal;
-  color: #ffff5d;
-}
-.f-all .term-thumb em {
-  font-style: normal;
-  color: #4aa3ff;
-}
-:root[data-theme="light"] .f-all .term-thumb {
-  background: #fbfbfa;
-  color: #1b1b1d;
-}
-:root[data-theme="light"] .f-all .term-thumb b {
-  color: #c4009f;
-}
-:root[data-theme="light"] .f-all .term-thumb i {
-  color: #6b6b00;
-}
-:root[data-theme="light"] .f-all .term-thumb em {
-  color: #0062c4;
-}
-.f-all strong {
+.f-feature strong {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 30px;
+  font-size: clamp(28px, 2.6vw, 34px);
   line-height: 1.05;
+  letter-spacing: -0.01em;
   color: var(--c-ink);
 }
-.f-all p {
+.f-feature.side strong {
+  font-size: clamp(32px, 3.4vw, 44px);
+}
+.f-feature p {
+  max-width: 42ch;
   font-size: 15px;
   line-height: 1.6;
   color: var(--c-ink-2);
 }
-.f-all span.more {
+.f-feature .more {
   margin-top: 6px;
   font-size: 14px;
+  font-weight: 500;
   color: var(--c-ink-3);
+  transition: color 160ms var(--ease-out);
 }
-.f-all a:hover span.more {
+.f-feature .more span {
+  display: inline-block;
+  transition: transform 220ms var(--ease-out);
+}
+.f-feature:hover .more {
   color: var(--c-accent);
+}
+.f-feature:hover .more span {
+  transform: translateX(3px);
+}
+
+/* What the page shows, below the copy or beside it. */
+.f-feature-art {
+  position: relative;
+  flex: 1;
+  min-height: 250px;
+  margin-top: clamp(24px, 2.6vw, 32px);
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
+}
+.f-feature.side > .f-feature-art {
+  margin-top: var(--pad);
+  mask-image:
+    linear-gradient(to bottom, #000 78%, transparent 99%), linear-gradient(to right, #000 88%, transparent);
+  mask-composite: intersect;
+}
+.f-feature.side.flip > .f-feature-art {
+  margin-left: var(--pad);
+}
+.f-feature-art > * {
+  transition: translate 500ms var(--ease-out);
+}
+.f-feature:hover .f-feature-art > * {
+  translate: 0 -6px;
+}
+/* A part of the app at its own size, from the copy's edge on. */
+.f-cut {
+  position: absolute;
+  top: 0;
+  left: var(--pad);
+  width: var(--w);
+  border-radius: 12px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-canvas);
+  overflow: hidden;
+  box-shadow: 0 30px 70px -36px rgb(0 0 0 / 0.7);
+}
+:root[data-theme="light"] .f-cut {
+  box-shadow: 0 30px 70px -40px rgb(23 23 23 / 0.35);
+}
+.f-feature.flip .f-cut {
+  left: 0;
+}
+.f-cut img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* The app in a browser window, smaller than its own size. */
+.f-window.shot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(620px, 66vw, 960px);
+}
+/* A phone, its top in view. */
+.f-phone.phone {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 125px);
+  width: 250px;
+}
+/* A terminal, its first lines in view. */
+.f-term.term {
+  position: absolute;
+  top: 0;
+  left: var(--pad);
+  width: 680px;
+}
+/* Its long lines run off the tile, as a terminal wider than it would show them. */
+.f-term .term-body p {
+  white-space: pre;
+}
+
+@media (max-width: 1040px) {
+  .f-feature,
+  .f-feature.s4,
+  .f-feature.s5,
+  .f-feature.s7,
+  .f-feature.s8 {
+    grid-column: span 6;
+  }
+  .f-feature.tall {
+    grid-row: auto;
+  }
+}
+@media (max-width: 720px) {
+  .f-feature,
+  .f-feature.s4,
+  .f-feature.s5,
+  .f-feature.s7,
+  .f-feature.s8 {
+    grid-column: 1 / -1;
+  }
+  .f-feature.side,
+  .f-feature.side.flip {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .f-feature.side > .f-feature-copy {
+    flex: none;
+    padding-bottom: 0;
+  }
+  .f-feature.side > .f-feature-art,
+  .f-feature.side.flip > .f-feature-art {
+    margin: clamp(24px, 2.6vw, 32px) 0 0;
+    min-height: 280px;
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
+  }
+  .f-feature.flip .f-cut,
+  .f-window.shot {
+    left: var(--pad);
+  }
+  /* The parts of the app a little smaller, so that more of them shows. */
+  .f-cut {
+    width: calc(var(--w) * 0.86);
+  }
+  .f-window.shot {
+    width: 640px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .f-stage > .shot,
   .f-stage > .term,
   .f-next a,
-  .f-all a,
-  .f-all .thumb img {
+  .f-feature,
+  .f-feature::before,
+  .f-feature-art > *,
+  .f-feature .more,
+  .f-feature .more span {
+    transition: none;
+  }
+  .js .f-feature.reveal {
     transition: none;
   }
 }
