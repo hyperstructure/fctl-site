@@ -160,8 +160,9 @@ account, you can ask for early access on its sign-in page.
     repositories, how many more they can see there, and the GitHub account
     they signed in as. Only they see it.
 - **Two-factor sign-in**, if you turn it on or your admins require it:
-  - the secret your authenticator app makes codes from (encrypted), when
-    you set the app up and when you last signed in with it;
+  - the secret your authenticator app makes codes from (encrypted), the
+    name you give the app, if any, when you set it up and when you last
+    signed in with it;
   - a hash of each recovery code, and when it was used;
   - how many wrong codes were entered in a row, and whether Google sign-ins
     ask you for a code;
