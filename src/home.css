@@ -367,8 +367,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* Rows as wide as the card, not as their content: a long repository
+   name ends in an ellipsis rather than pushing the row out. */
 .ws ul {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   padding: 6px 8px;
 }
 .ws li {
