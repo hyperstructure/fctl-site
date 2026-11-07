@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-06
+updated: 2026-11-07
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -140,8 +140,8 @@ account, you can ask for early access on its sign-in page.
     you or an admin of app.fctl.sh turn that off;
   - the commit email you choose for each address, if you set one;
   - your role, and a hash of your password (never the password itself);
-  - when you last signed in, and when you were last active (signed in or
-    started a session yourself).
+  - when you last signed in, when you were last active (signed in or
+    started a session yourself), and when you last exported your data.
 - **Workspaces**:
   - for each workspace: its name, address, color and avatar image (if an
     admin uploads one), whether it requires two-factor sign-in, and who
@@ -781,7 +781,9 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   it also has the projects you are a member of, the notes you and your sessions'
   agents wrote in their memories, the sessions you started with their full
   transcripts, the sessions you follow, and your activity log. Sessions of
-  workspaces you left stay with those workspaces.
+  workspaces you left stay with those workspaces. You can export once a
+  week, since an export reads all of it; one that fails on our side
+  doesn't count.
 - **Correct it**: change your name, the name agents call you and your
   picture under Profile, your email addresses and their commit emails
   under Email addresses, the workspaces you are in under Workspaces, what
