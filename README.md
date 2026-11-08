@@ -6,7 +6,7 @@ One Cloudflare Worker with static assets.
 
 | Path | What |
 |---|---|
-| `index.html`, `src/main.ts`, `src/site.css` | The landing page (the foundry scene as the hero) |
+| `index.html`, `src/main.ts`, `src/hero.ts`, `src/home.css`, `src/site.css` | The landing page (the mark's rings as the hero, in `src/hero.ts`) |
 | `docs.html`, `scripts/docs.mjs` | fctl's `docs/*.md`, rendered at build time with Shiki (`scripts/markdown.mjs`) |
 | `scripts/pages.mjs` | Which file each docs page is, and the pages as Markdown for agents: `/docs/<page>.md`, fctl's `docs/llms.txt` at `/llms.txt`, and both in `/llms-full.txt` |
 | `legal.html`, `legal/*.md`, `scripts/legal.mjs` | The privacy policy and terms of service, at `/privacy` and `/terms` |
@@ -20,8 +20,9 @@ One Cloudflare Worker with static assets.
 | `404.html`, `500.html`, `src/error.ts` | Not found and something broke: the status code in `@hyperstructure/design`'s stream, with "Did you mean …?" and "Try again" |
 | `wrangler.toml` | The `fctl-site` Worker on fctl.sh and www.fctl.sh |
 
-Styles, fonts, the WebGL scene and the mark come from
-[@hyperstructure/design](https://github.com/hyperstructure/design).
+Styles, fonts, the foundry scene (the features overview's hero) and the mark
+come from [@hyperstructure/design](https://github.com/hyperstructure/design);
+the other pages' scenes are in `src/`.
 
 ## Developing
 

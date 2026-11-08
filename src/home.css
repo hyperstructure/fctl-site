@@ -91,9 +91,11 @@
 .hero h1 .dot {
   color: var(--c-pink);
 }
+/* Beside the rings, the lede and the command keep clear of them: the rings
+   stand in the right 46% of the hero, and reach to about 60% of its width. */
 .lede {
   margin-top: 28px;
-  max-width: 34em;
+  max-width: min(34em, 52vw);
   font-size: clamp(16px, 1.35vw, 18.5px);
   line-height: 1.6;
   color: var(--c-ink-2);
@@ -101,7 +103,7 @@
 }
 .install-block {
   margin-top: 36px;
-  max-width: 560px;
+  max-width: min(560px, 52vw);
 }
 .install-note {
   margin-top: 12px;
@@ -335,6 +337,12 @@
   }
   .hero h1 {
     font-size: clamp(56px, 11vw, 100px);
+  }
+  .lede {
+    max-width: 34em;
+  }
+  .install-block {
+    max-width: 560px;
   }
   /* Above the copy, in the flow. */
   .hero-stage {
