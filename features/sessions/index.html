@@ -55,8 +55,8 @@
           </p>
           <div class="f-stage">
             <figure class="shot browser only-desk" data-url="app.fctl.sh">
-              <img class="theme-dark" src="/src/features/shots/sessions/floor-dark.webp" width="2200" height="1375" alt="The Agent Floor at 09:10: four agents working, one waiting for Asha, Noor's Claude plan at 34% of its five hours, and the night's finished sessions below." loading="lazy" />
-              <img class="theme-light" src="/src/features/shots/sessions/floor-light.webp" width="2200" height="1375" alt="The Agent Floor at 09:10: four agents working, one waiting for Asha, Noor's Claude plan at 34% of its five hours, and the night's finished sessions below." loading="lazy" />
+              <img class="theme-dark" src="/src/features/shots/sessions/floor-dark.webp" width="2200" height="1375" alt="The Agent Floor at 09:10: four agents working and one waiting for an answer, Noor's Claude plan at 34% of its five hours, and her sidebar's Needs you led by an agent's question." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/floor-light.webp" width="2200" height="1375" alt="The Agent Floor at 09:10: four agents working and one waiting for an answer, Noor's Claude plan at 34% of its five hours, and her sidebar's Needs you led by an agent's question." loading="lazy" />
             </figure>
             <figure class="phone only-phone">
               <img class="theme-dark" src="/src/features/shots/sessions/phone-floor-dark.webp" width="780" height="1576" alt="The Agent Floor on a phone at 09:10: four agents working and one waiting." loading="lazy" />
@@ -98,6 +98,12 @@
               commands fold into a line that opens when you want the detail, so a two-hour session still reads in a
               minute. Memory notes, screenshots and retrospectives show where they happened.
             </p>
+            <p>
+              The new session view, a click away in any session's menu, reads it in turns: each message opens a card,
+              what the agent did about it hangs from the card on a thread, and each turn ends with how long it took and
+              the files it edited. The agent's plan stays beside it, checked off as it goes, and a line above the
+              message box says what it is doing now.
+            </p>
             <ul class="f-list">
               <li><strong>See who else is watching.</strong> Avatars in the header show everyone with the page open.</li>
               <li><strong>Steer it like a colleague.</strong> A message waits for the agent's next step, so nothing it is in the middle of breaks.</li>
@@ -106,8 +112,8 @@
           </div>
           <div class="f-stack reveal">
             <figure class="shot browser" data-url="app.fctl.sh/s/…">
-              <img class="theme-dark" src="/src/features/shots/sessions/session-dark.webp" width="2200" height="1375" alt="shop#231, “Add Danish to the shop”, at work: its memory notes, the pull request it opened with 12 of 23 checks still running, and Tomás and Lucía watching." loading="lazy" />
-              <img class="theme-light" src="/src/features/shots/sessions/session-light.webp" width="2200" height="1375" alt="shop#231, “Add Danish to the shop”, at work: its memory notes, the pull request it opened with 12 of 23 checks still running, and Tomás and Lucía watching." loading="lazy" />
+              <img class="theme-dark" src="/src/features/shots/sessions/session-dark.webp" width="2200" height="1375" alt="shop#231, “Add Danish to the shop”, at work in the new session view: its plan beside it at step 2 of 6, what it remembered for later agents, the pull request it opened with 12 of 23 checks still running while the review agent reads it, a line above the message box that says it watches the checks, and Tomás, Lucía and Noor watching." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/session-light.webp" width="2200" height="1375" alt="shop#231, “Add Danish to the shop”, at work in the new session view: its plan beside it at step 2 of 6, what it remembered for later agents, the pull request it opened with 12 of 23 checks still running while the review agent reads it, a line above the message box that says it watches the checks, and Tomás, Lucía and Noor watching." loading="lazy" />
             </figure>
             <figure class="phone">
               <img class="theme-dark" src="/src/features/shots/sessions/phone-session-dark.webp" width="780" height="1576" alt="The same session on a phone." loading="lazy" />
@@ -161,7 +167,34 @@
           </figure>
         </section>
 
-        <section class="f-section flip" aria-labelledby="floor">
+        <section class="f-section flip" aria-labelledby="asks">
+          <div class="f-copy reveal">
+            <h2 id="asks">When it needs you, it asks.</h2>
+            <p>
+              Some calls are yours to make. An agent that needs one asks with <code>fctl ask</code>, offers the answers it
+              sees, and ends its turn. The question waits above the message box, and at the top of Needs you for
+              everyone who follows the session. A click sends that answer as your reply, or write your own: the agent
+              goes on from there.
+            </p>
+            <ul class="f-list">
+              <li><strong>Where you'll see it.</strong> On the session's row on the Agent Floor, on the pull requests page, and in a notification as its turn ends.</li>
+              <li><strong>Only what it can't find out.</strong> fctl tells agents to ask for a decision only a person can make, access or an answer, one question at a time.</li>
+            </ul>
+            <a class="f-link" href="/docs/architecture/#questions">How questions work <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/sessions/asking-dark.webp" width="2200" height="1375" alt="platform#445 waits for an answer: its agent asks whether a webhook that ends up in the dead letters should page whoever is on call, or whether the daily summary in #platform is enough, with both answers to click above the message box. Noor follows the session, so the question also leads her sidebar's Needs you." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/asking-light.webp" width="2200" height="1375" alt="platform#445 waits for an answer: its agent asks whether a webhook that ends up in the dead letters should page whoever is on call, or whether the daily summary in #platform is enough, with both answers to click above the message box. Noor follows the session, so the question also leads her sidebar's Needs you." loading="lazy" />
+            </figure>
+            <figure class="phone">
+              <img class="theme-dark" src="/src/features/shots/sessions/phone-asking-dark.webp" width="780" height="1576" alt="The same question on a phone, with its two answers to tap." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/phone-asking-light.webp" width="780" height="1576" alt="The same question on a phone, with its two answers to tap." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="floor">
           <div class="f-copy reveal">
             <h2 id="floor">Your factory, at a glance.</h2>
             <p>
@@ -178,8 +211,8 @@
           </div>
           <div class="f-phones reveal">
             <figure class="phone">
-              <img class="theme-dark" src="/src/features/shots/sessions/phone-needs-dark.webp" width="780" height="1576" alt="The sidebar on a phone: three pull requests ready for Noor under Needs you, then Romanesco's projects, each with its icon and its sessions at work." loading="lazy" />
-              <img class="theme-light" src="/src/features/shots/sessions/phone-needs-light.webp" width="780" height="1576" alt="The sidebar on a phone: three pull requests ready for Noor under Needs you, then Romanesco's projects, each with its icon and its sessions at work." loading="lazy" />
+              <img class="theme-dark" src="/src/features/shots/sessions/phone-needs-dark.webp" width="780" height="1576" alt="The sidebar on a phone: Needs you led by platform#445's question, then three pull requests ready for Noor, and Romanesco's projects, each with its icon and its sessions at work." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/sessions/phone-needs-light.webp" width="780" height="1576" alt="The sidebar on a phone: Needs you led by platform#445's question, then three pull requests ready for Noor, and Romanesco's projects, each with its icon and its sessions at work." loading="lazy" />
             </figure>
             <figure class="phone">
               <img class="theme-dark" src="/src/features/shots/sessions/phone-diff-dark.webp" width="780" height="1576" alt="shop#231's change to src/lib/money.ts on a phone: Danish kroner beside Swedish kronor." loading="lazy" />
@@ -198,6 +231,7 @@
             <li><a href="/docs/getting-started/#8-follow-along-and-steer"><span>Follow along and steer</span><small>Messages, interrupts and stops</small></a></li>
             <li><a href="/docs/architecture/#pull-request-state-and-checks"><span>Pull request state and checks</span><small>How fctl follows them on GitHub</small></a></li>
             <li><a href="/docs/architecture/#follow-ups"><span>Follow-ups</span><small>What brings an agent back, and what it is told</small></a></li>
+            <li><a href="/docs/architecture/#questions"><span>Questions</span><small>How an agent asks for your input, and where you answer</small></a></li>
           </ul>
         </section>
 
