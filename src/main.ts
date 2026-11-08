@@ -1,16 +1,16 @@
-// The landing page: the foundry scene as the hero, with a few imaginary
-// sessions at work, the map of how the pieces fit, the footer's melting
-// wordmark, plus copy buttons and scroll reveals.
+// The landing page: the mark's rings, which agents take apart and put back
+// together, as the hero (src/hero.ts), the map of how the pieces fit, the
+// footer's melting wordmark, plus copy buttons and scroll reveals.
 
 import "./site.css";
 import "./mocks.css";
 import "./frames.css";
 import "./home.css";
-import { mount, prefersReducedMotion } from "@hyperstructure/design/gl/core";
-import { type FoundryLane, foundry, LANES } from "@hyperstructure/design/gl/foundry";
+import { mount } from "@hyperstructure/design/gl/core";
 import { band } from "./band";
 import { branches } from "./branches";
 import { footer } from "./footer";
+import { heroScene } from "./hero";
 import { type MapLink, mapScene } from "./home-scenes";
 import { menus } from "./nav";
 import { searchTriggers } from "./search";
@@ -20,48 +20,38 @@ document.documentElement.classList.add("js");
 function hero() {
   const canvas = document.querySelector<HTMLCanvasElement>(".hero-canvas");
   const section = canvas?.closest<HTMLElement>(".hero");
-  if (!canvas || !section) return;
-  const scene = foundry({ planet: [1.02, -0.75, 1.15], density: 0.55 });
-  mount(canvas, scene.scene, { pixel: 3 });
+  const stage = section?.querySelector<HTMLElement>(".hero-stage");
+  if (!canvas || !section || !stage) return;
+  const rings = heroScene();
+  mount(canvas, rings.scene, { pixel: 3 });
+  if (canvas.dataset.webgl) {
+    // No WebGL: the rings stand still, drawn flat (.hero-still).
+    section.classList.add("nogl");
+    return;
+  }
 
-  // A dozen sessions: mostly working (yellow), some waiting for a reply
-  // (blue), now and then one paused (pink). They come and go slowly.
-  const lanes = new Map<number, FoundryLane>();
-  const pick = () => Math.floor(Math.random() * LANES);
-  const color = () => {
-    const r = Math.random();
-    return r < 0.7 ? 1 : r < 0.92 ? 2 : 3;
+  // The rings stand in .hero-stage, wherever the layout puts it: beside the
+  // copy on wide screens, above it on phones.
+  const place = () => {
+    const box = canvas.getBoundingClientRect();
+    const at = stage.getBoundingClientRect();
+    if (!box.height || !at.width) return;
+    rings.place(
+      (at.left + at.width / 2 - box.left) / box.height,
+      1 - (at.top + at.height / 2 - box.top) / box.height,
+      Math.min(at.width * 0.31, at.height * 0.31) / box.height,
+    );
   };
-  while (lanes.size < 9) lanes.set(pick(), { lit: 1, color: color(), energy: Math.random() * 0.6 });
-  scene.setLanes(lanes);
-  if (prefersReducedMotion()) return;
-
-  setInterval(() => {
-    const working = [...lanes.entries()].filter(([, l]) => l.color === 1);
-    const [lane, l] = working[Math.floor(Math.random() * working.length)] ?? [];
-    if (lane === undefined || !l) return;
-    scene.pulse(lane, 40 + Math.random() * 900);
-    l.energy = Math.min(1, l.energy + 0.25);
-  }, 420);
-  setInterval(() => {
-    for (const l of lanes.values()) l.energy *= 0.8;
-    // Now and then a session finishes and another starts elsewhere.
-    if (Math.random() < 0.18) {
-      const keys = [...lanes.keys()];
-      const gone = keys[Math.floor(Math.random() * keys.length)];
-      if (gone !== undefined) lanes.delete(gone);
-      let next = pick();
-      while (lanes.has(next)) next = pick();
-      lanes.set(next, { lit: 1, color: color(), energy: 0.5 });
-    }
-    scene.setLanes(lanes);
-  }, 1200);
+  const sizes = new ResizeObserver(place);
+  sizes.observe(canvas);
+  sizes.observe(stage);
+  place();
 
   section.addEventListener("pointermove", (e) => {
     const r = section.getBoundingClientRect();
-    scene.pointer((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+    rings.pointer((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
   });
-  section.addEventListener("pointerleave", () => scene.pointerLeave());
+  section.addEventListener("pointerleave", () => rings.pointerLeave());
 }
 
 function copyButtons() {

@@ -285,101 +285,10 @@
   }
 }
 
-/* ───────────────────────────── hero ───────────────────────────── */
+/* ───────────────────────────── install ───────────────────────────── */
 
-.hero {
-  position: relative;
-  min-height: max(100svh, 680px);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  isolation: isolate;
-}
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-}
-.hero-shade {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 58% 62% at 26% 56%, var(--c-canvas) 30%, transparent 78%),
-    linear-gradient(to bottom, transparent 72%, var(--c-canvas) 100%);
-  opacity: 0.9;
-}
-.hero-copy {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 120px clamp(16px, 5vw, 64px) 96px;
-}
-.hero h1 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(58px, 8.8vw, 118px);
-  line-height: 0.94;
-  letter-spacing: -0.012em;
-  color: var(--c-ink);
-}
-/* "Agents that build" on the first line; "while you sleep." shares the second. */
-.hero h1 > span:first-child {
-  display: block;
-}
-.hero h1 .dim {
-  color: var(--c-ink-3);
-  font-style: italic;
-}
-.hero h1 .hot {
-  color: var(--c-accent);
-}
-/* On light backgrounds the yellow becomes a highlighter stroke under the word.
-   Inline-block keeps the box one line tall, so the stroke stays on the letters. */
-:root[data-theme="light"] .hero h1 .hot {
-  display: inline-block;
-  background: linear-gradient(to top, var(--c-highlight) 0.26em, transparent 0.26em) no-repeat;
-  background-size: calc(100% - 0.22em) 100%;
-}
-.hero h1 .dot {
-  color: var(--c-pink);
-}
-.lede {
-  margin-top: 30px;
-  max-width: 36em;
-  font-size: clamp(16px, 1.35vw, 18.5px);
-  line-height: 1.6;
-  color: var(--c-ink-2);
-  text-wrap: pretty;
-}
-
-.install-block {
-  margin-top: 40px;
-  max-width: 600px;
-}
-.install-tabs {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.install-tabs .tab {
-  color: var(--c-ink);
-  padding-bottom: 6px;
-  border-bottom: 1.5px solid var(--c-pink);
-}
-.install-tabs .platforms {
-  color: var(--c-ink-4);
-  padding-bottom: 6px;
-}
+/* The install command: the landing page's hero (src/home.css), its end and
+   the feature pages' ends. */
 .install {
   display: flex;
   align-items: stretch;
@@ -434,27 +343,6 @@
 .copy.done {
   color: var(--c-highlight-ink);
   background: var(--c-highlight);
-}
-.works {
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  /* Between ink-2 and ink-3: #aaaaaa on dark, #545454 on light. */
-  color: color-mix(in srgb, var(--c-ink-3), var(--c-ink-2));
-  /* A halo of the canvas's color lifts the names off the scene behind them: a shadow on
-     dark, a glow on light. */
-  text-shadow:
-    0 0 2px var(--c-canvas),
-    0 1px 3px var(--c-canvas),
-    0 0 10px color-mix(in srgb, var(--c-canvas) 70%, transparent);
-}
-.works span::before {
-  content: "+ ";
-  opacity: 0.6;
 }
 .hero-links {
   margin-top: 26px;
