@@ -76,6 +76,7 @@
     <link rel="icon" href="/icon-maskable-512.png" type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script src="/theme.js"></script>
+    <noscript><style>.hero .hero-still { display: block; }</style></noscript>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -86,7 +87,9 @@
         <canvas class="hero-canvas" aria-hidden="true"></canvas>
         <div class="hero-shade" aria-hidden="true"></div>
         <div class="hero-main">
-          <div class="hero-stage" aria-hidden="true"></div>
+          <div class="hero-stage" aria-hidden="true">
+            <svg class="hero-still" viewBox="-1.6 -1.6 3.2 3.2" aria-hidden="true"><rect x="-1.000" y="-1.000" width="2.000" height="2.000" rx="0.420" transform="rotate(18)" style="stroke: var(--c-accent)" /><rect x="-0.740" y="-0.740" width="1.480" height="1.480" rx="0.311" transform="rotate(36)" style="stroke: var(--c-pink)" /><rect x="-0.548" y="-0.548" width="1.095" height="1.095" rx="0.230" transform="rotate(54)" style="stroke: var(--c-blue)" /><rect x="-0.405" y="-0.405" width="0.810" height="0.810" rx="0.170" transform="rotate(72)" style="stroke: var(--c-ink)" /><rect x="-0.300" y="-0.300" width="0.600" height="0.600" rx="0.126" transform="rotate(90)" style="stroke: var(--c-pink)" /></svg>
+          </div>
           <div class="hero-copy">
             <h1 class="rise">
               <span>Agents that build</span>

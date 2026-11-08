@@ -24,6 +24,11 @@ function hero() {
   if (!canvas || !section || !stage) return;
   const rings = heroScene();
   mount(canvas, rings.scene, { pixel: 3 });
+  if (canvas.dataset.webgl) {
+    // No WebGL: the rings stand still, drawn flat (.hero-still).
+    section.classList.add("nogl");
+    return;
+  }
 
   // The rings stand in .hero-stage, wherever the layout puts it: beside the
   // copy on wide screens, above it on phones.

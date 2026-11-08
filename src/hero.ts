@@ -242,7 +242,8 @@ export function heroScene(): HeroHandle {
     );
     for (let k = 0; k < RINGS; k++) {
       const axis: Vec3 = [Math.cos(AXES[k] ?? 0), Math.sin(AXES[k] ?? 0), 0];
-      const local = mul(axisAngle([0, 0, 1], TWIST * (k + 1)), axisAngle(axis, turned(k, time)));
+      // Clockwise on screen, as the mark's rings turn.
+      const local = mul(axisAngle([0, 0, 1], -TWIST * (k + 1)), axisAngle(axis, turned(k, time)));
       const world = mul(lean, local);
       rings.set(transpose(world), k * 9);
       agents[k] = (((time * (PACE[k] ?? 0.1) + k * 0.37) % 1) + 1) % 1;

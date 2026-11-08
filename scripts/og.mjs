@@ -68,10 +68,11 @@ function cards() {
  */
 const CSS = `
   html, body { overflow: hidden !important; }
-  .skip, .nav nav, .lede:not(.og-first), .install-block, .works, .f-lede, .f-actions, .f-stage,
+  .skip, .nav nav, .lede:not(.og-first), .install-block, .trip, .f-lede, .f-actions, .f-stage,
   .f-group, main > :not(.hero):not(.f-hero), .site-foot { display: none !important; }
   .hero, .f-hero, main > section.f-hero { height: ${CARD.height}px; min-height: 0; }
   .f-canvas, .f-shade { height: ${CARD.height}px; }
+  .hero-stage { top: 24px; bottom: 24px; }
   .rise, .reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
   .nav { padding-top: 34px; }
   .nav .brand { gap: 12px; font-size: 24px; }
