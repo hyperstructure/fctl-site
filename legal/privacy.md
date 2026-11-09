@@ -689,6 +689,10 @@ nothing goes there.
   - The notes you, or your sessions' agents, wrote in their projects'
     memories stay too, without your name, and so do the schedules you set
     up or took over, which stop running on your Claude account.
+  - So do what you told autopilots (your notes, your answers and the
+    directions you gave them) and the lines of their logs that say what
+    you did, without your name. An autopilot that ran on your Claude
+    account pauses until someone who manages its project takes it over.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
   turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
   it off for everyone, you no longer have a Gravatar (we look about once a
