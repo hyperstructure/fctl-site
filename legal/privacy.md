@@ -730,10 +730,10 @@ nothing goes there.
   runs, as long as the schedule. Deleting a schedule leaves the sessions it
   started in their project.
 - **Autopilots**: as long as their project; taking a project off autopilot
-  keeps its autopilot's direction, notes and log for when it's put on
-  again. Each note until someone removes it; what it asked, until 90 days
-  after it was answered, declined or taken back; its log's newest 1,000
-  entries. Its sessions stay in their project like any other.
+  keeps its autopilot's direction, notes, plan, log and open asks for when
+  it's put on again. Each note until someone removes it; what it asked,
+  until 90 days after it was answered, declined or taken back; its log's
+  newest 1,000 entries. Its sessions stay in their project like any other.
 - **Linear**:
   - our app's tokens in a Linear workspace: until no fctl workspace works in
     it any more, when we revoke them at Linear and delete them, within an
