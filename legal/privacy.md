@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-08
+updated: 2026-11-09
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -28,8 +28,10 @@ This policy doesn't apply to either.
   you connect. Agents run on those machines, not on ours. A session keeps
   a full transcript of what agents and people did in it, which can contain
   your code. Projects also keep their agents'
-  notes and retrospectives, review agents' reviews of pull requests, and
-  the schedules that start sessions on their own.
+  notes and retrospectives, review agents' reviews of pull requests, the
+  schedules that start sessions on their own, and the autopilots that run
+  a project on its own (experimental), with what people tell and answer
+  them.
 - **We don't train AI models on your data or your code, but Anthropic
   receives your code and messages.** That promise covers only us. Agents
   run Claude Code with someone's Claude account, so what they read and what
@@ -253,6 +255,24 @@ account, you can ask for early access on its sign-in page.
   - what a person or a tool sends with a run, such as an issue's text, goes
     into the first message of the run's session, and so into its
     transcript.
+- **Autopilots** (experimental), in projects their maintainers put on
+  autopilot, in workspaces whose admins allow them:
+  - for each: the direction people give it and who last changed it, and
+    when; the plan it keeps; what it may do; how often it checks in and how
+    many sessions it runs at once; whose Claude account it runs on, who put
+    it on and when; and, when it was paused, who paused it and why;
+  - the notes people steer it with, with who wrote each and when, and when
+    it read them;
+  - what it asks people, with what helps answer it (which can link to
+    screenshots it published), and the answer, or why someone declined, with
+    who answered and when. A secret it asks for goes into the project's
+    secrets, sealed, as any project secret, and never into the ask, its
+    answer or a transcript;
+  - its log: what it did (the sessions it started and steered, the settings,
+    secrets' names, repositories and schedules it changed, the projects it
+    created), what it wrote down, and what people did with it, with who and
+    when;
+  - its sessions are sessions like any other, with their transcripts.
 - **Project memory and retrospectives**, in projects that keep them (they
   are on unless a maintainer turns them off):
   - memory: the notes a project's agents and people write for its later
@@ -519,6 +539,10 @@ They receive data under their own privacy policies.
     there too, whoever wrote it.
   - **Project memory**: a project's notes go into the prompts of its later
     sessions, on the accounts of the people who start them.
+  - **Autopilots**: an autopilot's direction, plan, notes, the answers
+    people give it (never a secret's value) and its log go to the account
+    of the person who put the project on autopilot, or took it over, and so
+    does the work of the sessions it starts, whoever wrote what.
   - **Follow-ups**: when one of fctl's agents opened a pull request, a
     review's findings on it go to that agent's session, and so to the
     account it runs on. So do the comments, failed checks, conflicts and
@@ -589,7 +613,8 @@ They see what you share with them.
 - **Members of a project** see its sessions, including transcripts and who
   took part; its memory and retrospectives, with who wrote each note; and
   its schedules, with who set up and changed each, whose Claude account it
-  runs on and who or what started each of its runs.
+  runs on and who or what started each of its runs; and its autopilot, with
+  its direction, plan, notes, what it asks and who answered, and its log.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
@@ -664,6 +689,10 @@ nothing goes there.
   - The notes you, or your sessions' agents, wrote in their projects'
     memories stay too, without your name, and so do the schedules you set
     up or took over, which stop running on your Claude account.
+  - So do what you told autopilots (your notes, your answers and the
+    directions you gave them) and the lines of their logs that say what
+    you did, without your name. An autopilot that ran on your Claude
+    account pauses until someone who manages its project takes it over.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
   turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
   it off for everyone, you no longer have a Gravatar (we look about once a
@@ -704,6 +733,12 @@ nothing goes there.
   owners deletes them, or the project is deleted. Each schedule's newest 100
   runs, as long as the schedule. Deleting a schedule leaves the sessions it
   started in their project.
+- **Autopilots**: as long as their project; taking a project off autopilot
+  keeps its autopilot's direction, notes, plan, log and open asks for when
+  it's put on again. Each note until someone removes it; what it asked,
+  until 90 days after it heard the answer or the refusal, or took it back;
+  its log's newest 1,000 entries. Its sessions stay in their project like
+  any other.
 - **Linear**:
   - our app's tokens in a Linear workspace: until no fctl workspace works in
     it any more, when we revoke them at Linear and delete them, within an
