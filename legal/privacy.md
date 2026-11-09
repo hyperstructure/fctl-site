@@ -732,8 +732,9 @@ nothing goes there.
 - **Autopilots**: as long as their project; taking a project off autopilot
   keeps its autopilot's direction, notes, plan, log and open asks for when
   it's put on again. Each note until someone removes it; what it asked,
-  until 90 days after it was answered, declined or taken back; its log's
-  newest 1,000 entries. Its sessions stay in their project like any other.
+  until 90 days after it heard the answer or the refusal, or took it back;
+  its log's newest 1,000 entries. Its sessions stay in their project like
+  any other.
 - **Linear**:
   - our app's tokens in a Linear workspace: until no fctl workspace works in
     it any more, when we revoke them at Linear and delete them, within an
