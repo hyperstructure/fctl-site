@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-09
+updated: 2026-11-12
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
