@@ -444,9 +444,10 @@ Your browser also keeps:
   a session in, so that the app opens as you left it;
 - a log of what the app did in that browser lately, at most 300 entries:
   how it started, when it went to the background and came back, the
-  addresses of the pages it was on, and the errors it met, so that you can
-  copy it into a report from Settings → App log. It never leaves your
-  browser unless you copy it. Signing out removes it;
+  addresses of the pages it was on, and the errors it met, with the ID of
+  the account it is kept for, so that you can copy it into a report from
+  Settings → App log. It never leaves your browser unless you copy it.
+  Signing out removes it, and so does someone else signing in there;
 - a copy of what the sidebar shows, so that it shows it as soon as the app
   opens: the names, colors and avatar addresses of your workspaces and of
   those that invited you, your role in each, and the names of their projects
