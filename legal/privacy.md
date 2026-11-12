@@ -442,6 +442,10 @@ Your browser also keeps:
   list, until you withdraw it or ask with another address;
 - which workspaces you fold in the sidebar, and the project you last started
   a session in, so that the app opens as you left it;
+- in the app on an iPhone's or iPad's Home Screen: the address of the page
+  you were last on, with the session, project or workspace in it and the
+  tab, filter or search you had open, and when, so that the app opens there
+  again after iOS closed it in the background. Signing out removes it;
 - a log of what the app did in that browser lately, at most 300 entries:
   how it started, when it went to the background and came back, the
   addresses of the pages it was on, and the errors it met, with the ID of
