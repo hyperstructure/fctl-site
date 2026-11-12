@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-09
+updated: 2026-11-12
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -442,6 +442,11 @@ Your browser also keeps:
   list, until you withdraw it or ask with another address;
 - which workspaces you fold in the sidebar, and the project you last started
   a session in, so that the app opens as you left it;
+- a log of what the app did in that browser lately, at most 300 entries:
+  how it started, when it went to the background and came back, the
+  addresses of the pages it was on, and the errors it met, so that you can
+  copy it into a report from Settings → App log. It never leaves your
+  browser unless you copy it. Signing out removes it;
 - a copy of what the sidebar shows, so that it shows it as soon as the app
   opens: the names, colors and avatar addresses of your workspaces and of
   those that invited you, your role in each, and the names of their projects
