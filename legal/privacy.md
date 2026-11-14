@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-12
+updated: 2026-11-14
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -267,7 +267,10 @@ account, you can ask for early access on its sign-in page.
     screenshots it published), and the answer, or why someone declined, with
     who answered and when. A secret it asks for goes into the project's
     secrets, sealed, as any project secret, and never into the ask, its
-    answer or a transcript;
+    answer or a transcript. A question can name a session it is about; the
+    files someone attaches to their answer go to that session in a message
+    from them, as any message's files, and the ask keeps their names, types
+    and sizes;
   - its log: what it did (the sessions it started and steered, the settings,
     secrets' names, repositories and schedules it changed, the projects it
     created), what it wrote down, and what people did with it, with who and
@@ -551,7 +554,8 @@ They receive data under their own privacy policies.
   - **Project memory**: a project's notes go into the prompts of its later
     sessions, on the accounts of the people who start them.
   - **Autopilots**: an autopilot's direction, plan, notes, the answers
-    people give it (never a secret's value) and its log go to the account
+    people give it (never a secret's value), with the names of the files
+    they sent its sessions with them, and its log go to the account
     of the person who put the project on autopilot, or took it over, and so
     does the work of the sessions it starts, whoever wrote what.
   - **Follow-ups**: when one of fctl's agents opened a pull request, a
