@@ -284,6 +284,12 @@ account, you can ask for early access on its sign-in page.
     allow, which wait until one of them makes room: each one's text, its
     files' names, types and sizes, the session it goes to, the person it
     acts as and when it sent it;
+  - for each pull request of its sessions that merged: its repository,
+    number, link and title, the session that lists it, the branch it merged
+    into and the commit that holds it there, and how the checks on that
+    branch ended after it, as GitHub says (on which commit, how many passed,
+    failed or were cancelled, and the names of those that failed), and when
+    it heard of that;
   - its sessions are sessions like any other, with their transcripts.
 - **Project memory and retrospectives**, in projects that keep them (they
   are on unless a maintainer turns them off):
@@ -564,11 +570,13 @@ They receive data under their own privacy policies.
     sessions, on the accounts of the people who start them.
   - **Autopilots**: an autopilot's direction, plan, notes, the answers
     people give it (never a secret's value), with the names of the files
-    they sent its sessions with them, its log, the files it keeps, and the
+    they sent its sessions with them, its log, the files it keeps, the
     messages it holds for its sessions until they make room (the start of
-    each, and how many files it sends) go to the account of the person who
-    put the project on autopilot, or took it over, and so does the work of
-    the sessions it starts, whoever wrote what.
+    each, and how many files it sends), and how the checks went after its
+    sessions' pull requests merged (each pull request's link and title, and
+    the names of the checks that failed) go to the account of the person
+    who put the project on autopilot, or took it over, and so does the work
+    of the sessions it starts, whoever wrote what.
   - **Follow-ups**: when one of fctl's agents opened a pull request, a
     review's findings on it go to that agent's session, and so to the
     account it runs on. So do the comments, failed checks, conflicts and
@@ -768,13 +776,14 @@ nothing goes there.
   when it's put on again. Each note until someone removes it; each file
   until the autopilot removes it; what it asked, until 90 days after it
   heard the answer or the refusal, or took it back; its log's newest 1,000
-  entries. A message waiting for room, until it goes to its session (and
-  into that session's transcript, like any message), someone takes it
-  back, its session is deleted, or the project is taken off autopilot; or,
-  once its session failed, until the autopilot is next on. While the
-  autopilot is paused, by people, by itself or because its workspace's
-  admins turned autopilots off, its messages wait, however long that
-  lasts. Its sessions stay in their project like any other.
+  entries; how the checks went after its sessions' pull requests merged,
+  until three days after each merged. A message waiting for room, until it
+  goes to its session (and into that session's transcript, like any
+  message), someone takes it back, its session is deleted, or the project
+  is taken off autopilot; or, once its session failed, until the autopilot
+  is next on. While the autopilot is paused, by people, by itself or because
+  its workspace's admins turned autopilots off, its messages wait, however
+  long that lasts. Its sessions stay in their project like any other.
 - **Linear**:
   - our app's tokens in a Linear workspace: until no fctl workspace works in
     it any more, when we revoke them at Linear and delete them, within an
