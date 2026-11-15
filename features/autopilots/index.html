@@ -367,8 +367,8 @@
             <div class="ap-wakes-copy reveal">
               <h3 class="ap-wakes-title">What wakes it</h3>
               <p>
-                It rests between wakes, and spends nothing while it does. Each wake reads what's new since the last: notes,
-                answers, its sessions that moved, people's pull requests left open.
+                Between wakes its own session rests, and uses none of your plan. Each wake brings what's new since the
+                last: notes, answers, its sessions that moved, people's pull requests left open.
               </p>
             </div>
             <ul class="ap-wake-grid">
@@ -412,11 +412,12 @@
               <h3 class="ap-rule-title"><span class="ap-rule-icon y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg></span>It may</h3>
               <ul>
                 <li><b>Always:</b> read its project's sessions, schedules, repositories, memory and the names of its secrets.</li>
-                <li><b>Always:</b> start sessions, and message, stop, resume or archive the ones it started.</li>
+                <li><b>Always:</b> start sessions, and message, stop, resume or archive the ones it started; keep the project's memory.</li>
                 <li><b>Merge,</b> once checks pass: its sessions merge their own pull requests.</li>
                 <li><b>Settings:</b> change the project's settings and its review agents.</li>
                 <li><b>Secrets:</b> set them, and replace or remove only the ones it set.</li>
                 <li><b>Repositories and schedules:</b> add them, change them, remove them.</li>
+                <li><b>Projects,</b> for a workspace's autopilot: create them.</li>
               </ul>
             </article>
             <article class="ap-rule reveal" style="--glow: var(--c-pink)">
@@ -435,7 +436,8 @@
             <p>
               Several sessions at once, kept going without anyone, use a Claude plan's limits quickly. On Max and Ultra it
               usually keeps up; on Pro a fresh build at full speed may reach the five-hour limit, and its sessions wait
-              there until it resets. It runs on the plan of whoever put it on: changing how hard it works runs it on yours.
+              there until it resets. It runs on the plan of whoever put it on: changing how hard it works runs it on yours,
+              unless its owner keeps it on theirs.
             </p>
           </aside>
           <div class="f-trio ap-duo">
@@ -461,9 +463,8 @@
             <h2 id="workspace">Or the whole workspace.</h2>
             <p>
               A workspace's admins can put all of it on autopilot, from one of its projects. It starts sessions in any
-              of them, creates new projects as the work needs them, and keeps what it learns where every project's
-              sessions find it. What it does across the workspace is its admins' to see and steer: everyone else sees
-              that it runs, and its sessions in their projects, with its mark.
+              of them, and creates new projects as the work needs them. What it does across the workspace is its admins'
+              to see and steer: everyone else sees that it runs, and its sessions in their projects, with its mark.
             </p>
           </div>
           <figure class="ap-ws reveal" aria-hidden="true">
