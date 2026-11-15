@@ -354,6 +354,29 @@
   stroke-linejoin: round;
 }
 
+/* ───────────────────────────── what it asks ───────────────────────────── */
+
+/* The question up close, and the phone it waits on, side by side. */
+.ap-ask-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(26%, 270px);
+  align-items: start;
+  gap: clamp(20px, 4vw, 56px);
+  margin-top: clamp(32px, 4vw, 48px);
+}
+.ap-ask-row .phone {
+  width: 100%;
+}
+@media (max-width: 760px) {
+  .ap-ask-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ap-ask-row .phone {
+    width: min(78%, 300px);
+    margin: 0 auto;
+  }
+}
+
 /* ───────────────────────────── a note that steers it ───────────────────────────── */
 
 /* The tab's Steer it, as the app draws it: a note typed, added, seen; then what it did. */
@@ -724,16 +747,16 @@
   --from: 0;
 }
 .ap-day:nth-child(2) {
-  --from: 8;
+  --from: 7.94;
 }
 .ap-day:nth-child(3) {
-  --from: 35;
+  --from: 35.16;
 }
 .ap-day:nth-child(4) {
-  --from: 62;
+  --from: 62.38;
 }
 .ap-day:nth-child(5) {
-  --from: 89;
+  --from: 89.6;
 }
 .ap-day h3 {
   font-family: var(--font-mono);
