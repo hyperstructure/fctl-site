@@ -122,10 +122,12 @@ void field(vec2 p, inout vec3 col, inout float v) {
   // beyond it, dashed, running out.
   vec2 b = rot(-uBug) * q;
   bool bugIn = inTri(b, vec2(0.0, R + 0.02), vec2(0.022, R + 0.062), vec2(-0.022, R + 0.062));
-  take(col, v, uP, bugIn ? 1.2 : 0.0);
+  // On a phone the copy is over it: the bug and its course hardly show.
+  float bugShows = mix(0.35, 1.0, uWide);
+  take(col, v, uP, bugIn ? 1.2 * bugShows : 0.0);
   float course = smoothstep(R * 2.2, R * 1.25, b.y) * step(R + 0.075, b.y);
   float dash = step(0.42, fract(b.y * 26.0 - uTime * 1.3));
-  take(col, v, uP, line(abs(b.x), 0.8) * dash * course * (0.45 + 0.4 * uSteer));
+  take(col, v, uP, line(abs(b.x), 0.8) * dash * course * (0.45 + 0.4 * uSteer) * bugShows);
 
   // The arrow, the mark's heading: it turns after the bug.
   float unit = R / 9.0;
@@ -140,6 +142,8 @@ void field(vec2 p, inout vec3 col, inout float v) {
   // Where it heads, from its tip to the ring.
   vec2 hh = h * unit;
   take(col, v, uY, line(abs(hh.x), 0.7) * step(5.6 * unit, hh.y) * step(hh.y, R - 0.012) * 0.7);
+  // On a phone it stands behind the copy: half as strong, a watermark the words read over.
+  v *= mix(0.5, 1.0, uWide);
 }`;
 
 /** The difference from angle `b` to angle `a`, the short way round: -π..π. */
