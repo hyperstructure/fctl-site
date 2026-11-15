@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-14
+updated: 2026-11-15
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -275,6 +275,11 @@ account, you can ask for early access on its sign-in page.
     secrets' names, repositories and schedules it changed, the projects it
     created), what it wrote down, and what people did with it, with who and
     when;
+  - for each pull request of its sessions that merged: the branch it merged
+    into and the commit that holds it there, and how the checks on that
+    branch ended after it, as GitHub says (on which commit, how many passed,
+    failed or were cancelled, and the names of those that failed), and when
+    it heard of that;
   - its sessions are sessions like any other, with their transcripts.
 - **Project memory and retrospectives**, in projects that keep them (they
   are on unless a maintainer turns them off):
@@ -752,8 +757,9 @@ nothing goes there.
   keeps its autopilot's direction, notes, plan, log and open asks for when
   it's put on again. Each note until someone removes it; what it asked,
   until 90 days after it heard the answer or the refusal, or took it back;
-  its log's newest 1,000 entries. Its sessions stay in their project like
-  any other.
+  its log's newest 1,000 entries; how the checks went after its sessions'
+  pull requests merged, until three days after each merged. Its sessions
+  stay in their project like any other.
 - **Linear**:
   - our app's tokens in a Linear workspace: until no fctl workspace works in
     it any more, when we revoke them at Linear and delete them, within an
