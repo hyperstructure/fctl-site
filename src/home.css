@@ -920,6 +920,439 @@
   transform: translateX(3px);
 }
 
+/* ───────────────────────────── the autopilot ───────────────────────────── */
+
+/* After the three steps, the step past them: a project on autopilot. One card,
+   the whole of it the link to its page: the copy, and beside it the mark's
+   gauge with its crew in orbit, under a small cockpit of where it stands. */
+.pilot-card {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 56px);
+  padding: clamp(28px, 4.4vw, 60px);
+  border-radius: 28px;
+  border: 1px solid var(--c-line-strong);
+  background:
+    radial-gradient(70% 90% at 100% 50%, color-mix(in oklab, var(--c-blue) 11%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, var(--c-pink-soft), transparent 70%), var(--c-surface);
+  overflow: hidden;
+  transition:
+    translate 320ms var(--ease-out),
+    border-color 220ms var(--ease-out),
+    box-shadow 320ms var(--ease-out);
+}
+.js .pilot-card.reveal {
+  transition-property: opacity, transform, translate, border-color, box-shadow;
+  transition-duration: 800ms, 900ms, 320ms, 220ms, 320ms;
+}
+.pilot-card:hover {
+  translate: 0 -3px;
+  border-color: color-mix(in oklab, var(--c-accent) 30%, var(--c-line-strong));
+  box-shadow: 0 50px 110px -60px color-mix(in oklab, var(--c-accent) 40%, transparent);
+}
+:root[data-theme="light"] .pilot-card:hover {
+  border-color: var(--c-line-strong);
+  box-shadow: 0 50px 110px -64px rgb(23 23 23 / 0.4);
+}
+@media (max-width: 900px) {
+  .pilot-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.pilot-tag {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-ink-3);
+}
+.pilot-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 99px;
+  border: 1px solid color-mix(in oklab, var(--c-pink) 32%, transparent);
+  background: var(--c-pink-soft);
+  color: var(--c-pink);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.pilot-pill svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pilot .section-title {
+  margin-top: 20px;
+  font-size: clamp(38px, 4.6vw, 62px);
+}
+.pilot .section-title a {
+  color: inherit;
+}
+.pilot .hot {
+  color: var(--c-accent);
+}
+:root[data-theme="light"] .pilot .hot {
+  color: var(--c-ink);
+  background: linear-gradient(to top, var(--c-highlight) 0.26em, transparent 0.26em) no-repeat;
+}
+.pilot-copy > p:not(.pilot-tag) {
+  margin-top: 18px;
+  max-width: 34em;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--c-ink-2);
+}
+.pilot-points {
+  display: grid;
+  gap: 9px;
+  margin-top: 22px;
+}
+.pilot-points li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 14.5px;
+  color: var(--c-ink-2);
+}
+.pilot .card-more {
+  display: inline-block;
+  margin-top: 26px;
+}
+.pilot-card:hover .card-more {
+  color: var(--c-accent);
+}
+.pilot-card:hover .card-more span {
+  display: inline-block;
+  transform: translateX(3px);
+}
+.pilot .card-link::after {
+  border-radius: 28px;
+}
+
+/* The gauge, and the cockpit below it as its readout, in the ring's open foot. */
+.pilot-art {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+.pilot-gauge {
+  width: min(100%, 360px);
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pilot-orbit {
+  stroke: var(--c-line-strong);
+  stroke-width: 0.8;
+  stroke-dasharray: 1.5 4;
+}
+.pilot-ticks {
+  stroke: var(--c-ink-4);
+  stroke-width: 1.4;
+}
+.pilot-ring {
+  stroke: var(--c-ink);
+  stroke-width: 3;
+}
+.pilot-comet,
+.pilot-tile-comet {
+  stroke: var(--c-accent);
+  stroke-dasharray: 0.16 0.84;
+  animation: pilot-comet 3.4s linear infinite;
+}
+.pilot-comet {
+  stroke-width: 4;
+}
+.pilot-tile-comet {
+  stroke-width: 2.4;
+  animation-duration: 2.4s;
+}
+@keyframes pilot-comet {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.pilot-bug {
+  fill: var(--c-pink);
+}
+.pilot-arrow {
+  fill: color-mix(in oklab, var(--c-ink) 10%, transparent);
+  stroke: var(--c-ink);
+  stroke-width: 3;
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: pilot-hold 9s ease-in-out infinite;
+}
+/* It holds its course, with the small corrections an autopilot makes. */
+@keyframes pilot-hold {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  30% {
+    rotate: 5deg;
+  }
+  55% {
+    rotate: -3deg;
+  }
+  80% {
+    rotate: 2deg;
+  }
+}
+/* Its crew, each on an orbit of its own. */
+.pilot-sat {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: pilot-orbit 28s linear infinite;
+}
+.pilot-sat circle {
+  fill: var(--c-accent);
+  stroke: var(--c-surface);
+  stroke-width: 3;
+}
+.pilot-sat.s2 {
+  animation-duration: 19s;
+  animation-direction: reverse;
+  rotate: 130deg;
+}
+.pilot-sat.s2 circle {
+  fill: var(--c-blue);
+}
+.pilot-sat.s3 {
+  animation-duration: 34s;
+  rotate: 250deg;
+}
+@keyframes pilot-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Where it stands, its plan, its crew and what it asks, as its tab shows them. */
+.pilot-cockpit {
+  position: relative;
+  width: min(100%, 400px);
+  margin-top: -78px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line-strong);
+  background: color-mix(in srgb, var(--c-surface) 88%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.8);
+  font-size: 12.5px;
+  color: var(--c-ink-2);
+}
+:root[data-theme="light"] .pilot-cockpit {
+  box-shadow: 0 40px 80px -46px rgb(23 23 23 / 0.35);
+}
+.pilot-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.pilot-head strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+.pilot-head small {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--c-ink-3);
+}
+.pilot-head small b {
+  font-weight: 500;
+  color: var(--c-blue);
+}
+.pilot-tile {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: var(--c-raised);
+  box-shadow: inset 0 0 0 1px var(--c-line);
+  color: var(--c-ink);
+}
+.pilot-tile svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pilot-plan {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-line);
+}
+.pilot-plan li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.pilot-plan li::before {
+  content: "";
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 4px;
+  border: 1.5px solid var(--c-line-strong);
+}
+.pilot-plan li.done {
+  color: var(--c-ink-4);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in oklab, var(--c-ink-4) 60%, transparent);
+}
+.pilot-plan li.done::before {
+  border-color: var(--c-accent);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171717' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center / 10px no-repeat,
+    var(--c-accent);
+}
+:root[data-theme="light"] .pilot-plan li.done::before {
+  border-color: var(--c-ink);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fafafa' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center / 10px no-repeat,
+    var(--c-ink);
+}
+/* As the card shows, its plan ticks off, an item at a time. */
+.js .pilot-card .pilot-plan li.done::before {
+  transition:
+    background-color 300ms var(--ease-out),
+    border-color 300ms var(--ease-out),
+    background-size 300ms var(--ease-out);
+  transition-delay: calc(500ms + var(--i) * 220ms);
+}
+.js .pilot-card:not(.seen) .pilot-plan li.done::before {
+  border-color: var(--c-line-strong);
+  background-color: transparent;
+  background-size: 0;
+}
+.js .pilot-card .pilot-plan li.done {
+  transition:
+    color 300ms var(--ease-out),
+    text-decoration-color 300ms var(--ease-out);
+  transition-delay: calc(500ms + var(--i) * 220ms);
+}
+.js .pilot-card:not(.seen) .pilot-plan li.done {
+  color: var(--c-ink-2);
+  text-decoration-color: transparent;
+}
+.pilot-crew {
+  display: grid;
+  gap: 7px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-line);
+}
+.pilot-crew li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.pilot-crew code {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--c-ink-4);
+}
+.pilot-crew span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pilot-merged {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-pr-merged);
+}
+.pilot-ask {
+  margin-top: 12px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in oklab, var(--c-blue) 30%, transparent);
+  background: linear-gradient(to bottom, var(--c-blue-soft), transparent 80%);
+  color: var(--c-ink);
+  font-size: 13px;
+}
+.pilot-answers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+.pilot-answers span {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-raised);
+  font-size: 12px;
+  color: var(--c-ink);
+}
+.pilot-answers span:first-child {
+  animation: pilot-pick 4.8s var(--ease-out) 2s infinite;
+}
+/* Someone about to pick the short one: it lights now and then. */
+@keyframes pilot-pick {
+  0%,
+  70%,
+  100% {
+    border-color: var(--c-line-strong);
+    background: var(--c-raised);
+  }
+  80%,
+  90% {
+    border-color: color-mix(in oklab, var(--c-blue) 70%, transparent);
+    background: var(--c-blue-soft);
+  }
+}
+@media (max-width: 900px) {
+  .pilot-gauge {
+    width: min(86%, 320px);
+  }
+  .pilot-cockpit {
+    margin-top: -64px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pilot-comet,
+  .pilot-tile-comet,
+  .pilot-arrow,
+  .pilot-sat,
+  .pilot-answers span:first-child {
+    animation: none;
+  }
+}
+
 /* ───────────────────────────── the branches ───────────────────────────── */
 
 /* A divider the width of the window: a git graph that grows as you watch
