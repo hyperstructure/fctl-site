@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>Autopilots: projects that run themselves · fctl</title>
+    <meta
+      name="description"
+      content="Give a project a direction, and an autopilot plans the work, runs a crew of agent sessions, checks what each did, and asks you only what is yours to decide."
+    />
+    <link rel="canonical" href="https://fctl.sh/features/autopilots/" />
+    <meta property="og:title" content="Autopilots: projects that run themselves" />
+    <meta property="og:description" content="A general contractor for your software: it runs the crew, checks the work, and brings you only the decisions that are yours." />
+    <meta property="og:url" content="https://fctl.sh/features/autopilots/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fctl" />
+    <meta property="og:image" content="https://fctl.sh/og/features/autopilots.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A general contractor for your software. fctl.sh/features/autopilots" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="robots" content="max-image-preview:large" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Features","item":"https://fctl.sh/features/"},{"@type":"ListItem","position":2,"name":"Autopilots","item":"https://fctl.sh/features/autopilots/"}]}
+    </script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon-maskable-512.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/theme.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <!--site:nav-->
+
+    <main id="main" class="ap">
+      <section class="f-hero">
+        <canvas class="f-canvas" data-scene="autopilots" aria-hidden="true"></canvas>
+        <div class="f-shade" aria-hidden="true"></div>
+        <div class="f-wrap">
+          <p class="f-crumb rise">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19.8A9 9 0 1 1 16.5 19.8" /><path d="M12 7.25 15.25 15.5 12 13.6 8.75 15.5Z" /></svg>
+            <a href="/features/">Features</a><span aria-hidden="true">/</span><span>Autopilots</span>
+            <span class="ap-pill" title="An experimental feature of fctl: it may change, and it acts on its own"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5M10.5 3v6.2L5.2 18.4A1.75 1.75 0 0 0 6.7 21h10.6a1.75 1.75 0 0 0 1.5-2.6L13.5 9.2V3" /><path d="M7.4 15h9.2" /></svg>Experimental</span>
+          </p>
+          <h1 class="f-title rise" style="--d: 60ms">A general contractor <span class="dim">for your</span> <span class="hot">software.</span></h1>
+          <p class="f-lede rise" style="--d: 140ms">
+            Put a project on autopilot with a direction, and an agent takes it from there. Like a good contractor, it
+            plans the work, runs a crew of sessions to do it, checks what each one did before it signs off, and comes to
+            you only for the decisions that are yours: which design, which plan, the keys it needs.
+          </p>
+          <p class="f-actions rise" style="--d: 220ms">
+            <a class="f-btn" href="https://app.fctl.sh">Put a project on autopilot</a>
+            <a class="f-link" href="/docs/architecture/#autopilots">How autopilots work <span aria-hidden="true">→</span></a>
+          </p>
+          <div class="f-stage">
+            <figure class="shot browser only-desk" data-url="app.fctl.sh/p/farm-portal?tab=autopilot">
+              <img class="theme-dark" src="/src/features/shots/autopilots/tab-dark.webp" width="2200" height="1375" alt="Farm portal's Autopilot tab on Tuesday morning: waiting for Noor, it asks her two things, first which Wednesday reminder farms should get, with the two Swedish emails its session drew side by side." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/autopilots/tab-light.webp" width="2200" height="1375" alt="Farm portal's Autopilot tab on Tuesday morning: waiting for Noor, it asks her two things, first which Wednesday reminder farms should get, with the two Swedish emails its session drew side by side." loading="lazy" />
+            </figure>
+            <figure class="phone only-phone">
+              <img class="theme-dark" src="/src/features/shots/autopilots/phone-tab-dark.webp" width="780" height="1576" alt="Farm portal's Autopilot tab on a phone: waiting for Noor, with what it asks her below." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/autopilots/phone-tab-light.webp" width="780" height="1576" alt="Farm portal's Autopilot tab on a phone: waiting for Noor, with what it asks her below." loading="lazy" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="f-wrap">
+        <div class="f-points">
+          <div class="reveal">
+            <span class="num">Yours</span>
+            <strong>The direction and the limits</strong>
+            <p>What to build, for whom, what to leave alone, and what it may touch. You write it, and change it whenever you like.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Its crew</span>
+            <strong>Sessions it starts and steers</strong>
+            <p>Up to eight at once, each with a pull request that merges once its checks pass, so the next one builds on it.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Checked</span>
+            <strong>Nothing signed off unread</strong>
+            <p>It reads each session's last turn before it takes its word, and sends the work back when it falls short.</p>
+          </div>
+          <div class="reveal">
+            <span class="num">Asked</span>
+            <strong>Only what's yours to decide</strong>
+            <p>Questions with answers to click and screenshots to choose from. It gets on with what it can while you think.</p>
+          </div>
+        </div>
+
+        <section class="ap-contract" aria-labelledby="contractor">
+          <div class="ap-contract-head reveal">
+            <h2 id="contractor">It works like a good <span class="hot">general contractor.</span></h2>
+            <p>
+              You don't lay the tiles, and nobody leaves you out either. You say what you want and how far it may go;
+              it runs the job, and brings you the choices that are yours.
+            </p>
+          </div>
+          <div class="ap-sheet reveal">
+            <div class="ap-sheet-block" aria-hidden="true">
+              <span><small>Job</small>Farm portal</span>
+              <span><small>Client</small>Noor Haddad</span>
+              <span><small>Crew</small>Up to 3 sessions at once</span>
+              <span class="ap-stamp">On autopilot</span>
+            </div>
+            <table class="ap-terms">
+              <thead>
+                <tr><th scope="col">A general contractor</th><th scope="col">An autopilot</th></tr>
+              </thead>
+              <tbody>
+                <tr style="--i: 0"><td>You say what you want built, and set the limits.</td><td>You give it a direction in Markdown, the powers it has, and how many sessions it may run at once.</td></tr>
+                <tr style="--i: 1"><td>It hires the trades and schedules them.</td><td>It plans the work, and starts a session for each part of it, a few at a time.</td></tr>
+                <tr style="--i: 2"><td>It checks each trade's work before it signs off.</td><td>It reads what each session did, sends back what falls short, and merges what passes.</td></tr>
+                <tr style="--i: 3"><td>It brings you samples, and you pick the tiles.</td><td>It asks with answers to click and screenshots of the options, and gets on with the rest meanwhile.</td></tr>
+                <tr style="--i: 4"><td>It asks you for the keys.</td><td>It asks for the secrets it needs: you type them in, they go into the project, and it hears only that they're set.</td></tr>
+                <tr style="--i: 5"><td>You walk on site and change the plan whenever you like.</td><td>Your notes steer it, the newest first, and the direction is yours to change.</td></tr>
+                <tr style="--i: 6"><td>It tells you when it's ready for handover.</td><td>It says what shipped, and asks you to check what no sandbox can.</td></tr>
+              </tbody>
+            </table>
+            <p class="ap-sheet-foot">You stay the client. The decisions are yours, and those are all it brings you.</p>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="brief">
+          <div class="f-copy reveal">
+            <h2 id="brief">You write the brief.</h2>
+            <p>
+              A direction says where to take the project, for whom, and what to leave alone. It's Markdown, and the more
+              it says of why, the better the autopilot decides what you didn't say. Write your own, or start from
+              building a product, keeping it healthy, working through its issues or polishing it.
+            </p>
+            <p>
+              Then how far it may go. It always starts and steers sessions of its own; you choose what else: merging their
+              pull requests once checks pass, changing the project's settings, setting secrets, adding repositories,
+              setting up schedules. And how hard it works: one to eight sessions at once, a check-in from every 15
+              minutes to once a day, and the model it thinks with.
+            </p>
+            <ul class="f-list">
+              <li><strong>On your subscription, as you.</strong> Putting a project on autopilot takes confirming it's you, as a token that does everything would.</li>
+              <li><strong>Let in by an admin.</strong> A workspace's admins let its projects have autopilots first, in its settings.</li>
+              <li><strong>Experimental.</strong> It acts on its own and may change: watch its tab, and pause it whenever you like.</li>
+            </ul>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/p/driver-app?tab=autopilot">
+            <img class="theme-dark" src="/src/features/shots/autopilots/engage-dark.webp" width="2200" height="1375" alt="Driver app's form for putting it on autopilot, filled in with a direction for Copenhagen's first deliveries, and the powers it would have." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/autopilots/engage-light.webp" width="2200" height="1375" alt="Driver app's form for putting it on autopilot, filled in with a direction for Copenhagen's first deliveries, and the powers it would have." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="crew">
+          <div class="f-copy reveal">
+            <h2 id="crew">It hires the crew.</h2>
+            <p>
+              It writes a plan you can read on its tab, and works through it with sessions of its own, a few at a time:
+              as many at once as you allow, and at most 20 an hour. Each gets a task that says what to build, which files
+              its other open pull requests change, and what may merge without its look. Their pull requests merge once
+              their checks pass, so the next session builds on the last.
+            </p>
+            <p>
+              Its own session shows every wake and why it woke, what it read, and a live card for each session it
+              starts. Its sessions carry its mark in every list, and a link back to its tab.
+            </p>
+          </div>
+          <div class="f-stack reveal">
+            <figure class="shot browser" data-url="app.fctl.sh/s/…">
+              <img class="theme-dark" src="/src/features/shots/autopilots/pilot-dark.webp" width="2200" height="1375" alt="The autopilot's session #12 on Tuesday morning: fctl wakes it, a fresh session that reads where things stand, starts #13 on each farm's pickup windows as a live card, and says what waits for people before it rests; beside it, its asks, plan and sessions." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/autopilots/pilot-light.webp" width="2200" height="1375" alt="The autopilot's session #12 on Tuesday morning: fctl wakes it, a fresh session that reads where things stand, starts #13 on each farm's pickup windows as a live card, and says what waits for people before it rests; beside it, its asks, plan and sessions." loading="lazy" />
+            </figure>
+            <figure class="shot browser" data-url="app.fctl.sh/p/farm-portal">
+              <img class="theme-dark" src="/src/features/shots/autopilots/sessions-dark.webp" width="2200" height="1375" alt="Farm portal's sessions, each with the autopilot's mark: #13 working now, #10 and #11 stopped after being idle." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/autopilots/sessions-light.webp" width="2200" height="1375" alt="Farm portal's sessions, each with the autopilot's mark: #13 working now, #10 and #11 stopped after being idle." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="checked">
+          <div class="f-copy reveal">
+            <h2 id="checked">Nothing ships until it's checked.</h2>
+            <p>
+              A session that says it's done has said so, not shown it. The autopilot reads its last turn before it takes
+              its word, asks for screenshots of the case that matters rather than the empty one, and pushes back with one
+              concrete thing when a pass finds nothing to fix. Review agents read every commit too, and what they find
+              goes back to the session that wrote it.
+            </p>
+            <blockquote class="f-quote ap-said">
+              <span class="ap-said-who"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19.8A9 9 0 1 1 16.5 19.8" /><path d="M12 7.25 15.25 15.5 12 13.6 8.75 15.5Z" /></svg>farm-portal's autopilot, to farm-portal#8</span>
+              Your screenshots show an empty list, so they show none of the units. Show a week with six crops filled in,
+              some in crates, some in bunches and some in kilos, at a phone's width, in Swedish. Then merge once checks
+              pass.
+            </blockquote>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/autopilots/crew-dark.webp" width="2200" height="1375" alt="farm-portal#8, sent back by the autopilot because its screenshot showed the harvest list empty, answers with a week of six crops in crates, bunches and kilos, and records its retrospective." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/autopilots/crew-light.webp" width="2200" height="1375" alt="farm-portal#8, sent back by the autopilot because its screenshot showed the harvest list empty, answers with a week of six crops in crates, bunches and kilos, and records its retrospective." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section wide" aria-labelledby="asks">
+          <div class="f-copy reveal">
+            <h2 id="asks">It brings you only your decisions.</h2>
+            <p>
+              When only a person can decide, it asks, and gets on with what it can meanwhile. A question comes with up to
+              six answers to click and whatever helps you answer: on Monday it asked Noor which Wednesday reminder farms
+              should get, with the two emails its session drew, side by side.
+            </p>
+            <p>
+              Whoever follows its session hears of each ask, on their phone too, and finds it waiting in Needs you. An
+              answer wakes it within seconds.
+            </p>
+          </div>
+          <div class="ap-ask-row">
+            <figure class="f-tile reveal">
+              <div class="shot crop zoom" style="--zoom: 1.6; --at: 71.5% 5.3%">
+                <img class="theme-dark" src="/src/features/shots/autopilots/asks-dark.webp" width="2200" height="1375" alt="The reminder question whole: the two emails #11 drew in Swedish, side by side, an answer to click for each, and the secret it needs starting below." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/autopilots/asks-light.webp" width="2200" height="1375" alt="The reminder question whole: the two emails #11 drew in Swedish, side by side, an answer to click for each, and the secret it needs starting below." loading="lazy" />
+              </div>
+              <figcaption>Two designs to choose from, drawn by the session it asks about.</figcaption>
+            </figure>
+            <figure class="f-tile reveal">
+              <div class="phone">
+                <img class="theme-dark" src="/src/features/shots/autopilots/phone-needs-dark.webp" width="780" height="1576" alt="Noor's Needs you on her phone, led by Farm portal's autopilot's two asks." loading="lazy" />
+                <img class="theme-light" src="/src/features/shots/autopilots/phone-needs-light.webp" width="780" height="1576" alt="Noor's Needs you on her phone, led by Farm portal's autopilot's two asks." loading="lazy" />
+              </div>
+              <figcaption>And in Needs you, on Noor's phone.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="f-section" aria-labelledby="keys">
+          <div class="f-copy reveal">
+            <h2 id="keys">It asks you for the keys.</h2>
+            <p>
+              When the work needs a secret, it asks for it by name and says what for. You type it in on its tab, or with
+              <code>fctl autopilot secret</code>, which doesn't show what you type. It goes into the project's secrets,
+              sealed, and the sessions that start from then on have it. The autopilot hears only that it's set: the
+              value never passes through its conversation.
+            </p>
+            <p>
+              On Friday evening it asked for <code>RESEND_API_KEY</code>, to email farms their sign-in links, and Tomás
+              gave it the shop's. It replaces and removes only the secrets it set itself.
+            </p>
+          </div>
+          <figure class="shot crop zoom reveal" style="--zoom: 1.59; --at: 78% 0%">
+            <img class="theme-dark" src="/src/features/shots/autopilots/secret-dark.webp" width="2200" height="1375" alt="The secret it asks Noor for, PLATFORM_API_TOKEN, with a field to type it into; below it, Jonas's and Asha's notes, and its log." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/autopilots/secret-light.webp" width="2200" height="1375" alt="The secret it asks Noor for, PLATFORM_API_TOKEN, with a field to type it into; below it, Jonas's and Asha's notes, and its log." loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="steer">
+          <div class="f-copy reveal">
+            <h2 id="steer">Walk on site whenever you like.</h2>
+            <p>
+              Leave it a note: a priority, a constraint, something it should know. A note stays until someone removes it,
+              and the newest wins, over older ones and over the direction. It wakes within seconds, and its tab says when
+              it saw each note.
+            </p>
+            <ul class="f-list">
+              <li><strong>Yours to stop.</strong> Pause it, resume it, wake it, hand it to a fresh session, or take the project off autopilot.</li>
+              <li><strong>People's sessions stay theirs.</strong> It never messages or stops a session someone started.</li>
+              <li><strong>But their pull requests are its concern.</strong> Once one looks ready or stuck, it asks whether to help get it merged, and with your yes, a session of its own brings it up to date and merges it.</li>
+            </ul>
+          </div>
+          <figure class="ap-steer reveal" data-play aria-label="Jonas steers Farm portal's autopilot with a note on Sunday evening, and it starts a session for it">
+            <div class="ap-card">
+              <p class="ap-card-title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 4.5h-7A1.5 1.5 0 0 0 5 6v12a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 18v-5.5" /><path d="M17.6 3.6a1.4 1.4 0 0 1 2 2L12.8 12.4 10 13l.6-2.8z" /></svg>Steer it</p>
+              <p class="ap-type" data-text="Farms count in crates, bunches and kilos, and it differs by crop: a crate of carrots is about 10 kg. Let each farm choose the unit for each crop."><span class="ap-placeholder">A priority, a constraint, context it should know</span></p>
+              <div class="ap-card-foot">
+                <span>It hears it at once, and keeps it until you remove it. A newer note wins.</span>
+                <span class="ap-button">Add note</span>
+              </div>
+              <ul class="ap-notes">
+                <li class="ap-note ap-new">
+                  <img src="/src/features/people/jweber87.webp" alt="" width="22" height="22" loading="lazy" />
+                  <div>
+                    <p class="ap-note-meta"><b>Jonas Weber</b><span>Sun 19:02</span><span class="ap-seen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>Seen</span></p>
+                    <p>Farms count in crates, bunches and kilos, and it differs by crop: a crate of carrots is about 10 kg. Let each farm choose the unit for each crop.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <ol class="ap-after">
+              <li style="--i: 0"><span class="ap-dot b"></span><time>19:02</time><span>Woke for <b>a new note</b></span></li>
+              <li style="--i: 1"><span class="ap-dot y"></span><time>19:05</time><span>Started <b>farm-portal#8</b> Let farms choose the unit for each crop</span></li>
+              <li style="--i: 2"><span class="ap-dot n"></span><time>19:05</time><span>Updated <b>its plan</b></span></li>
+            </ol>
+          </figure>
+        </section>
+
+        <section class="ap-week" aria-labelledby="weekend">
+          <div class="ap-week-head reveal">
+            <h2 id="weekend">A long weekend <span class="dim">on</span> <span class="hot">autopilot.</span></h2>
+            <p>
+              Noor put Farm portal on autopilot on Friday at 17:40 and went home. This is what it did until Tuesday's
+              breakfast: every session it started, what it asked, and the four times people stepped in.
+            </p>
+          </div>
+          <figure class="ap-log reveal" data-play aria-label="Farm portal's autopilot from Friday 17:40 to Tuesday 09:10">
+            <div class="ap-strip" aria-hidden="true">
+              <div class="ap-strip-days">
+                <span style="--from: 0; --to: 7.94">Fri</span>
+                <span style="--from: 7.94; --to: 35.16">Sat</span>
+                <span style="--from: 35.16; --to: 62.38">Sun</span>
+                <span style="--from: 62.38; --to: 89.6">Mon</span>
+                <span style="--from: 89.6; --to: 100">Tue</span>
+              </div>
+              <div class="ap-strip-lane ap-lane-wakes"><i style="--at: 0.76"></i><i style="--at: 1.19"></i><i style="--at: 1.57"></i><i style="--at: 3.01"></i><i style="--at: 5.67"></i><i style="--at: 17.24"></i><i style="--at: 18.36"></i><i style="--at: 45.63"></i><i style="--at: 56.75"></i><i style="--at: 58.26"></i><i style="--at: 58.81"></i><i style="--at: 72.46"></i><i style="--at: 73.36"></i><i style="--at: 75.46"></i><i style="--at: 77.47"></i><i style="--at: 99.07"></i></div>
+              <div class="ap-strip-lane ap-lane-crew"><b style="--at: 0.79; --to: 1.55"></b><b class="r2" style="--at: 0.81; --to: 2.97"></b><b class="r3" style="--at: 0.83; --to: 5.65"></b><b style="--at: 1.61; --to: 2.99"></b><b class="r3" style="--at: 17.26; --to: 18.36"></b><b style="--at: 56.81; --to: 58.79"></b><b style="--at: 72.53; --to: 77.47"></b><b class="r2" style="--at: 72.55; --to: 75.46"></b><b class="live" style="--at: 99.13; --to: 100.0"></b></div>
+              <div class="ap-strip-lane ap-lane-people"><em style="--at: 0.76"></em><em style="--at: 1.19"></em><em style="--at: 17.24"></em><em style="--at: 56.75"></em><em style="--at: 73.36"></em></div>
+              <span class="ap-strip-now" style="--at: 100"></span>
+              <span class="ap-strip-head"></span>
+            </div>
+            <ol class="ap-days">
+              <li class="ap-day" style="--i: 0">
+                <h3>Friday</h3>
+                <ol>
+                  <li class="person"><time>17:40</time><span><b>Noor</b> puts Farm portal on autopilot.</span></li>
+                  <li><time>17:42</time><span>Plans the portal, and starts <b>#2</b>, <b>#3</b> and <b>#4</b>: deploys, sign-in, and two designs of the harvest list.</span></li>
+                  <li class="ask"><time>17:44</time><span>Asks for <code>RESEND_API_KEY</code>, for the sign-in links.</span></li>
+                  <li class="person"><time>18:03</time><span><b>Tomás</b> gives it the shop's.</span></li>
+                  <li class="merged"><time>18:21</time><span><b>#2</b> merges: deploys to Cloudflare, with previews.</span></li>
+                  <li><time>18:25</time><span>Starts <b>#5</b>: Swedish and English on every page.</span></li>
+                  <li class="merged"><time>19:36</time><span><b>#3</b> and <b>#5</b> merge: sign-in, Swedish and English.</span></li>
+                  <li><time>19:39</time><span>Writes the project's instructions for the sessions after them.</span></li>
+                  <li class="ask"><time>22:01</time><span>Asks Noor which harvest list farms should get, with two designs.</span></li>
+                </ol>
+              </li>
+              <li class="ap-day" style="--i: 1">
+                <h3>Saturday</h3>
+                <ol>
+                  <li class="person"><time>08:12</time><span><b>Noor</b> answers from her phone: a list per crop.</span></li>
+                  <li><time>08:12</time><span>A fresh session takes over, and tells <b>#4</b> to build that one.</span></li>
+                  <li class="merged"><time>09:10</time><span><b>#4</b> merges: the harvest list, a row per crop.</span></li>
+                </ol>
+              </li>
+              <li class="ap-day" style="--i: 2">
+                <h3>Sunday</h3>
+                <ol>
+                  <li><time>09:14</time><span>Looks in at the time it asked for. Nothing needs it.</span></li>
+                  <li class="person"><time>19:02</time><span><b>Jonas</b> leaves a note: farms count in crates, bunches and kilos.</span></li>
+                  <li><time>19:05</time><span>Starts <b>#8</b>: let farms choose the unit for each crop.</span></li>
+                  <li class="ask"><time>20:24</time><span>Sends <b>#8</b> back: its screenshot shows the list empty.</span></li>
+                  <li class="merged"><time>20:49</time><span><b>#8</b> merges, with a week filled in.</span></li>
+                </ol>
+              </li>
+              <li class="ap-day" style="--i: 3">
+                <h3>Monday</h3>
+                <ol>
+                  <li><time>08:53</time><span>A fresh session takes over, at the time it asked for.</span></li>
+                  <li class="ask"><time>08:56</time><span>Asks for <code>PLATFORM_API_TOKEN</code>, for the orders page.</span></li>
+                  <li><time>08:58</time><span>Starts <b>#10</b> on this week's orders, and <b>#11</b> on two designs of the Wednesday reminder.</span></li>
+                  <li class="person"><time>09:41</time><span><b>Asha</b> leaves a note: payouts land in Platform this week.</span></li>
+                  <li class="ask"><time>11:34</time><span>Asks Noor which Wednesday reminder farms should get.</span></li>
+                  <li class="merged"><time>13:17</time><span><b>#10</b> merges: this week's orders.</span></li>
+                </ol>
+              </li>
+              <li class="ap-day ap-today" style="--i: 4">
+                <h3>Tuesday</h3>
+                <ol>
+                  <li><time>08:21</time><span>A fresh session takes over, at the time it asked for.</span></li>
+                  <li><time>08:24</time><span>Starts <b>#13</b> on each farm's pickup windows.</span></li>
+                  <li class="now"><time>09:10</time><span>Two asks wait for Noor, <b>#13</b> works, and it wakes again at 10:26.</span></li>
+                </ol>
+              </li>
+            </ol>
+            <figcaption class="ap-legend">
+              <span><i class="ap-dot b"></i>It wakes</span>
+              <span><i class="ap-dot y"></i>Its sessions at work</span>
+              <span><i class="ap-dot p"></i>People step in</span>
+              <span><i class="ap-dot m"></i>A pull request merges</span>
+            </figcaption>
+          </figure>
+
+          <div class="ap-wakes">
+            <div class="ap-wakes-copy reveal">
+              <h3 class="ap-wakes-title">What wakes it</h3>
+              <p>
+                Between wakes its own session rests, and uses none of your plan. Each wake brings what's new since the
+                last: notes, answers, its sessions that moved, people's pull requests left open.
+              </p>
+            </div>
+            <ul class="ap-wake-grid">
+              <li class="reveal" style="--d: 0ms"><span class="ap-wake-icon y"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5v5l3 2" /></svg></span><strong>Its check-in</strong><span>At least this often: every 15 minutes to once a day.</span></li>
+              <li class="reveal" style="--d: 60ms"><span class="ap-wake-icon b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M4 12h13M4 17h7" /><circle cx="18.5" cy="16.5" r="2.5" /></svg></span><strong>A session's turn ends</strong><span>A minute later, with any others that ended meanwhile.</span></li>
+              <li class="reveal" style="--d: 120ms"><span class="ap-wake-icon p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18.5V6a1.5 1.5 0 0 1 1.5-1.5h11A1.5 1.5 0 0 1 19 6v8a1.5 1.5 0 0 1-1.5 1.5H8.5z" /><path d="M9 9h6M9 12h4" /></svg></span><strong>You steer or answer</strong><span>Five seconds later, so that answers given in a row go together.</span></li>
+              <li class="reveal" style="--d: 180ms"><span class="ap-wake-icon m"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="6" r="2.25" /><circle cx="6.5" cy="18" r="2.25" /><circle cx="17.5" cy="12" r="2.25" /><path d="M6.5 8.25v7.5M8.4 7.3c1.8 2.6 3.8 4.4 6.9 4.7" /></svg></span><strong>A pull request merges</strong><span>Or closes, for a session of its own that rests.</span></li>
+              <li class="reveal" style="--d: 240ms"><span class="ap-wake-icon y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5v3M17 3.5v3M4 9.5h16" /><rect x="4" y="5.5" width="16" height="15" rx="2.5" /><path d="m10 15 1.6 1.6L15 13" /></svg></span><strong>The time it chose</strong><span>When it knows when to look again: 5 minutes to a day ahead.</span></li>
+              <li class="reveal" style="--d: 300ms"><span class="ap-wake-icon n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6z" /></svg></span><strong>You wake it</strong><span>From its tab, or with <code>fctl autopilot wake</code>.</span></li>
+            </ul>
+          </div>
+
+          <div class="f-section ap-fresh">
+            <div class="f-copy reveal">
+              <h2 id="fresh">It never loses the thread.</h2>
+              <p>
+                It doesn't run in one endless conversation. A fresh session takes over every 12 hours, or once its context
+                grows past the size you choose, and starts from what it wrote down: its plan, its log, and the project's
+                memory, which you read too. Each wake's message says the time and what changed, so that it starts every
+                turn from where things stand rather than from where it left them.
+              </p>
+            </div>
+            <figure class="shot browser reveal" data-url="app.fctl.sh/p/farm-portal?tab=autopilot">
+              <img class="theme-dark" src="/src/features/shots/autopilots/log-dark.webp" width="2200" height="1375" alt="The autopilot's log by day, its wakes between what it did, beside its direction, its plan, 6 of 10 done, and its sessions, 1 working of 8." loading="lazy" />
+              <img class="theme-light" src="/src/features/shots/autopilots/log-light.webp" width="2200" height="1375" alt="The autopilot's log by day, its wakes between what it did, beside its direction, its plan, 6 of 10 done, and its sessions, 1 working of 8." loading="lazy" />
+            </figure>
+          </div>
+        </section>
+
+        <section class="ap-limits" aria-labelledby="limits">
+          <div class="ap-limits-head reveal">
+            <h2 id="limits">Within the limits <span class="hot">you set.</span></h2>
+            <p>
+              It acts as you, with a maintainer's role at most, in its own project. Its sandbox holds no token: its
+              requests go through its session to fctl, which answers each as anyone's, held to its project and its powers.
+              Its access ends with its session.
+            </p>
+          </div>
+          <div class="ap-rules">
+            <article class="ap-rule reveal" style="--glow: var(--c-highlight)">
+              <h3 class="ap-rule-title"><span class="ap-rule-icon y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg></span>It may</h3>
+              <ul>
+                <li><b>Always:</b> read its project's sessions, schedules, repositories, memory and the names of its secrets.</li>
+                <li><b>Always:</b> start sessions, and message, stop, resume or archive the ones it started; keep the project's memory.</li>
+                <li><b>Merge,</b> once checks pass: its sessions merge their own pull requests.</li>
+                <li><b>Settings:</b> change the project's settings and its review agents.</li>
+                <li><b>Secrets:</b> set them, and replace or remove only the ones it set.</li>
+                <li><b>Repositories and schedules:</b> add them, change them, remove them.</li>
+                <li><b>Projects,</b> for a workspace's autopilot: create them.</li>
+              </ul>
+            </article>
+            <article class="ap-rule reveal" style="--glow: var(--c-pink)">
+              <h3 class="ap-rule-title"><span class="ap-rule-icon p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17" /></svg></span>It never</h3>
+              <ul>
+                <li>Changes people, roles, shares or access tokens.</li>
+                <li>Touches runners, GitHub accounts or the workspace's settings.</li>
+                <li>Deletes a project, or does anything that takes confirming it's you.</li>
+                <li>Messages or stops a session someone started.</li>
+                <li>Starts more sessions at once than you allow, or more than 20 an hour.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="workspace">
+          <div class="f-copy reveal">
+            <h2 id="workspace">Or the whole workspace.</h2>
+            <p>
+              A workspace's admins can put all of it on autopilot, from one of its projects. It starts sessions in any
+              of them, and creates new projects as the work needs them. What it does across the workspace is its admins'
+              to see and steer: everyone else sees that it runs, and its sessions in their projects, with its mark.
+            </p>
+          </div>
+          <figure class="ap-ws reveal" aria-hidden="true">
+            <div class="ap-ws-orbit">
+              <span class="ap-ws-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19.8A9 9 0 1 1 16.5 19.8" /><path d="M12 7.25 15.25 15.5 12 13.6 8.75 15.5Z" /><path class="ap-comet" d="M7.5 19.8A9 9 0 1 1 16.5 19.8" pathLength="1" /></svg></span>
+              <span class="ap-ws-p" style="--a: -58deg; --c: var(--c-pink)"><i></i></span>
+              <span class="ap-ws-p" style="--a: 14deg; --c: var(--c-blue)"><i></i></span>
+              <span class="ap-ws-p" style="--a: 86deg; --c: var(--c-accent)"><i></i></span>
+              <span class="ap-ws-p" style="--a: 158deg; --c: var(--c-pink)"><i></i></span>
+              <span class="ap-ws-p ap-ws-new" style="--a: 230deg; --c: var(--c-ink-3)"><i></i></span>
+            </div>
+            <p class="ap-ws-caption"><span>Its home project</span><span>Every project of the workspace</span><span>New ones, as the work needs them</span></p>
+          </figure>
+        </section>
+
+        <section class="f-section" aria-labelledby="cli">
+          <div class="f-copy reveal">
+            <h2 id="cli">From your terminal, too.</h2>
+            <p>
+              Everything the tab does, <code>fctl autopilot</code> does: put a project on autopilot, steer it, answer it,
+              give it the secret it asked for without showing what you type, pause it. In its own sandbox, the autopilot
+              uses the same command to keep its plan and log, and to ask you.
+            </p>
+            <a class="f-link" href="/docs/cli/#autopilots">fctl autopilot in the docs <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="term reveal" data-type>
+            <div class="term-bar"><i></i><i></i><i></i><span>noor@Noors-MacBook-Pro ~/src/farm-portal</span></div>
+            <div class="term-body">
+<p class="cmd">fctl autopilot on -p farm-portal --direction-file direction.md --sessions 3 --check-in 2h</p>
+<p class="out"><span class="y">✓</span> <span class="w">farm-portal</span> is on autopilot: it wakes now, on your Claude subscription. Follow it with fctl autopilot -p farm-portal.</p>
+<p class="cmd">fctl autopilot steer -p farm-portal "Let each farm choose the unit for each crop."</p>
+<p class="out"><span class="y">✓</span> It hears your note now, and keeps it until someone removes it</p>
+<p class="cmd">fctl autopilot answer -p farm-portal apa_01M7… "The short one"</p>
+<p class="out"><span class="y">✓</span> Answered: it hears now</p>
+<p class="cmd">fctl autopilot secret -p farm-portal apa_01M7…</p>
+<p class="out">Value of PLATFORM_API_TOKEN (input hidden):</p>
+<p class="out"><span class="y">✓</span> Set <span class="w">PLATFORM_API_TOKEN</span> in farm-portal's secrets: the autopilot hears it's set, and sessions that start from now on have it</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="f-docs" aria-labelledby="docs">
+          <div class="reveal">
+            <h2 id="docs">In the docs</h2>
+            <p>How an autopilot wakes, what it may do, and what it asks.</p>
+          </div>
+          <ul class="reveal">
+            <li><a href="/docs/architecture/#autopilots"><span>Autopilots</span><small>Putting one on, its sessions, waking and acting</small></a></li>
+            <li><a href="/docs/cli/#autopilots"><span>From the CLI</span><small><code>fctl autopilot</code>: on, steer, answer, secret</small></a></li>
+            <li><a href="/docs/architecture/#confirming-its-you"><span>Confirming it's you</span><small>Why putting one on takes a second look</small></a></li>
+            <li><a href="/docs/architecture/#notifications"><span>Notifications</span><small>What its asks tell whoever follows it</small></a></li>
+          </ul>
+        </section>
+
+        <nav class="f-next" aria-label="More features">
+          <a href="/features/sessions/"><small>Previous</small><strong>Sessions</strong><span>Agents at work, in plain sight</span></a>
+          <a href="/features/workspaces/"><small>Next</small><strong>Workspaces and projects</strong><span>Your team, your repositories, your rules</span></a>
+        </nav>
+
+        <!--site:feature-end-->
+      </div>
+    </main>
+
+    <!--site:footer-->
+    <script type="module" src="/src/features.ts"></script>
+    <script type="module" src="/src/autopilots.ts"></script>
+  </body>
+</html>

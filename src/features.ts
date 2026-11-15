@@ -15,12 +15,25 @@ import { searchTriggers } from "./search";
 
 document.documentElement.classList.add("js");
 
-/** The hero's scene: the page's own field, or the foundry for sessions and the overview. */
+/** The hero's scene: the page's own field (Autopilots' its own scene), or the foundry for the overview. */
 function hero() {
   const canvas = document.querySelector<HTMLCanvasElement>(".f-canvas");
   const section = canvas?.closest<HTMLElement>(".f-hero");
   if (!canvas || !section) return;
   const name = canvas.dataset.scene ?? "";
+  // The Autopilots page's heading indicator, in a module of its own: no other page loads it.
+  if (name === "autopilots") {
+    void import("./heading").then(({ headingScene }) => {
+      const s = headingScene();
+      mount(canvas, s.scene, { pixel: 3 });
+      section.addEventListener("pointermove", (e) => {
+        const r = canvas.getBoundingClientRect();
+        s.pointer((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+      });
+      section.addEventListener("pointerleave", () => s.pointerLeave());
+    });
+    return;
+  }
   if (isSceneName(name)) {
     const s = featureScene(name);
     mount(canvas, s.scene, { pixel: 3 });

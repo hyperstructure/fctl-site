@@ -1,0 +1,1278 @@
+/* The Autopilots page (features/autopilots): on top of the feature pages' own
+   styles (features.css), its contract sheet, the note that steers it, the log
+   of a long weekend, what wakes it, its limits and a workspace on autopilot.
+   Without JavaScript everything shows as it ends; src/autopilots.ts plays the
+   note and the weekend's strip once they come into view. */
+
+/* ───────────────────────────── shared ───────────────────────────── */
+
+/* "Experimental", beside the page's name, as the app has it beside the feature's. */
+.ap-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 4px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 99px;
+  border: 1px solid color-mix(in oklab, var(--c-pink) 32%, transparent);
+  background: var(--c-pink-soft);
+  color: var(--c-pink);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Status dots: blue wakes, yellow work (ink on light), pink people, violet merges. */
+.ap-dot {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-ink-4);
+}
+.ap-dot.b {
+  background: var(--c-blue);
+}
+.ap-dot.y {
+  background: var(--c-accent);
+}
+.ap-dot.p {
+  background: var(--c-pink);
+}
+.ap-dot.m {
+  background: var(--c-pr-merged);
+}
+
+/* The headings of the page's own sections, as a feature section's. */
+.ap-contract-head h2,
+.ap-week-head h2,
+.ap-limits-head h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(36px, 4.4vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.ap-contract-head > p,
+.ap-week-head > p,
+.ap-limits-head > p {
+  margin-top: 20px;
+  max-width: 40em;
+  font-size: 16.5px;
+  line-height: 1.68;
+  color: var(--c-ink-2);
+  text-wrap: pretty;
+}
+.ap code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}
+
+/* ───────────────────────────── the contract ───────────────────────────── */
+
+.ap-contract {
+  margin-top: clamp(96px, 13vw, 168px);
+}
+.ap-contract-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 20px clamp(32px, 6vw, 88px);
+}
+.ap-contract-head > p {
+  margin-top: 0;
+}
+@media (max-width: 860px) {
+  .ap-contract-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A sheet of terms on blueprint paper: a title block, the terms in two
+   columns joined by a rule, and a line at its foot. */
+.ap-sheet {
+  position: relative;
+  margin-top: clamp(36px, 5vw, 56px);
+  border-radius: 22px;
+  border: 1px solid var(--c-line-strong);
+  background:
+    linear-gradient(var(--c-surface), var(--c-surface)) padding-box,
+    var(--c-line-strong);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 50px 110px -60px rgb(0 0 0 / 0.8);
+}
+:root[data-theme="light"] .ap-sheet {
+  box-shadow: 0 50px 110px -70px rgb(23 23 23 / 0.35);
+}
+/* The paper: a fine grid in blue, a bolder one every fifth line, fading to the edges. */
+.ap-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to right, color-mix(in oklab, var(--c-blue) 14%, transparent) 1px, transparent 1px) 0 0 /
+    120px 120px,
+    linear-gradient(to bottom, color-mix(in oklab, var(--c-blue) 14%, transparent) 1px, transparent 1px) 0 0 /
+    120px 120px,
+    linear-gradient(to right, color-mix(in oklab, var(--c-blue) 7%, transparent) 1px, transparent 1px) 0 0 /
+    24px 24px,
+    linear-gradient(to bottom, color-mix(in oklab, var(--c-blue) 7%, transparent) 1px, transparent 1px) 0 0 /
+    24px 24px;
+  mask-image: radial-gradient(130% 110% at 80% 0%, #000 30%, transparent 85%);
+}
+.ap-sheet::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -40%;
+  right: -12%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--c-blue-soft), transparent);
+  pointer-events: none;
+}
+.ap-sheet-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 40px;
+  padding: 20px clamp(20px, 3vw, 36px);
+  border-bottom: 1px dashed color-mix(in oklab, var(--c-blue) 40%, transparent);
+  font-size: 15px;
+  color: var(--c-ink);
+}
+.ap-sheet-block small {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-ink-4);
+}
+/* A rubber stamp, pressed on a little crooked. */
+.ap-stamp {
+  margin-left: auto;
+  padding: 6px 12px;
+  border: 2px solid var(--c-pink);
+  border-radius: 8px;
+  color: var(--c-pink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  transform: rotate(-5deg);
+  mask-image: repeating-linear-gradient(70deg, #000 0 3px, rgb(0 0 0 / 0.72) 3px 4px);
+}
+.js .ap-sheet .ap-stamp {
+  opacity: 0;
+  transform: rotate(-12deg) scale(1.5);
+  transition:
+    opacity 260ms var(--ease-out) 900ms,
+    transform 420ms cubic-bezier(0.2, 1.6, 0.4, 1) 900ms;
+}
+.js .ap-sheet.seen .ap-stamp {
+  opacity: 1;
+  transform: rotate(-5deg);
+}
+@media (max-width: 640px) {
+  .ap-stamp {
+    margin-left: 0;
+  }
+}
+
+.ap-terms {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ap-terms th {
+  padding: 18px clamp(20px, 3vw, 36px) 6px;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--c-ink-3);
+}
+.ap-terms th + th {
+  color: var(--c-accent);
+}
+:root[data-theme="light"] .ap-terms th + th {
+  color: var(--c-ink);
+}
+.ap-terms td {
+  position: relative;
+  width: 50%;
+  padding: 15px clamp(20px, 3vw, 36px);
+  border-top: 1px solid var(--c-line);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.ap-terms td:first-child {
+  font-family: var(--font-serif);
+  font-size: clamp(19px, 1.7vw, 23px);
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--c-ink-3);
+}
+.ap-terms td + td {
+  font-size: 15.5px;
+  color: var(--c-ink);
+}
+/* The rule that joins the two: it runs from the contractor's words to the autopilot's. */
+.ap-terms td + td::before {
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: calc(-1 * clamp(20px, 3vw, 36px) + 8px);
+  width: calc(clamp(20px, 3vw, 36px) - 2px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--c-accent));
+  transform-origin: left;
+}
+.ap-terms td + td::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: -8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: 0 0 0 4px var(--c-accent-soft);
+  transition: box-shadow 260ms var(--ease-out);
+}
+.ap-terms tr:hover td + td::after {
+  box-shadow: 0 0 0 7px var(--c-accent-soft);
+}
+:root[data-theme="light"] .ap-terms td + td::after {
+  background: var(--c-ink);
+  box-shadow: 0 0 0 4px var(--c-highlight);
+}
+:root[data-theme="light"] .ap-terms tr:hover td + td::after {
+  box-shadow: 0 0 0 7px var(--c-highlight);
+}
+.ap-terms tr:hover td:first-child {
+  color: var(--c-ink-2);
+}
+/* As the sheet comes into view, its terms come in one after another, and their rules draw. */
+.js .ap-sheet tbody tr {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 700ms var(--ease-out);
+  transition-delay: calc(200ms + var(--i) * 90ms);
+}
+.js .ap-sheet tbody td + td::before {
+  transform: scaleX(0);
+  transition: transform 700ms var(--ease-out);
+  transition-delay: calc(450ms + var(--i) * 90ms);
+}
+.js .ap-sheet.seen tbody tr {
+  opacity: 1;
+  transform: none;
+}
+.js .ap-sheet.seen tbody td + td::before {
+  transform: none;
+}
+.ap-sheet-foot {
+  padding: 18px clamp(20px, 3vw, 36px) 22px;
+  border-top: 1px dashed color-mix(in oklab, var(--c-blue) 40%, transparent);
+  font-size: 15px;
+  color: var(--c-ink-2);
+}
+/* Narrow: each term above what the autopilot does, without the rule. */
+@media (max-width: 720px) {
+  .ap-terms thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .ap-terms,
+  .ap-terms tbody,
+  .ap-terms tr,
+  .ap-terms td {
+    display: block;
+    width: auto;
+  }
+  .ap-terms tr {
+    padding: 16px 20px;
+    border-top: 1px solid var(--c-line);
+  }
+  .ap-terms td {
+    padding: 0;
+    border: 0;
+  }
+  .ap-terms td + td {
+    margin-top: 8px;
+    padding-left: 16px;
+  }
+  .ap-terms td + td::before {
+    display: none;
+  }
+  .ap-terms td + td::after {
+    top: 8px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* ───────────────────────────── what it says ───────────────────────────── */
+
+/* What the autopilot wrote to one of its sessions, with its mark. */
+.ap-said {
+  border-left-color: var(--c-accent);
+  background: var(--c-accent-soft);
+  color: var(--c-ink);
+}
+:root[data-theme="light"] .ap-said {
+  border-left-color: var(--c-ink);
+}
+.ap-said-who {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--c-ink-3);
+}
+.ap-said-who svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ───────────────────────────── what it asks ───────────────────────────── */
+
+/* The question up close, and the phone it waits on, side by side. */
+.ap-ask-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(26%, 270px);
+  align-items: start;
+  gap: clamp(20px, 4vw, 56px);
+  margin-top: clamp(32px, 4vw, 48px);
+}
+.ap-ask-row .phone {
+  width: 100%;
+}
+@media (max-width: 760px) {
+  .ap-ask-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ap-ask-row .phone {
+    width: min(78%, 300px);
+    margin: 0 auto;
+  }
+}
+
+/* ───────────────────────────── a note that steers it ───────────────────────────── */
+
+/* The tab's Steer it, as the app draws it: a note typed, added, seen; then what it did. */
+.ap-steer {
+  margin: 0;
+}
+.ap-card {
+  border-radius: 18px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-surface);
+  box-shadow: 0 40px 90px -50px rgb(0 0 0 / 0.75);
+  overflow: hidden;
+}
+:root[data-theme="light"] .ap-card {
+  box-shadow: 0 40px 90px -56px rgb(23 23 23 / 0.32);
+}
+.ap-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 18px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-ink-2);
+}
+.ap-card-title svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: var(--c-ink-4);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ap-type {
+  min-height: 72px;
+  margin: 10px 18px 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--c-ink-4);
+}
+.ap-type.typing {
+  color: var(--c-ink);
+}
+.ap-type .caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 1.1em;
+  margin-left: 1px;
+  vertical-align: -0.18em;
+  background: var(--c-accent);
+  animation: ap-blink 1s steps(1) infinite;
+}
+@keyframes ap-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.ap-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 18px 16px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--c-ink-4);
+}
+.ap-button {
+  flex: none;
+  padding: 7px 12px;
+  border-radius: 9px;
+  background: var(--c-highlight);
+  color: var(--c-highlight-ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition:
+    transform 120ms var(--ease-out),
+    filter 120ms var(--ease-out);
+}
+.ap-button.pressed {
+  transform: scale(0.94);
+  filter: brightness(0.9);
+}
+.ap-notes {
+  border-top: 1px solid var(--c-line);
+}
+.ap-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 18px;
+  border-top: 1px solid var(--c-line);
+}
+.ap-note:first-child {
+  border-top: 0;
+}
+.ap-note img {
+  flex: none;
+  margin-top: 1px;
+  border-radius: 50%;
+}
+.ap-note p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--c-ink);
+}
+.ap-note .ap-note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 9px;
+  margin-bottom: 2px;
+  font-size: 12px;
+  color: var(--c-ink-4);
+}
+.ap-note-meta b {
+  font-weight: 500;
+  color: var(--c-ink-2);
+}
+.ap-seen {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.ap-seen svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ap-seen.not {
+  color: var(--c-blue);
+}
+/* What it did with the note, as its log lines. */
+.ap-after {
+  display: grid;
+  gap: 2px;
+  margin: 14px 6px 0;
+}
+.ap-after li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--c-ink-2);
+}
+.ap-after li .ap-dot {
+  align-self: center;
+}
+.ap-after time {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-ink-4);
+}
+.ap-after b {
+  font-weight: 500;
+  color: var(--c-ink);
+}
+/* While the note plays: what hasn't happened yet waits, its room kept. */
+.ap-steer .later {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.ap-note,
+.ap-after li {
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 520ms var(--ease-out),
+    background-color 900ms var(--ease-out);
+}
+.ap-note.fresh {
+  background: color-mix(in oklab, var(--c-accent) 6%, transparent);
+}
+:root[data-theme="light"] .ap-note.fresh {
+  background: color-mix(in oklab, var(--c-highlight) 40%, transparent);
+}
+
+/* ───────────────────────────── a long weekend ───────────────────────────── */
+
+.ap-week {
+  margin-top: clamp(96px, 13vw, 168px);
+}
+.ap-week-head {
+  max-width: 50em;
+}
+
+/* Registered so that the strip's progress can animate: 100, all of it, until it plays. */
+@property --p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 100;
+}
+.ap-log {
+  --p: 100;
+  margin: clamp(36px, 5vw, 56px) 0 0;
+  padding: clamp(18px, 2.6vw, 30px);
+  border-radius: 24px;
+  border: 1px solid var(--c-line-strong);
+  background:
+    radial-gradient(90% 60% at 100% 0%, var(--c-blue-soft), transparent 70%),
+    radial-gradient(60% 50% at 0% 100%, var(--c-pink-soft), transparent 70%), var(--c-surface);
+  box-shadow: 0 50px 110px -60px rgb(0 0 0 / 0.8);
+}
+:root[data-theme="light"] .ap-log {
+  box-shadow: 0 50px 110px -70px rgb(23 23 23 / 0.35);
+}
+.ap-log.play {
+  animation: ap-play 11s cubic-bezier(0.3, 0.1, 0.4, 1) both;
+}
+@keyframes ap-play {
+  from {
+    --p: 0;
+  }
+  to {
+    --p: 100;
+  }
+}
+
+/* The strip: four days in a line, its wakes, its sessions and the people. */
+.ap-strip {
+  position: relative;
+  padding: 26px 0 6px;
+  margin-bottom: clamp(18px, 2.4vw, 26px);
+}
+.ap-strip-days {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100%;
+}
+.ap-strip-days span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--from) * 1%);
+  width: calc((var(--to) - var(--from)) * 1%);
+  padding-left: 8px;
+  border-left: 1px solid var(--c-line-strong);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 20px;
+  color: var(--c-ink-4);
+}
+.ap-strip-days span:nth-child(even) {
+  background: color-mix(in oklab, var(--c-ink) 2.2%, transparent);
+}
+.ap-strip-lane {
+  position: relative;
+  height: 18px;
+  margin-top: 6px;
+}
+/* What has happened by the strip's progress shows; the rest waits. */
+.ap-strip-lane > * {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--at) * 1%);
+  opacity: clamp(0, (var(--p) - var(--at)) * 4, 1);
+}
+.ap-lane-wakes i {
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  border: 2px solid var(--c-blue);
+  background: var(--c-surface);
+}
+.ap-lane-crew {
+  height: 34px;
+}
+.ap-lane-crew b {
+  --f: clamp(0, (var(--p) - var(--at)) / max(0.001, var(--to) - var(--at)), 1);
+  top: 2px;
+  width: calc((var(--to) - var(--at)) * 1%);
+  min-width: 4px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--c-accent);
+  opacity: 1;
+  clip-path: inset(0 calc((1 - var(--f)) * 100%) 0 0 round 4px);
+}
+.ap-lane-crew b.r2 {
+  top: 13px;
+}
+.ap-lane-crew b.r3 {
+  top: 24px;
+}
+/* The session at work now. */
+.ap-lane-crew b.live {
+  background: linear-gradient(
+    to right,
+    var(--c-accent) 60%,
+    color-mix(in oklab, var(--c-accent) 30%, transparent)
+  );
+}
+.ap-lane-people em {
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 2px;
+  background: var(--c-pink);
+  transform: rotate(45deg);
+}
+.ap-strip-now {
+  position: absolute;
+  top: 18px;
+  bottom: 0;
+  left: calc(var(--at) * 1%);
+  width: 2px;
+  margin-left: -2px;
+  background: linear-gradient(to bottom, var(--c-accent), transparent);
+}
+.ap-strip-now::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: 0 0 0 0 var(--c-accent-soft);
+  animation: ap-ping 2s var(--ease-out) infinite;
+}
+@keyframes ap-ping {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--c-accent) 50%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+}
+/* The play head, while the strip plays. */
+.ap-strip-head {
+  position: absolute;
+  top: 18px;
+  bottom: 0;
+  left: calc(var(--p) * 1%);
+  width: 1px;
+  background: var(--c-ink-3);
+  opacity: 0;
+}
+.ap-log.play .ap-strip-head {
+  opacity: calc(1 - clamp(0, (var(--p) - 97) / 3, 1));
+}
+
+/* The days, side by side: what happened, in the words of its log. */
+.ap-days {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr 1fr 1fr 1fr;
+  gap: 12px;
+}
+.ap-day {
+  min-width: 0;
+  padding: 16px 14px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--c-line);
+  background: color-mix(in oklab, var(--c-canvas) 55%, transparent);
+  opacity: calc(0.28 + 0.72 * clamp(0, (var(--p) - var(--from)) / 6, 1));
+}
+.ap-day:nth-child(1) {
+  --from: 0;
+}
+.ap-day:nth-child(2) {
+  --from: 7.94;
+}
+.ap-day:nth-child(3) {
+  --from: 35.16;
+}
+.ap-day:nth-child(4) {
+  --from: 62.38;
+}
+.ap-day:nth-child(5) {
+  --from: 89.6;
+}
+.ap-day h3 {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--c-ink-3);
+}
+.ap-day.ap-today {
+  border-color: color-mix(in oklab, var(--c-accent) 35%, var(--c-line));
+  background:
+    radial-gradient(120% 80% at 50% 0%, var(--c-accent-soft), transparent 70%),
+    color-mix(in oklab, var(--c-canvas) 55%, transparent);
+}
+:root[data-theme="light"] .ap-day.ap-today {
+  border-color: var(--c-line-strong);
+}
+.ap-day.ap-today h3 {
+  color: var(--c-accent);
+}
+:root[data-theme="light"] .ap-day.ap-today h3 {
+  color: var(--c-ink);
+}
+.ap-day > ol {
+  display: grid;
+  gap: 11px;
+  margin-top: 12px;
+}
+.ap-day li {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding-left: 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--c-ink-2);
+}
+.ap-day li::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-blue);
+}
+.ap-day li.person::before {
+  border: 0;
+  border-radius: 1px;
+  background: var(--c-pink);
+  transform: rotate(45deg);
+}
+.ap-day li.ask::before {
+  border-color: var(--c-pink);
+  border-style: dashed;
+}
+.ap-day li.merged::before {
+  border: 0;
+  background: var(--c-pr-merged);
+}
+.ap-day li.now::before {
+  border: 0;
+  background: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+.ap-day time {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-ink-4);
+}
+.ap-day b {
+  font-weight: 600;
+  color: var(--c-ink);
+}
+.ap-day code {
+  font-size: 0.92em;
+  color: var(--c-ink);
+  overflow-wrap: anywhere;
+}
+/* Pointing at a day lights its stretch of the strip. */
+.ap-strip-days span {
+  transition: background-color 220ms var(--ease-out);
+}
+.ap-log:has(.ap-day:nth-child(1):hover) .ap-strip-days span:nth-child(1),
+.ap-log:has(.ap-day:nth-child(2):hover) .ap-strip-days span:nth-child(2),
+.ap-log:has(.ap-day:nth-child(3):hover) .ap-strip-days span:nth-child(3),
+.ap-log:has(.ap-day:nth-child(4):hover) .ap-strip-days span:nth-child(4),
+.ap-log:has(.ap-day:nth-child(5):hover) .ap-strip-days span:nth-child(5) {
+  background: var(--c-accent-soft);
+  color: var(--c-ink-2);
+}
+.ap-day {
+  transition: border-color 220ms var(--ease-out);
+}
+.ap-day:hover {
+  border-color: var(--c-line-strong);
+}
+.ap-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 18px;
+  font-size: 12.5px;
+  color: var(--c-ink-3);
+}
+.ap-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+/* Narrower: the days scroll sideways, each as wide as a phone's column. */
+@media (max-width: 1080px) {
+  .ap-days {
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 4px;
+    padding-bottom: 6px;
+  }
+  .ap-day {
+    scroll-snap-align: start;
+  }
+}
+/* Phones: the days down the page, the strip too small to read left out. */
+@media (max-width: 640px) {
+  .ap-strip {
+    display: none;
+  }
+  .ap-days {
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+  }
+  .ap-day {
+    opacity: 1;
+  }
+}
+
+/* What wakes it: its copy beside six reasons. */
+.ap-wakes {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(28px, 5vw, 72px);
+  margin-top: clamp(56px, 7vw, 88px);
+}
+@media (max-width: 960px) {
+  .ap-wakes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.ap-wakes-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.ap-wakes-copy p {
+  margin-top: 12px;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--c-ink-2);
+}
+.ap-wake-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 700px) {
+  .ap-wake-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 440px) {
+  .ap-wake-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.ap-wake-grid li {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 16px 16px 18px;
+  border-radius: 16px;
+  border: 1px solid var(--c-line);
+  background: color-mix(in oklab, var(--c-surface) 70%, transparent);
+  transition-delay: var(--d, 0ms);
+}
+.ap-wake-grid strong {
+  margin-top: 6px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--c-ink);
+}
+.ap-wake-grid li > span:last-child {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--c-ink-3);
+}
+.ap-wake-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--c) 14%, transparent);
+  color: var(--c);
+  --c: var(--c-ink-3);
+}
+.ap-wake-icon.y {
+  --c: var(--c-accent);
+}
+.ap-wake-icon.b {
+  --c: var(--c-blue);
+}
+.ap-wake-icon.p {
+  --c: var(--c-pink);
+}
+.ap-wake-icon.m {
+  --c: var(--c-pr-merged);
+}
+:root[data-theme="light"] .ap-wake-icon.y {
+  background: var(--c-highlight);
+  color: var(--c-ink);
+}
+.ap-wake-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* A ring that answers the wake, once it shows. */
+.js .ap-wake-grid li.seen .ap-wake-icon {
+  animation: ap-wake 1.4s var(--ease-out) calc(var(--d, 0ms) + 300ms) both;
+}
+@keyframes ap-wake {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--c) 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+
+.ap-fresh {
+  margin-top: clamp(72px, 9vw, 120px);
+}
+
+/* ───────────────────────────── its limits ───────────────────────────── */
+
+.ap-limits {
+  margin-top: clamp(96px, 13vw, 168px);
+}
+.ap-limits-head {
+  max-width: 50em;
+}
+.ap-rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+@media (max-width: 760px) {
+  .ap-rules {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.ap-rule {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 26px 24px;
+  border-radius: 18px;
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-surface);
+  box-shadow: 0 30px 70px -40px rgb(0 0 0 / 0.7);
+}
+:root[data-theme="light"] .ap-rule {
+  box-shadow: 0 30px 70px -44px rgb(23 23 23 / 0.28);
+}
+.ap-rule::before {
+  content: "";
+  position: absolute;
+  top: -45%;
+  right: -30%;
+  width: 75%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--glow) 20%, transparent), transparent);
+  pointer-events: none;
+}
+.ap-rule-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.ap-rule-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.ap-rule-icon.y {
+  background: var(--c-accent-soft);
+  color: var(--c-accent);
+}
+:root[data-theme="light"] .ap-rule-icon.y {
+  background: var(--c-highlight);
+  color: var(--c-ink);
+}
+.ap-rule-icon.p {
+  background: var(--c-pink-soft);
+  color: var(--c-pink);
+}
+.ap-rule-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ap-rule ul {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+.ap-rule li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--c-ink-2);
+}
+.ap-rule li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--glow);
+  opacity: 0.85;
+}
+:root[data-theme="light"] .ap-rule:first-child li::before {
+  background: var(--c-ink);
+}
+.ap-rule li b {
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+/* ───────────────────────────── a whole workspace ───────────────────────────── */
+
+/* Its mark at the middle, the workspace's projects round it, one more being made. */
+.ap-ws {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+}
+.ap-ws-orbit {
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, 380px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, transparent 64%, var(--c-line) 64.4%, transparent 65%),
+    radial-gradient(closest-side, transparent 98.6%, var(--c-line-strong) 99%, transparent 100%),
+    radial-gradient(closest-side, var(--c-blue-soft), transparent 70%);
+}
+.ap-ws-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+  border-radius: 24px;
+  background: var(--c-raised);
+  box-shadow:
+    inset 0 0 0 1px var(--c-line-strong),
+    0 0 0 8px var(--c-accent-soft),
+    0 30px 60px -30px rgb(0 0 0 / 0.7);
+  color: var(--c-ink);
+}
+:root[data-theme="light"] .ap-ws-mark {
+  box-shadow:
+    inset 0 0 0 1px var(--c-line-strong),
+    0 0 0 8px var(--c-highlight),
+    0 30px 60px -36px rgb(23 23 23 / 0.35);
+}
+.ap-ws-mark svg {
+  width: 42px;
+  height: 42px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ap-ws-mark .ap-comet {
+  stroke: var(--c-accent);
+  stroke-width: 2.2;
+  stroke-dasharray: 0.16 0.84;
+  animation: ap-comet 2.6s linear infinite;
+}
+@keyframes ap-comet {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+/* A project on the orbit: a rounded square of its color, at its angle. */
+.ap-ws-p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a)) translateY(-50cqw);
+}
+.ap-ws-p i {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 13px;
+  border: 1.5px solid color-mix(in oklab, var(--c) 70%, transparent);
+  background: color-mix(in oklab, var(--c) 16%, var(--c-surface));
+  transform: rotate(calc(-1 * var(--a)));
+}
+.ap-ws-p i::after {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border-radius: 5px;
+  background: color-mix(in oklab, var(--c) 60%, transparent);
+}
+/* The one it makes: dashed, a plus where the others have their icon. */
+.ap-ws-new i {
+  border-style: dashed;
+  background: transparent;
+  animation: ap-make 3.2s var(--ease-out) infinite;
+}
+.ap-ws-new i::after {
+  inset: 12px;
+  background:
+    linear-gradient(var(--c-ink-3), var(--c-ink-3)) center / 2px 18px no-repeat,
+    linear-gradient(var(--c-ink-3), var(--c-ink-3)) center / 18px 2px no-repeat;
+}
+@keyframes ap-make {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.ap-ws-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  margin-top: 26px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--c-ink-3);
+}
+.ap-ws-caption span + span::before {
+  content: "→";
+  margin-right: 18px;
+  color: var(--c-ink-4);
+}
+
+/* The pill's flask, smaller than the crumb's icon. */
+.f-crumb .ap-pill svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ap-log.play {
+    animation: none;
+  }
+  .js .ap-wake-grid li.seen .ap-wake-icon {
+    animation: none;
+  }
+  .ap-terms td + td::after {
+    transition: none;
+  }
+  .ap-strip-now::before,
+  .ap-ws-mark .ap-comet,
+  .ap-ws-new i,
+  .ap-type .caret {
+    animation: none;
+  }
+  .js .ap-sheet tbody tr,
+  .js .ap-sheet tbody td + td::before,
+  .js .ap-sheet .ap-stamp {
+    transition: none;
+  }
+}
