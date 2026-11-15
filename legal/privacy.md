@@ -559,7 +559,9 @@ They receive data under their own privacy policies.
     sessions, on the accounts of the people who start them.
   - **Autopilots**: an autopilot's direction, plan, notes, the answers
     people give it (never a secret's value), with the names of the files
-    they sent its sessions with them, and its log go to the account
+    they sent its sessions with them, its log, and the messages it holds
+    for its sessions until they make room (the start of each, and how many
+    files it sends) go to the account
     of the person who put the project on autopilot, or took it over, and so
     does the work of the sessions it starts, whoever wrote what.
   - **Follow-ups**: when one of fctl's agents opened a pull request, a
@@ -633,7 +635,8 @@ They see what you share with them.
   took part; its memory and retrospectives, with who wrote each note; and
   its schedules, with who set up and changed each, whose Claude account it
   runs on and who or what started each of its runs; and its autopilot, with
-  its direction, plan, notes, what it asks and who answered, and its log.
+  its direction, plan, notes, what it asks and who answered, the messages
+  it holds for its sessions, with their files' names, and its log.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
@@ -758,8 +761,11 @@ nothing goes there.
   until 90 days after it heard the answer or the refusal, or took it back;
   its log's newest 1,000 entries. A message waiting for room, until it goes
   to its session (and into that session's transcript, like any message),
-  someone takes it back, its session fails or is deleted, or the project is
-  taken off autopilot. Its sessions stay in their project like any other.
+  someone takes it back, its session is deleted, or the project is taken
+  off autopilot; or, once its session failed, until the autopilot is next
+  on. While the autopilot is paused, by people, by itself or because its
+  workspace's admins turned autopilots off, its messages wait, however
+  long that lasts. Its sessions stay in their project like any other.
 - **Linear**:
   - our app's tokens in a Linear workspace: until no fctl workspace works in
     it any more, when we revoke them at Linear and delete them, within an
