@@ -1351,6 +1351,16 @@
   .pilot-answers span:first-child {
     animation: none;
   }
+  /* As the cards below: no lift, and the plan shows ticked off at once. */
+  .pilot-card,
+  .js .pilot-card.reveal,
+  .js .pilot-card .pilot-plan li.done,
+  .js .pilot-card .pilot-plan li.done::before {
+    transition: none;
+  }
+  .pilot-card:hover {
+    translate: none;
+  }
 }
 
 /* ───────────────────────────── the branches ───────────────────────────── */

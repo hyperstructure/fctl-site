@@ -1258,6 +1258,12 @@
   .ap-log.play {
     animation: none;
   }
+  .js .ap-wake-grid li.seen .ap-wake-icon {
+    animation: none;
+  }
+  .ap-terms td + td::after {
+    transition: none;
+  }
   .ap-strip-now::before,
   .ap-ws-mark .ap-comet,
   .ap-ws-new i,
