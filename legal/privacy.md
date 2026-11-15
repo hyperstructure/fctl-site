@@ -280,7 +280,8 @@ account, you can ask for early access on its sign-in page.
     file's name and size, when it was added and last written, and which of
     its own sessions last wrote it. They can hold anything the autopilot
     wrote in them, such as your name or what you told it;
-  - for each pull request of its sessions that merged: the branch it merged
+  - for each pull request of its sessions that merged: its repository,
+    number, link and title, the session that lists it, the branch it merged
     into and the commit that holds it there, and how the checks on that
     branch ended after it, as GitHub says (on which commit, how many passed,
     failed or were cancelled, and the names of those that failed), and when
@@ -565,9 +566,11 @@ They receive data under their own privacy policies.
     sessions, on the accounts of the people who start them.
   - **Autopilots**: an autopilot's direction, plan, notes, the answers
     people give it (never a secret's value), with the names of the files
-    they sent its sessions with them, its log and the files it keeps go to
-    the account of the person who put the project on autopilot, or took it
-    over, and so does the work of the sessions it starts, whoever wrote
+    they sent its sessions with them, its log, the files it keeps, and how
+    the checks went after its sessions' pull requests merged (each pull
+    request's link and title, and the names of the checks that failed) go
+    to the account of the person who put the project on autopilot, or took
+    it over, and so does the work of the sessions it starts, whoever wrote
     what.
   - **Follow-ups**: when one of fctl's agents opened a pull request, a
     review's findings on it go to that agent's session, and so to the
