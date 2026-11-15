@@ -1117,38 +1117,6 @@
   color: var(--c-ink);
 }
 
-/* That it eats a plan's limits, as the app warns before anyone puts one on. */
-.ap-hungry {
-  margin-top: 18px;
-  padding: 18px 22px;
-  border-radius: 18px;
-  border: 1px solid color-mix(in oklab, var(--c-amber) 30%, transparent);
-  background: linear-gradient(to bottom, var(--c-amber-soft), transparent 70%), var(--c-surface);
-}
-.ap-hungry-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14.5px;
-  font-weight: 500;
-  color: var(--c-amber);
-}
-.ap-hungry-title svg {
-  width: 17px;
-  height: 17px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.ap-hungry p + p {
-  margin-top: 6px;
-  max-width: 60em;
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--c-ink-3);
-}
 .ap-duo {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
