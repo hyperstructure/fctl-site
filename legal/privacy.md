@@ -278,8 +278,8 @@ account, you can ask for early access on its sign-in page.
   - the files it keeps for its later sessions: text it writes itself, such
     as scripts and drafts of messages, at most 4 MB in all, with each
     file's name and size, when it was added and last written, and which of
-    its own sessions last wrote it. They can hold whatever it put in them,
-    your name or what you told it among it;
+    its own sessions last wrote it. They can hold anything the autopilot
+    wrote in them, such as your name or what you told it;
   - its sessions are sessions like any other, with their transcripts.
 - **Project memory and retrospectives**, in projects that keep them (they
   are on unless a maintainer turns them off):
@@ -714,6 +714,9 @@ nothing goes there.
     directions you gave them) and the lines of their logs that say what
     you did, without your name. An autopilot that ran on your Claude
     account pauses until someone who manages its project takes it over.
+  - The files autopilots keep stay as they wrote them. They record no
+    account, but can mention you, until the autopilot removes them or their
+    project is deleted.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
   turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
   it off for everyone, you no longer have a Gravatar (we look about once a
