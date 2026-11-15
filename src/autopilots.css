@@ -243,10 +243,17 @@
   border-radius: 50%;
   background: var(--c-accent);
   box-shadow: 0 0 0 4px var(--c-accent-soft);
+  transition: box-shadow 260ms var(--ease-out);
+}
+.ap-terms tr:hover td + td::after {
+  box-shadow: 0 0 0 7px var(--c-accent-soft);
 }
 :root[data-theme="light"] .ap-terms td + td::after {
   background: var(--c-ink);
   box-shadow: 0 0 0 4px var(--c-highlight);
+}
+:root[data-theme="light"] .ap-terms tr:hover td + td::after {
+  box-shadow: 0 0 0 7px var(--c-highlight);
 }
 .ap-terms tr:hover td:first-child {
   color: var(--c-ink-2);
@@ -805,6 +812,24 @@
   font-size: 0.92em;
   color: var(--c-ink);
   overflow-wrap: anywhere;
+}
+/* Pointing at a day lights its stretch of the strip. */
+.ap-strip-days span {
+  transition: background-color 220ms var(--ease-out);
+}
+.ap-log:has(.ap-day:nth-child(1):hover) .ap-strip-days span:nth-child(1),
+.ap-log:has(.ap-day:nth-child(2):hover) .ap-strip-days span:nth-child(2),
+.ap-log:has(.ap-day:nth-child(3):hover) .ap-strip-days span:nth-child(3),
+.ap-log:has(.ap-day:nth-child(4):hover) .ap-strip-days span:nth-child(4),
+.ap-log:has(.ap-day:nth-child(5):hover) .ap-strip-days span:nth-child(5) {
+  background: var(--c-accent-soft);
+  color: var(--c-ink-2);
+}
+.ap-day {
+  transition: border-color 220ms var(--ease-out);
+}
+.ap-day:hover {
+  border-color: var(--c-line-strong);
 }
 .ap-legend {
   display: flex;
