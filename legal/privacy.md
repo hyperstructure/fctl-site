@@ -273,8 +273,13 @@ account, you can ask for early access on its sign-in page.
     and sizes;
   - its log: what it did (the sessions it started and steered, the settings,
     secrets' names, repositories and schedules it changed, the projects it
-    created), what it wrote down, and what people did with it, with who and
-    when;
+    created, the files it added and removed), what it wrote down, and what
+    people did with it, with who and when;
+  - the files it keeps for its later sessions: text it writes itself, such
+    as scripts and drafts of messages, at most 4 MB in all, with each
+    file's name and size, when it was added and last written, and which of
+    its own sessions last wrote it. They can hold anything the autopilot
+    wrote in them, such as your name or what you told it;
   - the messages it sends its sessions while as many of them work as people
     allow, which wait until one of them makes room: each one's text, its
     files' names, types and sizes, the session it goes to, the person it
@@ -559,11 +564,11 @@ They receive data under their own privacy policies.
     sessions, on the accounts of the people who start them.
   - **Autopilots**: an autopilot's direction, plan, notes, the answers
     people give it (never a secret's value), with the names of the files
-    they sent its sessions with them, its log, and the messages it holds
-    for its sessions until they make room (the start of each, and how many
-    files it sends) go to the account
-    of the person who put the project on autopilot, or took it over, and so
-    does the work of the sessions it starts, whoever wrote what.
+    they sent its sessions with them, its log, the files it keeps, and the
+    messages it holds for its sessions until they make room (the start of
+    each, and how many files it sends) go to the account of the person who
+    put the project on autopilot, or took it over, and so does the work of
+    the sessions it starts, whoever wrote what.
   - **Follow-ups**: when one of fctl's agents opened a pull request, a
     review's findings on it go to that agent's session, and so to the
     account it runs on. So do the comments, failed checks, conflicts and
@@ -715,6 +720,9 @@ nothing goes there.
     directions you gave them) and the lines of their logs that say what
     you did, without your name. An autopilot that ran on your Claude
     account pauses until someone who manages its project takes it over.
+  - The files autopilots keep stay as they wrote them. They record no
+    account, but can mention you, until the autopilot removes them or their
+    project is deleted.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
   turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
   it off for everyone, you no longer have a Gravatar (we look about once a
@@ -756,16 +764,17 @@ nothing goes there.
   runs, as long as the schedule. Deleting a schedule leaves the sessions it
   started in their project.
 - **Autopilots**: as long as their project; taking a project off autopilot
-  keeps its autopilot's direction, notes, plan, log and open asks for when
-  it's put on again. Each note until someone removes it; what it asked,
-  until 90 days after it heard the answer or the refusal, or took it back;
-  its log's newest 1,000 entries. A message waiting for room, until it goes
-  to its session (and into that session's transcript, like any message),
-  someone takes it back, its session is deleted, or the project is taken
-  off autopilot; or, once its session failed, until the autopilot is next
-  on. While the autopilot is paused, by people, by itself or because its
-  workspace's admins turned autopilots off, its messages wait, however
-  long that lasts. Its sessions stay in their project like any other.
+  keeps its autopilot's direction, notes, plan, files, log and open asks for
+  when it's put on again. Each note until someone removes it; each file
+  until the autopilot removes it; what it asked, until 90 days after it
+  heard the answer or the refusal, or took it back; its log's newest 1,000
+  entries. A message waiting for room, until it goes to its session (and
+  into that session's transcript, like any message), someone takes it
+  back, its session is deleted, or the project is taken off autopilot; or,
+  once its session failed, until the autopilot is next on. While the
+  autopilot is paused, by people, by itself or because its workspace's
+  admins turned autopilots off, its messages wait, however long that
+  lasts. Its sessions stay in their project like any other.
 - **Linear**:
   - our app's tokens in a Linear workspace: until no fctl workspace works in
     it any more, when we revoke them at Linear and delete them, within an
