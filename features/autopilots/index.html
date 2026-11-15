@@ -124,7 +124,7 @@
           </div>
         </section>
 
-        <section class="f-section" aria-labelledby="brief">
+        <section class="f-section wide" aria-labelledby="brief">
           <div class="f-copy reveal">
             <h2 id="brief">You write the brief.</h2>
             <p>
@@ -144,10 +144,6 @@
               <li><strong>Experimental.</strong> It acts on its own and may change: watch its tab, and pause it whenever you like.</li>
             </ul>
           </div>
-          <figure class="shot browser reveal" data-url="app.fctl.sh/p/driver-app?tab=autopilot">
-            <img class="theme-dark" src="/src/features/shots/autopilots/engage-dark.webp" width="2200" height="1375" alt="Driver app's form for putting it on autopilot, filled in with a direction for Copenhagen's first deliveries, and the powers it would have." loading="lazy" />
-            <img class="theme-light" src="/src/features/shots/autopilots/engage-light.webp" width="2200" height="1375" alt="Driver app's form for putting it on autopilot, filled in with a direction for Copenhagen's first deliveries, and the powers it would have." loading="lazy" />
-          </figure>
         </section>
 
         <section class="f-section flip" aria-labelledby="crew">
@@ -176,86 +172,18 @@
           </div>
         </section>
 
-        <section class="f-section" aria-labelledby="checked">
-          <div class="f-copy reveal">
-            <h2 id="checked">Nothing ships until it's checked.</h2>
-            <p>
-              A session that says it's done has said so, not shown it. The autopilot reads its last turn before it takes
-              its word, asks for screenshots of the case that matters rather than the empty one, and pushes back with one
-              concrete thing when a pass finds nothing to fix. Review agents read every commit too, and what they find
-              goes back to the session that wrote it.
-            </p>
-            <blockquote class="f-quote ap-said">
-              <span class="ap-said-who"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19.8A9 9 0 1 1 16.5 19.8" /><path d="M12 7.25 15.25 15.5 12 13.6 8.75 15.5Z" /></svg>farm-portal's autopilot, to farm-portal#8</span>
-              Your screenshots show an empty list, so they show none of the units. Show a week with six crops filled in,
-              some in crates, some in bunches and some in kilos, at a phone's width, in Swedish. Then merge once checks
-              pass.
-            </blockquote>
-          </div>
-          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
-            <img class="theme-dark" src="/src/features/shots/autopilots/crew-dark.webp" width="2200" height="1375" alt="farm-portal#8, sent back by the autopilot because its screenshot showed the harvest list empty, answers with a week of six crops in crates, bunches and kilos, and records its retrospective." loading="lazy" />
-            <img class="theme-light" src="/src/features/shots/autopilots/crew-light.webp" width="2200" height="1375" alt="farm-portal#8, sent back by the autopilot because its screenshot showed the harvest list empty, answers with a week of six crops in crates, bunches and kilos, and records its retrospective." loading="lazy" />
-          </figure>
-        </section>
-
-        <section class="f-section wide" aria-labelledby="asks">
-          <div class="f-copy reveal">
-            <h2 id="asks">It brings you only your decisions.</h2>
-            <p>
-              When only a person can decide, it asks, and gets on with what it can meanwhile. A question comes with up to
-              six answers to click and whatever helps you answer: on Monday it asked Noor which Wednesday reminder farms
-              should get, with the two emails its session drew, side by side.
-            </p>
-            <p>
-              Whoever follows its session hears of each ask, on their phone too, and finds it waiting in Needs you. An
-              answer wakes it within seconds.
-            </p>
-          </div>
-          <div class="ap-ask-row">
-            <figure class="f-tile reveal">
-              <div class="shot crop zoom" style="--zoom: 1.6; --at: 71.5% 5.3%">
-                <img class="theme-dark" src="/src/features/shots/autopilots/asks-dark.webp" width="2200" height="1375" alt="The reminder question whole: the two emails #11 drew in Swedish, side by side, an answer to click for each, and the secret it needs starting below." loading="lazy" />
-                <img class="theme-light" src="/src/features/shots/autopilots/asks-light.webp" width="2200" height="1375" alt="The reminder question whole: the two emails #11 drew in Swedish, side by side, an answer to click for each, and the secret it needs starting below." loading="lazy" />
-              </div>
-              <figcaption>Two designs to choose from, drawn by the session it asks about.</figcaption>
-            </figure>
-            <figure class="f-tile reveal">
-              <div class="phone">
-                <img class="theme-dark" src="/src/features/shots/autopilots/phone-needs-dark.webp" width="780" height="1576" alt="Noor's Needs you on her phone, led by Farm portal's autopilot's two asks." loading="lazy" />
-                <img class="theme-light" src="/src/features/shots/autopilots/phone-needs-light.webp" width="780" height="1576" alt="Noor's Needs you on her phone, led by Farm portal's autopilot's two asks." loading="lazy" />
-              </div>
-              <figcaption>And in Needs you, on Noor's phone.</figcaption>
-            </figure>
-          </div>
-        </section>
-
-        <section class="f-section" aria-labelledby="keys">
-          <div class="f-copy reveal">
-            <h2 id="keys">It asks you for the keys.</h2>
-            <p>
-              When the work needs a secret, it asks for it by name and says what for. You type it in on its tab, or with
-              <code>fctl autopilot secret</code>, which doesn't show what you type. It goes into the project's secrets,
-              sealed, and the sessions that start from then on have it. The autopilot hears only that it's set: the
-              value never passes through its conversation.
-            </p>
-            <p>
-              On Friday evening it asked for <code>RESEND_API_KEY</code>, to email farms their sign-in links, and Tomás
-              gave it the shop's. It replaces and removes only the secrets it set itself.
-            </p>
-          </div>
-          <figure class="shot crop zoom reveal" style="--zoom: 1.59; --at: 78% 0%">
-            <img class="theme-dark" src="/src/features/shots/autopilots/secret-dark.webp" width="2200" height="1375" alt="The secret it asks Noor for, PLATFORM_API_TOKEN, with a field to type it into; below it, Jonas's and Asha's notes, and its log." loading="lazy" />
-            <img class="theme-light" src="/src/features/shots/autopilots/secret-light.webp" width="2200" height="1375" alt="The secret it asks Noor for, PLATFORM_API_TOKEN, with a field to type it into; below it, Jonas's and Asha's notes, and its log." loading="lazy" />
-          </figure>
-        </section>
-
-        <section class="f-section flip" aria-labelledby="steer">
+        <section class="f-section" aria-labelledby="steer">
           <div class="f-copy reveal">
             <h2 id="steer">Walk on site whenever you like.</h2>
             <p>
               Leave it a note: a priority, a constraint, something it should know. A note stays until someone removes it,
               and the newest wins, over older ones and over the direction. It wakes within seconds, and its tab says when
               it saw each note.
+            </p>
+            <p>
+              The other way round, it asks you only what's yours to decide: a question with answers to click and
+              whatever helps you answer, like two designs side by side. You hear of it on your phone too, it gets on with
+              what it can meanwhile, and your answer wakes it within seconds.
             </p>
             <ul class="f-list">
               <li><strong>Yours to stop.</strong> Pause it, resume it, wake it, hand it to a fresh session, or take the project off autopilot.</li>
@@ -286,6 +214,28 @@
               <li style="--i: 1"><span class="ap-dot y"></span><time>19:05</time><span>Started <b>farm-portal#8</b> Let farms choose the unit for each crop</span></li>
               <li style="--i: 2"><span class="ap-dot n"></span><time>19:05</time><span>Updated <b>its plan</b></span></li>
             </ol>
+          </figure>
+        </section>
+
+        <section class="f-section flip" aria-labelledby="checked">
+          <div class="f-copy reveal">
+            <h2 id="checked">Nothing ships until it's checked.</h2>
+            <p>
+              A session that says it's done has said so, not shown it. The autopilot reads its last turn before it takes
+              its word, asks for screenshots of the case that matters rather than the empty one, and pushes back with one
+              concrete thing when a pass finds nothing to fix. Review agents read every commit too, and what they find
+              goes back to the session that wrote it.
+            </p>
+            <blockquote class="f-quote ap-said">
+              <span class="ap-said-who"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19.8A9 9 0 1 1 16.5 19.8" /><path d="M12 7.25 15.25 15.5 12 13.6 8.75 15.5Z" /></svg>farm-portal's autopilot, to farm-portal#8</span>
+              Your screenshots show an empty list, so they show none of the units. Show a week with six crops filled in,
+              some in crates, some in bunches and some in kilos, at a phone's width, in Swedish. Then merge once checks
+              pass.
+            </blockquote>
+          </div>
+          <figure class="shot browser reveal" data-url="app.fctl.sh/s/…">
+            <img class="theme-dark" src="/src/features/shots/autopilots/crew-dark.webp" width="2200" height="1375" alt="farm-portal#8, sent back by the autopilot because its screenshot showed the harvest list empty, answers with a week of six crops in crates, bunches and kilos, and records its retrospective." loading="lazy" />
+            <img class="theme-light" src="/src/features/shots/autopilots/crew-light.webp" width="2200" height="1375" alt="farm-portal#8, sent back by the autopilot because its screenshot showed the harvest list empty, answers with a week of six crops in crates, bunches and kilos, and records its retrospective." loading="lazy" />
           </figure>
         </section>
 
