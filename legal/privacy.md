@@ -780,8 +780,8 @@ nothing goes there.
   history), where the repository's owners control them.
 - **Schedules**: until their owner or one of the project's maintainers or
   owners deletes them, or the project is deleted. Each schedule's newest 100
-  runs, and all of the last day's, as long as the schedule. Deleting a schedule leaves the sessions it
-  started in their project.
+  runs, and all of the last day's, as long as the schedule. Deleting a
+  schedule leaves the sessions it started in their project.
 - **Autopilots**: as long as their project; taking a project off autopilot
   keeps its autopilot's direction, notes, plan, files, log and open asks for
   when it's put on again. Each note until someone removes it; each file
