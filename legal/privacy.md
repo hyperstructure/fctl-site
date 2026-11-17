@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-15
+updated: 2026-11-17
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -245,16 +245,23 @@ account, you can ask for early access on its sign-in page.
 - **Schedules**:
   - for each of a project's schedules: its name and the task its sessions
     start with; when it runs (a cron expression and a time zone, a time to
-    run once, or only when asked); the model, effort level, branch and
+    run once, something that happens on GitHub, such as an issue opened,
+    with the repositories, labels, branches and people it narrows that to,
+    or only when asked); the model, effort level, branch and
     GitHub access its sessions start with; whose Claude account it runs on;
     who set it up and last changed it, and when; and, when fctl paused it,
     why;
   - for each of its runs: when it was due and started; what started it (its
     time, a person, or another tool with someone's access token, and
-    whose); and the session it started, or why it started none;
+    whose; or what happened on GitHub: the issue, pull request, release or
+    commit, its title and link, and the GitHub login of whoever opened,
+    labeled, merged or published it); and the session it started, or why
+    it started none;
   - what a person or a tool sends with a run, such as an issue's text, goes
     into the first message of the run's session, and so into its
-    transcript.
+    transcript, and so does what GitHub says of what started it: an
+    issue's or pull request's title, text, labels and author, a release's
+    notes, or the checks that failed.
 - **Autopilots** (experimental), in projects their maintainers put on
   autopilot, in workspaces whose admins allow them:
   - for each: the direction people give it and who last changed it, and
@@ -330,8 +337,11 @@ account, you can ask for early access on its sign-in page.
   - We keep the repositories you link through our GitHub App, and the
     branches and pull requests agents create.
   - Through our app's webhook, GitHub tells us when pull requests and their
-    checks change in the repositories the app is installed on, and when
-    people comment on pull requests there or review them. For the pull
+    checks change in the repositories the app is installed on, when people
+    comment on pull requests there or review them, and when issues are
+    opened or labeled and releases published. Of an issue, a release, or a
+    pull request no session lists, we keep only what a schedule's run that
+    it starts keeps (under Schedules, above). For the pull
     requests sessions list, we then ask GitHub about them. We keep their
     title and state, when it changed, their latest commit, and how many of
     their checks passed, failed or haven't finished.
@@ -562,10 +572,11 @@ They receive data under their own privacy policies.
     Its comments, and the replies people write to the agent there, go there
     too, whoever wrote them.
   - **Schedules**: a schedule's task goes to the account of its owner (who
-    set it up or took it over) when its time comes; otherwise to the
-    account of the person who runs it, or whose access token another tool
-    runs it with. What is sent with a run, such as an issue's text, goes
-    there too, whoever wrote it.
+    set it up or took it over) when its time comes, or when what it waits
+    for happens on GitHub; otherwise to the account of the person who runs
+    it, or whose access token another tool runs it with. What is sent with
+    a run, or what GitHub says of what started it, such as an issue's text,
+    goes there too, whoever wrote it.
   - **Project memory**: a project's notes go into the prompts of its later
     sessions, on the accounts of the people who start them.
   - **Autopilots**: an autopilot's direction, plan, notes, the answers
