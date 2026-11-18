@@ -15,6 +15,7 @@ export const PAGES = [
   { slug: "api", file: "docs/api.md", nav: "HTTP API" },
   { slug: "automation", file: "docs/automation.md", nav: "Automation" },
   { slug: "self-hosting", file: "docs/self-hosting.md", nav: "Self-hosting" },
+  { slug: "organizations", file: "docs/organizations.md", nav: "For organizations" },
   { slug: "sandbox-images", file: "docs/sandbox-images.md", nav: "Sandbox images" },
   { slug: "architecture", file: "docs/architecture.md", nav: "Architecture" },
   { slug: "security", file: "docs/security.md", nav: "Security" },
