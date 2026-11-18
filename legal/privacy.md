@@ -774,8 +774,8 @@ nothing goes there.
     Claude connections, Linear accounts and memberships, the model and
     effort level you last asked for in each project, the machines you
     enrolled for your own sessions, and the workspaces only you are in,
-    with their projects, sessions and transcripts, and it revokes the
-    enrollment tokens you made for your own sessions.
+    with their projects, sessions, transcripts and webhooks, and it revokes
+    the enrollment tokens you made for your own sessions.
   - Sessions you started in workspaces that others are in stay with their
     projects, shown as started by a deleted user: your name, email
     addresses and picture are removed from them.
@@ -790,10 +790,11 @@ nothing goes there.
     account, but can mention you, until the autopilot removes them or their
     project is deleted.
   - The webhooks you added in workspaces that others are in stay, without
-    your name, until those who manage them delete them. What they sent
-    before stays in their logs, with your name where an event or an attempt
-    carried it (the sessions you started, the tests and resends you sent),
-    until the logs let it go: 30 days at most.
+    your name, until those who manage them delete them. The logs of those
+    workspaces' webhooks keep what went out, which can carry your name,
+    picture's address or GitHub login (the sessions you started, reviews
+    run on your Claude account, your comments on pull requests, the tests
+    and resends you sent), for up to 30 days.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
   turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
   it off for everyone, you no longer have a Gravatar (we look about once a
