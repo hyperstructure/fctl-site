@@ -62,6 +62,11 @@ This policy doesn't apply to either.
   your Linear workspace (encrypted), and who you are there once you link
   your Linear account. A ticket you delegate to fctl there goes to its
   agent, with its comments, and into the session's transcript.
+- **Webhooks send your work's news elsewhere.** If a workspace's admins or
+  a project's owners or maintainers add a webhook, what happens in its
+  sessions (their titles, the start of agents' replies, their questions,
+  pull requests and reviews) goes to the address they choose, outside fctl,
+  as it happens. We keep what went out to each for 30 days.
 - **Gravatar**: by default, while you have no picture of your own, we ask
   Gravatar for yours by a hash of your email address, and show a copy if
   you have one there. Turn that off under Settings → Profile.
@@ -312,6 +317,31 @@ account, you can ask for early access on its sign-in page.
     updated each;
   - both are what agents and people wrote, so they can mention your code and
     your project's tools and people.
+- **Webhooks**, if a workspace's admins or a project's owners or
+  maintainers add them:
+  - for each webhook: the address it posts to, its name, the events it
+    wants, the projects and the sessions it hears of, its signing secret
+    (encrypted), whether it's on (and, when fctl turned it off, why), who
+    added it and when, and how its newest attempt went (when, how long it
+    took and the status, without the answer or who made it);
+  - for each request that goes out to it, in the last 30 days: what it
+    posted (the event, with the workspace's and the project's names and
+    ids; for a session's event the session's title, description, status
+    and why, the model and effort level it works with, branches, the
+    person it was started by or for, the schedule it started from (name,
+    id and link) or the ticket (its key and link), its pull requests and
+    their checks, the start of the agent's last reply, up to 2,000
+    characters, and what it asked; for a follow-up, the comments as fctl
+    passed them on, with their writers' GitHub logins and pictures'
+    addresses, the GitHub login of whoever merged or closed the pull
+    request, the names of the checks that failed, and a review's findings
+    with their titles and files; for a review its pull request,
+    commit, findings counted, links and the person whose Claude account it
+    runs on; for a schedule its name and why a run started nothing), the
+    request's headers; for each attempt when it was made, how long it
+    took, the status the address answered with or why none came, and who
+    resent it or sent a test; and for the newest attempt the headers of
+    the answer (up to 40) and the start of its body (4 KB).
 - **Notifications**, if you turn them on:
   - for each browser you turn them on in: its push subscription (the
     address its push service delivers to, and the keys notifications are
@@ -506,7 +536,7 @@ There are no analytics or advertising cookies.
 
 | Purpose | Legal basis (EU and UK law) |
 |---|---|
-| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, crediting you in commits when you set a commit email, connecting your hosts, Claude, GitHub and Linear | Contract |
+| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, posting to the webhooks your workspace's admins and projects' maintainers add, crediting you in commits when you set a commit email, connecting your hosts, Claude, GitHub and Linear | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping your request for early access and inviting you | Contract: steps you ask for before one |
 | Asking an admin to sign in to GitHub when they connect a GitHub account to a workspace, to read which of its repositories they may give the workspace and let them choose from them | Legitimate interests: keeping each workspace to the repositories its admins may grant |
@@ -660,6 +690,15 @@ They see what you share with them.
   runs on and who or what started each of its runs; and its autopilot, with
   its direction, plan, notes, what it asks and who answered, the messages
   it holds for its sessions, with their files' names, and its log.
+- **A workspace's admins** see its webhooks, its projects' too, and
+  everything each sent: who added it, its address and its log of requests
+  and answers, which carry its projects' events.
+- **A project's owners and maintainers** see its own webhooks and their
+  logs, as the workspace's admins do, and the workspace's webhooks that
+  send its events: their names, who added each, where each posts
+  (shortened to the address's host), the events, projects and sessions
+  each hears of, whether it's on (and why fctl turned it off) and how its
+  requests went lately, but not what they carried.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
@@ -681,6 +720,17 @@ they pass the link to, and GitHub, whose image proxy fetches the screenshot
 to show it in the pull request. A link holds a long random token, so it
 can't be guessed, and search engines are asked not to index the
 screenshots.
+
+### Webhooks' addresses
+
+A webhook posts the events it wants to the address its workspace's admins,
+or its project's owners or maintainers, chose: a service of theirs, a chat
+app's or another company's, which receives them under its own terms. That
+includes what the people of its projects wrote to agents and what agents
+replied, as far as each event carries it (under Webhooks, above). Each
+request is signed with the webhook's secret, so that its receiver can
+check it came from fctl. Those who manage a webhook decide where it posts,
+and turn it off or delete it.
 
 ### Your hosts
 
@@ -726,8 +776,8 @@ nothing goes there.
     Claude connections, Linear accounts and memberships, the model and
     effort level you last asked for in each project, the machines you
     enrolled for your own sessions, and the workspaces only you are in,
-    with their projects, sessions and transcripts, and it revokes the
-    enrollment tokens you made for your own sessions.
+    with their projects, sessions, transcripts and webhooks, and it revokes
+    the enrollment tokens you made for your own sessions.
   - Sessions you started in workspaces that others are in stay with their
     projects, shown as started by a deleted user: your name, email
     addresses and picture are removed from them.
@@ -741,6 +791,12 @@ nothing goes there.
   - The files autopilots keep stay as they wrote them. They record no
     account, but can mention you, until the autopilot removes them or their
     project is deleted.
+  - The webhooks you added in workspaces that others are in stay, without
+    your name, until those who manage them delete them. The logs of those
+    workspaces' webhooks keep what went out, which can carry your name,
+    picture's address or GitHub login (the sessions you started, reviews
+    run on your Claude account, your comments on pull requests, the tests
+    and resends you sent), for up to 30 days.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
   turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
   it off for everyone, you no longer have a Gravatar (we look about once a
@@ -835,6 +891,12 @@ nothing goes there.
   it. The challenges they sign are deleted within an hour of expiring.
 - **Claude plan usage**: the latest report of each limit, until a newer
   report replaces it or you remove the Claude connection.
+- **Webhooks**: until those who manage one delete it, or its project or
+  workspace is deleted, with how its newest attempt went. What went out to
+  each for 30 days, and its newest 1,000 requests at most; deleting a
+  webhook deletes what went out to it, and deleting a project what its
+  events said and its own webhooks with their logs. What a webhook's
+  address received stays under that receiver's control.
 - **Notifications**: a browser's push subscription until you turn
   notifications off there or remove the browser in Settings, sign out of it
   or its browser session expires, or its push service tells us it has
@@ -905,8 +967,9 @@ also complain to your data protection authority.
 
 Passwords are hashed with argon2id, and sign-in tokens and recovery codes
 are stored only as hashes. Authenticator app secrets, Claude credentials,
-Linear tokens and project secrets are encrypted with AES-256-GCM, and
-everything travels over HTTPS. For passkeys we keep only public keys.
+Linear tokens, project secrets and webhooks' signing secrets are encrypted
+with AES-256-GCM, and everything travels over HTTPS. For passkeys we keep
+only public keys.
 
 Your hosts never send us a Claude token you keep on them, only whether they
 keep one. They also remove Claude tokens from what your sessions send us
