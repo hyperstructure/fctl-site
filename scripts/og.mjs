@@ -41,6 +41,7 @@ const DOCS = {
   api: ["The", "HTTP API."],
   automation: ["", "Automation."],
   "self-hosting": ["", "Self-hosting."],
+  organizations: ["fctl", "for organizations."],
   "sandbox-images": ["Sandbox", "images."],
   architecture: ["", "Architecture."],
   security: ["", "Security."],
