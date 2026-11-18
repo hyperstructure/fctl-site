@@ -269,9 +269,9 @@ account, you can ask for early access on its sign-in page.
     who set it up and last changed it, and when; and, when fctl paused it,
     why;
   - for each of its runs: when it was due and started; what started it (its
-    time, a person, another tool with someone's access token, or a
-    workspace's service account for someone, and whose; or what happened
-    on GitHub: the issue, pull request, release or
+    time, a person, or another tool, with someone's access token or as a
+    service account running it for them, and whose; or what happened on
+    GitHub: the issue, pull request, release or
     commit, its title and link, and the GitHub login of whoever opened,
     labeled, merged or published it); and the session it started, or why
     it started none;
@@ -723,11 +723,13 @@ They see what you share with them.
 - **The program that holds a service account** sees each member of its
   workspace: their name and picture, the address they are in it as, their
   role, their answer to it and when, and whether it may act for them, with
-  why not. It reads every project of the workspace, every session with its
-  transcript, whoever started it, and every schedule with its runs. For the
-  people who allowed it, it starts sessions and messages their agents in
-  their name. The program's owner, often your organization, decides what
-  it keeps of all that.
+  why not. It reads every project of the workspace, with its members (their
+  addresses and roles), memory, retrospectives, reviews and schedules with
+  their runs, and every session, whoever started it, with its transcript,
+  the files sent in it and who it is shared with, and it searches what
+  sessions said. For the people who allowed it, it starts sessions and
+  messages their agents in their name. The program's owner, often your
+  organization, decides what it keeps of all that.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
