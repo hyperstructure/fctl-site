@@ -38,9 +38,9 @@ This policy doesn't apply to either.
   people write to them go to Anthropic under that account's agreement with
   Anthropic, not ours. For example
   ([Anthropic](#services-you-connect) has the rest):
-  - a session's work goes to the account of the person who started it, or
-    for a schedule's run, usually its owner's, whoever wrote the messages
-    in it;
+  - a session's work goes to the account of the person who started it (or
+    whom a service account started it for), or for a schedule's run,
+    usually its owner's, whoever wrote the messages in it;
   - review agents use the account of the project owner who turned them on
     or took them over;
   - a Linear ticket goes to the account of the person who delegated it,
@@ -67,6 +67,12 @@ This policy doesn't apply to either.
   sessions (their titles, the start of agents' replies, their questions,
   pull requests and reviews) goes to the address they choose, outside fctl,
   as it happens. We keep what went out to each for 30 days.
+- **Service accounts start agents for you only if you allow them.** A
+  workspace's admins can make a service account for a program of their
+  own, such as a portal where people start agents. Once you allow it, that
+  program starts sessions for you, on your Claude account, and messages
+  their agents in your name. app.fctl.sh asks you first, and you take it
+  back whenever you like.
 - **Gravatar**: by default, while you have no picture of your own, we ask
   Gravatar for yours by a hash of your email address, and show a copy if
   you have one there. Turn that off under Settings → Profile.
@@ -158,6 +164,11 @@ account, you can ask for early access on its sign-in page.
     and the order they put the workspace and its projects in;
   - for each invitation to it: the invited address, its role, who invited
     them and when it expires;
+  - for each service account it makes for a program of its own: its name
+    and what it says it is, a hash of its secret (never the secret) and the
+    secret's last four characters, who made it, who made its current secret
+    and when, and when it was last used; and each member's answer to it:
+    whether it may start sessions for them, and when they answered;
   - for each GitHub account it uses: the account's name, the GitHub App
     installation's ID, the repositories it is limited to, who connected it,
     and the GitHub account they signed in to GitHub as;
@@ -207,9 +218,10 @@ account, you can ask for early access on its sign-in page.
     belongs to, its linked GitHub repositories, its members and their roles,
     and the secrets you add (encrypted);
   - for each session: its task, status and branch; who started it, and with
-    which access token if one did; who it is shared with; what its agent
-    may do on GitHub; and its pull requests, with their state, when it
-    changed and how many of their checks passed, as GitHub says;
+    which access token or service account if one did; who it is shared with;
+    what its agent may do on GitHub; and its pull requests, with their
+    state, when it changed and how many of their checks passed, as GitHub
+    says;
   - each session's transcript: everything the agent and the people in the
     session said and did, and the messages fctl sends the agent. Those
     include a review agent's findings on a pull request the agent opened.
@@ -257,8 +269,9 @@ account, you can ask for early access on its sign-in page.
     who set it up and last changed it, and when; and, when fctl paused it,
     why;
   - for each of its runs: when it was due and started; what started it (its
-    time, a person, or another tool with someone's access token, and
-    whose; or what happened on GitHub: the issue, pull request, release or
+    time, a person, or another tool, with someone's access token or as a
+    service account running it for them, and whose; or what happened on
+    GitHub: the issue, pull request, release or
     commit, its title and link, and the GitHub login of whoever opened,
     labeled, merged or published it); and the session it started, or why
     it started none;
@@ -472,7 +485,8 @@ recipient's address and the message to our email provider.
   follow your password.
 - Notices when a passkey or a Google account is added to your account, an
   email address is connected to it, a Claude subscription is connected to
-  it, or a Linear account is linked to it.
+  it, or a Linear account is linked to it, and when you let a service
+  account start sessions for you.
 - Notices when Google sign-ins stop asking you for a code, when your
   password is changed, set or reset, and when an admin makes a password
   reset link for you.
@@ -536,7 +550,7 @@ There are no analytics or advertising cookies.
 
 | Purpose | Legal basis (EU and UK law) |
 |---|---|
-| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, posting to the webhooks your workspace's admins and projects' maintainers add, crediting you in commits when you set a commit email, connecting your hosts, Claude, GitHub and Linear | Contract |
+| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, posting to the webhooks your workspace's admins and projects' maintainers add, starting sessions for you through the service accounts you allow, crediting you in commits when you set a commit email, connecting your hosts, Claude, GitHub and Linear | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping your request for early access and inviting you | Contract: steps you ask for before one |
 | Asking an admin to sign in to GitHub when they connect a GitHub account to a workspace, to read which of its repositories they may give the workspace and let them choose from them | Legitimate interests: keeping each workspace to the repositories its admins may grant |
@@ -563,7 +577,7 @@ They process personal data on our behalf, under data processing terms:
 | Provider | What for | What they receive |
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs, and fctl.sh's search | Everything app.fctl.sh stores, request data, and what people search for on fctl.sh |
-| Resend, Inc. | Sending invitations, password resets, and notices about how you sign in, when email is enabled | The recipient's address and the message |
+| Resend, Inc. | Sending invitations, password resets, and notices about how you sign in and what you let act in your name, when email is enabled | The recipient's address and the message |
 
 ### Gravatar
 
@@ -588,10 +602,11 @@ They receive data under their own privacy policies.
   agreement with Anthropic, not ours. Our promise not to train AI models on
   your data doesn't cover Anthropic: that account's agreement and settings
   do. Whose account it is:
-  - **Sessions**: the account of the person who started the session,
-    whoever wrote the messages in it. A schedule's runs follow the
-    schedule's rule, below. If a session joins Remote Control,
-    the conversation is also available in that account's Claude apps.
+  - **Sessions**: the account of the person who started the session, or whom
+    a workspace's service account started it for, whoever wrote the messages
+    in it. A schedule's runs follow the schedule's rule, below. If a session
+    joins Remote Control, the conversation is also available in that
+    account's Claude apps.
   - **Review agents**: the account of the project owner who turned them on,
     or took them over. The pull requests they review go there. Those of
     people who can't write to the repository, and of apps the project's
@@ -603,9 +618,10 @@ They receive data under their own privacy policies.
   - **Schedules**: a schedule's task goes to the account of its owner (who
     set it up or took it over) when its time comes, or when what it waits
     for happens on GitHub; otherwise to the account of the person who runs
-    it, or whose access token another tool runs it with. What is sent with
-    a run, or what GitHub says of what started it, such as an issue's text,
-    goes there too, whoever wrote it.
+    it, or whose access token another tool runs it with, or whom a service
+    account runs it for (its owner, unless it names someone). What is sent
+    with a run, or what GitHub says of what started it, such as an issue's
+    text, goes there too, whoever wrote it.
   - **Project memory**: a project's notes go into the prompts of its later
     sessions, on the accounts of the people who start them.
   - **Autopilots**: an autopilot's direction, plan, notes, the answers
@@ -674,8 +690,9 @@ They receive data under their own privacy policies.
 They see what you share with them.
 
 - **Members of a workspace** see its members, with the address each is in it
-  as (not your other addresses), and the Linear workspaces it works in, with
-  who connected each.
+  as (not your other addresses), the Linear workspaces it works in, with
+  who connected each, and its service accounts, with what each says it is
+  and who made it.
 - **A workspace's admins** also see who has two-factor sign-in, its
   invitations and its audit log, with the IP addresses of what they did
   themselves, not of what others did, and its enrollment tokens, its
@@ -699,6 +716,20 @@ They see what you share with them.
   (shortened to the address's host), the events, projects and sessions
   each hears of, whether it's on (and why fctl turned it off) and how its
   requests went lately, but not what they carried.
+- **A workspace's admins** also see each of its service accounts' people:
+  who allowed it, who didn't and who hasn't answered, with when, and why it
+  can't act for someone (their answer, a disabled account, or two-factor
+  sign-in they have to set up first).
+- **The program that holds a service account** sees each member of its
+  workspace: their name and picture, the address they are in it as, their
+  role, their answer to it and when, and whether it may act for them, with
+  why not. It reads every project of the workspace, with its members (their
+  addresses and roles), memory, retrospectives, reviews and schedules with
+  their runs, and every session, whoever started it, with its transcript,
+  the files sent in it and who it is shared with, and it searches what
+  sessions said. For the people who allowed it, it starts sessions and
+  messages their agents in their name. The program's owner, often your
+  organization, decides what it keeps of all that.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
@@ -773,8 +804,9 @@ nothing goes there.
 
 - **Your account**: until you delete it in Settings, or an admin deletes it.
   - That deletes its email addresses, sign-in methods, devices and tokens,
-    Claude connections, Linear accounts and memberships, the model and
-    effort level you last asked for in each project, the machines you
+    Claude connections, Linear accounts and memberships, your answers to
+    service accounts, the model and effort level you last asked for in each
+    project, the machines you
     enrolled for your own sessions, and the workspaces only you are in,
     with their projects, sessions, transcripts and webhooks, and it revokes
     the enrollment tokens you made for your own sessions.
@@ -813,9 +845,11 @@ nothing goes there.
   deletes them, or their last member deletes their account. Deleting a
   workspace deletes its projects, as deleting each would, its avatar, its
   invitations, its enrollment tokens and the machines that enrolled with
-  them, and its audit log. Leaving a workspace, or being removed
+  them, its service accounts with everyone's answers to them, and its audit
+  log. Leaving a workspace, or being removed
   from it, deletes your membership, your roles in its projects, the
-  model and effort level you last asked for in them, and the machines you
+  model and effort level you last asked for in them, your answers to its
+  service accounts, and the machines you
   enrolled in it for your own sessions, and revokes the enrollment tokens
   you made there for them. Invitations to
   workspaces expire after 30 days.
@@ -913,6 +947,11 @@ nothing goes there.
   or delete their account.
 - **Enrollment tokens**: until 90 days after they were revoked or expired,
   once no machine they enrolled is left, and with their workspace.
+- **Service accounts**: until their workspace's admins delete them, or the
+  workspace is deleted. Deleting one deletes everyone's answers to it; the
+  sessions it started stay with their projects, as their people's. Your
+  answer to one: until you change it, leave its workspace or delete your
+  account.
 - **Audit logs**: one year.
 - **Request logs**: a few days.
 - **Searches on fctl.sh**: their results up to an hour in Cloudflare's cache.
@@ -934,7 +973,8 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   addresses, sign-in methods, passkeys and two-factor sign-in (without its
   secrets), devices and tokens, Claude connections (without their secrets)
   and their plan usage, your Linear accounts, notification settings and
-  browsers, and the workspaces you are in. From the workspaces open to you,
+  browsers, your answers to service accounts, and the workspaces you are
+  in. From the workspaces open to you,
   it also has the projects you are a member of, the notes you and your sessions'
   agents wrote in their memories, the sessions you started with their full
   transcripts, the sessions you follow, and your activity log. Sessions of
@@ -965,11 +1005,11 @@ also complain to your data protection authority.
 
 ## Security
 
-Passwords are hashed with argon2id, and sign-in tokens and recovery codes
-are stored only as hashes. Authenticator app secrets, Claude credentials,
-Linear tokens, project secrets and webhooks' signing secrets are encrypted
-with AES-256-GCM, and everything travels over HTTPS. For passkeys we keep
-only public keys.
+Passwords are hashed with argon2id, and sign-in tokens, service accounts'
+secrets and recovery codes are stored only as hashes. Authenticator app
+secrets, Claude credentials, Linear tokens, project secrets and webhooks'
+signing secrets are encrypted with AES-256-GCM, and everything travels over
+HTTPS. For passkeys we keep only public keys.
 
 Your hosts never send us a Claude token you keep on them, only whether they
 keep one. They also remove Claude tokens from what your sessions send us
