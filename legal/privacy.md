@@ -335,8 +335,10 @@ account, you can ask for early access on its sign-in page.
   - for each webhook: the address it posts to, its name, the events it
     wants, the projects and the sessions it hears of, its signing secret
     (encrypted), whether it's on (and, when fctl turned it off, why), who
-    added it and when, and how its newest attempt went (when, how long it
-    took and the status, without the answer or who made it);
+    added it and when, who chose where it posts now (who added it, or last
+    pointed it elsewhere or turned it on again: it posts only while they
+    manage it), and how its newest attempt went (when, how long it took and
+    the status, without the answer or who made it);
   - for each request that goes out to it, in the last 30 days: what it
     posted (the event, with the workspace's and the project's names and
     ids; for a session's event the session's title, description, status
@@ -824,7 +826,9 @@ nothing goes there.
     account, but can mention you, until the autopilot removes them or their
     project is deleted.
   - The webhooks you added in workspaces that others are in stay, without
-    your name, until those who manage them delete them. The logs of those
+    your name, until those who manage them delete them; those whose address
+    you chose stop posting, until someone who manages them turns them on
+    again. The logs of those
     workspaces' webhooks keep what went out, which can carry your name,
     picture's address or GitHub login (the sessions you started, reviews
     run on your Claude account, your comments on pull requests, the tests
@@ -851,7 +855,9 @@ nothing goes there.
   model and effort level you last asked for in them, your answers to its
   service accounts, and the machines you
   enrolled in it for your own sessions, and revokes the enrollment tokens
-  you made there for them. Invitations to
+  you made there for them; the webhooks whose address you chose there stop
+  posting, as they do once you no longer manage them, until someone who
+  does turns them on again. Invitations to
   workspaces expire after 30 days.
 - **Projects and sessions**: until the project is deleted. Deleting a project
   deletes its sessions with their transcripts and diffs, normally right
