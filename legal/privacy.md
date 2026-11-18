@@ -269,8 +269,9 @@ account, you can ask for early access on its sign-in page.
     who set it up and last changed it, and when; and, when fctl paused it,
     why;
   - for each of its runs: when it was due and started; what started it (its
-    time, a person, or another tool with someone's access token, and
-    whose; or what happened on GitHub: the issue, pull request, release or
+    time, a person, another tool with someone's access token, or a
+    workspace's service account for someone, and whose; or what happened
+    on GitHub: the issue, pull request, release or
     commit, its title and link, and the GitHub login of whoever opened,
     labeled, merged or published it); and the session it started, or why
     it started none;
@@ -484,7 +485,8 @@ recipient's address and the message to our email provider.
   follow your password.
 - Notices when a passkey or a Google account is added to your account, an
   email address is connected to it, a Claude subscription is connected to
-  it, or a Linear account is linked to it.
+  it, or a Linear account is linked to it, and when you let a service
+  account start sessions for you.
 - Notices when Google sign-ins stop asking you for a code, when your
   password is changed, set or reset, and when an admin makes a password
   reset link for you.
@@ -575,7 +577,7 @@ They process personal data on our behalf, under data processing terms:
 | Provider | What for | What they receive |
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs, and fctl.sh's search | Everything app.fctl.sh stores, request data, and what people search for on fctl.sh |
-| Resend, Inc. | Sending invitations, password resets, and notices about how you sign in, when email is enabled | The recipient's address and the message |
+| Resend, Inc. | Sending invitations, password resets, and notices about how you sign in and what you let act in your name, when email is enabled | The recipient's address and the message |
 
 ### Gravatar
 
@@ -715,13 +717,17 @@ They see what you share with them.
   each hears of, whether it's on (and why fctl turned it off) and how its
   requests went lately, but not what they carried.
 - **A workspace's admins** also see each of its service accounts' people:
-  who allowed it, who didn't and who hasn't answered, with when.
-- **The program that holds a service account** sees the same of the
-  workspace's members, with the address each is in it as, and reads its
-  projects, sessions with their transcripts and schedules, as its admins
-  do. For the people who allowed it, it starts sessions and messages their
-  agents in their name; the program's owner, often your organization,
-  decides what it keeps of that.
+  who allowed it, who didn't and who hasn't answered, with when, and why it
+  can't act for someone (their answer, a disabled account, or two-factor
+  sign-in they have to set up first).
+- **The program that holds a service account** sees each member of its
+  workspace: their name and picture, the address they are in it as, their
+  role, their answer to it and when, and whether it may act for them, with
+  why not. It reads every project of the workspace, every session with its
+  transcript, whoever started it, and every schedule with its runs. For the
+  people who allowed it, it starts sessions and messages their agents in
+  their name. The program's owner, often your organization, decides what
+  it keeps of all that.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
