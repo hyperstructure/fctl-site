@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-17
+updated: 2026-11-18
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -463,8 +463,7 @@ app.fctl.sh sets seven cookies, all needed for it to work:
 
 Your browser also keeps:
 
-- your theme choice, and a copy of the app's offline page, which it shows
-  when your device has no connection. Neither contains personal data;
+- your theme choice, which contains no personal data;
 - if you ask for early access: the address you asked with, when, and the
   token that withdraws the request, so that the page shows you are on the
   list, until you withdraw it or ask with another address;
