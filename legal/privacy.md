@@ -325,15 +325,21 @@ account, you can ask for early access on its sign-in page.
     added it and when;
   - for each request that goes out to it, in the last 30 days: what it
     posted (the event, with the workspace's and the project's names and
-    ids; for a session's event the session's title, description, status,
-    branches, the person it runs for, its pull requests and their checks,
-    the start of the agent's last reply, up to 2,000 characters, what it
-    asked, and the comments of a follow-up as fctl passed them on; for a
-    review its pull request, commit, findings counted and links; for a
-    schedule its name and why a run started nothing), the request's
-    headers, and for each attempt when it was made, how long it took, the
-    status the address answered with and the start of its answer (4 KB),
-    and who resent it or sent a test.
+    ids; for a session's event the session's title, description, status
+    and why, the model and effort level it works with, branches, the
+    person it was started by or for, the schedule it started from (name,
+    id and link) or the ticket (its key and link), its pull requests and
+    their checks, the start of the agent's last reply, up to 2,000
+    characters, and what it asked; for a follow-up, the comments as fctl
+    passed them on, with their writers' GitHub logins and pictures'
+    addresses, the names of the checks that failed, and a review's
+    findings with their titles and files; for a review its pull request,
+    commit, findings counted, links and the person whose Claude account it
+    runs on; for a schedule its name and why a run started nothing), the
+    request's headers, and for each attempt when it was made, how long it
+    took, the status the address answered with, the headers of its answer
+    (up to 40) and the start of its body (4 KB), and who resent it or sent
+    a test.
 - **Notifications**, if you turn them on:
   - for each browser you turn them on in: its push subscription (the
     address its push service delivers to, and the keys notifications are
@@ -683,6 +689,13 @@ They see what you share with them.
   runs on and who or what started each of its runs; and its autopilot, with
   its direction, plan, notes, what it asks and who answered, the messages
   it holds for its sessions, with their files' names, and its log.
+- **A workspace's admins** see its webhooks, its projects' too, and
+  everything each sent: who added it, its address and its log of requests
+  and answers, which carry its projects' events.
+- **A project's owners and maintainers** see its own webhooks and their
+  logs, as its admins do, and the workspace's webhooks that send its
+  events: their names, who added each, and where each posts, shortened to
+  the address's host.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
@@ -944,8 +957,8 @@ also complain to your data protection authority.
 
 Passwords are hashed with argon2id, and sign-in tokens and recovery codes
 are stored only as hashes. Authenticator app secrets, Claude credentials,
-Linear tokens and project secrets are encrypted with AES-256-GCM, and
-everything travels over HTTPS. For passkeys we keep only public keys.
+Linear tokens, project secrets and webhooks' signing secrets are encrypted
+with AES-256-GCM, and everything travels over HTTPS. For passkeys we keep only public keys.
 
 Your hosts never send us a Claude token you keep on them, only whether they
 keep one. They also remove Claude tokens from what your sessions send us
