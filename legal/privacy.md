@@ -322,7 +322,8 @@ account, you can ask for early access on its sign-in page.
   - for each webhook: the address it posts to, its name, the events it
     wants, the projects and the sessions it hears of, its signing secret
     (encrypted), whether it's on (and, when fctl turned it off, why), who
-    added it and when;
+    added it and when, and how its newest attempt went (when, how long it
+    took and the status, without the answer or who made it);
   - for each request that goes out to it, in the last 30 days: what it
     posted (the event, with the workspace's and the project's names and
     ids; for a session's event the session's title, description, status
@@ -694,9 +695,11 @@ They see what you share with them.
   everything each sent: who added it, its address and its log of requests
   and answers, which carry its projects' events.
 - **A project's owners and maintainers** see its own webhooks and their
-  logs, as its admins do, and the workspace's webhooks that send its
-  events: their names, who added each, and where each posts, shortened to
-  the address's host.
+  logs, as the workspace's admins do, and the workspace's webhooks that
+  send its events: their names, who added each, where each posts
+  (shortened to the address's host), the events, projects and sessions
+  each hears of, whether it's on (and why fctl turned it off) and how its
+  requests went lately, but not what they carried.
 - **People you share a session with** see that session.
 - **Admins of app.fctl.sh** see its users, with all their addresses and how
   many workspaces they are in; the addresses that asked for early access,
@@ -890,10 +893,11 @@ nothing goes there.
 - **Claude plan usage**: the latest report of each limit, until a newer
   report replaces it or you remove the Claude connection.
 - **Webhooks**: until those who manage one delete it, or its project or
-  workspace is deleted. What went out to each for 30 days, and its newest
-  1,000 requests at most; deleting a webhook deletes what went out to it,
-  and deleting a project what its events said. What a webhook's address
-  received stays under that receiver's control.
+  workspace is deleted, with how its newest attempt went. What went out to
+  each for 30 days, and its newest 1,000 requests at most; deleting a
+  webhook deletes what went out to it, and deleting a project what its
+  events said and its own webhooks with their logs. What a webhook's
+  address received stays under that receiver's control.
 - **Notifications**: a browser's push subscription until you turn
   notifications off there or remove the browser in Settings, sign out of it
   or its browser session expires, or its push service tells us it has
