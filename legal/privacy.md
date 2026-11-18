@@ -332,14 +332,15 @@ account, you can ask for early access on its sign-in page.
     their checks, the start of the agent's last reply, up to 2,000
     characters, and what it asked; for a follow-up, the comments as fctl
     passed them on, with their writers' GitHub logins and pictures'
-    addresses, the names of the checks that failed, and a review's
-    findings with their titles and files; for a review its pull request,
+    addresses, the GitHub login of whoever merged or closed the pull
+    request, the names of the checks that failed, and a review's findings
+    with their titles and files; for a review its pull request,
     commit, findings counted, links and the person whose Claude account it
     runs on; for a schedule its name and why a run started nothing), the
-    request's headers, and for each attempt when it was made, how long it
-    took, the status the address answered with, the headers of its answer
-    (up to 40) and the start of its body (4 KB), and who resent it or sent
-    a test.
+    request's headers; for each attempt when it was made, how long it
+    took, the status the address answered with or why none came, and who
+    resent it or sent a test; and for the newest attempt the headers of
+    the answer (up to 40) and the start of its body (4 KB).
 - **Notifications**, if you turn them on:
   - for each browser you turn them on in: its push subscription (the
     address its push service delivers to, and the keys notifications are
@@ -788,6 +789,11 @@ nothing goes there.
   - The files autopilots keep stay as they wrote them. They record no
     account, but can mention you, until the autopilot removes them or their
     project is deleted.
+  - The webhooks you added in workspaces that others are in stay, without
+    your name, until those who manage them delete them. What they sent
+    before stays in their logs, with your name where an event or an attempt
+    carried it (the sessions you started, the tests and resends you sent),
+    until the logs let it go: 30 days at most.
 - **The copy of your Gravatar**: until you upload a picture, remove it,
   turn Gravatar off under Settings → Profile, an admin of app.fctl.sh turns
   it off for everyone, you no longer have a Gravatar (we look about once a
@@ -958,7 +964,8 @@ also complain to your data protection authority.
 Passwords are hashed with argon2id, and sign-in tokens and recovery codes
 are stored only as hashes. Authenticator app secrets, Claude credentials,
 Linear tokens, project secrets and webhooks' signing secrets are encrypted
-with AES-256-GCM, and everything travels over HTTPS. For passkeys we keep only public keys.
+with AES-256-GCM, and everything travels over HTTPS. For passkeys we keep
+only public keys.
 
 Your hosts never send us a Claude token you keep on them, only whether they
 keep one. They also remove Claude tokens from what your sessions send us
