@@ -42,6 +42,7 @@ const DOCS = {
   automation: ["", "Automation."],
   "self-hosting": ["", "Self-hosting."],
   organizations: ["fctl", "for organizations."],
+  "identity-tokens": ["Identity", "tokens."],
   "sandbox-images": ["Sandbox", "images."],
   architecture: ["", "Architecture."],
   security: ["", "Security."],
