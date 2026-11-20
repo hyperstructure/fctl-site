@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-18
+updated: 2026-11-20
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -67,6 +67,12 @@ This policy doesn't apply to either.
   sessions (their titles, the start of agents' replies, their questions,
   pull requests and reviews) goes to the address they choose, outside fctl,
   as it happens. We keep what went out to each for 30 days.
+- **Identity tokens say whom an agent works for.** Unless a project turns
+  them off, its agents can prove to the services and clouds their
+  workspace's people choose that they work for you: the token an agent
+  sends names you by your fctl ID and the address you are in the
+  workspace as, with its session, project and runner. We keep none of
+  them.
 - **Service accounts start agents for you only if you allow them.** A
   workspace's admins can make a service account for a program of their
   own, such as a portal where people start agents. Once you allow it, that
@@ -453,6 +459,13 @@ account, you can ask for early access on its sign-in page.
   They show whatever the agent captured, which can be your app, your code
   or your data, and their links are public
   ([Anyone who has a published screenshot's link](#anyone-with-a-screenshots-link)).
+- **Identity tokens**, in projects that don't turn them off. We keep the
+  keys we sign them with, which say nothing about you, and none of the
+  tokens: each goes to the sandbox of the session whose agent asked for
+  it, where it lasts 10 minutes, and says what we know of that session
+  ([Services your agents prove themselves to](#services-your-agents-prove-themselves-to)).
+  A project's settings keep the AWS role, Google Cloud provider and
+  service account, and Azure application its agents reach with them.
 - **Hosts**: for each machine you register, its name and hostname, its
   operating system, architecture, processors and memory, and its fctl
   version and whether it updates fctl by itself. Also the sandbox image it
@@ -764,6 +777,18 @@ replied, as far as each event carries it (under Webhooks, above). Each
 request is signed with the webhook's secret, so that its receiver can
 check it came from fctl. Those who manage a webhook decide where it posts,
 and turn it off or delete it.
+
+### Services your agents prove themselves to
+
+A session's agent can send identity tokens that we sign to services it
+calls: its workspace's own, a cloud such as AWS, Google Cloud or Azure,
+or another its people tell it to use. Each token says whom the session
+runs for (your fctl ID and the address you are a member of the workspace
+as), its workspace, project and session, the runner it runs on, its
+branches, what it may do on GitHub and what started it. Its receivers get
+it under their own terms. A project's owners and maintainers turn identity
+tokens off; its people choose which services their agents call, and which
+trust them.
 
 ### Your hosts
 
