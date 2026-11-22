@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-20
+updated: 2026-11-22
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -889,7 +889,11 @@ nothing goes there.
   away and at the latest within a few hours. Archiving a session only hides
   it.
 - **Project memory**: each note until someone who can edit the project
-  deletes it, or the project is deleted. Marking a note stale keeps it.
+  deletes it, or the project is deleted. Marking a note stale keeps it,
+  except that a stale note is deleted once it has been stale as many days
+  as the project's maintainers chose (1 to 365; by default none, and stale
+  notes stay), and a project's autopilot may delete the notes stale for
+  over a day, as it is told to once the project's memory holds 900 notes.
 - **Retrospectives**: as long as their session, until someone who manages
   the session deletes one or the project is deleted.
 - **Review agents**: their settings as long as the project. Each review,
