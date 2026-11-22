@@ -892,8 +892,8 @@ nothing goes there.
   deletes it, or the project is deleted. Marking a note stale keeps it,
   except that a stale note is deleted once it has been stale as many days
   as the project's maintainers chose (1 to 365; by default none, and stale
-  notes stay), and a project's autopilot deletes the notes stale for over a
-  day once the project's memory holds 900 notes.
+  notes stay), and a project's autopilot may delete the notes stale for
+  over a day, as it is told to once the project's memory holds 900 notes.
 - **Retrospectives**: as long as their session, until someone who manages
   the session deletes one or the project is deleted.
 - **Review agents**: their settings as long as the project. Each review,
