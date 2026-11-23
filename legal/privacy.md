@@ -77,14 +77,15 @@ This policy doesn't apply to either.
   workspace as, with its session, project and runner. We keep none of
   them.
 - **Your workspaces' admins see whether your Claude connection works.**
-  A workspace's admins see whether your sessions there can run on Claude
-  and when your token runs out, and by default also what kind of
-  connection it is and whether an admin set it, its plan, when it was
-  connected, last used and last answered by Claude, and how often your
-  sessions there paused on usage limits; never the token, the Claude
-  account or the name you gave it. Each workspace's Settings → You says
-  what its admins see, and its admins can choose to see less
-  ([People you work with](#people-you-work-with)).
+  By default, a workspace's admins see whether your sessions there can
+  run on Claude, when your token runs out and whether your sessions wait
+  for a usage limit to reset, and also what kind of connection it is and
+  whether an admin set it, its plan, when it was connected, last used and
+  last answered by Claude, and how often your sessions there paused on
+  usage limits; never the token, the Claude account or the name you gave
+  it. Its admins can choose to see only whether your sessions can run and
+  when your token runs out, or nothing, and its Settings → You says what
+  they see ([People you work with](#people-you-work-with)).
 - **Service accounts start agents for you only if you allow them.** A
   workspace's admins can make a service account for a program of their
   own, such as a portal where people start agents. Once you allow it, that
@@ -767,17 +768,18 @@ They see what you share with them.
   (shortened to the address's host), the events, projects and sessions
   each hears of, whether it's on (and why fctl turned it off) and how its
   requests went lately, but not what they carried.
-- **A workspace's admins** also see, for each member, facts about the
-  Claude connection their sessions there run on: whether they have one
-  and whether Claude still takes it (and when it stopped), when its token
-  runs out, and whether their sessions there wait for a usage limit to
-  reset, which one and until when. By default they also see its kind,
+- **A workspace's admins** also see, by default, for each member, facts
+  about the Claude connection their sessions there run on: whether they
+  have one and whether Claude still takes it (and when it stopped), when
+  its token runs out, and whether their sessions there wait for a usage
+  limit to reset, which one and until when. They also see its kind,
   whether an admin set it with an admin token and whether the member
   chose it for that workspace, its plan, when it was connected, when a
   session last used it and when Claude last answered it, and how often
   their sessions in that workspace paused on usage limits in the last 7
   and 30 days, with the last one's limit and time. The workspace's admins
-  can choose to see less, or nothing. Never the token, the Claude
+  can choose to see only the facts before "They also see", or nothing.
+  Never the token, the Claude
   account's email address or the name its person gave it.
 - **A workspace's admins** also see each of its service accounts' people:
   who allowed it, who didn't and who hasn't answered, with when, and why it
