@@ -76,6 +76,13 @@ This policy doesn't apply to either.
   sends names you by your fctl ID and the address you are in the
   workspace as, with its session, project and runner. We keep none of
   them.
+- **Your workspaces' admins see whether your Claude connection works.**
+  By default, a workspace's admins see what kind of Claude connection your
+  sessions there run on and who set it, its plan, when Claude last
+  answered it, when its token runs out, and how often your sessions there
+  paused on usage limits; never the token, the Claude account or the name
+  you gave it. Each workspace's Settings → You says what its admins see,
+  and its admins can see less.
 - **Service accounts start agents for you only if you allow them.** A
   workspace's admins can make a service account for a program of their
   own, such as a portal where people start agents. Once you allow it, that
@@ -391,7 +398,12 @@ account, you can ask for early access on its sign-in page.
   it: for each limit, the share used, when it resets and when it was
   reported. If you keep your Claude token on your own hosts instead, you
   don't give it to us: we keep only that you connected it that way, and
-  that usage.
+  that usage. For each connection we also keep when Claude last answered
+  it, when its long-lived token runs out (a year after you made it, if you
+  tell us when; otherwise a year after you connected it), when we last
+  told you it runs out, and when we found it stopped working; and, for 30
+  days, each time a session on it paused on a usage limit or Claude
+  refused it.
 - **GitHub**: you never sign in to app.fctl.sh with GitHub. Agents work
   with our GitHub App's short-lived tokens,
   limited to their project's repositories, within the GitHub accounts its
@@ -517,6 +529,12 @@ recipient's address and the message to our email provider.
 - Notices when Google sign-ins stop asking you for a code, when your
   password is changed, set or reset, and when an admin makes a password
   reset link for you.
+- Notices 30 days and 7 days before your long-lived Claude token runs out,
+  and when Claude stops taking your Claude connection.
+- To a workspace's admins, as they choose (once a week by default, only
+  when there is something to say): which of its members' Claude tokens run
+  out within a month and whose connection stopped working, with their names
+  and the addresses they are in the workspace as.
 
 ### Cookies and browser storage
 
@@ -743,6 +761,15 @@ They see what you share with them.
   (shortened to the address's host), the events, projects and sessions
   each hears of, whether it's on (and why fctl turned it off) and how its
   requests went lately, but not what they carried.
+- **A workspace's admins** also see, for each member, facts about the
+  Claude connection their sessions there run on, as much as the
+  workspace's admins choose: whether they have one and whether Claude
+  still takes it, when its token runs out and whether their sessions wait
+  for a usage limit to reset, and by default also its kind and whether an
+  admin token set it, its plan, when Claude last answered it and how often
+  their sessions in that workspace paused on usage limits in the last 7
+  and 30 days. Never the token, the Claude account's email address or the
+  name its person gave it.
 - **A workspace's admins** also see each of its service accounts' people:
   who allowed it, who didn't and who hasn't answered, with when, and why it
   can't act for someone (their answer, a disabled account, or two-factor
@@ -763,7 +790,8 @@ They see what you share with them.
   with when they asked and who invited them; each workspace's name, avatar,
   primary admin and size; the GitHub accounts workspaces use; and the audit
   log of app.fctl.sh. They don't see what is inside workspaces they aren't
-  members of. When a workspace's primary admin's account is disabled, they
+  members of, nor anyone's Claude connection: app.fctl.sh keeps the view
+  of everyone's off. When a workspace's primary admin's account is disabled, they
   see its members' names, to choose who runs it.
 - **Anyone signed in to app.fctl.sh** who has your picture's address, which
   holds your user ID, can load it. Your picture shows with your name.
@@ -979,6 +1007,10 @@ nothing goes there.
   it. The challenges they sign are deleted within an hour of expiring.
 - **Claude plan usage**: the latest report of each limit, until a newer
   report replaces it or you remove the Claude connection.
+- **Claude connection facts**: when Claude last answered a connection,
+  when its token runs out and when it stopped working, as long as the
+  connection; each session's pauses on usage limits, and each time Claude
+  refused a connection, 30 days.
 - **Webhooks**: until those who manage one delete it, or its project or
   workspace is deleted, with how its newest attempt went. What went out to
   each for 30 days, and its newest 1,000 requests at most; deleting a
