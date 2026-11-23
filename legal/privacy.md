@@ -263,8 +263,8 @@ account, you can ask for early access on its sign-in page.
     the snapshot's size and checksum, when and on which runner it was
     saved, the Claude Code version that wrote it, whether it holds the
     conversation and uncommitted work, and what it left out. Those
-    runners also tell us their bucket's address, and why it last refused
-    a snapshot while it does;
+    runners also tell us their bucket's address, and the last error they
+    met there and when, until a snapshot next goes through;
   - for each project you start sessions in: the model and effort level you
     asked for when you last started one, which its task boxes start on next
     time.
@@ -954,11 +954,13 @@ nothing goes there.
     session, and 30 days for one that started none.
 - **Session snapshots**: 30 days after each was saved, or as many days as
   the workspace's admins choose between 1 and 365, and only each session's
-  newest; then they are deleted within the hour. Turning snapshots off, for
-  a workspace or for all of app.fctl.sh, deletes them within the hour, and
-  deleting the project deletes them with its sessions. For snapshots in a
-  bucket of your own, we forget where each one is on the same terms, and
-  your bucket's own rules decide when the snapshot is deleted.
+  newest; then they are deleted within the hour, with what we keep of
+  them. Turning snapshots off, for a workspace or for all of app.fctl.sh,
+  deletes them within the hour, and deleting the project deletes them with
+  its sessions. For snapshots in a bucket of your own, we forget each one,
+  where it is and what we keep of it, on the same terms, and your bucket's
+  own rules decide when the snapshot is deleted. A session's key stays,
+  encrypted, as long as the session.
 - **Images agents read**: 7 days after the agent read them, when they are
   deleted, or sooner once their session has more than 1,000 of them or
   200 MB, its oldest first. Deleting the project deletes them with its
