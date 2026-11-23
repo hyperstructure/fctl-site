@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-22
+updated: 2026-11-23
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -27,7 +27,10 @@ This policy doesn't apply to either.
   the workspaces you are in, their projects and sessions, and the machines
   you connect. Agents run on those machines, not on ours. A session keeps
   a full transcript of what agents and people did in it, which can contain
-  your code. Projects also keep their agents'
+  your code, and an encrypted snapshot of its agent's conversation and
+  unpushed work, so that it resumes on another machine as it was: for 30
+  days after it stops, or 1 to 365 days as the workspace's admins choose.
+  Projects also keep their agents'
   notes and retrospectives, review agents' reviews of pull requests, the
   schedules that start sessions on their own, and the autopilots that run
   a project on its own (experimental), with what people tell and answer
@@ -245,6 +248,15 @@ account, you can ask for early access on its sign-in page.
     the changes. Diffs contain your code. A newer diff of a file replaces
     the one before, and a file's goes once the agent's work no longer
     changes it;
+  - each session's snapshot, saved as its sandbox stops: Claude's
+    conversation there (everything the agent read, ran and was told,
+    images included, which stay as long as the snapshot) and the work its
+    agent hadn't pushed to GitHub,
+    uncommitted files included but not what the repository's `.gitignore`
+    leaves out, so that the session resumes on another of your machines as
+    it was. The machine it ran on encrypts it with a key of the session's
+    own, which we keep encrypted, and we keep only a session's newest. A
+    workspace's admins can turn snapshots off;
   - for each project you start sessions in: the model and effort level you
     asked for when you last started one, which its task boxes start on next
     time.
@@ -932,10 +944,17 @@ nothing goes there.
     fctl doesn't know yet: an hour at most;
   - which of Linear's agent sessions reaches which session: as long as the
     session, and 30 days for one that started none.
+- **Session snapshots**: 30 days after each was saved, or as many days as
+  the workspace's admins choose between 1 and 365, and only each session's
+  newest; then they are deleted within the hour. Turning snapshots off, for
+  a workspace or for all of app.fctl.sh, deletes them within the hour, and
+  deleting the project deletes them with its sessions.
 - **Images agents read**: 7 days after the agent read them, when they are
   deleted, or sooner once their session has more than 1,000 of them or
   200 MB, its oldest first. Deleting the project deletes them with its
-  sessions. The transcript keeps saying what the agent read.
+  sessions. The transcript keeps saying what the agent read. The copies in
+  the conversation a session's snapshot holds stay as long as the snapshot
+  (see Session snapshots, above).
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days. Their
   links stop working then, and they are deleted within the hour. People who
