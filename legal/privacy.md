@@ -83,9 +83,9 @@ This policy doesn't apply to either.
   whether an admin set it, its plan, when it was connected, last used and
   last answered by Claude, and how often your sessions there paused on
   usage limits; never the token, the Claude account or the name you gave
-  it. Its admins can choose to see only whether your sessions can run and
-  when your token runs out, or nothing, and its Settings → You says what
-  they see ([People you work with](#people-you-work-with)).
+  it. Its admins can choose to see only the first three, or nothing, and
+  its Settings → You says what they see
+  ([People you work with](#people-you-work-with)).
 - **Service accounts start agents for you only if you allow them.** A
   workspace's admins can make a service account for a program of their
   own, such as a portal where people start agents. Once you allow it, that
