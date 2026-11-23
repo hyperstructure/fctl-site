@@ -206,12 +206,14 @@ account, you can ask for early access on its sign-in page.
   action, we keep each challenge a passkey signs for ten minutes.
 - **Google sign-in**, if you link a Google account: its Google account ID,
   email address and whether that address is verified, name (with first and
-  last name) and profile picture. We get no access to your other Google
-  data.
+  last name) and profile picture, as Google gives them each time you sign
+  in with it. We get no access to your other Google data.
 - **Sign-in sessions and tokens**:
   - for each browser session, CLI sign-in and access token: a hash of the
     token, its name, the user agent and IP address of the device that
-    created it, and when it was created and last used;
+    created it, how the sign-in it comes from was made (with a password, a
+    passkey or Google, and for Google, the domain of the address you signed
+    in as), and when it was created and last used;
   - when it last confirmed it's you with a passkey or a code (a sign-in
     with one counts). Where app.fctl.sh asks for that, sensitive actions
     such as deleting a project need it;
