@@ -77,12 +77,14 @@ This policy doesn't apply to either.
   workspace as, with its session, project and runner. We keep none of
   them.
 - **Your workspaces' admins see whether your Claude connection works.**
-  By default, a workspace's admins see what kind of Claude connection your
-  sessions there run on and who set it, its plan, when Claude last
-  answered it, when its token runs out, and how often your sessions there
-  paused on usage limits; never the token, the Claude account or the name
-  you gave it. Each workspace's Settings → You says what its admins see,
-  and its admins can see less.
+  A workspace's admins see whether your sessions there can run on Claude
+  and when your token runs out, and by default also what kind of
+  connection it is and whether an admin set it, its plan, when it was
+  connected, last used and last answered by Claude, and how often your
+  sessions there paused on usage limits; never the token, the Claude
+  account or the name you gave it. Each workspace's Settings → You says
+  what its admins see, and its admins can choose to see less
+  ([People you work with](#people-you-work-with)).
 - **Service accounts start agents for you only if you allow them.** A
   workspace's admins can make a service account for a program of their
   own, such as a portal where people start agents. Once you allow it, that
@@ -173,8 +175,10 @@ account, you can ask for early access on its sign-in page.
     started a session yourself), and when you last exported your data.
 - **Workspaces**:
   - for each workspace: its name, address, color and avatar image (if an
-    admin uploads one), whether it requires two-factor sign-in, and who
-    created it and when;
+    admin uploads one), whether it requires two-factor sign-in, what its
+    admins see of members' Claude connections and how they hear of them
+    by email (and when the last weekly email went), and who created it
+    and when;
   - for each of its members: the email address they are in it as, their
     role, the Claude connection they use there, who added them and when,
     and the order they put the workspace and its projects in;
@@ -396,14 +400,14 @@ account, you can ask for early access on its sign-in page.
   Ultra plan from Max. Also how
   much of the plan's usage limits is used, as your sessions last reported
   it: for each limit, the share used, when it resets and when it was
-  reported. If you keep your Claude token on your own hosts instead, you
-  don't give it to us: we keep only that you connected it that way, and
-  that usage. For each connection we also keep when Claude last answered
-  it, when its long-lived token runs out (a year after you made it, if you
-  tell us when; otherwise a year after you connected it), when we last
-  told you it runs out, and when we found it stopped working; and, for 30
-  days, each time a session on it paused on a usage limit or Claude
-  refused it.
+  reported. For each connection we also keep when Claude last answered
+  it, whether an admin set it, when its long-lived token runs out (a year
+  after you made it, if you tell us when; otherwise a year after you
+  connected it), when we last told you it runs out, and when we found it
+  stopped working; and, for 30 days, each time a session on it paused on
+  a usage limit or Claude refused it. If you keep your Claude token on your
+  own hosts instead, you don't give it to us: we keep only that you
+  connected it that way, that usage, and those facts.
 - **GitHub**: you never sign in to app.fctl.sh with GitHub. Agents work
   with our GitHub App's short-lived tokens,
   limited to their project's repositories, within the GitHub accounts its
@@ -604,6 +608,8 @@ There are no analytics or advertising cookies.
 | Passing the tickets people delegate to fctl in Linear on to the agents of the project that takes them, with their comments and the replies people write there, and showing what the agents do in Linear | Contract, and our legitimate interest in letting the teams that connect Linear hand their tickets to agents |
 | Looking up your Gravatar while you have no picture of your own, which we do by default, and showing it as your picture | Legitimate interests: showing the people you work with who you are, with the picture you published on Gravatar if you have one; you can turn it off |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
+| Keeping when Claude last answered your connection, when its token runs out, and its sessions' limit pauses, and telling you before it runs out and when it stops working | Contract: running your sessions on your Claude subscription, and keeping them from stopping unannounced |
+| Showing a workspace's admins facts about their members' Claude connections, and emailing them, as they choose, about those that run out or stop working | Legitimate interests: letting the people who run a workspace see whether its members' sessions can run, and act before they stop; never the token or the account, members see what admins see, and admins can see less |
 | Searching fctl's docs for you on fctl.sh, and counting each address's searches so that nobody can search without end | Legitimate interests: helping people find what they need in the docs, at a cost we can keep paying |
 | Keeping the services secure and working: rate limits, the audit log, request logs, fixing problems | Legitimate interests |
 | Meeting legal obligations and enforcing our [terms](/terms) | Legal obligation, and legitimate interests |
@@ -622,7 +628,7 @@ They process personal data on our behalf, under data processing terms:
 | Provider | What for | What they receive |
 |---|---|---|
 | Cloudflare, Inc. | Hosting fctl.sh and app.fctl.sh: servers, database, storage and logs, and fctl.sh's search | Everything app.fctl.sh stores, request data, and what people search for on fctl.sh |
-| Resend, Inc. | Sending invitations, password resets, and notices about how you sign in and what you let act in your name, when email is enabled | The recipient's address and the message |
+| Resend, Inc. | Sending invitations, password resets, notices about how you sign in and what you let act in your name, notices about your Claude connection (before its token runs out, and when it stops working), and the emails workspace admins choose about their members' Claude connections, when email is enabled | The recipient's address and the message, which for admins names the members and the addresses they are in the workspace as |
 
 ### Gravatar
 
@@ -762,14 +768,17 @@ They see what you share with them.
   each hears of, whether it's on (and why fctl turned it off) and how its
   requests went lately, but not what they carried.
 - **A workspace's admins** also see, for each member, facts about the
-  Claude connection their sessions there run on, as much as the
-  workspace's admins choose: whether they have one and whether Claude
-  still takes it, when its token runs out and whether their sessions wait
-  for a usage limit to reset, and by default also its kind and whether an
-  admin token set it, its plan, when Claude last answered it and how often
+  Claude connection their sessions there run on: whether they have one
+  and whether Claude still takes it (and when it stopped), when its token
+  runs out, and whether their sessions there wait for a usage limit to
+  reset, which one and until when. By default they also see its kind,
+  whether an admin set it with an admin token and whether the member
+  chose it for that workspace, its plan, when it was connected, when a
+  session last used it and when Claude last answered it, and how often
   their sessions in that workspace paused on usage limits in the last 7
-  and 30 days. Never the token, the Claude account's email address or the
-  name its person gave it.
+  and 30 days, with the last one's limit and time. The workspace's admins
+  can choose to see less, or nothing. Never the token, the Claude
+  account's email address or the name its person gave it.
 - **A workspace's admins** also see each of its service accounts' people:
   who allowed it, who didn't and who hasn't answered, with when, and why it
   can't act for someone (their answer, a disabled account, or two-factor
@@ -791,8 +800,8 @@ They see what you share with them.
   primary admin and size; the GitHub accounts workspaces use; and the audit
   log of app.fctl.sh. They don't see what is inside workspaces they aren't
   members of, nor anyone's Claude connection: app.fctl.sh keeps the view
-  of everyone's off. When a workspace's primary admin's account is disabled, they
-  see its members' names, to choose who runs it.
+  of everyone's off. When a workspace's primary admin's account is
+  disabled, they see its members' names, to choose who runs it.
 - **Anyone signed in to app.fctl.sh** who has your picture's address, which
   holds your user ID, can load it. Your picture shows with your name.
 
@@ -1008,9 +1017,9 @@ nothing goes there.
 - **Claude plan usage**: the latest report of each limit, until a newer
   report replaces it or you remove the Claude connection.
 - **Claude connection facts**: when Claude last answered a connection,
-  when its token runs out and when it stopped working, as long as the
-  connection; each session's pauses on usage limits, and each time Claude
-  refused a connection, 30 days.
+  when its token runs out, when we last told you it does and when it
+  stopped working, as long as the connection; each session's pauses on
+  usage limits, and each time Claude refused a connection, 30 days.
 - **Webhooks**: until those who manage one delete it, or its project or
   workspace is deleted, with how its newest attempt went. What went out to
   each for 30 days, and its newest 1,000 requests at most; deleting a
@@ -1058,7 +1067,8 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   we keep about you as one JSON file. That is your account and email
   addresses, sign-in methods, passkeys and two-factor sign-in (without its
   secrets), devices and tokens, Claude connections (without their secrets)
-  and their plan usage, your Linear accounts, notification settings and
+  with their plan usage, the facts we keep about them and their 30 days of
+  limit pauses and refusals, your Linear accounts, notification settings and
   browsers, your answers to service accounts, and the workspaces you are
   in. From the workspaces open to you,
   it also has the projects you are a member of, the notes you and your sessions'
