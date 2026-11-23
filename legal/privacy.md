@@ -258,8 +258,13 @@ account, you can ask for early access on its sign-in page.
     own, which we keep encrypted, and we keep only a session's newest. A
     workspace's admins can turn snapshots off. Where your runners keep
     snapshots in a storage bucket of your own (`[snapshots]` in their
-    `host.toml`), we keep only where each one is, its size and its
-    checksum, and the snapshot stays in your bucket;
+    `host.toml`), the snapshot stays in your bucket, and we keep where it
+    is, beside what we keep of any snapshot: the session's key (encrypted),
+    the snapshot's size and checksum, when and on which runner it was
+    saved, the Claude Code version that wrote it, whether it holds the
+    conversation and uncommitted work, and what it left out. Those
+    runners also tell us their bucket's address, and why it last refused
+    a snapshot while it does;
   - for each project you start sessions in: the model and effort level you
     asked for when you last started one, which its task boxes start on next
     time.
