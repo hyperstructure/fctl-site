@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-23
+updated: 2026-11-24
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -256,7 +256,10 @@ account, you can ask for early access on its sign-in page.
     leaves out, so that the session resumes on another of your machines as
     it was. The machine it ran on encrypts it with a key of the session's
     own, which we keep encrypted, and we keep only a session's newest. A
-    workspace's admins can turn snapshots off;
+    workspace's admins can turn snapshots off. Where your runners keep
+    snapshots in a storage bucket of your own (`[snapshots]` in their
+    `host.toml`), we keep only where each one is, its size and its
+    checksum, and the snapshot stays in your bucket;
   - for each project you start sessions in: the model and effort level you
     asked for when you last started one, which its task boxes start on next
     time.
@@ -948,7 +951,9 @@ nothing goes there.
   the workspace's admins choose between 1 and 365, and only each session's
   newest; then they are deleted within the hour. Turning snapshots off, for
   a workspace or for all of app.fctl.sh, deletes them within the hour, and
-  deleting the project deletes them with its sessions.
+  deleting the project deletes them with its sessions. For snapshots in a
+  bucket of your own, we forget where each one is on the same terms, and
+  your bucket's own rules decide when the snapshot is deleted.
 - **Images agents read**: 7 days after the agent read them, when they are
   deleted, or sooner once their session has more than 1,000 of them or
   200 MB, its oldest first. Deleting the project deletes them with its
