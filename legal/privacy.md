@@ -27,9 +27,10 @@ This policy doesn't apply to either.
   the workspaces you are in, their projects and sessions, and the machines
   you connect. Agents run on those machines, not on ours. A session keeps
   a full transcript of what agents and people did in it, which can contain
-  your code, and for 30 days after it stops an encrypted snapshot of its
-  agent's conversation and unpushed work, so that it resumes on another
-  machine as it was. Projects also keep their agents'
+  your code, and an encrypted snapshot of its agent's conversation and
+  unpushed work, so that it resumes on another machine as it was: for 30
+  days after it stops, or 1 to 365 days as the workspace's admins choose.
+  Projects also keep their agents'
   notes and retrospectives, review agents' reviews of pull requests, the
   schedules that start sessions on their own, and the autopilots that run
   a project on its own (experimental), with what people tell and answer
@@ -249,7 +250,8 @@ account, you can ask for early access on its sign-in page.
     changes it;
   - each session's snapshot, saved as its sandbox stops: Claude's
     conversation there (everything the agent read, ran and was told,
-    images included) and the work its agent hadn't pushed to GitHub,
+    images included, which stay as long as the snapshot) and the work its
+    agent hadn't pushed to GitHub,
     uncommitted files included but not what the repository's `.gitignore`
     leaves out, so that the session resumes on another of your machines as
     it was. The machine it ran on encrypts it with a key of the session's
@@ -950,7 +952,9 @@ nothing goes there.
 - **Images agents read**: 7 days after the agent read them, when they are
   deleted, or sooner once their session has more than 1,000 of them or
   200 MB, its oldest first. Deleting the project deletes them with its
-  sessions. The transcript keeps saying what the agent read.
+  sessions. The transcript keeps saying what the agent read. The copies in
+  the conversation a session's snapshot holds stay as long as the snapshot
+  (see Session snapshots, above).
 - **Published screenshots**: until they expire, 30 days after they are
   published unless the project chooses between 24 hours and 60 days. Their
   links stop working then, and they are deleted within the hour. People who
