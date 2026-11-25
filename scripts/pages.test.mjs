@@ -1,8 +1,9 @@
 // fctl's docs as fctl.sh serves them, for people and agents (scripts/pages.mjs).
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { docsNav } from "./docs-nav.mjs";
 import { slugify } from "./markdown.mjs";
-import { asMarkdown, llmsFull, markdownUrl, PAGES, rewriteHref } from "./pages.mjs";
+import { asMarkdown, llmsFull, markdownUrl, navGroups, PAGES, rewriteHref } from "./pages.mjs";
 
 test("links between docs stay on the site, and others go to GitHub", () => {
   assert.equal(rewriteHref("cli.md", "docs/automation.md"), "/docs/cli/");
@@ -90,4 +91,33 @@ test("heading ids are GitHub's, which the docs link to", () => {
   assert.equal(slugify("Connect GitHub (optional, recommended)"), "connect-github-optional-recommended");
   assert.equal(slugify("5. Bring a machine online"), "5-bring-a-machine-online");
   assert.equal(slugify("<code>fctl ticket</code> in a sandbox"), "fctl-ticket-in-a-sandbox");
+});
+
+test("the sidebar shows each group once, all but the first under its name", () => {
+  const groups = navGroups();
+  assert.equal(groups[0].name, undefined);
+  assert.deepEqual(
+    groups.slice(1).map((g) => g.name),
+    ["Using fctl", "Running fctl", "Guides", "Inside fctl"],
+  );
+  assert.equal(groups.flatMap((g) => g.pages).length, PAGES.length);
+  assert.deepEqual(
+    navGroups([
+      { nav: "A" },
+      { nav: "B", group: "X" },
+      { nav: "C", group: "Y" },
+      { nav: "D", group: "X" },
+    ]).map((g) => g.name),
+    [undefined, "X", "Y", "X"],
+    "a group whose pages are apart shows twice: PAGES keeps each group's pages together",
+  );
+  const guides = PAGES.find((p) => p.slug === "chat-bot");
+  const nav = docsNav(guides);
+  assert.equal(nav.match(/aria-current/g)?.length, 1);
+  assert.match(nav, /<a href="\/docs\/chat-bot\/" aria-current="page">A Slack bot<\/a>/);
+  assert.match(
+    nav,
+    /<div class="docs-nav-group" role="group" aria-labelledby="docs-nav-guides"><p class="docs-nav-name" id="docs-nav-guides">Guides<\/p><a href="\/docs\/runners-in-your-cloud\/">/,
+  );
+  assert.ok(!docsNav().includes("aria-current"));
 });
