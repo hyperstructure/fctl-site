@@ -607,7 +607,7 @@ recipient's address and the message to our email provider.
 
 ### Cookies and browser storage
 
-app.fctl.sh sets seven cookies, all needed for it to work:
+app.fctl.sh sets eight cookies, all needed for it to work:
 
 | Cookie | What for | How long |
 |---|---|---|
@@ -970,7 +970,7 @@ nothing goes there.
 
 - **Your account**: until you delete it in Settings, or an admin deletes it.
   - That deletes its email addresses, sign-in methods, devices and tokens,
-    Claude connections, Linear accounts and memberships, your answers to
+    Claude connections, Linear and Slack accounts and memberships, your answers to
     service accounts, the model and effort level you last asked for in each
     project, the machines you
     enrolled for your own sessions, and the workspaces only you are in,
