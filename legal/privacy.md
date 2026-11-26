@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-23
+updated: 2026-11-26
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -48,7 +48,10 @@ This policy doesn't apply to either.
     or took them over;
   - a Linear ticket goes to the account of the person who delegated it,
     with its comments and the replies people write to the agent there,
-    whoever wrote them.
+    whoever wrote them;
+  - a request in Slack goes to the account of the person who asked, with
+    the thread's earlier messages and the replies people write to the
+    agent there, whoever wrote them.
 - **Published screenshots are public links.** They are off by default: an
   admin of app.fctl.sh has to allow them and a project has to turn them on.
   Then anyone who has a screenshot's link can open it without signing in,
@@ -65,6 +68,13 @@ This policy doesn't apply to either.
   your Linear workspace (encrypted), and who you are there once you link
   your Linear account. A ticket you delegate to fctl there goes to its
   agent, with its comments, and into the session's transcript.
+- **Slack**: if your workspace connects Slack, we keep our app's access to
+  your Slack workspace (encrypted), and who you are there once you link
+  your Slack account. What you ask fctl there goes to its agent, with the
+  thread's earlier messages, and into the session's transcript, unless
+  your workspace's admins have fctl drop what Slack's messages said once
+  the session ends. Agents read only the thread they started from, and the
+  public channels your workspace's admins make readable.
 - **Webhooks send your work's news elsewhere.** If a workspace's admins or
   a project's owners or maintainers add a webhook, what happens in its
   sessions (their titles, the start of agents' replies, their questions,
@@ -492,6 +502,47 @@ account, you can ask for early access on its sign-in page.
     session's agent read, commented on, filed or changed tickets, to limit
     how often it may;
   - the rest of what Linear sends us we don't keep.
+- **Slack**, where a workspace connects a Slack workspace:
+  - our app there: the Slack workspace's ID, name, address and icon, the IDs
+    of our app and of its user there, its token (encrypted), the
+    permissions Slack granted it and whether it still works, and who
+    installed it and when. For each fctl workspace connected to it: who
+    connected it, the Slack user who installed it, what the workspace's
+    admins let people and agents do there, and the channels they chose
+    something for (their ID and name, the project whose sessions their
+    mentions start, and whether agents read them);
+  - your Slack account, if you link it, or, on instances whose admins allow
+    it (never app.fctl.sh), if your workspace's admins let fctl find it by
+    your address: its Slack user ID, name, email address and picture
+    address, the Slack workspace's ID, name and address, how fctl knows it
+    and when, and the project your messages with fctl start sessions in, if
+    you choose one;
+  - when someone mentions fctl in Slack, writes to it, uses `/fctl` or its
+    shortcut, or presses one of its buttons, Slack tells us. We keep the
+    thread it is in (its conversation's ID and when its first message was
+    written), the Slack user who asked, the session it reaches and how it
+    stands, the IDs of fctl's own messages there (the session's card, the
+    agent's question), the IDs of the newest 200 messages we passed on to
+    the agent as their authors', and when its agent last read the thread;
+  - what they asked, for an hour at most, while it waits for that person to
+    link their Slack account or to choose a project, or after it failed to
+    start. A message to the agent from someone fctl doesn't know yet waits
+    the same way, until they link their account, for an hour at most;
+  - a session started from Slack keeps its thread's conversation ID, name
+    and link. Its transcript records what the person asked, the thread's
+    earlier messages as its agent got them, and the replies people write to
+    the agent there, with their author's Slack name and picture; what
+    agents read with `fctl slack` (their own thread, and the channels the
+    workspace's admins make readable) is in their tool calls, and so in the
+    transcript too. Where the workspace's admins choose, we drop what
+    Slack's messages said from a session's transcript and search index
+    once it ends, and keep who wrote them, where, and their links; the
+    session's encrypted snapshot of its agent's conversation keeps them
+    until the session is deleted. For an hour, we keep when each session's
+    agent read, searched or posted in Slack, to limit how often it may;
+  - Slack sends us every message of the conversations our app is in, as it
+    does to every app. We keep none of them but those above, and the rest
+    of what Slack sends us we don't keep either.
 - **Published screenshots**, in projects whose maintainers turn them on.
   They are off by default: an admin of app.fctl.sh has to allow them, and a
   project has to turn them on. We keep the images agents publish so that
@@ -526,8 +577,9 @@ account, you can ask for early access on its sign-in page.
 - **Audit logs**: security-relevant actions, such as sign-ins, invitations,
   access changes and deletions, with who did them, when, and from which IP
   address. Also each comment fctl passes on to an agent, with its author's
-  GitHub login and its link, and each session a Linear ticket starts, with
-  the ticket's key. Each workspace has its own, for what happens in it, and
+  GitHub login and its link, each session a Linear ticket starts, with
+  the ticket's key, and each session a request in Slack starts, with its
+  thread. Each workspace has its own, for what happens in it, and
   app.fctl.sh one for the rest.
 - **Request data**: as on fctl.sh. Your IP address is also used, briefly, to
   rate-limit sign-in attempts.
@@ -566,6 +618,7 @@ app.fctl.sh sets seven cookies, all needed for it to work:
 | `__Host-fctl-github-install` | Holds which workspace you install our GitHub App from, or give it more repositories from, so that GitHub's way back leads there | The hour it may take |
 | `__Host-fctl-github-review-install` | Holds which workspace you install our review app, fctl-review, from, or give it more repositories from, so that GitHub's way back leads there | The hour it may take |
 | `__Host-fctl-linear` | Protects the Linear sign-in that installs our app in a Linear workspace or links your Linear account | The 10 minutes it may take |
+| `__Host-fctl-slack` | Protects the Slack sign-in that installs our app in a Slack workspace or links your Slack account | The 10 minutes it may take |
 
 Your browser also keeps:
 
@@ -612,13 +665,15 @@ There are no analytics or advertising cookies.
 
 | Purpose | Legal basis (EU and UK law) |
 |---|---|
-| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, posting to the webhooks your workspace's admins and projects' maintainers add, starting sessions for you through the service accounts you allow, crediting you in commits when you set a commit email, connecting your hosts, Claude, GitHub and Linear | Contract |
+| Running app.fctl.sh for you: signing you in, the workspaces you are in, running and showing sessions, sharing them with the people you choose, sending the notifications you turn on, posting to the webhooks your workspace's admins and projects' maintainers add, starting sessions for you through the service accounts you allow, crediting you in commits when you set a commit email, connecting your hosts, Claude, GitHub, Linear and Slack | Contract |
 | Sending invitations and password resets | Contract, and our legitimate interest in letting admins invite people |
 | Keeping your request for early access and inviting you | Contract: steps you ask for before one |
 | Asking an admin to sign in to GitHub when they connect a GitHub account to a workspace, to read which of its repositories they may give the workspace and let them choose from them | Legitimate interests: keeping each workspace to the repositories its admins may grant |
 | Passing the comments people write to a project's agents on GitHub on to them, where its follow-ups are on, and asking GitHub whether their authors may write to the repository | Legitimate interests: letting the people a repository trusts direct its agents from GitHub, and nobody else |
 | Asking you to sign in to Linear when you link your Linear account, to know who you are there | Legitimate interests: starting the sessions of the tickets you delegate to fctl as you, and nobody else |
 | Passing the tickets people delegate to fctl in Linear on to the agents of the project that takes them, with their comments and the replies people write there, and showing what the agents do in Linear | Contract, and our legitimate interest in letting the teams that connect Linear hand their tickets to agents |
+| Asking you to sign in with Slack when you link your Slack account, to know who you are there | Legitimate interests: starting the sessions you ask fctl for in Slack as you, and nobody else |
+| Passing what people ask fctl in Slack on to the agents of the project it goes to, with the thread's earlier messages and the replies people write there, letting agents read the channels a workspace's admins make readable, and showing what the agents do in Slack | Contract, and our legitimate interest in letting the teams that connect Slack ask agents for work where they talk |
 | Looking up your Gravatar while you have no picture of your own, which we do by default, and showing it as your picture | Legitimate interests: showing the people you work with who you are, with the picture you published on Gravatar if you have one; you can turn it off |
 | Telling you about changes to your two-factor sign-in and passkeys, and sign-ins with a recovery code | Legitimate interests: keeping your account secure |
 | Keeping when Claude last answered your connection, when its token runs out, and its sessions' limit pauses, and telling you before it runs out and when it stops working | Contract: running your sessions on your Claude subscription, and keeping them from stopping unannounced |
@@ -678,6 +733,11 @@ They receive data under their own privacy policies.
     for their review.
   - **Linear tickets**: the account of the person who delegated the ticket.
     Its comments, and the replies people write to the agent there, go there
+    too, whoever wrote them.
+  - **Requests in Slack**: the account of the person who asked. The
+    thread's earlier messages, the message they sent fctl with its
+    shortcut, what the agent reads in the channels a workspace's admins
+    make readable, and the replies people write to the agent there go there
     too, whoever wrote them.
   - **Schedules**: a schedule's task goes to the account of its owner (who
     set it up or took it over) when its time comes, or when what it waits
@@ -742,6 +802,21 @@ They receive data under their own privacy policies.
   - When you link your Linear account, we send you to Linear to sign in, and
     Linear gives us a short-lived token that tells us who you are there. We
     use it once to read that and then revoke it; we don't keep it.
+- **Slack**, where a workspace connects a Slack workspace. Everyone in a
+  conversation sees what we post there.
+  - Our app posts each session's card in the thread it started from (its
+    title, who it runs for, how it stands, the agent's plan and its pull
+    requests with their checks), the agent's replies and questions, and
+    when the session pauses or fails; and the posts agents make with `fctl
+    slack reply`, in their own thread only.
+  - It sends the notifications of people who choose "Tell me in Slack" in
+    their messages with it, and projects' chosen events to the channels
+    their maintainers choose.
+  - It joins the public channels a workspace's admins map to a project or
+    make readable, which shows there.
+  - When you link your Slack account, we send you to Slack to sign in, and
+    Slack gives us a short-lived token that tells us who you are there. We
+    use it once to read that and then revoke it; we don't keep it.
 - **Google**, when you sign in with Google.
 - **Your browser's push service**, when you turn on notifications: Google
   for Chrome and most browsers built on it, Mozilla for Firefox, Apple for
@@ -754,8 +829,9 @@ They receive data under their own privacy policies.
 They see what you share with them.
 
 - **Members of a workspace** see its members, with the address each is in it
-  as (not your other addresses), the Linear workspaces it works in, with
-  who connected each, and its service accounts, with what each says it is
+  as (not your other addresses), the Linear and Slack workspaces it works
+  in, with who connected each, what it lets people and agents do in Slack
+  and how many of its members linked their Slack account, and its service accounts, with what each says it is
   and who made it.
 - **A workspace's admins** also see who has two-factor sign-in, its
   invitations and its audit log, with the IP addresses of what they did
@@ -995,6 +1071,24 @@ nothing goes there.
     fctl doesn't know yet: an hour at most;
   - which of Linear's agent sessions reaches which session: as long as the
     session, and 30 days for one that started none.
+- **Slack**:
+  - our app's token in a Slack workspace: until no fctl workspace works in
+    it any more, when we uninstall the app there and delete the token,
+    within an hour at the latest; or until Slack tells us the app was
+    uninstalled or its token revoked, when we delete it at once;
+  - an fctl workspace's connection to it, with its settings and its
+    channels: until one of its admins disconnects it or the workspace is
+    deleted;
+  - your Slack account: until you unlink it in Settings or delete your
+    account;
+  - what someone asked fctl in Slack that waits, or a message from someone
+    fctl doesn't know yet: an hour at most;
+  - which thread reaches which session: as long as the session, and 30
+    days for one that started none;
+  - what Slack's messages said in a session's transcript: as long as the
+    transcript, or, where the workspace's admins choose, until the session
+    ends (stops, fails or is archived), within an hour or so after;
+  - when agents read, searched or posted in Slack: an hour.
 - **Session snapshots**: 30 days after each was saved, or as many days as
   the workspace's admins choose between 1 and 365, and only each session's
   newest; then they are deleted within the hour, with what we keep of
@@ -1086,7 +1180,7 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   addresses, sign-in methods, passkeys and two-factor sign-in (without its
   secrets), devices and tokens, Claude connections (without their secrets)
   with their plan usage, the facts we keep about them and their 30 days of
-  limit pauses and refusals, your Linear accounts, notification settings and
+  limit pauses and refusals, your Linear and Slack accounts, notification settings and
   browsers, your answers to service accounts, and the workspaces you are
   in. From the workspaces open to you,
   it also has the projects you are a member of, the notes you and your sessions'
@@ -1099,8 +1193,8 @@ You use these rights yourself: sign in to app.fctl.sh and open Settings.
   picture under Profile, your email addresses and their commit emails
   under Email addresses, the workspaces you are in under Workspaces, what
   notifies you and in which browsers under Notifications, and your sign-in
-  methods, passkeys, two-factor sign-in, Claude connections, Linear
-  accounts, devices and tokens in their sections.
+  methods, passkeys, two-factor sign-in, Claude connections, Linear and
+  Slack accounts, devices and tokens in their sections.
 - **Delete it**: in the danger zone, **Delete account** lists what will be
   deleted and asks you to type your email address to confirm. It cannot be
   undone.
@@ -1121,7 +1215,7 @@ also complain to your data protection authority.
 
 Passwords are hashed with argon2id, and sign-in tokens, service accounts'
 secrets and recovery codes are stored only as hashes. Authenticator app
-secrets, Claude credentials, Linear tokens, project secrets and webhooks'
+secrets, Claude credentials, Linear and Slack tokens, project secrets and webhooks'
 signing secrets are encrypted with AES-256-GCM, and everything travels over
 HTTPS. For passkeys we keep only public keys.
 

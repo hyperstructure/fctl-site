@@ -17,6 +17,7 @@ export const PAGES = [
   { slug: "self-hosting", file: "docs/self-hosting.md", nav: "Self-hosting" },
   { slug: "organizations", file: "docs/organizations.md", nav: "For organizations" },
   { slug: "runners-in-your-cloud", file: "docs/runners-in-your-cloud.md", nav: "Runners in your cloud" },
+  { slug: "slack", file: "docs/slack.md", nav: "Agents from Slack" },
   { slug: "chat-bot", file: "docs/chat-bot.md", nav: "A Slack bot" },
   { slug: "data-warehouse", file: "docs/data-warehouse.md", nav: "Data warehouse" },
   { slug: "identity-tokens", file: "docs/identity-tokens.md", nav: "Identity tokens" },
