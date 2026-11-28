@@ -1,5 +1,5 @@
 ---
-updated: 2026-11-23
+updated: 2026-11-28
 description: What personal data fctl's maintainers collect on fctl.sh and app.fctl.sh, why, who receives it, how long it is kept, and your rights.
 ---
 
@@ -176,7 +176,8 @@ account, you can ask for early access on its sign-in page.
     started a session yourself), and when you last exported your data.
 - **Workspaces**:
   - for each workspace: its name, address, color and avatar image (if an
-    admin uploads one), whether it requires two-factor sign-in, what its
+    admin uploads one), whether it requires two-factor sign-in, the
+    domains whose members it requires to sign in with Google, what its
     admins see of members' Claude connections and how they hear of them
     by email (and when the last weekly email went), and who created it
     and when;
