@@ -18,6 +18,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { docsNav } from "./docs-nav.mjs";
 import { contents, esc, markdown } from "./markdown.mjs";
 import { asMarkdown, llmsFull, markdownUrl, PAGES, pageUrl, REPO, rewriteHref, SITE } from "./pages.mjs";
 import { sections, sectionsFile, titlesFile } from "./search-index.mjs";
@@ -69,10 +70,7 @@ async function main() {
       ? `<nav class="docs-toc" aria-label="On this page"><p>On this page</p>${list}</nav>`
       : "";
     const body = rendered.html.replace("<!--CONTENTS-->", () => inline);
-    const nav = PAGES.map((p) => {
-      const current = p === page ? ' aria-current="page"' : "";
-      return `<a href="${pageUrl(p)}"${current}>${esc(p.nav)}</a>`;
-    }).join("");
+    const nav = docsNav(page);
     const heading = title || page.nav;
     // A page fctl added since scripts/og.mjs last ran shows the docs' own image until it does.
     let card = cardPath(pageUrl(page));

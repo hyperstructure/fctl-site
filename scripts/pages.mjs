@@ -6,26 +6,47 @@
 export const SITE = "https://fctl.sh";
 export const REPO = "https://github.com/hyperstructure/fctl";
 
-/** The docs, in navigation order. `slug` "" is /docs/. */
+/**
+ * The docs, in navigation order, in the groups the docs' sidebar shows them
+ * in (scripts/docs-nav.mjs): the first two without a name, then using fctl,
+ * running it, the guides that take a team through a whole setup, and how fctl
+ * works inside. A group's pages come one after another. `slug` "" is /docs/.
+ */
 export const PAGES = [
   { slug: "", file: "docs/README.md", nav: "Overview" },
   { slug: "getting-started", file: "docs/getting-started.md", nav: "Getting started" },
-  { slug: "cli", file: "docs/cli.md", nav: "The CLI" },
-  { slug: "agents", file: "docs/agents.md", nav: "For agents" },
-  { slug: "api", file: "docs/api.md", nav: "HTTP API" },
-  { slug: "automation", file: "docs/automation.md", nav: "Automation" },
-  { slug: "self-hosting", file: "docs/self-hosting.md", nav: "Self-hosting" },
-  { slug: "organizations", file: "docs/organizations.md", nav: "For organizations" },
-  { slug: "runners-in-your-cloud", file: "docs/runners-in-your-cloud.md", nav: "Runners in your cloud" },
-  { slug: "slack", file: "docs/slack.md", nav: "Agents from Slack" },
-  { slug: "chat-bot", file: "docs/chat-bot.md", nav: "A Slack bot" },
-  { slug: "data-warehouse", file: "docs/data-warehouse.md", nav: "Data warehouse" },
-  { slug: "identity-tokens", file: "docs/identity-tokens.md", nav: "Identity tokens" },
-  { slug: "sandbox-images", file: "docs/sandbox-images.md", nav: "Sandbox images" },
-  { slug: "architecture", file: "docs/architecture.md", nav: "Architecture" },
-  { slug: "security", file: "docs/security.md", nav: "Security" },
-  { slug: "development", file: "docs/development.md", nav: "Development" },
+  { slug: "cli", file: "docs/cli.md", nav: "The CLI", group: "Using fctl" },
+  { slug: "agents", file: "docs/agents.md", nav: "For agents", group: "Using fctl" },
+  { slug: "api", file: "docs/api.md", nav: "HTTP API", group: "Using fctl" },
+  { slug: "automation", file: "docs/automation.md", nav: "Automation", group: "Using fctl" },
+  { slug: "slack", file: "docs/slack.md", nav: "Agents from Slack", group: "Using fctl" },
+  { slug: "identity-tokens", file: "docs/identity-tokens.md", nav: "Identity tokens", group: "Using fctl" },
+  { slug: "sandbox-images", file: "docs/sandbox-images.md", nav: "Sandbox images", group: "Using fctl" },
+  { slug: "self-hosting", file: "docs/self-hosting.md", nav: "Self-hosting", group: "Running fctl" },
+  { slug: "organizations", file: "docs/organizations.md", nav: "For organizations", group: "Running fctl" },
+  { slug: "security", file: "docs/security.md", nav: "Security", group: "Running fctl" },
+  {
+    slug: "runners-in-your-cloud",
+    file: "docs/runners-in-your-cloud.md",
+    nav: "Runners in your cloud",
+    group: "Guides",
+  },
+  { slug: "chat-bot", file: "docs/chat-bot.md", nav: "A Slack bot", group: "Guides" },
+  { slug: "data-warehouse", file: "docs/data-warehouse.md", nav: "Data warehouse", group: "Guides" },
+  { slug: "architecture", file: "docs/architecture.md", nav: "Architecture", group: "Inside fctl" },
+  { slug: "development", file: "docs/development.md", nav: "Development", group: "Inside fctl" },
 ];
+
+/** The pages in their groups, in order: `{ name, pages }`, the first without a name. */
+export function navGroups(pages = PAGES) {
+  const groups = [];
+  for (const page of pages) {
+    const last = groups.at(-1);
+    if (last && last.name === page.group) last.pages.push(page);
+    else groups.push({ name: page.group, pages: [page] });
+  }
+  return groups;
+}
 
 /** A page's address. */
 export const pageUrl = (page) => `/docs/${page.slug ? `${page.slug}/` : ""}`;

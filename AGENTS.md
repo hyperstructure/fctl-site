@@ -44,7 +44,9 @@ npx wrangler dev --local             # the Worker with the built assets (after a
   there. `scripts/pages.mjs` maps files to URLs (`PAGES`), rewrites links
   between docs, and links other repository files to GitHub;
   `scripts/docs.mjs` renders the pages. Adding a doc page means adding it
-  to `PAGES`, once fctl's CI has pinned a commit that has it.
+  to `PAGES`, beside the pages of its group in the sidebar (`group`: Using
+  fctl, Running fctl, Guides, Inside fctl), once fctl's CI has pinned a
+  commit that has it.
 - **For agents**: each docs page is also at `/docs/<slug>.md` (the overview
   at `/docs/index.md`), as Markdown whose links are absolute; fctl's
   `docs/llms.txt` is at `/llms.txt`, and `/llms-full.txt` is it followed by

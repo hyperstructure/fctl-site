@@ -4,8 +4,8 @@
 // that work without JavaScript; with it, src/search.ts opens the search dialog
 // from the field instead.
 
-import { esc } from "./markdown.mjs";
-import { PAGES, pageUrl, REPO, SITE } from "./pages.mjs";
+import { docsNav } from "./docs-nav.mjs";
+import { REPO, SITE } from "./pages.mjs";
 import { cardPath } from "./seo.mjs";
 
 /** The magnifying glass, as the nav, the field and the dialog draw it. */
@@ -27,7 +27,7 @@ const BODY = `<h1>Search the docs</h1>
  * results are other pages; the Worker puts a query in its field and the results at <!--RESULTS-->.
  */
 export function searchPage(template) {
-  const nav = PAGES.map((p) => `<a href="${pageUrl(p)}">${esc(p.nav)}</a>`).join("");
+  const nav = docsNav();
   const url = `${SITE}/docs/search/`;
   return template
     .replaceAll("<!--TITLE-->", "Search the docs · fctl docs")
