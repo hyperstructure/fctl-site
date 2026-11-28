@@ -19,6 +19,7 @@ export const PAGES = [
   { slug: "agents", file: "docs/agents.md", nav: "For agents", group: "Using fctl" },
   { slug: "api", file: "docs/api.md", nav: "HTTP API", group: "Using fctl" },
   { slug: "automation", file: "docs/automation.md", nav: "Automation", group: "Using fctl" },
+  { slug: "slack", file: "docs/slack.md", nav: "Agents from Slack", group: "Using fctl" },
   { slug: "identity-tokens", file: "docs/identity-tokens.md", nav: "Identity tokens", group: "Using fctl" },
   { slug: "sandbox-images", file: "docs/sandbox-images.md", nav: "Sandbox images", group: "Using fctl" },
   { slug: "self-hosting", file: "docs/self-hosting.md", nav: "Self-hosting", group: "Running fctl" },

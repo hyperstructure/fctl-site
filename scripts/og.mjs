@@ -43,6 +43,7 @@ const DOCS = {
   "self-hosting": ["", "Self-hosting."],
   organizations: ["fctl", "for organizations."],
   "runners-in-your-cloud": ["Runners", "in your cloud."],
+  slack: ["Agents", "from Slack."],
   "chat-bot": ["A Slack bot", "of your own."],
   "data-warehouse": ["Agents' work in your", "data warehouse."],
   "identity-tokens": ["Identity", "tokens."],
